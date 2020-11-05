@@ -7,6 +7,8 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="100" Margin="341,39,0,0" VerticalAlignment="Top" Width="100"/>
+        <Button Content="ButtonNoa Check" HorizontalAlignment="Left" Margin="217,230,0,0" VerticalAlignment="Top" Width="314" Height="64"/>
+
     </Grid>
 </Window>
