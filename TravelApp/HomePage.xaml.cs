@@ -46,6 +46,11 @@ namespace TravelApp
                 Message = "You need to insert username and password";
                 return;
             }
+            else
+            {
+                viewAllTrip vt = new viewAllTrip();
+                this.NavigationService.Navigate(vt);
+            }
             // Check the username & password 
         }
         private void Button_Click_New_Account(object sender, RoutedEventArgs e)
