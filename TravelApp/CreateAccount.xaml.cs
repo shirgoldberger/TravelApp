@@ -33,8 +33,8 @@ namespace TravelApp
         }
         public void Reset()
         {
-            textBoxFirstName.Text = "";
-            textBoxLastName.Text = "";
+            //textBoxFirstName.Text = "";
+            //textBoxLastName.Text = "";
             textBoxEmail.Text = "";
             textBoxAddress.Text = "";
             passwordBox1.Password = "";
@@ -104,6 +104,10 @@ namespace TravelApp
         {
             gender = 1;
             male.IsChecked = false;
+        }
+        private void Button_Click_Exit(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
