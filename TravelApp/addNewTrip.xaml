@@ -8,15 +8,14 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="addNewTrip">
 
-    <Grid  Height="592.666" Width="1100" >
-        <TextBlock Height="23" HorizontalAlignment="Left" Margin="10,5,0,0" Name="textBlockHeading" Text="Registration:" VerticalAlignment="Top" Width="110"  FontSize="17" FontStretch="ExtraCondensed"/>
+    <Grid Margin="0,0,-320,-174" >
         <!--Button as a Link button using style-->
         <!--end Button as a Link button using style-->
 
-        <Grid Margin="0,0,320,174.666"  Height="418" VerticalAlignment="Bottom">
+        <Grid x:Name="grid"  Height="624" VerticalAlignment="Bottom">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="19*"/>
-                <ColumnDefinition Width="111*"/>
+                <ColumnDefinition Width="0*"/>
+                <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <Grid.Background>
                 <ImageBrush ImageSource="trip3.jpg" TileMode="Tile"/>
@@ -26,29 +25,49 @@
                 <!--   <RowDefinition Height="12*" />-->
             </Grid.RowDefinitions>
 
-            <TextBlock Height="20" HorizontalAlignment="Left" Margin="67,0,0,0" x:Name ="errormessage" VerticalAlignment="Top" Width="247"  OpacityMask="Crimson" Foreground="#FFE5572C" Grid.ColumnSpan="2" />
-            <TextBlock Height="30" FontFamily="Century Gothic" FontSize="25" FontStretch="UltraExpanded" FontStyle="Italic" FontWeight="UltraBold" HorizontalAlignment="Left" Margin="67,20,0,0" Name="textBlockFirstname" Text="Username:" VerticalAlignment="Top" Width="150" Grid.ColumnSpan="2"  />
-            <TextBlock Height="22" FontFamily="Century Gothic" FontSize="25" FontStretch="UltraExpanded" FontStyle="Italic" FontWeight="UltraBold" HorizontalAlignment="Left" Margin="66,62,0,0" Name="textBlockLastName" Text="Phone:" VerticalAlignment="Top" Width="110" Grid.ColumnSpan="2" />
-            <TextBlock Height="24" FontFamily="Century Gothic" FontSize="25" FontStretch="UltraExpanded" FontStyle="Italic" FontWeight="UltraBold" HorizontalAlignment="Left" Margin="68,114,0,0" Name="textBlockEmailId" Text="EmailId" VerticalAlignment="Top" Width="110" Grid.ColumnSpan="2" />
-            <TextBlock Height="46" FontFamily="Century Gothic" FontSize="25" FontStretch="UltraExpanded" FontStyle="Italic" FontWeight="UltraBold" HorizontalAlignment="Left" Margin="66,161,0,0" Name="textBlockPassword" Text="Password:" VerticalAlignment="Top" Width="149" Grid.ColumnSpan="2"  />
-            <TextBlock Height="23" FontFamily="Century Gothic" FontSize="25" FontStretch="UltraExpanded" FontStyle="Italic" FontWeight="UltraBold" HorizontalAlignment="Left" Margin="66,207,0,0" Name="textBlockConfirmPwd" Text="ConfirmPassword:" VerticalAlignment="Top" Width="208" Grid.ColumnSpan="2" />
-            <TextBlock Height="23" FontFamily="Century Gothic" FontSize="25" FontStretch="UltraExpanded" FontStyle="Italic" FontWeight="UltraBold" HorizontalAlignment="Left" Margin="66,257,0,0" Name="textBlockAddress" Text="Address" VerticalAlignment="Top" Width="110" Grid.ColumnSpan="2" />
-            <TextBox Height="23" HorizontalAlignment="Left" Margin="145.014,20,0,0" x:Name="textBoxUserName" VerticalAlignment="Top" Width="222" Grid.Column="1" />
-            <TextBox Height="23" HorizontalAlignment="Left" Margin="145.014,61,0,0" x:Name="textBoxPhone" VerticalAlignment="Top" Width="222" Grid.Column="1" />
-            <TextBox Height="24" HorizontalAlignment="Left" Margin="145.014,114,0,0" Name="textBoxEmail" VerticalAlignment="Top" Width="222" Grid.Column="1" />
-            <PasswordBox Height="23" HorizontalAlignment="Left" Margin="145.014,161,0,0" Name="passwordBox1" VerticalAlignment="Top" Width="222" Grid.Column="1" />
+            <TextBlock Height="20" HorizontalAlignment="Left" Margin="1,0,0,0" x:Name ="errormessage" VerticalAlignment="Top" Width="247"  OpacityMask="Crimson" Foreground="#FFE5572C" Grid.Column="1" />
+            <TextBlock Height="30" FontFamily="Century Gothic" FontSize="25" FontStretch="UltraExpanded" FontStyle="Italic" FontWeight="UltraBold" HorizontalAlignment="Left" Margin="85,72,0,0" x:Name="textBlockTripName" Text="Trip Name:" VerticalAlignment="Top" Width="150" Foreground="#FFFCF8F8" Grid.Column="1"  />
+            <TextBlock Height="30" FontFamily="Century Gothic" FontSize="25" FontStretch="UltraExpanded" FontStyle="Italic" FontWeight="UltraBold" HorizontalAlignment="Left" Margin="85,122,0,0" x:Name="textBlockMinParticipants" Text="Number of Participants:" VerticalAlignment="Top" Width="286" Foreground="#FFFEF5F5" Grid.Column="1" Padding="0" />
+            <TextBox Height="23" HorizontalAlignment="Left" Margin="269,79,0,0" x:Name="tripNameVal" VerticalAlignment="Top" Width="222" Grid.Column="1" />
+            <TextBox Height="23" HorizontalAlignment="Left" Margin="443,127,0,0" x:Name="minParticipantsVal" VerticalAlignment="Top" Width="64" Grid.Column="1" Background="#FFF8F4F4" Foreground="White" />
+            <TextBox Height="24" HorizontalAlignment="Left" Margin="625,127,0,0" x:Name="maxParticipantsVal" VerticalAlignment="Top" Width="55" Grid.Column="1" Background="#FFFCF2F2" Foreground="White" />
             <!--For password-->
-            <PasswordBox Height="23" HorizontalAlignment="Left" Margin="145.014,207,0,0" Name="passwordBoxConfirm" VerticalAlignment="Top" Width="222" Grid.Column="1" />
-            <TextBox Height="23" HorizontalAlignment="Left" Margin="145.014,0,0,258.667" Name="textBoxAddress" VerticalAlignment="Bottom" Width="222" Grid.Column="1" />
-            <Button Content="Submit" FontFamily="Century Gothic" FontSize="25" FontStretch="UltraExpanded" FontStyle="Italic" FontWeight="UltraBold" Height="37" HorizontalAlignment="Left" Margin="118,342,0,0" Name="Submit" VerticalAlignment="Top" Width="120" Click="Submit_Click" Grid.Column="1" />
-            <Button Content="Reset" FontFamily="Century Gothic" FontSize="25" FontStretch="UltraExpanded" FontStyle="Italic" FontWeight="UltraBold" Height="37" HorizontalAlignment="Left" Margin="442,342,0,0" Name="button2" VerticalAlignment="Top" Width="120" Click="button2_Click" Grid.Column="1" />
-            <Button Content="Cancel" FontFamily="Century Gothic" FontSize="25" FontStretch="UltraExpanded" FontStyle="Italic" FontWeight="UltraBold" Height="37" HorizontalAlignment="Right" Margin="0,342,266,0" Name="button3" VerticalAlignment="Top" Width="120" Click="button3_Click" RenderTransformOrigin="0.31,0.57" Grid.Column="1" />
-            <CheckBox FontFamily="Century Gothic" FontSize="25" FontStretch="UltraExpanded" FontStyle="Italic" FontWeight="UltraBold" x:Name="female" Content="Female" Checked="CheckBox_Checked1" HorizontalAlignment="Left" Margin="68,368,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+            <Button Content="Submit" FontFamily="Century Gothic" FontSize="25" FontStretch="UltraExpanded" FontStyle="Italic" FontWeight="UltraBold" Height="37" HorizontalAlignment="Left" Margin="243,527,0,0" Name="Submit" VerticalAlignment="Top" Width="120" Click="Submit_Click" Grid.Column="1" />
+            <Button Content="Reset" FontFamily="Century Gothic" FontSize="25" FontStretch="UltraExpanded" FontStyle="Italic" FontWeight="UltraBold" Height="37" HorizontalAlignment="Left" Margin="495,527,0,0" x:Name="resetButton" VerticalAlignment="Top" Width="120" Click="reset_Click" Grid.Column="1" />
+            <Button Content="Cancel" FontFamily="Century Gothic" FontSize="25" FontStretch="UltraExpanded" FontStyle="Italic" FontWeight="UltraBold" Height="37" HorizontalAlignment="Right" Margin="0,527,243,0" x:Name="cancelButton" VerticalAlignment="Top" Width="120" Click="cancel_Click" RenderTransformOrigin="0.31,0.57" Grid.Column="1" />
+            <CheckBox FontFamily="Century Gothic" FontSize="25" FontStretch="UltraExpanded" FontStyle="Italic" FontWeight="UltraBold" x:Name="female" Content="Female Only" HorizontalAlignment="Left" Margin="300,272,0,0" VerticalAlignment="Top" Grid.Column="1" Height="29" Width="174" RenderTransformOrigin="0.134,0.713" Checked="femaleChecked"/>
+            <TextBlock Height="30" FontFamily="Century Gothic" FontSize="25" FontStretch="UltraExpanded" FontStyle="Italic" FontWeight="UltraBold" HorizontalAlignment="Left" Margin="376,122,0,0" x:Name="textBlockMinParticipants1" Text="Min" VerticalAlignment="Top" Width="67" Foreground="White" Grid.Column="1" />
+            <CheckBox FontFamily="Century Gothic" FontSize="25" FontStretch="UltraExpanded" FontStyle="Italic" FontWeight="UltraBold" x:Name="male" Content="Male Only" Checked="maleChecked" HorizontalAlignment="Left" Margin="85,272,0,0" VerticalAlignment="Top" Grid.Column="1" Height="29" Width="145"/>
+            <TextBlock Height="30" FontFamily="Century Gothic" FontSize="25" FontStretch="UltraExpanded" FontStyle="Italic" FontWeight="UltraBold" HorizontalAlignment="Left" Margin="85,172,0,0" x:Name="locationText" Text="Locations:" VerticalAlignment="Top" Width="130" Foreground="#FFFEF5F5" Grid.Column="1" />
+            <TextBlock Height="30" FontFamily="Century Gothic" FontSize="25" FontStretch="UltraExpanded" FontStyle="Italic" FontWeight="UltraBold" HorizontalAlignment="Left" Margin="85,222,0,0" x:Name="textBlockMinParticipants_Copy1" Text="Trip Properties:" VerticalAlignment="Top" Width="184" Foreground="#FFFEF5F5" Grid.Column="1" />
+            <ComboBox x:Name="locationComboBox" TextBoxBase.TextChanged="Location_TextChanged" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="30" Margin="269,177,0,0" VerticalAlignment="Top" Width="222" IsEditable="True">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <CheckBox Name="checkLocation" Width="222" Checked="MyCheckedAndUncheckedLocations" Unchecked="MyCheckedAndUncheckedLocations" Content="{Binding LocationString}" IsChecked="{Binding Check_Status}" CommandParameter="{Binding LocationID}">
+                        </CheckBox>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <ComboBox x:Name="propComboBox" TextBoxBase.TextChanged="Properties_TextChanged" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="30" Margin="269,227,0,0" VerticalAlignment="Top" Width="222" IsEditable="True">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <CheckBox Name="checkPropertie" Width="222" Checked="MyCheckedAndUncheckedProps" Unchecked="MyCheckedAndUncheckedProps" Content="{Binding ProprtyString}" IsChecked="{Binding Check_Status}" CommandParameter="{Binding PropID}">
+                        </CheckBox>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <TextBlock Height="30" FontFamily="Century Gothic" FontSize="25" FontStretch="UltraExpanded" FontStyle="Italic" FontWeight="UltraBold" HorizontalAlignment="Left" Margin="85,322,0,0" x:Name="datesText" Text="Dates:" VerticalAlignment="Top" Width="92" Foreground="#FFFEF5F5" Grid.Column="1" />
+            <Calendar x:Name="tripDates" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="174" Margin="224,322,0,0" VerticalAlignment="Top" Width="189" SelectionMode="MultipleRange"/>
+            <TextBlock Height="30" FontFamily="Century Gothic" FontSize="25" FontStretch="UltraExpanded" FontStyle="Italic" FontWeight="UltraBold" HorizontalAlignment="Left" Margin="541,322,0,0" x:Name="addFriendsText" Text="Add Freinds:" VerticalAlignment="Top" Width="157" Foreground="#FFFEF5F5" Grid.Column="1" />
+            <ComboBox x:Name="friendsComboBox" TextBoxBase.TextChanged="Friend_TextChanged" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="30" Margin="703,327,0,0" VerticalAlignment="Top" Width="222" IsEditable="True">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <CheckBox x:Name="checkFriend" Width="222" Checked="MyCheckedAndUncheckedFriends" Unchecked="MyCheckedAndUncheckedFriends" Content="{Binding FriendString}" IsChecked="{Binding Check_Status}" CommandParameter="{Binding FriendID}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
         </Grid>
-        <TextBlock Height="23" FontFamily="Century Gothic" FontSize="25" FontStretch="UltraExpanded" FontStyle="Italic" FontWeight="UltraBold" HorizontalAlignment="Left" Margin="97,338,0,0" x:Name="textBlockAddress_Copy" Text="Age:" VerticalAlignment="Top" Width="110" />
-        <TextBox Height="23" HorizontalAlignment="Left" Margin="246,0,0,312.666" x:Name="textBoxAge" VerticalAlignment="Bottom" Width="222" />
-        <CheckBox x:Name="male" FontFamily="Century Gothic" FontSize="25" FontStretch="UltraExpanded" FontStyle="Italic" FontWeight="UltraBold" Content="Male" Checked="CheckBox_Checked2" HorizontalAlignment="Left" Margin="97,455,0,0" VerticalAlignment="Top"/>
-        <Button Content="EXIT"  HorizontalAlignment="Right" VerticalAlignment="Top" Width="52" FontWeight="Bold" Click="Button_Click_Exit" Margin="0,18,358,0" Height="43" FontFamily="BN Eyal" FontSize="10" Cursor="Hand" RenderTransformOrigin="-0.534,1.361">
+        <Button x:Name="exitButton" Content="EXIT"  HorizontalAlignment="Right" VerticalAlignment="Top" Width="71" FontWeight="Bold" Click="Button_Click_Exit" Margin="0,20,42,0" Height="52" FontFamily="BN Eyal" FontSize="10" Cursor="Hand" RenderTransformOrigin="-0.534,1.361" Foreground="#FFFBFAFA">
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Border x:Name="bdr_main" CornerRadius="20" Margin="4" BorderThickness="1" BorderBrush="Black">
@@ -77,5 +96,6 @@
                 </ControlTemplate>
             </Button.Template>
         </Button>
+        <TextBlock Height="30" FontFamily="Century Gothic" FontSize="25" FontStretch="UltraExpanded" FontStyle="Italic" FontWeight="UltraBold" HorizontalAlignment="Left" Margin="538,122,0,0" x:Name="textBlockMaxParticipants" Text="Max" VerticalAlignment="Top" Width="67" Foreground="White" />
     </Grid>
 </Page>
