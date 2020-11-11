@@ -1,6 +1,8 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -46,12 +48,64 @@ namespace TravelApp
                 Message = "You need to insert username and password";
                 return;
             }
-            else
-            {
-                viewAllTrip vt = new viewAllTrip();
-                this.NavigationService.Navigate(vt);
-            }
+            //else
+            //{
+            //    viewAllTrip vt = new viewAllTrip();
+            //    this.NavigationService.Navigate(vt);
+            //}
             // Check the username & password 
+            MySqlConnectionStringBuilder b = new MySqlConnectionStringBuilder();
+            b.Server = "127.0.0.1";
+            b.UserID = "root";
+            b.Password = "123456";
+            b.Database = "mydb";
+            b.SslMode = MySqlSslMode.None;
+            MySqlConnection connect = new MySqlConnection(b.ToString());
+
+
+
+
+            //MySqlConnection connect = new MySqlConnection("server = localhost; database = TripApp; uid = root; pwd = 123456;");
+            MySqlCommand cmd = new MySqlCommand("SELECT username, password FROM users WHERE username='" + name.Text + "' AND password='" + passwordBox.Text + "'");
+            cmd.CommandType = CommandType.Text;
+            cmd.Connection = connect;
+            connect.Open();
+            try
+            {
+                MySqlDataReader dr;
+                dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    string username = dr.GetString("username");
+                    string password = dr.GetString("password");
+                    if (username == "NULL" || password == "NULL")
+                    {
+                        MessageBox.Show("cannot find this account");
+                        return;
+                    }
+                    else
+                    {
+                        viewAllTrip vt = new viewAllTrip();
+                        this.NavigationService.Navigate(vt);
+                        dr.Close();
+                        return;
+                    }
+
+                }
+                MessageBox.Show("cannot find this account");
+                dr.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                if (connect.State == ConnectionState.Open)
+                {
+                    connect.Close();
+                }
+            }
         }
         private void Button_Click_New_Account(object sender, RoutedEventArgs e)
         {
