@@ -1,7 +1,9 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data;
 using System.Linq;
 using System.Security.RightsManagement;
 using System.Text;
@@ -127,31 +129,42 @@ namespace TravelApp
         {
             if (choosenLanguages.Count == 0)
             {
-                errormessage.Text = "Please choose languages";
+                MessageBox.Show("Please choose languages");
                 languagesComboBox.Focus();
             }
             if (male.IsChecked == false && female.IsChecked == false)
             {
-                errormessage.Text = "Choose Gender";
+                MessageBox.Show("Choose Gender");
                 male.Focus();
             }
             if (textBoxEmail.Text.Length == 0)
             {
-                errormessage.Text = "Enter an email.";
+                MessageBox.Show("Enter an email");
                 textBoxEmail.Focus();
             }
             else if (!Regex.IsMatch(textBoxEmail.Text, @"^[a-zA-Z][\w\.-]*[a-zA-Z0-9]@[a-zA-Z0-9][\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]$"))
             {
-                errormessage.Text = "Enter a valid email.";
+                MessageBox.Show("Enter a valid email");
                 textBoxEmail.Select(0, textBoxEmail.Text.Length);
                 textBoxEmail.Focus();
             }
             else
             {
-                string firstname = textBoxUserName.Text;
-                string lastname = textBoxPhone.Text;
+                string username = textBoxUserName.Text;
+                string phone = textBoxPhone.Text;
                 string email = textBoxEmail.Text;
                 string password = passwordBox.Password;
+                string address = textBoxAddress.Text;
+                string stringAge = textBoxAge.Text;
+                char gender;
+                if ((bool)(female.IsChecked))
+                {
+                    gender = '1';
+                } else
+                {
+                    gender = '0';
+                }
+
                 int age;
                 try
                 {
@@ -159,37 +172,65 @@ namespace TravelApp
                 }
                 catch
                 {
-                    errormessage.Text = "Enter valid age";
+                    MessageBox.Show("Enter valid age");
                     textBoxAge.Focus();
                 }
                 
                 if (passwordBox.Password.Length == 0)
                 {
-                    errormessage.Text = "Enter password.";
+                    MessageBox.Show("Enter password");
                     passwordBox.Focus();
                 }
                 else if (passwordBoxConfirm.Password.Length == 0)
                 {
-                    errormessage.Text = "Enter Confirm password.";
+                    MessageBox.Show("Enter Confirm password");
                     passwordBoxConfirm.Focus();
                 }
                 else if (passwordBox.Password != passwordBoxConfirm.Password)
                 {
-                    errormessage.Text = "Confirm password must be same as password.";
+                    MessageBox.Show("Confirm password must be same as password");
                     passwordBoxConfirm.Focus();
                 }
                 else
                 {
-                    //errormessage.Text = "";
-                    //string address = textBoxAddress.Text;
-                    //SqlConnection con = new SqlConnection("Data Source=TESTPURU;Initial Catalog=Data;User ID=sa;Password=wintellect");
-                    //con.Open();
-                    //SqlCommand cmd = new SqlCommand("Insert into Registration (FirstName,LastName,Email,Password,Address) values('" + firstname + "','" + lastname + "','" + email + "','" + password + "','" + address + "')", con);
-                    //cmd.CommandType = CommandType.Text;
-                    //cmd.ExecuteNonQuery();
-                    //con.Close();
-                    //errormessage.Text = "You have Registered successfully.";
-                    //Reset();
+                    MySqlCommand cmd = DbConnection.Connection.CreateCommand();
+                    cmd.CommandType = CommandType.Text;
+                    string command = "SELECT username FROM user WHERE username='" + username + "';";
+                    cmd.CommandText = command;
+                    try
+                    {
+                        MySqlDataReader dr;
+                        dr = cmd.ExecuteReader();
+                        while (dr.Read())
+                        {
+                            MessageBox.Show("Username already exists, select another username");
+                            return;
+                        }
+                        dr.Close();
+                        // create account
+                        try
+                        {
+                            MySqlCommand cmd2 = DbConnection.Connection.CreateCommand();
+                            cmd2.CommandType = CommandType.Text;
+                            command = "insert into user (username,password,mail,gender,age,phone) values('" + username + "','" + password + "','" + email + "','" + gender + "'," + stringAge + ",'" + phone + "');";
+                            cmd2.CommandText = command;
+                            cmd2.ExecuteNonQuery();
+                            MessageBox.Show("You have Registered successfully");
+                        }
+                        catch(Exception e1)
+                        {
+                            MessageBox.Show("User creation failed. please try again");
+                        }
+                        Reset();
+                        dr.Close();
+                    }
+                    catch (Exception ex)
+                    {
+                       
+                    }
+
+
+
                 }
             }
         }

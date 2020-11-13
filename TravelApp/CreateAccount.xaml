@@ -25,7 +25,6 @@
                 <!--   <RowDefinition Height="12*" />-->
             </Grid.RowDefinitions>
 
-            <TextBlock Height="20" HorizontalAlignment="Left" Margin="19,0,0,0" x:Name ="errormessage" VerticalAlignment="Top" Width="247"  OpacityMask="Crimson" Foreground="#FFE5572C" Grid.Column="1" />
             <TextBlock Height="30" FontFamily="Century Gothic" FontSize="25" FontStretch="UltraExpanded" FontStyle="Italic" FontWeight="UltraBold" HorizontalAlignment="Left" Margin="94,20,0,0" Name="textBlockFirstname" Text="Username:" VerticalAlignment="Top" Width="150" Grid.Column="1"  />
             <TextBlock Height="30" FontFamily="Century Gothic" FontSize="25" FontStretch="UltraExpanded" FontStyle="Italic" FontWeight="UltraBold" HorizontalAlignment="Left" Margin="93,60,0,0" x:Name="textBlockPhone" Text="Phone:" VerticalAlignment="Top" Width="110" Grid.Column="1" />
             <TextBlock Height="30" FontFamily="Century Gothic" FontSize="25" FontStretch="UltraExpanded" FontStyle="Italic" FontWeight="UltraBold" HorizontalAlignment="Left" Margin="95,100,0,0" x:Name="textBlockEmail" Text="Email:" VerticalAlignment="Top" Width="110" Grid.Column="1" />

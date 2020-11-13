@@ -53,7 +53,7 @@ namespace TravelApp
 
             MySqlCommand cmd = DbConnection.Connection.CreateCommand();
             cmd.CommandType = CommandType.Text;
-            string command = "SELECT username, password FROM users WHERE username='" + name.Text + "' AND password='" + passwordBox.Text + "'";
+            string command = "SELECT username, password FROM user WHERE username='" + name.Text + "' AND password='" + passwordBox.Text + "';";
             cmd.CommandText = command;
             try
             {
