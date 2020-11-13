@@ -48,28 +48,13 @@ namespace TravelApp
                 Message = "You need to insert username and password";
                 return;
             }
-            //else
-            //{
-            //    viewAllTrip vt = new viewAllTrip();
-            //    this.NavigationService.Navigate(vt);
-            //}
+
             // Check the username & password 
-            MySqlConnectionStringBuilder b = new MySqlConnectionStringBuilder();
-            b.Server = "127.0.0.1";
-            b.UserID = "root";
-            b.Password = "123456";
-            b.Database = "mydb";
-            b.SslMode = MySqlSslMode.None;
-            MySqlConnection connect = new MySqlConnection(b.ToString());
 
-
-
-
-            //MySqlConnection connect = new MySqlConnection("server = localhost; database = TripApp; uid = root; pwd = 123456;");
-            MySqlCommand cmd = new MySqlCommand("SELECT username, password FROM users WHERE username='" + name.Text + "' AND password='" + passwordBox.Text + "'");
+            MySqlCommand cmd = DbConnection.Connection.CreateCommand();
             cmd.CommandType = CommandType.Text;
-            cmd.Connection = connect;
-            connect.Open();
+            string command = "SELECT username, password FROM users WHERE username='" + name.Text + "' AND password='" + passwordBox.Text + "'";
+            cmd.CommandText = command;
             try
             {
                 MySqlDataReader dr;
@@ -98,13 +83,6 @@ namespace TravelApp
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-            }
-            finally
-            {
-                if (connect.State == ConnectionState.Open)
-                {
-                    connect.Close();
-                }
             }
         }
         private void Button_Click_New_Account(object sender, RoutedEventArgs e)

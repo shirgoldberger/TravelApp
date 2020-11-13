@@ -104,6 +104,7 @@
     <Compile Include="addNewTrip.xaml.cs">
       <DependentUpon>addNewTrip.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DbConnection.cs" />
     <Compile Include="viewAllTrip.xaml.cs">
       <DependentUpon>viewAllTrip.xaml</DependentUpon>
     </Compile>

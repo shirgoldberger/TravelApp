@@ -15,6 +15,8 @@ using System.Windows.Shapes;
 using System.Windows.Resources;
 using System.Runtime.InteropServices;
 using System.Windows.Interop;
+using MySql.Data.MySqlClient;
+using System.Data;
 
 namespace TravelApp
 {
@@ -27,6 +29,7 @@ namespace TravelApp
         {
             InitializeComponent();
             ShowsNavigationUI = false;
+
         }
     }
 }
