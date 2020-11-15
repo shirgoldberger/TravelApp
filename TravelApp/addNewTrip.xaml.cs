@@ -331,7 +331,8 @@ namespace TravelApp
         }
         private void Button_Click_Exit(object sender, RoutedEventArgs e)
         {
-
+            // close the program
+            System.Environment.Exit(0);
         }
 
         private void maleChecked(object sender, RoutedEventArgs e)

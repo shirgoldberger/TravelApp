@@ -164,7 +164,6 @@ namespace TravelApp
                 {
                     gender = '0';
                 }
-
                 int age;
                 try
                 {
@@ -174,33 +173,32 @@ namespace TravelApp
                 {
                     MessageBox.Show("Enter valid age");
                     textBoxAge.Focus();
+                    return;
                 }
-                
                 if (passwordBox.Password.Length == 0)
                 {
                     MessageBox.Show("Enter password");
                     passwordBox.Focus();
+                    return;
                 }
                 else if (passwordBoxConfirm.Password.Length == 0)
                 {
                     MessageBox.Show("Enter Confirm password");
                     passwordBoxConfirm.Focus();
+                    return;
                 }
                 else if (passwordBox.Password != passwordBoxConfirm.Password)
                 {
                     MessageBox.Show("Confirm password must be same as password");
                     passwordBoxConfirm.Focus();
+                    return;
                 }
                 else
                 {
-                    MySqlCommand cmd = DbConnection.Connection.CreateCommand();
-                    cmd.CommandType = CommandType.Text;
                     string command = "SELECT username FROM user WHERE username='" + username + "';";
-                    cmd.CommandText = command;
-                    try
+                    MySqlDataReader dr = DbConnection.ExecuteQuery(command);
+                    if (dr != null)
                     {
-                        MySqlDataReader dr;
-                        dr = cmd.ExecuteReader();
                         while (dr.Read())
                         {
                             MessageBox.Show("Username already exists, select another username");
@@ -208,29 +206,24 @@ namespace TravelApp
                         }
                         dr.Close();
                         // create account
-                        try
+                        command = "insert into user (username,password,mail,gender,age,phone) values('" + username + "','" + password + "','" + email + "','" + gender + "'," + stringAge + ",'" + phone + "');";
+                        if (DbConnection.ExecuteNonQuery(command))
                         {
-                            MySqlCommand cmd2 = DbConnection.Connection.CreateCommand();
-                            cmd2.CommandType = CommandType.Text;
-                            command = "insert into user (username,password,mail,gender,age,phone) values('" + username + "','" + password + "','" + email + "','" + gender + "'," + stringAge + ",'" + phone + "');";
-                            cmd2.CommandText = command;
-                            cmd2.ExecuteNonQuery();
                             MessageBox.Show("You have Registered successfully");
                         }
-                        catch(Exception e1)
+                        else
                         {
                             MessageBox.Show("User creation failed. please try again");
+                            return;
                         }
-                        Reset();
                         dr.Close();
-                    }
-                    catch (Exception ex)
+                        viewAllTrip vt = new viewAllTrip(username, password);
+                        this.NavigationService.Navigate(vt);
+                    } else 
                     {
-                       
+                        MessageBox.Show("User creation failed. please try again");
+                        return;
                     }
-
-
-
                 }
             }
         }
@@ -255,7 +248,8 @@ namespace TravelApp
 
         private void Button_Click_Exit(object sender, RoutedEventArgs e)
         {
-
+            // close the program
+            System.Environment.Exit(0);
         }
     }
 }

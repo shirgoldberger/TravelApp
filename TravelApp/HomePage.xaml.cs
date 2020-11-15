@@ -50,39 +50,24 @@ namespace TravelApp
             }
 
             // Check the username & password 
-
-            MySqlCommand cmd = DbConnection.Connection.CreateCommand();
-            cmd.CommandType = CommandType.Text;
             string command = "SELECT username, password FROM user WHERE username='" + name.Text + "' AND password='" + passwordBox.Text + "';";
-            cmd.CommandText = command;
-            try
+            MySqlDataReader dr = DbConnection.ExecuteQuery(command);
+            if (dr != null)
             {
-                MySqlDataReader dr;
-                dr = cmd.ExecuteReader();
                 while (dr.Read())
                 {
                     string username = dr.GetString("username");
                     string password = dr.GetString("password");
-                    if (username == "NULL" || password == "NULL")
-                    {
-                        MessageBox.Show("cannot find this account");
-                        return;
-                    }
-                    else
-                    {
-                        viewAllTrip vt = new viewAllTrip();
-                        this.NavigationService.Navigate(vt);
-                        dr.Close();
-                        return;
-                    }
-
+                    viewAllTrip vt = new viewAllTrip(username, password);
+                    this.NavigationService.Navigate(vt);
+                    dr.Close();
+                    return;
                 }
                 MessageBox.Show("cannot find this account");
                 dr.Close();
-            }
-            catch (Exception ex)
+            } else
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("Error, problem with find this account");
             }
         }
         private void Button_Click_New_Account(object sender, RoutedEventArgs e)

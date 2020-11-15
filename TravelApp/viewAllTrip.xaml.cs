@@ -20,7 +20,7 @@ namespace TravelApp
     /// </summary>
     public partial class viewAllTrip : Page
     {
-        public viewAllTrip()
+        public viewAllTrip(string username, string password)
         {
             InitializeComponent();
         }

@@ -56,6 +56,7 @@
                 </ControlTemplate>
             </Button.Template>
         </Button>
+        <ListBox HorizontalAlignment="Left" Height="189" Margin="279,109,0,0" VerticalAlignment="Top" Width="300"/>
 
     </Grid>
 </Page>
