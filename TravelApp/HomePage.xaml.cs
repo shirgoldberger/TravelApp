@@ -58,8 +58,8 @@ namespace TravelApp
                 {
                     string username = dr.GetString("username");
                     string password = dr.GetString("password");
-                    viewAllTrip vt = new viewAllTrip(username, password);
-                    this.NavigationService.Navigate(vt);
+                    UserPage up = new UserPage(username, password);
+                    this.NavigationService.Navigate(up);
                     dr.Close();
                     return;
                 }

@@ -217,8 +217,8 @@ namespace TravelApp
                             return;
                         }
                         dr.Close();
-                        viewAllTrip vt = new viewAllTrip(username, password);
-                        this.NavigationService.Navigate(vt);
+                        UserPage up = new UserPage(username, password);
+                        this.NavigationService.Navigate(up);
                     } else 
                     {
                         MessageBox.Show("User creation failed. please try again");

@@ -20,13 +20,15 @@ namespace TravelApp
     /// </summary>
     public partial class viewAllTrip : Page
     {
+        private string username;
+        private string password;
         public viewAllTrip(string username, string password)
         {
             InitializeComponent();
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            addNewTrip at = new addNewTrip();
+            addNewTrip at = new addNewTrip(username, password);
             this.NavigationService.Navigate(at);
         }
     }
