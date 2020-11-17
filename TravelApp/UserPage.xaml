@@ -14,7 +14,7 @@
             <ImageBrush ImageSource="trip3.jpg" TileMode="Tile"/>
         </Grid.Background>
         <Button x:Name="addFriend" HorizontalAlignment="Center"
-            Grid.ColumnSpan="1" Margin="121,313,674,151.666" Padding="5" Width="305" Click="addFriendButton_Click" FontSize="25" FontWeight="Bold" Background="#FF28617A" Content="Add New Friend" FontFamily="Calisto MT" Cursor="Hand">
+            Grid.ColumnSpan="1" Margin="117,305,678,159.666" Padding="5" Width="305" Click="addFriendButton_Click" FontSize="25" FontWeight="Bold" Background="#FF28617A" Content="Add New Friend" FontFamily="Calisto MT" Cursor="Hand">
             <Button.Effect>
                 <DropShadowEffect Color="#FF48636F"/>
             </Button.Effect>
