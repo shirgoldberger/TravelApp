@@ -13,5 +13,12 @@ namespace TravelApp
     /// </summary>
     public partial class App : Application
     {
+        private void Application_Startup(object sender, StartupEventArgs e)
+        {
+            MainWindow wnd = new MainWindow();
+            DbConnection.createConnection(e.Args[0], e.Args[1], e.Args[2]);
+
+            wnd.Show();
+        }
     }
 }

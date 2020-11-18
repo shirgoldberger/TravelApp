@@ -12,22 +12,26 @@ namespace TravelApp
     public class DbConnection
     {
         private static MySqlConnection _connection;
+
+        public static void createConnection(string user_id, string password, string name_database)
+        {
+            if (_connection == null)
+            {
+                // setup new connection
+                MySqlConnectionStringBuilder b = new MySqlConnectionStringBuilder();
+                b.Server = "127.0.0.1";
+                b.UserID = user_id;
+                b.Password = password;
+                b.Database = name_database;
+                b.SslMode = MySqlSslMode.None;
+                _connection = new MySqlConnection(b.ToString());
+                _connection.Open();
+            }
+        }
         public static MySqlConnection Connection
         {
             get
             {
-                if (_connection == null)
-                {
-                    // setup new connection
-                    MySqlConnectionStringBuilder b = new MySqlConnectionStringBuilder();
-                    b.Server = "127.0.0.1";
-                    b.UserID = "root";
-                    b.Password = "123456";
-                    b.Database = "mydb";
-                    b.SslMode = MySqlSslMode.None;
-                    _connection = new MySqlConnection(b.ToString());
-                    _connection.Open();
-                }
                 return _connection;
             }
         }
