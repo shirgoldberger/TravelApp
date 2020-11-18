@@ -159,10 +159,10 @@ namespace TravelApp
                 char gender;
                 if ((bool)(female.IsChecked))
                 {
-                    gender = '1';
+                    gender = '0';
                 } else
                 {
-                    gender = '0';
+                    gender = '1';
                 }
                 int age;
                 try

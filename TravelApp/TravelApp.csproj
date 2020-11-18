@@ -105,6 +105,8 @@
       <DependentUpon>addNewTrip.xaml</DependentUpon>
     </Compile>
     <Compile Include="DbConnection.cs" />
+    <Compile Include="Trip.cs" />
+    <Compile Include="User.cs" />
     <Compile Include="UserPage.xaml.cs">
       <DependentUpon>UserPage.xaml</DependentUpon>
     </Compile>
