@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,7 +14,7 @@ namespace TravelApp
     {
         private static MySqlConnection _connection;
 
-        public static void createConnection(string user_id, string password, string name_database)
+        public static void createConnection(string user_id, string password, string name_database, int port)
         {
             if (_connection == null)
             {
@@ -24,6 +25,7 @@ namespace TravelApp
                 b.Password = password;
                 b.Database = name_database;
                 b.SslMode = MySqlSslMode.None;
+                b.Port = (uint)port;
                 _connection = new MySqlConnection(b.ToString());
                 _connection.Open();
             }
@@ -56,10 +58,9 @@ namespace TravelApp
             cmd.CommandText = command;
             try
             {
-                MySqlDataReader dr;
-                dr = cmd.ExecuteReader();
+                MySqlDataReader dr = cmd.ExecuteReader();
                 return dr;
-            } catch
+            } catch(Exception e)
             {
                 return null;
             }

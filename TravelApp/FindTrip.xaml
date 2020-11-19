@@ -1,0 +1,77 @@
+﻿<Page x:Class="TravelApp.FindTrip"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:TravelApp"
+      mc:Ignorable="d" 
+      d:DesignHeight="592.666" d:DesignWidth="1100"
+      Title="FindTrip">
+
+    <Grid  Height="592.666" Width="1100">
+        <Grid.Background>
+            <ImageBrush ImageSource="trip2.jpg" TileMode="Tile"/>
+        </Grid.Background>
+        <ListBox x:Name="allTripsListBox" HorizontalAlignment="Left" Height="479" Margin="443,91,0,0" VerticalAlignment="Top" Width="549"
+            ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderThickness="0" HorizontalContentAlignment="Stretch" Background="Transparent">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Button Uid="{Binding Id}" Content="{Binding Start_Date}" Click="clickOnTrip" />
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <TextBlock HorizontalAlignment="Left" Height="51" Margin="60,27,0,0" TextWrapping="Wrap" Text="Filter Trips:" VerticalAlignment="Top" Width="302" FontSize="36" FontWeight="Bold" TextDecorations="{x:Null}" FontStyle="Italic"/>
+        <Calendar HorizontalAlignment="Left" Height="165" Margin="93,90,0,0" VerticalAlignment="Top" Width="170"/>
+        <TextBlock HorizontalAlignment="Left" Height="31" Margin="26,94,0,0" TextWrapping="Wrap" Text="Date:" VerticalAlignment="Top" Width="83" FontSize="20" FontWeight="Bold"/>
+        <TextBlock HorizontalAlignment="Left" Height="33" Margin="26,299,0,0" TextWrapping="Wrap" Text="Age:" VerticalAlignment="Top" Width="66" FontSize="20" FontWeight="Bold"/>
+        <TextBox x:Name="ageText" HorizontalAlignment="Left" Height="24" Margin="86,303,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="170"/>
+        <TextBlock HorizontalAlignment="Left" Height="31" Margin="21,344,0,0" TextWrapping="Wrap" Text="Languages:" VerticalAlignment="Top" Width="115" FontSize="20" FontWeight="Bold"/>
+        <ComboBox x:Name="languagesComboBox" HorizontalAlignment="Left" Height="24" Margin="136,347,0,0" VerticalAlignment="Top" Width="170" TextBoxBase.TextChanged="Languages_TextChanged" IsEditable="True">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <CheckBox Name="checkCountry" Width="222" Checked="MyCheckedAndUnchecked" Unchecked="MyCheckedAndUnchecked" Content="{Binding Name}" IsChecked="{Binding Check_Status}" CommandParameter="{Binding LanguageID}">
+                    </CheckBox>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <TextBlock HorizontalAlignment="Left" Height="25" Margin="22,395,0,0" TextWrapping="Wrap" Text="Select Locations:" VerticalAlignment="Top" Width="158" FontSize="20" FontWeight="Bold"/>
+        <ComboBox HorizontalAlignment="Left" Height="24" Margin="190,397,0,0" VerticalAlignment="Top" Width="170"/>
+        <TextBlock HorizontalAlignment="Left" Height="28" Margin="26,444,0,0" TextWrapping="Wrap" Text="Friends in trip:" VerticalAlignment="Top" Width="143" FontSize="20" FontWeight="Bold"/>
+        <ComboBox HorizontalAlignment="Left" Height="24" Margin="179,445,0,0" VerticalAlignment="Top" Width="170"/>
+        <TextBlock HorizontalAlignment="Left" Height="51" Margin="572,25,0,0" TextWrapping="Wrap" Text="All Trips:" VerticalAlignment="Top" Width="302" FontSize="36" FontWeight="Bold" TextDecorations="{x:Null}" FontStyle="Italic" RenderTransformOrigin="0.57,0.452"/>
+        <Button x:Name="findButton" HorizontalAlignment="Center"
+            Margin="107,492,846,37.666" Padding="5" Width="147" Click="Button_Click_Find" FontSize="25" FontWeight="Bold" Background="#FF28617A" Content="Find!" FontFamily="Calisto MT" Cursor="Hand">
+            <Button.Effect>
+                <DropShadowEffect Color="#FF48636F"/>
+            </Button.Effect>
+            <Button.Template>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="bdr_main" CornerRadius="20" Margin="4" BorderThickness="1" BorderBrush="Black">
+                        <Border.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#FF1DC3DB" Offset="0.5"/>
+                                <GradientStop Color="#FF2D5C5B" Offset="0"/>
+                                <GradientStop Color="#FF2D5C5B" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center" Margin="8,6,8,6" ContentSource="Content" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="bdr_main" Property="Background">
+                                <Setter.Value>
+                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                        <GradientStop Color="#FF2D5C5B" Offset="0.5"/>
+                                        <GradientStop Color="#FF1DC3DB" Offset="0"/>
+                                        <GradientStop Color="#FF1DC3DB" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+
+    </Grid>
+</Page>

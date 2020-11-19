@@ -104,7 +104,14 @@
     <Compile Include="addNewTrip.xaml.cs">
       <DependentUpon>addNewTrip.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CreateAccoutModel.cs" />
     <Compile Include="DbConnection.cs" />
+    <Compile Include="FindTrip.xaml.cs">
+      <DependentUpon>FindTrip.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FindTripModel.cs" />
+    <Compile Include="Language.cs" />
+    <Compile Include="LanguageBox.cs" />
     <Compile Include="Trip.cs" />
     <Compile Include="User.cs" />
     <Compile Include="UserPage.xaml.cs">
@@ -118,6 +125,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="CreateAccount.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="FindTrip.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

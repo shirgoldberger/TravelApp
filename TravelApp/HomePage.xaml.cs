@@ -58,13 +58,14 @@ namespace TravelApp
                 {
                     string username = dr.GetString("username");
                     string password = dr.GetString("password");
+                    dr.Close();
                     UserPage up = new UserPage(username, password);
                     this.NavigationService.Navigate(up);
-                    dr.Close();
+                    
                     return;
                 }
-                MessageBox.Show("cannot find this account");
                 dr.Close();
+                MessageBox.Show("cannot find this account");
             } else
             {
                 MessageBox.Show("Error, problem with find this account");

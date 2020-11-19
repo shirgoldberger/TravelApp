@@ -46,7 +46,7 @@
             <ComboBox x:Name="languagesComboBox" TextBoxBase.TextChanged="Languages_TextChanged" HorizontalAlignment="Left" Margin="324,308,0,0" VerticalAlignment="Top" Width="222" SelectionChanged="languagesComboBox_SelectionChanged" Grid.Column="1" Height="22" IsEditable="True">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
-                        <CheckBox Name="checkCountry" Width="222" Checked="MyCheckedAndUnchecked" Unchecked="MyCheckedAndUnchecked" Content="{Binding LanguageString}" IsChecked="{Binding Check_Status}" CommandParameter="{Binding LanguageID}">
+                        <CheckBox Name="checkCountry" Width="222" Checked="MyCheckedAndUnchecked" Unchecked="MyCheckedAndUnchecked" Content="{Binding Name}" IsChecked="{Binding Check_Status}" CommandParameter="{Binding LanguageID}">
                         </CheckBox>
                     </DataTemplate>
                 </ComboBox.ItemTemplate>

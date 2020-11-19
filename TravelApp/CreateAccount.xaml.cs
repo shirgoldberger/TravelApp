@@ -26,81 +26,44 @@ namespace TravelApp
     /// </summary>
     public partial class CreateAccount : Page
     {
-        private List<MyLanguage> objLanguagesList;
-        private List<string> languages;
-        private List<string> choosenLanguages;
-        public class MyLanguage
-        {
-            public int LanguageID
-            {
-                get;
-                set;
-            }
-            public string LanguageString
-            {
-                get;
-                set;
-            }
-            public Boolean Check_Status
-            {
-                get;
-                set;
-            }
-        }
+        private CreateAccoutModel ca_model;
+        private List<Language> languages;
+        private List<Language> choosenLanguages;
         public CreateAccount()
         {
             InitializeComponent();
-            choosenLanguages = new List<string>();
-            languages = new List<string>(){ "Hebrew", "English", "French", "Arabic", "Spanish" };
-            objLanguagesList = InsertElementsInList(languages);
-            BindLanguagesDropDown();
-        }
-
-        private List<MyLanguage> InsertElementsInList(List<string> languages)
-        {
-            List<MyLanguage> returnedList = new List<MyLanguage>();
-            int counter = 0;
-            foreach (string language in languages)
-            {
-                MyLanguage lang = new MyLanguage();
-                lang.LanguageID = counter++;
-                lang.LanguageString = language;
-                returnedList.Add(lang);
-            }
-            return returnedList;
+            ca_model = new CreateAccoutModel();
+            choosenLanguages = new List<Language>();
+            languages = ca_model.getLanguages();
+            languagesComboBox.ItemsSource = languages;
         }
 
         private void MyCheckedAndUnchecked(object sender, RoutedEventArgs e)
         {
             var baseobj = sender as FrameworkElement;
-            var language = baseobj.DataContext as MyLanguage;
+            var language = baseobj.DataContext as Language;
             BindListBox(language);
         }
 
         private void resetLanguages()
         {
             choosenLanguages.Clear();
-            foreach (var language in objLanguagesList)
+            foreach (var language in languages)
             {
                 language.Check_Status = false;
             }
             languagesComboBox.SelectedIndex = -1;
         }
-        private void BindListBox(MyLanguage language)  
+        private void BindListBox(Language language)  
         {
             if(language.Check_Status)
             {
-                choosenLanguages.Add(language.LanguageString);
+                choosenLanguages.Add(language);
             }
             else
             {
-                choosenLanguages.Remove(language.LanguageString);
+                choosenLanguages.Remove(language);
             }
-        }
-
-        private void BindLanguagesDropDown()
-        {
-            languagesComboBox.ItemsSource = objLanguagesList;
         }
 
         private void resetButton_Click(object sender, RoutedEventArgs e)
@@ -150,12 +113,6 @@ namespace TravelApp
             }
             else
             {
-                string username = textBoxUserName.Text;
-                string phone = textBoxPhone.Text;
-                string email = textBoxEmail.Text;
-                string password = passwordBox.Password;
-                string address = textBoxAddress.Text;
-                string stringAge = textBoxAge.Text;
                 char gender;
                 if ((bool)(female.IsChecked))
                 {
@@ -195,33 +152,21 @@ namespace TravelApp
                 }
                 else
                 {
-                    string command = "SELECT username FROM user WHERE username='" + username + "';";
-                    MySqlDataReader dr = DbConnection.ExecuteQuery(command);
-                    if (dr != null)
+                    int flag = ca_model.createAccount(textBoxUserName.Text, textBoxPhone.Text,
+                        textBoxEmail.Text, passwordBox.Password, textBoxAddress.Text, age, gender);
+                    if(flag == 0)
                     {
-                        while (dr.Read())
-                        {
-                            MessageBox.Show("Username already exists, select another username");
-                            return;
-                        }
-                        dr.Close();
-                        // create account
-                        command = "insert into user (username,password,mail,gender,age,phone) values('" + username + "','" + password + "','" + email + "','" + gender + "'," + stringAge + ",'" + phone + "');";
-                        if (DbConnection.ExecuteNonQuery(command))
-                        {
-                            MessageBox.Show("You have Registered successfully");
-                        }
-                        else
-                        {
-                            MessageBox.Show("User creation failed. please try again");
-                            return;
-                        }
-                        dr.Close();
-                        UserPage up = new UserPage(username, password);
+                        HomePage up = new HomePage();
                         this.NavigationService.Navigate(up);
-                    } else 
+                    }
+                    if (flag == 1)
                     {
-                        MessageBox.Show("User creation failed. please try again");
+                        MessageBox.Show("username is already exist");
+                        return;
+                    }
+                    if (flag == 2)
+                    {
+                        MessageBox.Show("Cannot create account, please try again");
                         return;
                     }
                 }
@@ -243,7 +188,7 @@ namespace TravelApp
 
         private void Languages_TextChanged(object sender, EventArgs e)
         {
-            languagesComboBox.ItemsSource = objLanguagesList.Where(x => x.LanguageString.StartsWith(languagesComboBox.Text.Trim()));
+            languagesComboBox.ItemsSource = languages.Where(x => x.Name.StartsWith(languagesComboBox.Text.Trim()));
         }
 
         private void Button_Click_Exit(object sender, RoutedEventArgs e)
