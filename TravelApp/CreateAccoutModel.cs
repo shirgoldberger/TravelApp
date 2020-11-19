@@ -28,7 +28,7 @@ namespace TravelApp
                 }
                 dr.Close();
                 // create account
-                command = "insert into user (username,password,mail,gender,age,phone) values('" + username + "','" + password + "','" + email + "','" + is_male + "'," + stringAge + ",'" + phone + "');";
+                command = "insert into user (username,password,mail,is_male,age,phone) values('" + username + "','" + password + "','" + email + "','" + is_male + "'," + stringAge + ",'" + phone + "');";
                 if (DbConnection.ExecuteNonQuery(command))
                 {
                     dr.Close();

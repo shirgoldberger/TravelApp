@@ -42,7 +42,8 @@ namespace TravelApp
 
         private void viewTripsButton_Click(object sender, RoutedEventArgs e)
         {
-            viewAllTrip vt = new viewAllTrip(username, password);
+            User user = new User(username, password);
+            viewAllTrip vt = new viewAllTrip(user);
             this.NavigationService.Navigate(vt);
         }
 

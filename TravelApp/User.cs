@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TravelApp
 {
-    class User
+   public class User
     {
         string username;
         string password;
@@ -24,6 +24,11 @@ namespace TravelApp
             is_male = _is_male;
             age = _age;
             phone = _phone;
+        }
+        public User(string _username, string _password)
+        {
+            username = _username;
+            password = _password;
         }
     }
 }

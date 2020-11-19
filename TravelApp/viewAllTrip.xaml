@@ -13,8 +13,46 @@
         <Grid.Background>
             <ImageBrush ImageSource="trip3.jpg" TileMode="Tile"/>
         </Grid.Background>
+        <ListBox x:Name="allTripsListBox" HorizontalAlignment="Left" Height="72" Margin="35,192,0,0" VerticalAlignment="Top" Width="549"
+            ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderThickness="0" HorizontalContentAlignment="Stretch" Background="Transparent">
+            <ListBox.ItemTemplate>
 
-        <TextBlock Padding="3" FontSize="50" HorizontalAlignment="Center" FontWeight="Bold" TextDecorations="{x:Null}" Margin="0,0,212.333,350.667" Width="581" Text="Your Upcoming Trips:">
+                <DataTemplate>
+                    <Button Uid="{Binding Id}" Content="{Binding Start_Date}"  Click="row_click"  >
+                        <Button.Effect>
+                            <DropShadowEffect Color="#FF48636F"/>
+                        </Button.Effect>
+                    </Button>
+
+                </DataTemplate>
+
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <ListBox x:Name="buttomDelete" HorizontalAlignment="Left" Height="137" Margin="589,192,0,0" VerticalAlignment="Top" Width="61"
+            ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderThickness="0" HorizontalContentAlignment="Stretch" Background="Transparent">
+            <ListBox.ItemTemplate>
+
+                <DataTemplate>
+                    <Button Uid="{Binding Id}" Content="delete" Click="clickDelete" />
+                </DataTemplate>
+
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <ListBox x:Name="buttomEdit" HorizontalAlignment="Left" Height="137" Margin="655,192,0,0" VerticalAlignment="Top" Width="61"
+            ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderThickness="0" HorizontalContentAlignment="Stretch" Background="Transparent">
+            <ListBox.ItemTemplate>
+
+                <DataTemplate>
+                    <Button Uid="{Binding Id}" Content="edit" Click="clickEdit" />
+                </DataTemplate>
+
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+
+        <TextBlock Padding="3" FontSize="50" HorizontalAlignment="Center" FontWeight="Bold" TextDecorations="{x:Null}" Margin="3,0,216,379" Width="581" Text="Your Upcoming Trips:">
             <TextBlock.Foreground>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="Black" Offset="0.853"/>
@@ -28,6 +66,7 @@
             <Button.Effect>
                 <DropShadowEffect Color="#FF48636F"/>
             </Button.Effect>
+
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Border x:Name="bdr_main" CornerRadius="20" Margin="4" BorderThickness="1" BorderBrush="Black">

@@ -120,6 +120,10 @@
     <Compile Include="viewAllTrip.xaml.cs">
       <DependentUpon>viewAllTrip.xaml</DependentUpon>
     </Compile>
+    <Compile Include="viewAllTrip_Model.cs" />
+    <Compile Include="watchTrip.xaml.cs">
+      <DependentUpon>watchTrip.xaml</DependentUpon>
+    </Compile>
     <Page Include="addNewTrip.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -159,6 +163,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="viewAllTrip.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="watchTrip.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -13,23 +13,47 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+
 namespace TravelApp
 {
     /// <summary>
     /// Interaction logic for viewAllTrip.xaml
     /// </summary>
-    public partial class viewAllTrip : Page
+    public partial class viewAllTrip: Page
     {
-        private string username;
-        private string password;
-        public viewAllTrip(string username, string password)
+        User user;
+        viewAllTrip_Model view;
+        List<Trip> trips;
+        private List<Language> languages;
+        private List<Language> choosenLanguages;
+        public viewAllTrip(User _user)
         {
+            user = _user;
             InitializeComponent();
+            view= new viewAllTrip_Model();
+            trips = view.getAllTrip();
+            allTripsListBox.ItemsSource = trips;
+            buttomDelete.ItemsSource = trips;
+            buttomEdit.ItemsSource = trips;
+            choosenLanguages = new List<Language>();
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            addNewTrip at = new addNewTrip(username, password);
-            this.NavigationService.Navigate(at);
+            watchTrip watch = new watchTrip(trips[0]);
+            watch.Show();
+        }
+        public void row_click(object sender, RoutedEventArgs e)
+        {
+
+            watchTrip watch = new watchTrip(trips[0]);
+            watch.Show();
+        }
+        public void clickDelete(object sender, RoutedEventArgs e) { }
+        public void clickEdit(object sender, RoutedEventArgs e) { }
+
+        private void allTripsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }
