@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -16,7 +16,7 @@ namespace TravelApp
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             MainWindow wnd = new MainWindow();
-            DbConnection.createConnection(e.Args[0], e.Args[1], e.Args[2]);
+            DbConnection.createConnection(e.Args[0], e.Args[1], e.Args[2], int.Parse(e.Args[3]));
 
             wnd.Show();
         }
