@@ -48,29 +48,44 @@ namespace TravelApp
                 Message = "You need to insert username and password";
                 return;
             }
-
-            // Check the username & password 
-            string command = "SELECT username, password FROM user WHERE username='" + name.Text + "' AND password='" + passwordBox.Text + "';";
+            // check username
+            string command = "SELECT username FROM user WHERE username='" + name.Text + "';";
             MySqlDataReader dr = DbConnection.ExecuteQuery(command);
             if (dr != null)
             {
                 while (dr.Read())
                 {
-                    string username = dr.GetString("username");
-                    string password = dr.GetString("password");
-                    dr.Close();
-                    UserPage up = new UserPage(username, password);
-                    this.NavigationService.Navigate(up);
-                    
-                    return;
+                    // Check the username & password 
+                    command = "SELECT username, password FROM user WHERE username='" + name.Text + "' AND password='" + passwordBox.Text + "';";
+                    MySqlDataReader dr2 = DbConnection.ExecuteQuery(command);
+                    if (dr2 != null)
+                    {
+                        while (dr2.Read())
+                        {
+                            string username = dr2.GetString("username");
+                            string password = dr2.GetString("password");
+                            dr2.Close();
+                            UserPage up = new UserPage(username, password);
+                            this.NavigationService.Navigate(up);
+                            return;
+                        }
+                        dr2.Close();
+                        MessageBox.Show("The password does not match this username");
+                        return;
+                    }
+                    else
+                    {
+                        MessageBox.Show("The password does not match this username");
+                        return;
+                    }
                 }
                 dr.Close();
                 MessageBox.Show("cannot find this account");
-            } else
-            {
-                MessageBox.Show("Error, problem with find this account");
+                return;
             }
+            MessageBox.Show("cannot find this account");
         }
+
         private void Button_Click_New_Account(object sender, RoutedEventArgs e)
         {
             CreateAccount ca = new CreateAccount();

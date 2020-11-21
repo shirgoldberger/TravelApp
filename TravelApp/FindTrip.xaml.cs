@@ -24,12 +24,15 @@ namespace TravelApp
         List<Trip> trips;
         private List<Language> languages;
         private List<Language> choosenLanguages;
-        public FindTrip()
+        string username;
+        public FindTrip(string _username)
         {
             InitializeComponent();
+            username = _username;
             findTrip_model = new FindTripModel();
             trips = findTrip_model.getAllTrip();
             allTripsListBox.ItemsSource = trips;
+            joinTripListBox.ItemsSource = trips;
             choosenLanguages = new List<Language>();
             languages = findTrip_model.getLanguages();
             languagesComboBox.ItemsSource = languages;
@@ -42,8 +45,16 @@ namespace TravelApp
         private void clickOnTrip(object sender, RoutedEventArgs e)
         {
             string id = ((Button)sender).Uid.ToString();
-            Trip currentTrip;
+            Trip currentTrip = findTrip_model.getTripById(id);
+            watchTrip wt = new watchTrip(currentTrip);
+            wt.Show();
+        }
 
+        
+        private void clickJoinTrip(object sender, RoutedEventArgs e)
+        {
+            string id = ((Button)sender).Uid.ToString();
+            findTrip_model.insertUserToTrip(username, id);
         }
 
         private void Button_Click_Find(object sender, RoutedEventArgs e)
@@ -54,7 +65,10 @@ namespace TravelApp
                 age = int.Parse(ageText.Text.ToString());
             }
             trips = findTrip_model.findTripByAge(age);
+            trips.AddRange(findTrip_model.findTripByLanguage(choosenLanguages));
+
             allTripsListBox.ItemsSource = trips;
+            joinTripListBox.ItemsSource = trips;
             if (allTripsListBox.Items.Count == 0)
             {
                 MessageBox.Show("There are no trips that match this search");

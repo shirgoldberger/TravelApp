@@ -30,5 +30,13 @@ namespace TravelApp
             username = _username;
             password = _password;
         }
+
+        public string Username
+        {
+            get
+            {
+                return username;
+            }
+        }
     }
 }

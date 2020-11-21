@@ -181,11 +181,6 @@ namespace TravelApp
             male.IsChecked = false;
         }
 
-        private void languagesComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
         private void Languages_TextChanged(object sender, EventArgs e)
         {
             languagesComboBox.ItemsSource = languages.Where(x => x.Name.StartsWith(languagesComboBox.Text.Trim()));

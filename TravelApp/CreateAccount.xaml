@@ -43,7 +43,7 @@
             <Button Content="Cancel" FontFamily="Century Gothic" FontSize="25" FontStretch="UltraExpanded" FontStyle="Italic" FontWeight="UltraBold" Height="37" HorizontalAlignment="Right" Margin="0,459,262,0" x:Name="cancelButton" VerticalAlignment="Top" Width="120" Click="cancel_Click" RenderTransformOrigin="0.31,0.57" Grid.Column="1" />
             <CheckBox FontFamily="Century Gothic" FontSize="25" FontStretch="UltraExpanded" FontStyle="Italic" FontWeight="UltraBold" x:Name="female" Content="Female" Checked="female_Checked" HorizontalAlignment="Left" Margin="91,340,0,0" VerticalAlignment="Top" Grid.Column="1" Height="29" Width="110"/>
             <TextBlock Height="30" FontFamily="Century Gothic" FontSize="25" FontStretch="UltraExpanded" FontStyle="Italic" FontWeight="UltraBold" HorizontalAlignment="Left" Margin="93,300,0,0" x:Name="textBlockLanguages" Text="Languages:" VerticalAlignment="Top" Width="147" Grid.Column="1" />
-            <ComboBox x:Name="languagesComboBox" TextBoxBase.TextChanged="Languages_TextChanged" HorizontalAlignment="Left" Margin="324,308,0,0" VerticalAlignment="Top" Width="222" SelectionChanged="languagesComboBox_SelectionChanged" Grid.Column="1" Height="22" IsEditable="True">
+            <ComboBox x:Name="languagesComboBox" TextBoxBase.TextChanged="Languages_TextChanged" HorizontalAlignment="Left" Margin="324,308,0,0" VerticalAlignment="Top" Width="222" Grid.Column="1" Height="22" IsEditable="True">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <CheckBox Name="checkCountry" Width="222" Checked="MyCheckedAndUnchecked" Unchecked="MyCheckedAndUnchecked" Content="{Binding Name}" IsChecked="{Binding Check_Status}" CommandParameter="{Binding LanguageID}">

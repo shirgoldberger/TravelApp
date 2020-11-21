@@ -12,14 +12,31 @@
         <Grid.Background>
             <ImageBrush ImageSource="trip2.jpg" TileMode="Tile"/>
         </Grid.Background>
-        <ListBox x:Name="allTripsListBox" HorizontalAlignment="Left" Height="479" Margin="443,91,0,0" VerticalAlignment="Top" Width="549"
+        <ListView x:Name="allTripsListBox" HorizontalAlignment="Left" Height="479" Margin="443,91,0,0" VerticalAlignment="Top" Width="370"
             ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderThickness="0" HorizontalContentAlignment="Stretch" Background="Transparent">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Button Uid="{Binding Id}" Content="{Binding Start_Date}" Click="clickOnTrip" />
+                    <Button Uid="{Binding Id}" Content="{Binding Start_Date}" Click="clickOnTrip">
+                    </Button>
+
                 </DataTemplate>
             </ListBox.ItemTemplate>
-        </ListBox>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="Transparent" />
+                            <Setter Property="BorderBrush" Value="Transparent" />
+                            <Setter Property="BorderThickness" Value="0" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </ListView.ItemContainerStyle>
+        </ListView>
+
+
+
+
         <TextBlock HorizontalAlignment="Left" Height="51" Margin="60,27,0,0" TextWrapping="Wrap" Text="Filter Trips:" VerticalAlignment="Top" Width="302" FontSize="36" FontWeight="Bold" TextDecorations="{x:Null}" FontStyle="Italic"/>
         <Calendar HorizontalAlignment="Left" Height="165" Margin="93,90,0,0" VerticalAlignment="Top" Width="170"/>
         <TextBlock HorizontalAlignment="Left" Height="31" Margin="26,94,0,0" TextWrapping="Wrap" Text="Date:" VerticalAlignment="Top" Width="83" FontSize="20" FontWeight="Bold"/>
@@ -72,6 +89,63 @@
                 </ControlTemplate>
             </Button.Template>
         </Button>
+        <ListView x:Name="joinTripListBox" Background="Transparent" HorizontalAlignment="Left" Height="479" Margin="806,91,0,0" VerticalAlignment="Top" Width="149"
+            ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderThickness="0" HorizontalContentAlignment="Stretch">
+            
+            
+            <ListView.ItemTemplate>
+                <DataTemplate x:Name="data">
+                    <Button Uid="{Binding Id}" Content="join" Click="clickJoinTrip">
+                        <Button.Template>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border x:Name="bdr_main" CornerRadius="20" Margin="4" BorderThickness="1" BorderBrush="Black">
+                                    <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center" Margin="8,6,8,6" ContentSource="Content" />
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            <ListView.ItemContainerStyle>
+
+                <Style TargetType="ListViewItem">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ListViewItem">
+                                <Border x:Name="border" Background="Transparent">
+                                    <VisualStateManager.VisualStateGroups>
+                                        <VisualStateGroup x:Name="CommonStates">
+                                            <VisualState x:Name="Normal" />
+                                            <VisualState x:Name="Disabled" />
+                                        </VisualStateGroup>
+                                        <VisualStateGroup x:Name="SelectionStates">
+                                            <VisualState x:Name="Unselected" />
+                                            <VisualState x:Name="Selected">
+                                                <Storyboard>
+                                                    <ColorAnimationUsingKeyFrames Storyboard.TargetName="border"
+                                                              Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)">
+                                                        <EasingColorKeyFrame KeyTime="0" Value="LightBlue" />
+                                                    </ColorAnimationUsingKeyFrames>
+                                                </Storyboard>
+                                            </VisualState>
+                                            <VisualState x:Name="SelectedUnfocused">
+                                                <Storyboard>
+                                                    <ColorAnimationUsingKeyFrames Storyboard.TargetName="border"
+                                                              Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)">
+                                                        <EasingColorKeyFrame KeyTime="0" Value="SkyBlue" />
+                                                    </ColorAnimationUsingKeyFrames>
+                                                </Storyboard>
+                                            </VisualState>
+                                        </VisualStateGroup>
+                                    </VisualStateManager.VisualStateGroups>
+                                    <ContentPresenter/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ListView.ItemContainerStyle>
+        </ListView>
 
     </Grid>
 </Page>
