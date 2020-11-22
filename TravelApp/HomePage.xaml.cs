@@ -57,6 +57,7 @@ namespace TravelApp
                 {
                     // Check the username & password 
                     command = "SELECT username, password FROM user WHERE username='" + name.Text + "' AND password='" + passwordBox.Text + "';";
+                    dr.Close();
                     MySqlDataReader dr2 = DbConnection.ExecuteQuery(command);
                     if (dr2 != null)
                     {
