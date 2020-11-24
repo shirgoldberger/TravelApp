@@ -20,8 +20,8 @@ namespace TravelApp
     public partial class watchTrip : Window
     {
 
-       private DateTime start_date; 
-       private DateTime end_date;
+       DateTime start_date; 
+       DateTime end_date;
        private int min_age;
        private int max_age;
        private string genderMassage;
@@ -72,9 +72,10 @@ namespace TravelApp
 
 
         }
-        public string Start_date 
-        {  
-            get {   return start_date.ToString();  }
+        public string Start_date
+        {
+            get { return start_date.ToString(); }
+
         }
         public string End_date
         {

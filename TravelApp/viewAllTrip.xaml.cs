@@ -30,7 +30,7 @@ namespace TravelApp
         {
             user = _user;
             InitializeComponent();
-            view= new viewAllTrip_Model();
+            view= new viewAllTrip_Model(user);
             trips = view.getAllTrip();
             allTripsListBox.ItemsSource = trips;
             buttomDelete.ItemsSource = trips;
@@ -65,6 +65,11 @@ namespace TravelApp
             if (a== true)
             {
                 MessageBox.Show("delete sucses");
+                trips = view.getAllTrip();
+                allTripsListBox.ItemsSource = trips;
+                buttomDelete.ItemsSource = trips;
+                buttomEdit.ItemsSource = trips;
+                choosenLanguages = new List<Language>();
 
             }
 
