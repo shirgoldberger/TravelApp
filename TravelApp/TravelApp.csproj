@@ -120,11 +120,11 @@
     <Compile Include="addNewTrip.xaml.cs">
       <DependentUpon>addNewTrip.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Attraction.cs" />
+    <Compile Include="City.cs" />
     <Compile Include="CreateAccoutModel.cs" />
     <Compile Include="DbConnection.cs" />
-    <Compile Include="editTrip.xaml.cs">
-      <DependentUpon>editTrip.xaml</DependentUpon>
+    <Compile Include="FindByLocation.xaml.cs">
+      <DependentUpon>FindByLocation.xaml</DependentUpon>
     </Compile>
     <Compile Include="FindTrip.xaml.cs">
       <DependentUpon>FindTrip.xaml</DependentUpon>
@@ -143,7 +143,6 @@
     <Compile Include="watchTrip.xaml.cs">
       <DependentUpon>watchTrip.xaml</DependentUpon>
     </Compile>
-    <Compile Include="watchTrip_Model.cs" />
     <Page Include="addNewTrip.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -152,7 +151,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="editTrip.xaml">
+    <Page Include="FindByLocation.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -245,9 +244,6 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="trip5.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

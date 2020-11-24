@@ -1,0 +1,39 @@
+﻿<Window x:Class="TravelApp.FindByLocation"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TravelApp"
+        mc:Ignorable="d"
+        Title="Find Trip By Locations and Attractions" Height="400" Width="400">
+    <Grid>
+        <TabControl Margin="15,8,14.333,43.667">
+            <TabItem Header="City">
+                <Grid>
+                    <Label Content="Choose Cities" FontWeight="Bold" FontSize="20" />
+                    <ListBox x:Name="CityListBox"  Margin="33,47,70.667,20">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <CheckBox Content="{Binding name}" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked" />
+
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Attraction">
+                <Grid>
+                    <Label Content="Choose Attractions" FontWeight="Bold" FontSize="20" />
+                    <ListBox x:Name="AttractionListBox"  Margin="19,47,22.667,20">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <CheckBox Width="222" Content="{Binding City_String}" />
+
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>

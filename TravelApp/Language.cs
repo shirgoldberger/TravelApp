@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TravelApp
 {
-    class Language
+    public class Language
     {
         string id;
         string name;

@@ -30,7 +30,7 @@ namespace TravelApp
             InitializeComponent();
             username = _username;
             findTrip_model = new FindTripModel();
-            trips = findTrip_model.getAllTrip();
+            trips = findTrip_model.getTripForUser(username);
             allTripsListBox.ItemsSource = trips;
             joinTripListBox.ItemsSource = trips;
             choosenLanguages = new List<Language>();
@@ -45,7 +45,7 @@ namespace TravelApp
         private void clickOnTrip(object sender, RoutedEventArgs e)
         {
             string id = ((Button)sender).Uid.ToString();
-            Trip currentTrip = findTrip_model.getTripById(id);
+            Trip currentTrip = trips.Find(x => x.Id == id);
             watchTrip wt = new watchTrip(currentTrip);
             wt.Show();
         }
@@ -54,7 +54,13 @@ namespace TravelApp
         private void clickJoinTrip(object sender, RoutedEventArgs e)
         {
             string id = ((Button)sender).Uid.ToString();
-            findTrip_model.insertUserToTrip(username, id);
+            if (findTrip_model.insertUserToTrip(username, trips.Find(x => x.Id == id)))
+            {
+                MessageBox.Show("Your registration was successful");
+            } else
+            {
+                MessageBox.Show("Something happened. Registration for the trip failed");
+            }
         }
 
         private void Button_Click_Find(object sender, RoutedEventArgs e)
@@ -101,6 +107,12 @@ namespace TravelApp
             {
                 choosenLanguages.Remove(language);
             }
+        }
+
+        private void filter_location_Click(object sender, RoutedEventArgs e)
+        {
+            FindByLocation fbl = new FindByLocation(findTrip_model);
+            fbl.Show();
         }
     }
 }
