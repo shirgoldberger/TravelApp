@@ -42,9 +42,20 @@ namespace TravelApp
             dr.Close();
             return trips;
         }
-        public void deleteTrip(Trip trip)
+        public bool deleteTrip(Trip trip, User user)
         {
+            string trip_code = trip.Id;
+            trip_code = "'" + trip_code + "'";
+            string username = user.Username;
+            username = "'" + username + "'";
+            string command = "DELETE FROM member WHERE trip_code = "+trip_code+"AND username = "+username+";";
+            bool dr = DbConnection.ExecuteNonQuery(command);
+            if (dr == false)
+            {
+                return false;
+            }
             DateTime start_date= trip.Start_Date;
+            return true;
         }
     }
 }

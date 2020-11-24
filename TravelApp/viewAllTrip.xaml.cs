@@ -56,8 +56,18 @@ namespace TravelApp
         {
             var item = ((Button)sender).DataContext;
             var itemIndex = buttomDelete.Items.IndexOf(item);
-            view.deleteTrip(trips[itemIndex]);
-            
+            bool a= view.deleteTrip(trips[itemIndex], user);
+            if (a == false)
+            {
+                MessageBox.Show("delete failed");
+
+            }
+            if (a== true)
+            {
+                MessageBox.Show("delete sucses");
+
+            }
+
         }
         public void clickEdit(object sender, RoutedEventArgs e)
         {
