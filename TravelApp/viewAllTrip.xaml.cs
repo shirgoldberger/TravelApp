@@ -37,19 +37,43 @@ namespace TravelApp
             buttomEdit.ItemsSource = trips;
             choosenLanguages = new List<Language>();
         }
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Button_Click_add_trip(object sender, RoutedEventArgs e)
         {
-            watchTrip watch = new watchTrip(trips[0]);
-            watch.Show();
+
+            addNewTrip ant = new addNewTrip(user.Username, user.Password);
+            this.NavigationService.Navigate(ant);
+            //watchTrip watch = new watchTrip(trips[0]);
+            //watch.Show();
         }
         public void row_click(object sender, RoutedEventArgs e)
         {
-
-            watchTrip watch = new watchTrip(trips[0]);
+            var item = ((Button)sender).DataContext;
+            var itemIndex = allTripsListBox.Items.IndexOf(item);
+            watchTrip watch = new watchTrip(trips[itemIndex]);
             watch.Show();
         }
-        public void clickDelete(object sender, RoutedEventArgs e) { }
-        public void clickEdit(object sender, RoutedEventArgs e) { }
+        public void clickDelete(object sender, RoutedEventArgs e) 
+        {
+            var item = ((Button)sender).DataContext;
+            var itemIndex = buttomDelete.Items.IndexOf(item);
+            view.deleteTrip(trips[itemIndex]);
+            
+        }
+        public void clickEdit(object sender, RoutedEventArgs e)
+        {
+            var item = ((Button)sender).DataContext;
+            var itemIndex = buttomDelete.Items.IndexOf(item);
+            Trip pushTrip = trips[itemIndex];
+            if (pushTrip.Admin!= user.Username)
+            {
+                MessageBox.Show("you can not edit this trip - only admin can edit");
+
+            }
+            else
+            {
+
+            }
+        }
 
         private void allTripsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

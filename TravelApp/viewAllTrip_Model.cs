@@ -42,5 +42,9 @@ namespace TravelApp
             dr.Close();
             return trips;
         }
+        public void deleteTrip(Trip trip)
+        {
+            DateTime start_date= trip.Start_Date;
+        }
     }
 }

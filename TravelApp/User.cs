@@ -38,5 +38,12 @@ namespace TravelApp
                 return username;
             }
         }
+        public string Password
+        {
+            get
+            {
+                return password;
+            }
+        }
     }
 }
