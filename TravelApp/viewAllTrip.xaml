@@ -62,7 +62,7 @@
                 </LinearGradientBrush>
             </TextBlock.Foreground></TextBlock>
         <Button x:Name="addTripButton" HorizontalAlignment="Center"
-            Grid.ColumnSpan="1" Margin="301,334,272,58" Padding="5" Width="227" Click="Button_Click" FontSize="25" FontWeight="Bold" Background="#FF28617A" Content="add new trip" FontFamily="Calisto MT" Cursor="Hand">
+            Grid.ColumnSpan="1" Margin="301,334,272,58" Padding="5" Width="227" Click="Button_Click_add_trip" FontSize="25" FontWeight="Bold" Background="#FF28617A" Content="add new trip" FontFamily="Calisto MT" Cursor="Hand">
             <Button.Effect>
                 <DropShadowEffect Color="#FF48636F"/>
             </Button.Effect>

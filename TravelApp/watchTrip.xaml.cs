@@ -20,21 +20,26 @@ namespace TravelApp
     public partial class watchTrip : Window
     {
 
-        public string start_date { get; set; }
-        public DateTime end_date;
-        public int min_age;
-        public int max_age;
-        public int max_participants;
-        public bool male_only;
-        public bool female_only;
+       private DateTime start_date; 
+       private DateTime end_date;
+       private int min_age;
+       private int max_age;
+       private string genderMassage;
+       private int max_participants;
+       public bool male_only;
+       public bool female_only;
 
-        viewAllTrip_Model view;
-        List<Trip> trips;
+
+        watchTrip_Model watchTrip_Model;
+       // viewAllTrip_Model view;
+        List<User> members;
+        List<Attraction> attractions;
+
 
 
         public watchTrip(Trip trip)
         {
-            start_date = "aaaaa";
+            start_date = trip.Start_Date;
             end_date = trip.End_Date;
             min_age = trip.Min_Age;
             max_age = trip.Max_Age;
@@ -44,37 +49,67 @@ namespace TravelApp
             //
             if (female_only== true)
             {
-                male.IsChecked = false;
-                female.IsChecked = true;
+                genderMassage = "female only trip";
             }
-            if (male_only == true)
+            else if (male_only == true)
             {
-                male.IsChecked = false;
-                female.IsChecked = true;
+                genderMassage = "men only trip";
+            }
+            else
+            {
+                genderMassage = "There are no gender restrictions";
+
             }
             //
             InitializeComponent();
+            DataContext = this;
+            watchTrip_Model = new watchTrip_Model(trip);
+            members = watchTrip_Model.getAllMembers();
+            attractions = watchTrip_Model.getAllAttraction();
 
-            view = new viewAllTrip_Model();
-            trips = view.getAllTrip();
-            allTripsListBox.ItemsSource = trips;
+            allMemListBox.ItemsSource = members;
+            allAttListBox.ItemsSource = attractions;
 
 
         }
+        public string Start_date 
+        {  
+            get {   return start_date.ToString();  }
+        }
+        public string End_date
+        {
+            get { return end_date.ToString(); }
 
+        }
+        public string Min_age
+        {
+            get { return min_age.ToString(); }
+            set { min_age = Convert.ToInt32(value); }
+        }
+        public string Max_age
+        {
+            get { return max_age.ToString(); }
+            set { max_age = Convert.ToInt32(value); }
+
+        }
+        public string Max_participants
+        {
+            get { return max_participants.ToString(); }
+            set { max_participants = Convert.ToInt32(value); }
+
+        }
+        
+        public string GenderMassage
+        {
+            get { return genderMassage.ToString(); }
+            set { genderMassage = value; }
+
+        }
         private void Button_Click_Exit(object sender, RoutedEventArgs e)
         {
-
+            this.Close();
         }
 
-        private void maxParticipantsVal_TextChanged(object sender, TextChangedEventArgs e)
-        {
 
-        }
-
-        private void maxParticipantsVal_Copy_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
     }
 }
