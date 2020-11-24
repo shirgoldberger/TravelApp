@@ -120,6 +120,7 @@
     <Compile Include="addNewTrip.xaml.cs">
       <DependentUpon>addNewTrip.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Attraction.cs" />
     <Compile Include="City.cs" />
     <Compile Include="CreateAccoutModel.cs" />
     <Compile Include="DbConnection.cs" />
@@ -143,6 +144,7 @@
     <Compile Include="watchTrip.xaml.cs">
       <DependentUpon>watchTrip.xaml</DependentUpon>
     </Compile>
+    <Compile Include="watchTrip_Model.cs" />
     <Page Include="addNewTrip.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
