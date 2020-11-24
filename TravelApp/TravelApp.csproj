@@ -120,8 +120,12 @@
     <Compile Include="addNewTrip.xaml.cs">
       <DependentUpon>addNewTrip.xaml</DependentUpon>
     </Compile>
+    <Compile Include="City.cs" />
     <Compile Include="CreateAccoutModel.cs" />
     <Compile Include="DbConnection.cs" />
+    <Compile Include="FindByLocation.xaml.cs">
+      <DependentUpon>FindByLocation.xaml</DependentUpon>
+    </Compile>
     <Compile Include="FindTrip.xaml.cs">
       <DependentUpon>FindTrip.xaml</DependentUpon>
     </Compile>
@@ -144,6 +148,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="CreateAccount.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="FindByLocation.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

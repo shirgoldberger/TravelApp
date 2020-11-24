@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TravelApp
 {
-    class FindTripModel
+    public class FindTripModel
     {
 
         public Trip createTrip(MySqlDataReader dr)
@@ -19,8 +19,8 @@ namespace TravelApp
             int min_age = int.Parse(dr.GetString("min_age"));
             int max_age = int.Parse(dr.GetString("max_age"));
             int max_participants = int.Parse(dr.GetString("max_participants"));
-            bool male_only = dr.GetBoolean(dr.GetOrdinal("male_only"));
-            bool female_only = dr.GetBoolean(dr.GetOrdinal("female_only"));
+            bool male_only = dr.GetBoolean("male_only");
+            bool female_only = dr.GetBoolean("female_only");
 
             Trip t = new Trip(id, admin, start_date, end_date, min_age,
                 max_age, max_participants, male_only, female_only);
@@ -54,8 +54,27 @@ namespace TravelApp
                     Trip t = createTrip(dr);
                     trips.Add(t);
                 }
+                dr.Close();
             }
-            dr.Close();
+            return trips;
+        }
+
+        public List<Trip> getTripForUser(string username)
+        {
+            List<Trip> trips = new List<Trip>();
+            string command = "SELECT * from trip WHERE trip_code NOT IN" +
+                "(SELECT t.trip_code FROM trip INNER JOIN member AS t WHERE t.username = '"
+                + username + "');";
+            MySqlDataReader dr = DbConnection.ExecuteQuery(command);
+            if (dr != null)
+            {
+                while (dr.Read())
+                {
+                    Trip t = createTrip(dr);
+                    trips.Add(t);
+                }
+                dr.Close();
+            }
             return trips;
         }
 
@@ -175,11 +194,59 @@ namespace TravelApp
             return trips;
         }
 
-        public bool insertUserToTrip(string username, string trip_code)
+        public bool insertUserToTrip(string username, Trip trip)
         {
             string command = "insert into member values('"
-                + trip_code + "', '" + username + "');";
-            return DbConnection.ExecuteNonQuery(command);
+                + trip.Id + "', '" + username + "');";
+            if (DbConnection.ExecuteNonQuery(command))
+            {
+                trip.Member_Amount += 1;
+                return true;
+            }
+            return false;
+        }
+
+        public List<City> getAllCities()
+        {
+            List<City> cities = new List<City>();
+            string command = "SELECT * FROM City JOIN Country WHERE City.country=Country.name;";
+            MySqlDataReader dr = DbConnection.ExecuteQuery(command);
+            if (dr != null)
+            {
+                while (dr.Read())
+                {
+                    string id = dr.GetString("city_id");
+                    string name = dr.GetString("name");
+                    string country = dr.GetString("country");
+                    string continent = dr.GetString("continent");
+                    City c = new City(id, name, country, continent);
+                    cities.Add(c);
+                }
+                dr.Close();
+            }
+            return cities;
+
+
+
+
+
+
+        }
+
+        public void AddMemberAmount(Trip t)
+        {
+            string command = "SELECT count(username) FROM member WHERE trip_code = '"
+                + t.Id + "';";
+            MySqlDataReader dr = DbConnection.ExecuteQuery(command);
+            if (dr != null)
+            {
+                while (dr.Read())
+                {
+                    string count = dr.GetString("count(username)");
+                    t.Member_Amount = int.Parse(count);
+                }
+                dr.Close();
+            }
         }
     }
 }

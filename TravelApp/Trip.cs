@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace TravelApp
 {
-    public class Trip
+    public class Trip : INotifyPropertyChanged
     {
         string id;
         string admin;
@@ -17,6 +18,9 @@ namespace TravelApp
         int max_participants;
         bool male_only;
         bool female_only;
+        string trip_string;
+        string temp_trip_string;
+        int member_amount;
         public Trip(string _id, string _admin, DateTime _start_date, DateTime _end_date, int _min_age,
         int _max_age, int _max_participants, bool _male_only, bool _female_only)
         {
@@ -29,6 +33,26 @@ namespace TravelApp
             max_participants = _max_participants;
             male_only = _male_only;
             female_only = _female_only;
+            trip_string = "start date: " + start_date.ToString() + ", end date: " + end_date.ToString();
+            if (male_only)
+            {
+                trip_string += ",\ntrip to male only";
+            } else if (female_only)
+            {
+                trip_string += ",\ntrip to female only";
+            }
+            member_amount = 1;
+            temp_trip_string = trip_string;
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void NotifyPropertyChanged(string propName)
+        {
+            if (this.PropertyChanged != null)
+            {
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propName));
+
+            }
         }
 
         public string Id
@@ -92,6 +116,30 @@ namespace TravelApp
             get
             {
                 return female_only;
+            }
+        }
+        public string Trip_String
+        {
+            get
+            {
+                if (max_participants != null)
+                {
+                    return (temp_trip_string + ", free space: " + (max_participants - member_amount).ToString());
+                } 
+                else
+                {
+                    return trip_string;
+                }
+            }
+            set { trip_string = temp_trip_string; }
+        }
+        public int Member_Amount
+        {
+            get { return member_amount; }
+            set
+            {
+                member_amount = value;
+                NotifyPropertyChanged("Trip_String");
             }
         }
 
