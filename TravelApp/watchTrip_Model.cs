@@ -34,7 +34,11 @@ namespace TravelApp
         public List<User> getAllMembers()
         {
             List<User> users = new List<User>();
-            string command = "SELECT * FROM user;";
+            String trip_code = trip.Id;
+            trip_code = "'" + trip_code + "'";
+            string command = "SELECT * FROM user, member " +
+                "WHERE member.trip_code = " + trip_code +
+                " AND member.username = user.username;";
             MySqlDataReader dr = DbConnection.ExecuteQuery(command);
             if (dr != null)
             {
@@ -50,7 +54,11 @@ namespace TravelApp
         public List<Attraction> getAllAttraction()
         {
             List<Attraction> att = new List<Attraction>();
-            string command = "SELECT * FROM attraction;";
+            String trip_code = trip.Id;
+            trip_code = "'" + trip_code + "'";
+            string command = "SELECT * FROM attraction, trip_attractions " +
+                "WHERE trip_attractions.trip_code = " + trip_code + " " +
+                "AND trip_attractions.attraction_code = attraction.attraction_code;";
             MySqlDataReader dr = DbConnection.ExecuteQuery(command);
             if (dr != null)
             {
