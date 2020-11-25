@@ -86,7 +86,8 @@ namespace TravelApp
             }
             else
             {
-
+                editTheTrip edt = new editTheTrip(pushTrip, user);
+                edt.Show();
             }
         }
 
