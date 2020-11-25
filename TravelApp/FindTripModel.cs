@@ -226,11 +226,6 @@ namespace TravelApp
             }
             return cities;
 
-
-
-
-
-
         }
 
         public void AddMemberAmount(Trip t)
@@ -247,6 +242,36 @@ namespace TravelApp
                 }
                 dr.Close();
             }
+        }
+        public List<Attraction> GetAttractionsByCities(List<City> cities)
+        {
+            List<Attraction> attractions = new List<Attraction>();
+            string allCities = "";
+            int i = 0;
+            for(i = 0; i < cities.Count(); i++)
+            {
+                allCities += ("'" + cities[i].Id + "'");
+                if (i != cities.Count - 1)
+                {
+                    allCities += ",";
+                }
+            }
+            string command = "SELECT * FROM Attraction WHERE city_id IN(" + allCities + ");";
+            MySqlDataReader dr = DbConnection.ExecuteQuery(command);
+            if (dr != null)
+            {
+                while (dr.Read())
+                {
+                    string attraction_code = dr.GetString("attraction_code");
+                    string name = dr.GetString("name");
+                    string type = dr.GetString("type");
+                    string city_id = dr.GetString("city_id");
+                    Attraction a = new Attraction(attraction_code, name, city_id, type);
+                    attractions.Add(a);
+                }
+                dr.Close();
+            }
+            return attractions;
         }
     }
 }

@@ -3,15 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media.TextFormatting;
 
 namespace TravelApp
 {
-    class Attraction
+    public class Attraction
     {
         string attraction_code;
         string name;
         string city_id;
         string type;
+        private string attraction_string;
 
         public Attraction(string attraction_code,string name, string city_id, string type)
         {
@@ -19,6 +21,7 @@ namespace TravelApp
             this.name = name;
             this.city_id = city_id;
             this.type = type;
+            this.attraction_string = "name: " + name + ", type: " + type;
         }
         public string Attraction_code
         {
@@ -35,6 +38,10 @@ namespace TravelApp
         public string Type
         {
             get { return type; }
+        }
+        public string Attraction_String
+        {
+            get { return attraction_string; }
         }
     }
 }

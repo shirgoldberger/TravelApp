@@ -21,6 +21,7 @@ namespace TravelApp
     public partial class FindTrip : Page
     {
         FindTripModel findTrip_model;
+        private FindByLocation fbl;
         List<Trip> trips;
         private List<Language> languages;
         private List<Language> choosenLanguages;
@@ -48,6 +49,7 @@ namespace TravelApp
             Trip currentTrip = trips.Find(x => x.Id == id);
             watchTrip wt = new watchTrip(currentTrip);
             wt.Show();
+
         }
 
         
@@ -111,8 +113,14 @@ namespace TravelApp
 
         private void filter_location_Click(object sender, RoutedEventArgs e)
         {
-            FindByLocation fbl = new FindByLocation(findTrip_model);
+            if (fbl == null)
+            {
+                fbl = new FindByLocation(findTrip_model);
+            }
             fbl.Show();
+            List<Attraction> a = fbl.Attractions;
+            List<City> c = fbl.Cities;
+
         }
     }
 }

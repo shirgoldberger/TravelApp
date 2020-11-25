@@ -11,14 +11,15 @@
             <TabItem Header="City">
                 <Grid>
                     <Label Content="Choose Cities" FontWeight="Bold" FontSize="20" />
-                    <ListBox x:Name="CityListBox"  Margin="33,47,70.667,20">
-                        <ListBox.ItemTemplate>
+                    <ListView  x:Name="CityListBox"  IsTextSearchEnabled="True"   Margin="18,47,19.333,20">
+                        <ListView.ItemTemplate>
                             <DataTemplate>
-                                <CheckBox Content="{Binding name}" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked" />
+                                <CheckBox Uid="{Binding Id}" Content="{Binding City_String}" Checked="CheckBox_Checked_City" Unchecked="CheckBox_Unchecked_City" />
 
                             </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                    <TextBox x:Name="searchBoxCity" Text="{Binding Filter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Height="27" Margin="146,9,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="193" TextChanged="TextBox_TextChanged_City"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Attraction">
@@ -27,13 +28,39 @@
                     <ListBox x:Name="AttractionListBox"  Margin="19,47,22.667,20">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <CheckBox Width="222" Content="{Binding City_String}" />
-
+                                <CheckBox Uid="{Binding attraction_code}" Content="{Binding Attraction_String}" Checked="CheckBox_Checked_Attraction" Unchecked="CheckBox_Unchecked_Attraction" />
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
+                    <TextBox x:Name="searchBoxAttraction" Text="{Binding Filter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Height="21" Margin="190,9,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="149" TextChanged="TextBox_TextChanged_Attraction"/>
                 </Grid>
             </TabItem>
         </TabControl>
+
+        <Button x:Name="find" Content="Find!" HorizontalAlignment="Left" Margin="128,326,0,0.667" Width="124" FontSize="18" FontWeight="Bold" FontFamily="Segoe UI Black" Click="find_Click">
+            <Button.Template>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="bdr_main" CornerRadius="20" Margin="4" BorderThickness="1" BorderBrush="Black">
+                        <Border.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#FFF3DFBC" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center" Margin="8,6,8,6" ContentSource="Content" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="bdr_main" Property="Background">
+                                <Setter.Value>
+                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                        <GradientStop Color="#FFD19D85" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
     </Grid>
 </Window>
