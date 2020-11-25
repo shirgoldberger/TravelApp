@@ -7,13 +7,12 @@ using System.Threading.Tasks;
 
 namespace TravelApp
 {
-    class watchTrip_Model
+    class editTheTrip_Model
     {
-        public Trip trip;
-        public watchTrip_Model(Trip t)
-        {
-            this.trip = t;
+        Trip trip;
 
+        public editTheTrip_Model( Trip trip ) {
+            this.trip = trip;
         }
         public User createUser(MySqlDataReader dr)
         {
@@ -71,5 +70,30 @@ namespace TravelApp
             dr.Close();
             return att;
         }
+    
+
+        public bool update_submit(string trip_code, string admin, string start_date, string end_date, string min_age, string max_age, string max_part)
+        {
+            string start_date1 = "'" + start_date + "'";
+            string end_date1 = "'" + end_date + "'";
+            string min_age1 = "'" + min_age + "'";
+            string max_age1 = "'" + max_age + "'";
+            string max_part1 = "'" + max_part + "'";
+            string trip_code1 = "'" + trip.Id + "'";
+            string admin1 = "'" + admin + "'";
+            string command = "UPDATE trip SET trip_code = " + trip_code1 +
+                " , admin = " + admin1 + " , start_date = " + start_date1 +
+                " , end_date = " + end_date1 + " , min_age = " + min_age1 +
+                " , max_age = " + max_age1 + " , max_participants = " + max_part1 +
+                " WHERE trip_code = " + trip_code1 + " ;";
+            bool dr = DbConnection.ExecuteNonQuery(command);
+            if (dr == false)
+            {
+                return false;
+            }
+            return true;
+        }
+       
     }
 }
+

@@ -10,6 +10,11 @@ namespace TravelApp
 {
     class viewAllTrip_Model
     {
+        User user;
+        public viewAllTrip_Model(User user)
+        {
+            this.user = user;
+        }
         public Trip createTrip(MySqlDataReader dr)
         {
             string id = dr.GetString("trip_code");
@@ -28,8 +33,12 @@ namespace TravelApp
         }
         public List<Trip> getAllTrip()
         {
+            string userName = user.Username;
+            userName = "'" + userName + "'";
             List<Trip> trips = new List<Trip>();
-            string command = "SELECT * FROM trip;";
+            string command = "SELECT * FROM trip, member " +
+                "WHERE member.username = " + userName +
+                " AND member.trip_code = trip.trip_code;";
             MySqlDataReader dr = DbConnection.ExecuteQuery(command);
             if (dr != null)
             {
@@ -48,7 +57,7 @@ namespace TravelApp
             trip_code = "'" + trip_code + "'";
             string username = user.Username;
             username = "'" + username + "'";
-            string command = "DELETE FROM member WHERE trip_code = "+trip_code+"AND username = "+username+";";
+            string command = "DELETE FROM member WHERE trip_code = "+trip_code+" AND username = "+username+";";
             bool dr = DbConnection.ExecuteNonQuery(command);
             if (dr == false)
             {

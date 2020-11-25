@@ -15,30 +15,33 @@ using System.Windows.Shapes;
 namespace TravelApp
 {
     /// <summary>
-    /// Interaction logic for watchTrip.xaml
+    /// Interaction logic for editTheTrip.xaml
     /// </summary>
-    public partial class watchTrip : Window
+    public partial class editTheTrip : Window
     {
+        Trip trip;
+        User user;
+        DateTime start_date;
+        DateTime end_date;
+        private int min_age;
+        private int max_age;
+        private string genderMassage;
+        private int max_participants;
+        public bool male_only;
+        public bool female_only;
 
-       DateTime start_date; 
-       DateTime end_date;
-       private int min_age;
-       private int max_age;
-       private string genderMassage;
-       private int max_participants;
-       public bool male_only;
-       public bool female_only;
 
-
-        watchTrip_Model watchTrip_Model;
-       // viewAllTrip_Model view;
+        editTheTrip_Model model;
+        // viewAllTrip_Model view;
         List<User> members;
         List<Attraction> attractions;
 
 
 
-        public watchTrip(Trip trip)
+        public editTheTrip(Trip trip, User user)
         {
+            this.trip = trip;
+            this.user = user;
             start_date = trip.Start_Date;
             end_date = trip.End_Date;
             min_age = trip.Min_Age;
@@ -47,7 +50,7 @@ namespace TravelApp
             male_only = trip.Male_Only;
             female_only = trip.Female_Only;
             //
-            if (female_only== true)
+            if (female_only == true)
             {
                 genderMassage = "female only trip";
             }
@@ -63,23 +66,43 @@ namespace TravelApp
             //
             InitializeComponent();
             DataContext = this;
-            watchTrip_Model = new watchTrip_Model(trip);
-            members = watchTrip_Model.getAllMembers();
-            attractions = watchTrip_Model.getAllAttraction();
+            model = new editTheTrip_Model(trip);
+            members = model.getAllMembers();
+            attractions = model.getAllAttraction();
 
             allMemListBox.ItemsSource = members;
             allAttListBox.ItemsSource = attractions;
 
 
         }
+        public void Button_Click_Submit(object sender, RoutedEventArgs e)
+        {
+            string a = start_date + "," + end_date + "," + min_age + "," + max_age + "," + max_participants;
+            Console.WriteLine(a);
+            bool ans = model.update_submit(trip.Id, user.Username,Start_date, End_date, Min_age, Max_age, Max_participants);
+            if (ans == true)
+            {
+                MessageBox.Show("edit sucses");
+
+            }
+            else
+            {
+                MessageBox.Show("edit faild");
+
+            }
+        }
+        public void Button_Click_Add_Member(object sender, RoutedEventArgs e) { }
         public string Start_date
         {
-            get { return start_date.ToString(); }
+            get { return start_date.ToString("dd.MM.yyyy"); }
+            set { start_date = DateTime.Parse(value); }
 
         }
         public string End_date
         {
-            get { return end_date.ToString(); }
+            get { return end_date.ToString("dd.MM.yyyy"); }
+            set { end_date = DateTime.Parse(value); }
+
 
         }
         public string Min_age
@@ -99,7 +122,7 @@ namespace TravelApp
             set { max_participants = Convert.ToInt32(value); }
 
         }
-        
+
         public string GenderMassage
         {
             get { return genderMassage.ToString(); }
@@ -111,6 +134,9 @@ namespace TravelApp
             this.Close();
         }
 
+        private void Button_Click_Add_att(object sender, RoutedEventArgs e)
+        {
 
+        }
     }
 }

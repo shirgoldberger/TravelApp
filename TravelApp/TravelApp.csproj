@@ -124,6 +124,10 @@
     <Compile Include="City.cs" />
     <Compile Include="CreateAccoutModel.cs" />
     <Compile Include="DbConnection.cs" />
+    <Compile Include="editTheTrip.xaml.cs">
+      <DependentUpon>editTheTrip.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="editTheTrip_Model.cs" />
     <Compile Include="FindByLocation.xaml.cs">
       <DependentUpon>FindByLocation.xaml</DependentUpon>
     </Compile>
@@ -150,6 +154,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="CreateAccount.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="editTheTrip.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
