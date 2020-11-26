@@ -124,6 +124,9 @@
     <Compile Include="City.cs" />
     <Compile Include="CreateAccoutModel.cs" />
     <Compile Include="DbConnection.cs" />
+    <Compile Include="deleteTrip.xaml.cs">
+      <DependentUpon>deleteTrip.xaml</DependentUpon>
+    </Compile>
     <Compile Include="editTheTrip.xaml.cs">
       <DependentUpon>editTheTrip.xaml</DependentUpon>
     </Compile>
@@ -154,6 +157,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="CreateAccount.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="deleteTrip.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -257,6 +264,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="trip5.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="trip6.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
