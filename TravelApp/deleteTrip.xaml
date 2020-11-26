@@ -6,11 +6,13 @@
         xmlns:local="clr-namespace:TravelApp"
         mc:Ignorable="d"
         Title="deleteTrip" Height="446.318" Width="411.129">
-    <Grid Margin="0,0,338.333,-0.333">
-        <TextBox HorizontalAlignment="Left" FontFamily="Century Gothic" FontSize="25"  Height="51" Margin="0,10,-333.666,0" TextWrapping="Wrap" Text="Hey. you are the admin of this trip!" VerticalAlignment="Top" Width="400"/>
-        <TextBox HorizontalAlignment="Left" FontFamily="Century Gothic" FontSize="20"  Height="60" Margin="10,66,-333.666,0" TextWrapping="Wrap" Text="do you want to delete this trip for all members? or set new admin?" VerticalAlignment="Top" Width="390"/>
+    <Window.Background>
+        <ImageBrush ImageSource="/trip6.jpg" Stretch="Fill" />
+    </Window.Background>
+    <Grid Margin="0,0,338.333,-0.333" >
 
-
+        <TextBox Background="Transparent" HorizontalAlignment="Left"  FontFamily="Century Gothic" FontStyle="Italic" FontWeight="UltraBold" FontSize="25"  Height="61" Margin="11,10,-333.666,0" TextWrapping="Wrap" Text="Hey. you are the admin of this trip!" VerticalAlignment="Top" Width="389"/>
+        <TextBox Background="Transparent" HorizontalAlignment="Left" FontFamily="Century Gothic" FontStyle="Italic" FontWeight="UltraBold" FontSize="20"  Height="60" Margin="10,71,-333.666,0" TextWrapping="Wrap" Text="do you want to delete this trip for all members? or set new admin?" VerticalAlignment="Top" Width="390"/>
 
         <Button x:Name="yes" HorizontalAlignment="Center"
             Margin="10,131,-322.666,237" Padding="5" Width="379" Click="Button_Click_All" FontSize="20" FontWeight="Bold" Background="#FF28617A" Content="delete the trip for all members" FontFamily="Calisto MT" Cursor="Hand" RenderTransformOrigin="0.873,0.5">
@@ -46,7 +48,7 @@
             </Button.Template>
         </Button>
 
-        <ListBox x:Name="allMemListBox" HorizontalAlignment="Left" Height="137" Margin="100,260,-235.666,0" VerticalAlignment="Top" Width="202"
+        <ListBox x:Name="allMemListBox" HorizontalAlignment="Left" Height="137" Margin="121,260,-200.666,0" VerticalAlignment="Top" Width="146"
             ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderThickness="0" HorizontalContentAlignment="Stretch" Background="Transparent">
             <ListBox.ItemTemplate>
 
@@ -61,6 +63,6 @@
 
             </ListBox.ItemTemplate>
         </ListBox>
-        <TextBox HorizontalAlignment="Left"  Background="LightBlue" FontFamily="Century Gothic" FontSize="25"  Height="51" Margin="46,185,-299.666,0" TextWrapping="Wrap" Text="choose new admin from list:" VerticalAlignment="Top" Width="320"/>
+        <TextBox HorizontalAlignment="Left"  FontStyle="Italic" FontWeight="UltraBold" Background="Transparent" FontFamily="Century Gothic" FontSize="25"  Height="51" Margin="0,185,-322.666,0" TextWrapping="Wrap" Text="choose new admin from list:" VerticalAlignment="Top" Width="389"/>
     </Grid>
 </Window>
