@@ -25,25 +25,97 @@
                 <!--   <RowDefinition Height="12*" />-->
             </Grid.RowDefinitions>
 
-            <TextBlock Height="30" FontFamily="Century Gothic" FontSize="25" FontStretch="UltraExpanded" FontStyle="Italic" FontWeight="UltraBold" HorizontalAlignment="Left" Margin="94,20,0,0" Name="textBlockFirstname" Text="Username:" VerticalAlignment="Top" Width="150" Grid.Column="1"  />
-            <TextBlock Height="30" FontFamily="Century Gothic" FontSize="25" FontStretch="UltraExpanded" FontStyle="Italic" FontWeight="UltraBold" HorizontalAlignment="Left" Margin="93,60,0,0" x:Name="textBlockPhone" Text="Phone:" VerticalAlignment="Top" Width="110" Grid.Column="1" />
-            <TextBlock Height="30" FontFamily="Century Gothic" FontSize="25" FontStretch="UltraExpanded" FontStyle="Italic" FontWeight="UltraBold" HorizontalAlignment="Left" Margin="95,100,0,0" x:Name="textBlockEmail" Text="Email:" VerticalAlignment="Top" Width="110" Grid.Column="1" />
-            <TextBlock Height="35" FontFamily="Century Gothic" FontSize="25" FontStretch="UltraExpanded" FontStyle="Italic" FontWeight="UltraBold" HorizontalAlignment="Left" Margin="93,140,0,0" Name="textBlockPassword" Text="Password:" VerticalAlignment="Top" Width="149" Grid.Column="1"  />
-            <TextBlock Height="30" FontFamily="Century Gothic" FontSize="25" FontStretch="UltraExpanded" FontStyle="Italic" FontWeight="UltraBold" HorizontalAlignment="Left" Margin="93,180,0,0" Name="textBlockConfirmPwd" Text="Confirm Password:" VerticalAlignment="Top" Width="226" Grid.Column="1" />
-            <TextBlock Height="30" FontFamily="Century Gothic" FontSize="25" FontStretch="UltraExpanded" FontStyle="Italic" FontWeight="UltraBold" HorizontalAlignment="Left" Margin="93,220,0,0" Name="textBlockAddress" Text="Address:" VerticalAlignment="Top" Width="110" Grid.Column="1" />
-            <TextBox Height="23" HorizontalAlignment="Left" Margin="324,25,0,0" x:Name="textBoxUserName" VerticalAlignment="Top" Width="222" Grid.Column="1" />
-            <TextBox Height="23" HorizontalAlignment="Left" Margin="324,65,0,0" x:Name="textBoxPhone" VerticalAlignment="Top" Width="222" Grid.Column="1" />
-            <TextBox Height="24" HorizontalAlignment="Left" Margin="324,105,0,0" Name="textBoxEmail" VerticalAlignment="Top" Width="222" Grid.Column="1" />
-            <PasswordBox Height="23" HorizontalAlignment="Left" Margin="324,145,0,0" x:Name="passwordBox" VerticalAlignment="Top" Width="222" Grid.Column="1" />
+            <TextBlock Height="30" FontFamily="Ebrima" FontSize="25" FontStretch="UltraExpanded" FontWeight="UltraBold" HorizontalAlignment="Left" Margin="50,100,0,0" Name="textBlockFirstname" Text="Username:" VerticalAlignment="Top" Width="150" Grid.Column="1"  />
+            <TextBlock Height="30" FontFamily="Ebrima" FontSize="25" FontStretch="UltraExpanded" FontWeight="UltraBold" HorizontalAlignment="Left" Margin="50,140,0,0" x:Name="textBlockPhone" Text="Phone:" VerticalAlignment="Top" Width="110" Grid.Column="1" />
+            <TextBlock Height="30" FontFamily="Ebrima" FontSize="25" FontStretch="UltraExpanded" HorizontalAlignment="Left" Margin="50,181,0,0" x:Name="textBlockEmail" Text="Email:" VerticalAlignment="Top" Width="110" Grid.Column="1" FontWeight="Bold" />
+            <TextBlock Height="35" FontFamily="Ebrima" FontSize="25" FontStretch="UltraExpanded" FontWeight="UltraBold" HorizontalAlignment="Left" Margin="50,223,0,0" Name="textBlockPassword" Text="Password:" VerticalAlignment="Top" Width="149" Grid.Column="1"  />
+            <TextBlock Height="30" FontFamily="Ebrima" FontSize="25" FontStretch="UltraExpanded" FontWeight="UltraBold" HorizontalAlignment="Left" Margin="50,261,0,0" Name="textBlockConfirmPwd" Text="Confirm Password:" VerticalAlignment="Top" Width="226" Grid.Column="1" />
+            <TextBlock Height="30" FontFamily="Ebrima" FontSize="25" FontStretch="UltraExpanded" FontWeight="UltraBold" HorizontalAlignment="Left" Margin="50,298,0,0" Name="textBlockAddress" Text="Address:" VerticalAlignment="Top" Width="110" Grid.Column="1" />
+            <TextBox Height="23" HorizontalAlignment="Left" Margin="186,110,0,0" x:Name="textBoxUserName" VerticalAlignment="Top" Width="222" Grid.Column="1" />
+            <TextBox Height="23" HorizontalAlignment="Left" Margin="142,148,0,0" x:Name="textBoxPhone" VerticalAlignment="Top" Width="222" Grid.Column="1" />
+            <TextBox Height="24" HorizontalAlignment="Left" Margin="132,192,0,0" Name="textBoxEmail" VerticalAlignment="Top" Width="222" Grid.Column="1" />
+            <PasswordBox Height="23" HorizontalAlignment="Left" Margin="181,230,0,0" x:Name="passwordBox" VerticalAlignment="Top" Width="222" Grid.Column="1" />
             <!--For password-->
-            <PasswordBox Height="23" HorizontalAlignment="Left" Margin="324,185,0,0" Name="passwordBoxConfirm" VerticalAlignment="Top" Width="222" Grid.Column="1" />
-            <TextBox Height="23" HorizontalAlignment="Left" Margin="323,0,0,343.333" Name="textBoxAddress" VerticalAlignment="Bottom" Width="222" Grid.Column="1" />
-            <Button Content="Submit" FontFamily="Century Gothic" FontSize="25" FontStretch="UltraExpanded" FontStyle="Italic" FontWeight="UltraBold" Height="37" HorizontalAlignment="Left" Margin="249,459,0,0" x:Name="submitButton" VerticalAlignment="Top" Width="120" Click="Submit_Click" Grid.Column="1" />
-            <Button Content="Reset" FontFamily="Century Gothic" FontSize="25" FontStretch="UltraExpanded" FontStyle="Italic" FontWeight="UltraBold" Height="37" HorizontalAlignment="Left" Margin="487,459,0,0" x:Name="resetButton" VerticalAlignment="Top" Width="120" Click="resetButton_Click" Grid.Column="1" />
-            <Button Content="Cancel" FontFamily="Century Gothic" FontSize="25" FontStretch="UltraExpanded" FontStyle="Italic" FontWeight="UltraBold" Height="37" HorizontalAlignment="Right" Margin="0,459,262,0" x:Name="cancelButton" VerticalAlignment="Top" Width="120" Click="cancel_Click" RenderTransformOrigin="0.31,0.57" Grid.Column="1" />
-            <CheckBox FontFamily="Century Gothic" FontSize="25" FontStretch="UltraExpanded" FontStyle="Italic" FontWeight="UltraBold" x:Name="female" Content="Female" Checked="female_Checked" HorizontalAlignment="Left" Margin="91,340,0,0" VerticalAlignment="Top" Grid.Column="1" Height="29" Width="110"/>
-            <TextBlock Height="30" FontFamily="Century Gothic" FontSize="25" FontStretch="UltraExpanded" FontStyle="Italic" FontWeight="UltraBold" HorizontalAlignment="Left" Margin="93,300,0,0" x:Name="textBlockLanguages" Text="Languages:" VerticalAlignment="Top" Width="147" Grid.Column="1" />
-            <ComboBox x:Name="languagesComboBox" TextBoxBase.TextChanged="Languages_TextChanged" HorizontalAlignment="Left" Margin="324,308,0,0" VerticalAlignment="Top" Width="222" Grid.Column="1" Height="22" IsEditable="True">
+            <PasswordBox Height="23" HorizontalAlignment="Left" Margin="282,270,0,0" Name="passwordBoxConfirm" VerticalAlignment="Top" Width="222" Grid.Column="1" />
+            <TextBox Height="23" HorizontalAlignment="Left" Margin="161,0,0,262.333" Name="textBoxAddress" VerticalAlignment="Bottom" Width="222" Grid.Column="1" />
+            <Button Content="Submit" FontFamily="Century Gothic" FontSize="25" FontStretch="UltraExpanded" FontWeight="Bold" Height="52" HorizontalAlignment="Left" Margin="247,500,0,0" x:Name="submitButton" VerticalAlignment="Top" Width="120" Click="Submit_Click" Grid.Column="1">
+                <Button.Template>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="bdr_main" CornerRadius="20" Margin="4" BorderThickness="1" BorderBrush="Black">
+                            <Border.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#FFF3DFBC" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Border.Background>
+                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center" Margin="8,6,8,6" ContentSource="Content" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="bdr_main" Property="Background">
+                                    <Setter.Value>
+                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                            <GradientStop Color="#FFD19D85" Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <Button Content="Reset" FontFamily="Century Gothic" FontSize="25" FontStretch="UltraExpanded" FontWeight="Bold" Height="52" HorizontalAlignment="Left" Margin="469,500,0,0" x:Name="resetButton" VerticalAlignment="Top" Width="120" Click="resetButton_Click" Grid.Column="1">
+                <Button.Template>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="bdr_main" CornerRadius="20" Margin="4" BorderThickness="1" BorderBrush="Black">
+                            <Border.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#FFF3DFBC" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Border.Background>
+                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center" Margin="8,6,8,6" ContentSource="Content" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="bdr_main" Property="Background">
+                                    <Setter.Value>
+                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                            <GradientStop Color="#FFD19D85" Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <Button Content="Cancel" FontFamily="Century Gothic" FontSize="25" FontStretch="UltraExpanded" FontWeight="Bold" Height="50" HorizontalAlignment="Right" Margin="0,500,267,0" x:Name="cancelButton" VerticalAlignment="Top" Width="120" Click="cancel_Click" RenderTransformOrigin="0.31,0.57" Grid.Column="1">
+                <Button.Template>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="bdr_main" CornerRadius="20" Margin="4" BorderThickness="1" BorderBrush="Black">
+                            <Border.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#FFF3DFBC" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Border.Background>
+                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center" Margin="8,6,8,6" ContentSource="Content" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="bdr_main" Property="Background">
+                                    <Setter.Value>
+                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                            <GradientStop Color="#FFD19D85" Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <CheckBox FontFamily="Ebrima" FontSize="25" FontStretch="UltraExpanded" FontWeight="UltraBold" x:Name="female" Content="Female" Checked="female_Checked" HorizontalAlignment="Left" Margin="154,432,0,0" VerticalAlignment="Top" Grid.Column="1" Height="29" Width="118"/>
+            <TextBlock Height="38" FontFamily="Ebrima" FontSize="25" FontStretch="UltraExpanded" FontWeight="UltraBold" HorizontalAlignment="Left" Margin="50,368,0,0" x:Name="textBlockLanguages" Text="Languages:" VerticalAlignment="Top" Width="147" Grid.Column="1" />
+            <ComboBox x:Name="languagesComboBox" TextBoxBase.TextChanged="Languages_TextChanged" HorizontalAlignment="Left" Margin="193,376,0,0" VerticalAlignment="Top" Width="222" Grid.Column="1" Height="22" IsEditable="True">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <CheckBox Name="checkCountry" Width="222" Checked="MyCheckedAndUnchecked" Unchecked="MyCheckedAndUnchecked" Content="{Binding Name}" IsChecked="{Binding Check_Status}" CommandParameter="{Binding LanguageID}">
@@ -51,10 +123,20 @@
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
+            <Label Grid.ColumnSpan="2" Content="Create Your Account" HorizontalAlignment="Left" Height="78" Margin="207,20,0,0" VerticalAlignment="Top" Width="675" FontSize="48" FontFamily="Perpetua Titling MT" FontWeight="Bold"/>
+            <TextBlock Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="639,122,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="86" Width="334" FontSize="25" FontFamily="Ebrima" FontWeight="Bold" TextAlignment="Center"><Run Text="Want to add friends? "/><LineBreak/><Run Text="Search their "/><Run Text="username here"/><Run Text=":"/></TextBlock>
+            <ComboBox x:Name="UserComboBox" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="640,198,0,0" VerticalAlignment="Top" Width="334" Height="29">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <CheckBox Uid="{Binding Username}" Name="checkFruend" Width="222" Checked="Checked_Friend" Unchecked="Unchecked_Friend" Content="{Binding Username}" IsChecked="{Binding Check_Status}">
+                        </CheckBox>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
         </Grid>
-        <TextBox Height="23" HorizontalAlignment="Left" Margin="329,0,0,302.666" x:Name="textBoxAge" VerticalAlignment="Bottom" Width="222" />
-        <CheckBox x:Name="male" FontFamily="Century Gothic" FontSize="25" FontStretch="UltraExpanded" FontStyle="Italic" FontWeight="UltraBold" Content="Male" Checked="male_Checked" HorizontalAlignment="Left" Margin="97,380,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="exitButton" Content="EXIT"  HorizontalAlignment="Right" VerticalAlignment="Top" Width="52" FontWeight="Bold" Click="Button_Click_Exit" Margin="0,49,48,0" Height="43" FontFamily="BN Eyal" FontSize="10" Cursor="Hand" RenderTransformOrigin="-0.534,1.361" Background="#FFDDDDDD" Foreground="White">
+        <TextBox Height="23" HorizontalAlignment="Left" Margin="112,0,0,228.666" x:Name="textBoxAge" VerticalAlignment="Bottom" Width="222" />
+        <CheckBox x:Name="male" FontFamily="Ebrima" FontSize="25" FontStretch="UltraExpanded" FontWeight="UltraBold" Content="Male" Checked="male_Checked" HorizontalAlignment="Left" Margin="65,433,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="exitButton" Content="EXIT"  HorizontalAlignment="Right" VerticalAlignment="Top" Width="54" FontWeight="Bold" Click="Button_Click_Exit" Margin="0,11,10,0" Height="50" FontFamily="BN Eyal" FontSize="10" Cursor="Hand" RenderTransformOrigin="-0.534,1.361" Background="#FFDDDDDD" Foreground="White">
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Border x:Name="bdr_main" CornerRadius="20" Margin="4" BorderThickness="1" BorderBrush="Black">
@@ -83,6 +165,6 @@
                 </ControlTemplate>
             </Button.Template>
         </Button>
-        <TextBlock Height="30" FontFamily="Century Gothic" FontSize="25" FontStretch="UltraExpanded" FontStyle="Italic" FontWeight="UltraBold" HorizontalAlignment="Left" Margin="97,260,0,0" x:Name="textBlockAge" Text="Age:" VerticalAlignment="Top" Width="110" />
+        <TextBlock Height="40" FontFamily="Ebrima" FontSize="25" FontStretch="UltraExpanded" FontWeight="UltraBold" HorizontalAlignment="Left" Margin="50,331,0,0" x:Name="textBlockAge" Text="Age:" VerticalAlignment="Top" Width="110" />
     </Grid>
 </Page>

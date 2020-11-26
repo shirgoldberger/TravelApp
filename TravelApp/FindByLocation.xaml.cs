@@ -83,7 +83,10 @@ namespace TravelApp
         {
             string id = ((CheckBox)sender).Uid.ToString();
             City currentCity = cities.Find(x => x.Id == id);
-            selectedCities.Remove(currentCity);
+            if (selectedCities.Exists(x => x.Id == id))
+            {
+                selectedCities.Remove(currentCity);
+            }
             if (selectedCities.Count() == 0)
             {
                 selectedCities = cities;

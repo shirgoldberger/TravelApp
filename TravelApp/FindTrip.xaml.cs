@@ -25,6 +25,8 @@ namespace TravelApp
         List<Trip> trips;
         private List<Language> languages;
         private List<Language> choosenLanguages;
+        private List<City> choosenCities;
+        private List<Attraction> choosenAttractions;
         string username;
         public FindTrip(string _username)
         {
@@ -81,6 +83,10 @@ namespace TravelApp
             {
                 MessageBox.Show("There are no trips that match this search");
             }
+            if (choosenAttractions.Count() != 0)
+            {
+                trips.AddRange(findTrip_model.findTripByAttractions(choosenAttractions));
+            }
         }
 
         private void MyCheckedAndUnchecked(object sender, RoutedEventArgs e)
@@ -118,9 +124,8 @@ namespace TravelApp
                 fbl = new FindByLocation(findTrip_model);
             }
             fbl.Show();
-            List<Attraction> a = fbl.Attractions;
-            List<City> c = fbl.Cities;
-
+            choosenCities = fbl.SelectedCities;
+            choosenAttractions = fbl.SelectedAttractions; 
         }
     }
 }

@@ -66,7 +66,7 @@ namespace TravelApp
                             string username = dr2.GetString("username");
                             string password = dr2.GetString("password");
                             dr2.Close();
-                            FindTrip up = new FindTrip(username);
+                            UserPage up = new UserPage(username, password);
                             this.NavigationService.Navigate(up);
                             return;
                         }

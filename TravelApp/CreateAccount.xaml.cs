@@ -29,20 +29,44 @@ namespace TravelApp
         private CreateAccoutModel ca_model;
         private List<Language> languages;
         private List<Language> choosenLanguages;
+        private List<User> users;
+        private List<User> choosenFriends;
         public CreateAccount()
         {
             InitializeComponent();
             ca_model = new CreateAccoutModel();
             choosenLanguages = new List<Language>();
+            choosenFriends = new List<User>();
             languages = ca_model.getLanguages();
             languagesComboBox.ItemsSource = languages;
+            users = ca_model.getUsers();
+            UserComboBox.ItemsSource = users;
         }
-
+        
         private void MyCheckedAndUnchecked(object sender, RoutedEventArgs e)
         {
             var baseobj = sender as FrameworkElement;
             var language = baseobj.DataContext as Language;
             BindListBox(language);
+        }
+
+        private void Checked_Friend(object sender, RoutedEventArgs e)
+        {
+            string id = ((CheckBox)sender).Uid.ToString();
+            User currentUser = users.Find(x => x.Username == id);
+            if (!choosenFriends.Exists(x => x.Username == id))
+            {
+                choosenFriends.Add(currentUser);
+            }
+        }
+        private void Unchecked_Friend(object sender, RoutedEventArgs e)
+        {
+            string id = ((CheckBox)sender).Uid.ToString();
+            User currentUser = users.Find(x => x.Username == id);
+            if (choosenFriends.Exists(x => x.Username == id))
+            {
+                choosenFriends.Remove(currentUser);
+            }
         }
 
         private void resetLanguages()
@@ -153,7 +177,7 @@ namespace TravelApp
                 else
                 {
                     int flag = ca_model.createAccount(textBoxUserName.Text, textBoxPhone.Text,
-                        textBoxEmail.Text, passwordBox.Password, textBoxAddress.Text, age, gender);
+                        textBoxEmail.Text, passwordBox.Password, textBoxAddress.Text, age, gender, choosenFriends);
                     if(flag == 0)
                     {
                         HomePage up = new HomePage();

@@ -186,9 +186,10 @@ namespace TravelApp
             return t;
         }
 
-        public List<Trip> findTripByLocation()
+        public List<Trip> findTripByAttractions(List<Attraction> attractions)
         {
             List<Trip> trips = new List<Trip>();
+            string command;
 
 
             return trips;

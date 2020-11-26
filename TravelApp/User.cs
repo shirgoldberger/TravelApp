@@ -30,6 +30,10 @@ namespace TravelApp
             username = _username;
             password = _password;
         }
+        public User(string _username)
+        {
+            username = _username;
+        }
 
         public string Username
         {

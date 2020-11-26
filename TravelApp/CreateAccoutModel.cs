@@ -14,8 +14,8 @@ namespace TravelApp
 
         }
 
-        public int createAccount(string username, string phone, string email, string password, 
-            string address, int stringAge, char is_male)
+        public int createAccount(string username, string phone, string email, string password,
+            string address, int stringAge, char is_male, List<User> friends)
         {
             string command = "SELECT username FROM user WHERE username='" + username + "';";
             MySqlDataReader dr = DbConnection.ExecuteQuery(command);
@@ -32,6 +32,18 @@ namespace TravelApp
                 if (DbConnection.ExecuteNonQuery(command))
                 {
                     dr.Close();
+                    // insert friends here
+                    int i;
+                    string friendString = "";
+                    for (i = 0; i < friends.Count(); i++)
+                    {
+                        friendString += ("('" + username + "', '" +
+                            friends[i].Username + "')");
+                        if (i != friends.Count() - 1)
+                        {
+                            friendString += ", ";
+                        }
+                    }
                     return 0;
                 }
                 else
@@ -60,6 +72,24 @@ namespace TravelApp
             }
             dr.Close();
             return languages;
+        }
+
+        public List<User> getUsers()
+        {
+            List<User> users = new List<User>();
+            string command = "SELECT * FROM User;";
+            MySqlDataReader dr = DbConnection.ExecuteQuery(command);
+            if (dr != null)
+            {
+                while (dr.Read())
+                {
+                    string name = dr.GetString("username");
+                    User u = new User(name);
+                    users.Add(u);
+                }
+                dr.Close();
+            }
+            return users;
         }
     }
 }
