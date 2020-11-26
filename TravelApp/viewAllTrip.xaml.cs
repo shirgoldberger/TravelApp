@@ -56,21 +56,35 @@ namespace TravelApp
         {
             var item = ((Button)sender).DataContext;
             var itemIndex = buttomDelete.Items.IndexOf(item);
-            bool a= view.deleteTrip(trips[itemIndex], user);
-            if (a == false)
+            //check if he is the admin of this trip.
+            if (user.Username == trips[itemIndex].Admin)
             {
-                MessageBox.Show("delete failed");
-
-            }
-            if (a== true)
-            {
-                MessageBox.Show("delete sucses");
+                deleteTrip delete = new deleteTrip(trips[itemIndex], view, user);
+                delete.Show();
                 trips = view.getAllTrip();
                 allTripsListBox.ItemsSource = trips;
                 buttomDelete.ItemsSource = trips;
                 buttomEdit.ItemsSource = trips;
                 choosenLanguages = new List<Language>();
+            }
+            else
+            {
+                bool a = view.deleteTrip(trips[itemIndex], user);
+                if (a == false)
+                {
+                    MessageBox.Show("delete failed");
 
+                }
+                if (a == true)
+                {
+                    MessageBox.Show("delete sucses");
+                    trips = view.getAllTrip();
+                    allTripsListBox.ItemsSource = trips;
+                    buttomDelete.ItemsSource = trips;
+                    buttomEdit.ItemsSource = trips;
+                    choosenLanguages = new List<Language>();
+
+                }
             }
 
         }
