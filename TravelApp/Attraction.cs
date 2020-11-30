@@ -7,6 +7,7 @@ using System.Windows.Media.TextFormatting;
 
 namespace TravelApp
 {
+    
     public class Attraction
     {
         string attraction_code;

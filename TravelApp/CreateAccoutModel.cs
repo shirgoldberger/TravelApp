@@ -40,12 +40,12 @@ namespace TravelApp
                             friendString += ", ";
                         }
                     }
-                    command = "insert into Friend VALUES " + friendString;
+                    command = "insert into Friends VALUES " + friendString + ";";
                     if (DbConnection.ExecuteNonQuery(command))
                     {
                         // insert languages here
                         string languageString = "";
-                        for (i = 0; i < friends.Count(); i++)
+                        for (i = 0; i < languages.Count(); i++)
                         {
                             languageString += ("('" + username + "', '" +
                                 languages[i] + "')");
@@ -54,6 +54,7 @@ namespace TravelApp
                                 languageString += ", ";
                             }
                         }
+                        command = "insert into user_languages VALUES " + languageString + ";";
                         if (DbConnection.ExecuteNonQuery(command))
                         {
                             return 0;

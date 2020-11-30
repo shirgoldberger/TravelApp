@@ -26,7 +26,9 @@ namespace TravelApp
         List<Trip> trips;
         private List<String> languages;
         private List<String> choosenLanguages;
+        private List<City> cities;
         private List<City> choosenCities;
+        private List<Attraction> attractions;
         private List<Attraction> choosenAttractions;
         private DateTime startDate;
         private DateTime endDate;
@@ -48,6 +50,18 @@ namespace TravelApp
             members = findTrip_model.getFriendsForUser(this.username);
             membersComboBox.ItemsSource = members;
             choosenMembers = new List<string>();
+            getCitiesAndAttractions();
+        }
+
+        private async void getCitiesAndAttractions()
+        {
+            cities = await GetListAsync();
+            attractions =  findTrip_model.GetAttractionsByCities(cities);
+        }
+        private async Task<List<City>> GetListAsync()
+        {
+            List<City> list = await Task.Run(() => findTrip_model.getAllCities());
+            return list;
         }
 
         private void Languages_TextChanged(object sender, EventArgs e)
@@ -166,7 +180,7 @@ namespace TravelApp
         {
             if (fbl == null)
             {
-                fbl = new FindByLocation(findTrip_model);
+                fbl = new FindByLocation(findTrip_model, cities, attractions);
             }
             fbl.Show();
             choosenCities = fbl.SelectedCities;

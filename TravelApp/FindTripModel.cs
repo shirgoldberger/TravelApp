@@ -297,6 +297,7 @@ namespace TravelApp
                         friends.Add(name2);
                     }
                 }
+                dr.Close();
             }
             return friends;
         }
