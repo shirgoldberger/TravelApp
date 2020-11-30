@@ -9,13 +9,9 @@ namespace TravelApp
 {
     class CreateAccoutModel
     {
-        public CreateAccoutModel()
-        {
-
-        }
 
         public int createAccount(string username, string phone, string email, string password,
-            string address, int stringAge, char is_male, List<User> friends)
+            string address, int stringAge, char is_male, List<String> friends, List<String> languages)
         {
             string command = "SELECT username FROM user WHERE username='" + username + "';";
             MySqlDataReader dr = DbConnection.ExecuteQuery(command);
@@ -38,13 +34,31 @@ namespace TravelApp
                     for (i = 0; i < friends.Count(); i++)
                     {
                         friendString += ("('" + username + "', '" +
-                            friends[i].Username + "')");
+                            friends[i] + "')");
                         if (i != friends.Count() - 1)
                         {
                             friendString += ", ";
                         }
                     }
-                    return 0;
+                    command = "insert into Friend VALUES " + friendString;
+                    if (DbConnection.ExecuteNonQuery(command))
+                    {
+                        // insert languages here
+                        string languageString = "";
+                        for (i = 0; i < friends.Count(); i++)
+                        {
+                            languageString += ("('" + username + "', '" +
+                                languages[i] + "')");
+                            if (i != languages.Count() - 1)
+                            {
+                                languageString += ", ";
+                            }
+                        }
+                        if (DbConnection.ExecuteNonQuery(command))
+                        {
+                            return 0;
+                        }
+                    }
                 }
                 else
                 {
@@ -56,27 +70,26 @@ namespace TravelApp
             {
                 return 2;
             }
+            return 2;
         }
 
-        public List<Language> getLanguages()
+        public List<String> getLanguages()
         {
-            List<Language> languages = new List<Language>();
+            List<String> languages = new List<String>();
             string command = "SELECT * FROM Language;";
             MySqlDataReader dr = DbConnection.ExecuteQuery(command);
             while (dr.Read())
             {
                 string name = dr.GetString("name");
-                string id = dr.GetString("language_code");
-                Language l = new Language(id, name);
-                languages.Add(l);
+                languages.Add(name);
             }
             dr.Close();
             return languages;
         }
 
-        public List<User> getUsers()
+        public List<String> getUsers()
         {
-            List<User> users = new List<User>();
+            List<String> users = new List<String>();
             string command = "SELECT * FROM User;";
             MySqlDataReader dr = DbConnection.ExecuteQuery(command);
             if (dr != null)
@@ -84,8 +97,7 @@ namespace TravelApp
                 while (dr.Read())
                 {
                     string name = dr.GetString("username");
-                    User u = new User(name);
-                    users.Add(u);
+                    users.Add(name);
                 }
                 dr.Close();
             }

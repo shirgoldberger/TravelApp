@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Org.BouncyCastle.Crypto.Tls;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,28 +24,42 @@ namespace TravelApp
         FindTripModel findTrip_model;
         private FindByLocation fbl;
         List<Trip> trips;
-        private List<Language> languages;
-        private List<Language> choosenLanguages;
+        private List<String> languages;
+        private List<String> choosenLanguages;
         private List<City> choosenCities;
         private List<Attraction> choosenAttractions;
+        private DateTime startDate;
+        private DateTime endDate;
+        private List<String> members;
+        private List<String> choosenMembers;
         string username;
         public FindTrip(string _username)
         {
             InitializeComponent();
+            //tripDate.SelectedDate = DateTime.Now.AddDays(1);
             username = _username;
             findTrip_model = new FindTripModel();
             trips = findTrip_model.getTripForUser(username);
             allTripsListBox.ItemsSource = trips;
             joinTripListBox.ItemsSource = trips;
-            choosenLanguages = new List<Language>();
+            choosenLanguages = new List<String>();
             languages = findTrip_model.getLanguages();
             languagesComboBox.ItemsSource = languages;
+            members = findTrip_model.getFriendsForUser(this.username);
+            membersComboBox.ItemsSource = members;
+            choosenMembers = new List<string>();
         }
 
         private void Languages_TextChanged(object sender, EventArgs e)
         {
-            languagesComboBox.ItemsSource = languages.Where(x => x.Name.StartsWith(languagesComboBox.Text.Trim()));
+            languagesComboBox.ItemsSource = languages.Where(x => x.StartsWith(languagesComboBox.Text.Trim()));
         }
+        
+        private void Members_TextChanged(object sender, EventArgs e)
+        {
+            membersComboBox.ItemsSource = members.Where(x => x.StartsWith(languagesComboBox.Text.Trim()));
+        }
+
         private void clickOnTrip(object sender, RoutedEventArgs e)
         {
             string id = ((Button)sender).Uid.ToString();
@@ -54,7 +69,6 @@ namespace TravelApp
 
         }
 
-        
         private void clickJoinTrip(object sender, RoutedEventArgs e)
         {
             string id = ((Button)sender).Uid.ToString();
@@ -73,48 +87,79 @@ namespace TravelApp
             if (ageText.Text.ToString() != "")
             {
                 age = int.Parse(ageText.Text.ToString());
+                trips = findTrip_model.findTripByAge(age);
             }
-            trips = findTrip_model.findTripByAge(age);
-            trips.AddRange(findTrip_model.findTripByLanguage(choosenLanguages));
+            if (choosenLanguages.Count() != 0)
+            {
+                trips.AddRange(findTrip_model.findTripByLanguage(choosenLanguages));
+            }
+            if (choosenAttractions.Count() != 0)
+            {
+                trips.AddRange(findTrip_model.findTripByAttractions(choosenAttractions));
+            }
+            if (startDate != null && endDate != null)
+            {
 
+            }
+            if (choosenMembers.Count() != 0)
+            {
+                trips.AddRange(findTrip_model.findTripByMember(choosenMembers));
+
+            }
             allTripsListBox.ItemsSource = trips;
             joinTripListBox.ItemsSource = trips;
             if (allTripsListBox.Items.Count == 0)
             {
                 MessageBox.Show("There are no trips that match this search");
             }
-            if (choosenAttractions.Count() != 0)
+        }
+
+        private void Checked_Member(object sender, RoutedEventArgs e)
+        {
+            string username = ((CheckBox)sender).Uid.ToString();
+            if (!choosenMembers.Exists(x => x == username))
             {
-                trips.AddRange(findTrip_model.findTripByAttractions(choosenAttractions));
+                choosenMembers.Add(username);
             }
         }
 
-        private void MyCheckedAndUnchecked(object sender, RoutedEventArgs e)
+        private void Unchecked_Member(object sender, RoutedEventArgs e)
         {
-            var baseobj = sender as FrameworkElement;
-            var language = baseobj.DataContext as Language;
-            BindListBox(language);
+            string username = ((CheckBox)sender).Uid.ToString();
+            if (choosenMembers.Exists(x => x == username))
+            {
+                choosenMembers.Remove(username);
+            }
+        }
+
+        private void Checked_Language(object sender, RoutedEventArgs e)
+        {
+            string name = ((CheckBox)sender).Uid.ToString();
+            if (!choosenLanguages.Exists(x => x == name))
+            {
+                choosenLanguages.Add(name);
+            }
+        }
+
+        private void Unchecked_Language(object sender, RoutedEventArgs e)
+        {
+            string name = ((CheckBox)sender).Uid.ToString();
+            if (choosenLanguages.Exists(x => x == name))
+            {
+                choosenLanguages.Remove(name);
+            }
         }
 
         private void resetLanguages()
         {
             choosenLanguages.Clear();
-            foreach (var language in languages)
-            {
-                language.Check_Status = false;
-            }
             languagesComboBox.SelectedIndex = -1;
         }
-        private void BindListBox(Language language)
+
+        private void resetMembers()
         {
-            if (language.Check_Status)
-            {
-                choosenLanguages.Add(language);
-            }
-            else
-            {
-                choosenLanguages.Remove(language);
-            }
+            choosenLanguages.Clear();
+            languagesComboBox.SelectedIndex = -1;
         }
 
         private void filter_location_Click(object sender, RoutedEventArgs e)
@@ -126,6 +171,28 @@ namespace TravelApp
             fbl.Show();
             choosenCities = fbl.SelectedCities;
             choosenAttractions = fbl.SelectedAttractions; 
+        }
+
+        private void tripDate_SelectedDatesChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+            var calendar = sender as Calendar;
+            // ... See if a date is selected.
+            if (calendar.SelectedDate.HasValue)
+            {
+                startDate = calendar.SelectedDates[0];
+                int len = calendar.SelectedDates.Count();
+                endDate = calendar.SelectedDates[len - 1];
+            }
+        }
+
+        private void Button_Click_Reset(object sender, RoutedEventArgs e)
+        {
+            resetLanguages();
+            resetMembers();
+            ageText.Text = "";
+            tripDate.SelectedDate = null;
+            tripDate.DisplayDate = DateTime.Today;
         }
     }
 }

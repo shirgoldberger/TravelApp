@@ -1,4 +1,5 @@
-﻿using MySql.Data.MySqlClient;
+﻿using Microsoft.Win32;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +27,7 @@ namespace TravelApp
                 max_age, max_participants, male_only, female_only);
             return t;
         }
+
         public List<Trip> getTripsByCommand(string command)
         {
             List<Trip> trips = new List<Trip>();
@@ -84,9 +86,9 @@ namespace TravelApp
             return getTripsByCommand(command);
         }
 
-        public List<Language> getLanguages()
+        public List<String> getLanguages()
         {
-            List<Language> languages = new List<Language>();
+            List<String> languages = new List<String>();
             string command = "SELECT * FROM Language;";
             MySqlDataReader dr = DbConnection.ExecuteQuery(command);
             if (dr != null)
@@ -94,23 +96,21 @@ namespace TravelApp
                 while (dr.Read())
                 {
                     string name = dr.GetString("name");
-                    string id = dr.GetString("language_code");
-                    Language l = new Language(id, name);
-                    languages.Add(l);
+                    languages.Add(name);
                 }
                 dr.Close();
             }
             return languages;
         }
 
-        public List<Trip> findTripByLanguage(List<Language> languages)
+        public List<Trip> findTripByLanguage(List<String> languages)
         {
             List<Trip> trips = new List<Trip>();
             string allLanguages = "";
             int i;
             for(i = 0; i < languages.Count; i++)
             {
-                allLanguages += ("'" + languages[i].Name + "'");
+                allLanguages += ("'" + languages[i] + "'");
                 if (i != languages.Count - 1)
                 {
                     allLanguages += ",";
@@ -137,14 +137,14 @@ namespace TravelApp
             return trips;
         }
 
-        public List<Trip> findTripByMember(List<User> users)
+        public List<Trip> findTripByMember(List<String> users)
         {
             List<Trip> trips = new List<Trip>();
             string allUsers = "";
             int i;
             for (i = 0; i < users.Count; i++)
             {
-                allUsers += ("'" + users[i].Username + "'");
+                allUsers += ("'" + users[i] + "'");
                 if (i != users.Count - 1)
                 {
                     allUsers += ",";
@@ -244,6 +244,7 @@ namespace TravelApp
                 dr.Close();
             }
         }
+
         public List<Attraction> GetAttractionsByCities(List<City> cities)
         {
             List<Attraction> attractions = new List<Attraction>();
@@ -273,6 +274,31 @@ namespace TravelApp
                 dr.Close();
             }
             return attractions;
+        }
+
+        public List<String> getFriendsForUser(string username)
+        {
+            List<String> friends = new List<string>();
+            string command = "SELECT * FROM Friends WHERE username1='" + username
+                + "' OR username2='" + username + "';";
+            MySqlDataReader dr = DbConnection.ExecuteQuery(command);
+            if (dr != null)
+            {
+                while (dr.Read())
+                {
+                    string name1 = dr.GetString("username1");
+                    string name2 = dr.GetString("username2");
+                    if (name1 != username)
+                    {
+                        friends.Add(name1);
+                    } 
+                    else if (name2 != username)
+                    {
+                        friends.Add(name2);
+                    }
+                }
+            }
+            return friends;
         }
     }
 }

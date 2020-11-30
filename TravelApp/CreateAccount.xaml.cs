@@ -27,74 +27,71 @@ namespace TravelApp
     public partial class CreateAccount : Page
     {
         private CreateAccoutModel ca_model;
-        private List<Language> languages;
-        private List<Language> choosenLanguages;
-        private List<User> users;
-        private List<User> choosenFriends;
+        private List<String> languages;
+        private List<String> choosenLanguages;
+        private List<String> users;
+        private List<String> choosenFriends;
         public CreateAccount()
         {
             InitializeComponent();
             ca_model = new CreateAccoutModel();
-            choosenLanguages = new List<Language>();
-            choosenFriends = new List<User>();
+            choosenLanguages = new List<String>();
+            choosenFriends = new List<String>();
             languages = ca_model.getLanguages();
             languagesComboBox.ItemsSource = languages;
             users = ca_model.getUsers();
-            UserComboBox.ItemsSource = users;
+            List<String> us = new List<string>();
+            friendsComboBox.ItemsSource = users;
         }
         
-        private void MyCheckedAndUnchecked(object sender, RoutedEventArgs e)
-        {
-            var baseobj = sender as FrameworkElement;
-            var language = baseobj.DataContext as Language;
-            BindListBox(language);
-        }
-
         private void Checked_Friend(object sender, RoutedEventArgs e)
         {
-            string id = ((CheckBox)sender).Uid.ToString();
-            User currentUser = users.Find(x => x.Username == id);
-            if (!choosenFriends.Exists(x => x.Username == id))
+            string username = ((CheckBox)sender).Uid.ToString();
+            if (!choosenFriends.Exists(x => x == username))
             {
-                choosenFriends.Add(currentUser);
+                choosenFriends.Add(username);
             }
         }
         private void Unchecked_Friend(object sender, RoutedEventArgs e)
         {
-            string id = ((CheckBox)sender).Uid.ToString();
-            User currentUser = users.Find(x => x.Username == id);
-            if (choosenFriends.Exists(x => x.Username == id))
+            string username = ((CheckBox)sender).Uid.ToString();
+            if (choosenFriends.Exists(x => x == username))
             {
-                choosenFriends.Remove(currentUser);
+                choosenFriends.Remove(username);
             }
         }
 
         private void resetLanguages()
         {
             choosenLanguages.Clear();
-            foreach (var language in languages)
-            {
-                language.Check_Status = false;
-            }
+            languagesComboBox.Text = "";
             languagesComboBox.SelectedIndex = -1;
         }
-        private void BindListBox(Language language)  
+        private void resetFriends()
         {
-            if(language.Check_Status)
+            choosenFriends.Clear();
+            friendsComboBox.Text = "";
+            friendsComboBox.SelectedIndex = -1;
+        }
+        private void Checked_Language(object sender, RoutedEventArgs e)
+        {
+            string name = ((CheckBox)sender).Uid.ToString();
+            if (!choosenLanguages.Exists(x => x == name))
             {
-                choosenLanguages.Add(language);
+                choosenLanguages.Add(name);
             }
-            else
+        }
+
+        private void Unchecked_Language(object sender, RoutedEventArgs e)
+        {
+            string name = ((CheckBox)sender).Uid.ToString();
+            if (choosenLanguages.Exists(x => x == name))
             {
-                choosenLanguages.Remove(language);
+                choosenLanguages.Remove(name);
             }
         }
 
         private void resetButton_Click(object sender, RoutedEventArgs e)
-        {
-            Reset();
-        }
-        public void Reset()
         {
             textBoxUserName.Text = "";
             textBoxPhone.Text = "";
@@ -106,7 +103,9 @@ namespace TravelApp
             male.IsChecked = false;
             female.IsChecked = false;
             resetLanguages();
+            resetFriends();
         }
+
         private void cancel_Click(object sender, RoutedEventArgs e)
         {
             HomePage login = new HomePage();
@@ -177,7 +176,7 @@ namespace TravelApp
                 else
                 {
                     int flag = ca_model.createAccount(textBoxUserName.Text, textBoxPhone.Text,
-                        textBoxEmail.Text, passwordBox.Password, textBoxAddress.Text, age, gender, choosenFriends);
+                        textBoxEmail.Text, passwordBox.Password, textBoxAddress.Text, age, gender, choosenFriends, choosenLanguages);
                     if(flag == 0)
                     {
                         HomePage up = new HomePage();
@@ -207,8 +206,13 @@ namespace TravelApp
 
         private void Languages_TextChanged(object sender, EventArgs e)
         {
-            languagesComboBox.ItemsSource = languages.Where(x => x.Name.StartsWith(languagesComboBox.Text.Trim()));
+            languagesComboBox.ItemsSource = languages.Where(x => x.StartsWith(languagesComboBox.Text.Trim()));
         }
+        private void Friends_TextChanged(object sender, EventArgs e)
+        {
+            languagesComboBox.ItemsSource = languages.Where(x => x.StartsWith(languagesComboBox.Text.Trim()));
+        }
+
 
         private void Button_Click_Exit(object sender, RoutedEventArgs e)
         {
