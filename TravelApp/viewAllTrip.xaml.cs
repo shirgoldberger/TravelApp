@@ -64,7 +64,6 @@ namespace TravelApp
                 trips = view.getAllTrip();
                 allTripsListBox.ItemsSource = trips;
                 buttomDelete.ItemsSource = trips;
-                buttomEdit.ItemsSource = trips;
                 choosenLanguages = new List<Language>();
             }
             else

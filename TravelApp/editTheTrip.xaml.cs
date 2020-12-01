@@ -69,8 +69,9 @@ namespace TravelApp
             model = new editTheTrip_Model(trip);
             members = model.getAllMembers();
             attractions = model.getAllAttraction();
-
             allMemListBox.ItemsSource = members;
+            buttomDeleteMem.ItemsSource = members;
+            buttomDeleteAtt.ItemsSource = attractions;
             allAttListBox.ItemsSource = attractions;
 
 
@@ -133,10 +134,52 @@ namespace TravelApp
         {
             this.Close();
         }
-
-        private void Button_Click_Add_att(object sender, RoutedEventArgs e)
+        
+        private void Button_Click_Add_New_Att(object sender, RoutedEventArgs e)
         {
+            add_new_att_for_trip anl = new add_new_att_for_trip(model, trip);
+            anl.Show();
+        }
+        private void Button_Click_Add_New_Member(object sender, RoutedEventArgs e)
+        {
+            add_new_mem_for_trip anl = new add_new_mem_for_trip(model, trip);
+            anl.Show();
+        }
+        private void clickDelete_mem(object sender, RoutedEventArgs e)
+        {
+            var item = ((Button)sender).DataContext;
+            var itemIndex = buttomDeleteMem.Items.IndexOf(item);
+            bool delete = model.deleteMem(trip, members[itemIndex]);
+            if (delete == true)
+            {
+                MessageBox.Show("delete sucses");
+            }
+            else
+            {
+                MessageBox.Show("delete failed");
 
+            }
+            members = model.getAllMembers();
+            allMemListBox.ItemsSource = members;
+            buttomDeleteMem.ItemsSource = members;
+        }
+        private void clickDelete_Att(object sender, RoutedEventArgs e)
+        {
+            var item = ((Button)sender).DataContext;
+            var itemIndex = buttomDeleteAtt.Items.IndexOf(item);
+            bool delete = model.deleteAtt(trip, attractions[itemIndex]);
+            if (delete == true)
+            {
+                MessageBox.Show("delete sucses");
+            }
+            else
+            {
+                MessageBox.Show("delete failed");
+
+            }
+            attractions = model.getAllAttraction();
+            buttomDeleteAtt.ItemsSource = attractions;
+            allAttListBox.ItemsSource = attractions;
         }
     }
 }
