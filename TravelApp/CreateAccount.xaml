@@ -166,5 +166,17 @@
             </Button.Template>
         </Button>
         <TextBlock Height="40" FontFamily="Ebrima" FontSize="25" FontStretch="UltraExpanded" FontWeight="UltraBold" HorizontalAlignment="Left" Margin="50,331,0,0" x:Name="textBlockAge" Text="Age:" VerticalAlignment="Top" Width="110" />
+        <Button x:Name="return"  HorizontalAlignment="Right" VerticalAlignment="Top" Width="54" FontWeight="Bold" Margin="0,7,1028,0" Height="50" FontFamily="BN Eyal" FontSize="10" Cursor="Hand" RenderTransformOrigin="-0.534,1.361" Background="#FFDDDDDD" Foreground="White" Click="return_Click">
+            <Button.Template>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="bdr_main" CornerRadius="20" Margin="4" BorderThickness="1" BorderBrush="Black">
+                        <Border.Background>
+                            <ImageBrush ImageSource="back.jpg"/>
+                        </Border.Background>
+                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center" Margin="8,6,8,6" ContentSource="Content" />
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
     </Grid>
 </Page>

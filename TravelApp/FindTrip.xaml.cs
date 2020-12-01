@@ -208,5 +208,10 @@ namespace TravelApp
             tripDate.SelectedDate = null;
             tripDate.DisplayDate = DateTime.Today;
         }
+
+        private void return_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.GoBack();
+        }
     }
 }
