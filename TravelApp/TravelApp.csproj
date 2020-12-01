@@ -268,5 +268,8 @@
   <ItemGroup>
     <Resource Include="trip6.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="back.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

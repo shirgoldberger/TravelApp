@@ -1,23 +1,10 @@
-﻿using MySql.Data.MySqlClient;
-using System;
-using System.Collections;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Linq;
-using System.Security.RightsManagement;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace TravelApp
 {
@@ -31,6 +18,7 @@ namespace TravelApp
         private List<String> choosenLanguages;
         private List<String> users;
         private List<String> choosenFriends;
+
         public CreateAccount()
         {
             InitializeComponent();
@@ -40,12 +28,12 @@ namespace TravelApp
             languages = ca_model.getLanguages();
             languagesComboBox.ItemsSource = languages;
             users = ca_model.getUsers();
-            List<String> us = new List<string>();
             friendsComboBox.ItemsSource = users;
         }
         
         private void Checked_Friend(object sender, RoutedEventArgs e)
         {
+            // add to choosen friends
             string username = ((CheckBox)sender).Uid.ToString();
             if (!choosenFriends.Exists(x => x == username))
             {
@@ -54,6 +42,7 @@ namespace TravelApp
         }
         private void Unchecked_Friend(object sender, RoutedEventArgs e)
         {
+            // remove from choosen friands
             string username = ((CheckBox)sender).Uid.ToString();
             if (choosenFriends.Exists(x => x == username))
             {
@@ -75,6 +64,7 @@ namespace TravelApp
         }
         private void Checked_Language(object sender, RoutedEventArgs e)
         {
+            // add to choosen languages
             string name = ((CheckBox)sender).Uid.ToString();
             if (!choosenLanguages.Exists(x => x == name))
             {
@@ -84,6 +74,7 @@ namespace TravelApp
 
         private void Unchecked_Language(object sender, RoutedEventArgs e)
         {
+            // // remove from choosen languages
             string name = ((CheckBox)sender).Uid.ToString();
             if (choosenLanguages.Exists(x => x == name))
             {
@@ -218,6 +209,11 @@ namespace TravelApp
         {
             // close the program
             System.Environment.Exit(0);
+        }
+
+        private void return_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.GoBack();
         }
     }
 }
