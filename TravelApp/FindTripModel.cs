@@ -77,6 +77,9 @@ namespace TravelApp
                 }
                 dr.Close();
             }
+            foreach (Trip t in trips) {
+                AddMemberAmount(t);
+            }
             return trips;
         }
 

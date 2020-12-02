@@ -139,6 +139,7 @@ namespace TravelApp
             set
             {
                 member_amount = value;
+
                 NotifyPropertyChanged("Trip_String");
             }
         }
