@@ -22,20 +22,21 @@ namespace TravelApp
         editTheTrip_Model model;
         List<string> members;
         Trip trip;
+        string error;
 
         public add_new_mem_for_trip(editTheTrip_Model model, Trip trip1)
         {
             InitializeComponent();
             this.model = model;
             this.trip = trip1;
-            members = model.getAllMembersInSql(trip);
-            buttomAddAtt.ItemsSource = members;
+            members = model.getAllMembersNOtInTHisTrip(trip);
             allAtList.ItemsSource = members;
+            error = "there is 0 members to add";
         }
         private void clickAdd_loc(object sender, RoutedEventArgs e)
         {
             var item = ((Button)sender).DataContext;
-            var itemIndex = buttomAddAtt.Items.IndexOf(item);
+            var itemIndex = allAtList.Items.IndexOf(item);
             bool a = model.add_new_Mem_for_trip(trip, members[itemIndex]);
             if (a == true)
             {
@@ -47,9 +48,14 @@ namespace TravelApp
                 MessageBox.Show("delete failed");
 
             }
-            members = model.getAllMembersInSql(trip);
-            buttomAddAtt.ItemsSource = members;
+            members = model.getAllMembersNOtInTHisTrip(trip);
             allAtList.ItemsSource = members;
+        }
+
+        public string Error
+        {
+            get { return error; }
+
         }
     }
 }

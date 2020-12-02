@@ -147,6 +147,17 @@
         </Button>
         <Label Content="Hello" HorizontalAlignment="Left" Height="106" Margin="216,12,0,0" VerticalAlignment="Top" Width="188" FontSize="72"/>
         <TextBlock HorizontalAlignment="Left" Margin="425,35,0,0" TextWrapping="Wrap" Text="{Binding Username}" VerticalAlignment="Top" Height="73" Width="248" FontSize="72" FontWeight="Bold"/>
-
+        <Button x:Name="return"  HorizontalAlignment="Right" VerticalAlignment="Top" Width="54" FontWeight="Bold" Margin="0,4,1041,0" Height="50" FontFamily="BN Eyal" FontSize="10" Cursor="Hand" RenderTransformOrigin="-0.534,1.361" Background="#FFDDDDDD" Foreground="White" Click="return_Click">
+            <Button.Template>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="bdr_main" CornerRadius="20" Margin="4" BorderThickness="1" BorderBrush="Black">
+                        <Border.Background>
+                            <ImageBrush ImageSource="../Pictures/back.jpg"/>
+                        </Border.Background>
+                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center" Margin="8,6,8,6" ContentSource="Content" />
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
     </Grid>
 </Page>

@@ -60,5 +60,9 @@ namespace TravelApp
             addNewTrip nt = new addNewTrip(username);
             this.NavigationService.Navigate(nt);
         }
+        private void return_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.GoBack();
+        }
     }
 }

@@ -28,22 +28,23 @@ namespace TravelApp
             InitializeComponent();
             this.model = model;
             this.trip = trip1;
-            attractions = model.getAllAttractionInSql();
-            buttomAddAtt.ItemsSource = attractions;
+            attractions = model.getAllAttractionNotInThisTrip(trip);
             allAtList.ItemsSource = attractions;
         }
         private void clickAdd_loc(object sender, RoutedEventArgs e)
         {
             var item = ((Button)sender).DataContext;
-            var itemIndex = buttomAddAtt.Items.IndexOf(item);
+            var itemIndex = allAtList.Items.IndexOf(item);
             bool a = model.add_new_Att_for_trip(trip, attractions[itemIndex]);
             if (a == true)
             {
-                MessageBox.Show("delete sucses");
+                MessageBox.Show("add sucses");
+                attractions = model.getAllAttractionNotInThisTrip(trip);
+                allAtList.ItemsSource = attractions;
             }
             else
             {
-                MessageBox.Show("delete failed");
+                MessageBox.Show("add failed");
 
             }
         }

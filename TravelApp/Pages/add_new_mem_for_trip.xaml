@@ -10,27 +10,24 @@
         <Grid.Background>
             <ImageBrush ImageSource="../Pictures/trip5.jpg" TileMode="Tile"/>
         </Grid.Background>
-        <ListBox x:Name="allAtList" HorizontalAlignment="Left" Margin="18,20,-217,0" Width="199"
-            ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderThickness="0" HorizontalContentAlignment="Stretch" Background="Transparent" Height="233" VerticalAlignment="Top">
+        <ListBox x:Name="allAtList" HorizontalAlignment="Left" Margin="10,84,0,0" Width="325"
+            ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderThickness="0" HorizontalContentAlignment="Stretch" Background="Transparent" Height="222" VerticalAlignment="Top">
             <ListBox.ItemTemplate>
 
                 <DataTemplate>
-                    <TextBlock Uid="{Binding Username}" Text="{Binding Username}"  >
-                    </TextBlock>
-
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="3*"></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Uid="{Binding Username}" Text="{Binding }"  >
+                        </TextBlock>
+                        <Button Grid.Column="1" Uid="{Binding Id}" Content="add" Click="clickAdd_loc" />
+                    </Grid>
                 </DataTemplate>
 
             </ListBox.ItemTemplate>
         </ListBox>
-        <ListBox x:Name="buttomAddAtt" HorizontalAlignment="Left" Height="233" Margin="256,20,-317,0" VerticalAlignment="Top" Width="61"
-            ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderThickness="0" HorizontalContentAlignment="Stretch" Background="Transparent">
-            <ListBox.ItemTemplate>
-
-                <DataTemplate>
-                    <Button Uid="{Binding Id}" Content="add" Click="clickAdd_loc" />
-                </DataTemplate>
-
-            </ListBox.ItemTemplate>
-        </ListBox>
+        <TextBlock Height="30" HorizontalAlignment="Left" Margin="27,38,0,0" x:Name="maxParticipantsVal" VerticalAlignment="Top" Width="322"  Foreground="Black" FontSize="20"  Text="{Binding Error}" RenderTransformOrigin="-0.099,0.489" />
     </Grid>
 </Window>

@@ -62,10 +62,16 @@ namespace TravelApp
             dr.Close();
             return att;
         }
-        public List<Attraction> getAllAttractionInSql()
+        public List<Attraction> getAllAttractionNotInThisTrip(Trip trip )
         {
+            string trip_code = "'" + trip.Id + "'";
             List<Attraction> att = new List<Attraction>();
-            string command = "SELECT * FROM attraction ;";
+            string command1 = "SELECT * FROM trip_attractions " +
+                 "WHERE trip_attractions.trip_code = " + trip_code;
+            string command = "Select *" +
+                            " From attraction left join( " + command1 + " ) as temp" +
+                            " On(attraction.attraction_code = temp.attraction_code)" +
+                            " Where temp.attraction_code is null;";
             MySqlDataReader dr = DbConnection.ExecuteQuery(command);
             if (dr != null)
             {
@@ -78,7 +84,7 @@ namespace TravelApp
             dr.Close();
             return att;
         }
-        public List<string> getAllMembersInSql(Trip trip)
+        public List<string> getAllMembersNOtInTHisTrip(Trip trip)
         {
             string trip_code = "'"+trip.Id+"'"; 
             List<string> mem = new List<string>();

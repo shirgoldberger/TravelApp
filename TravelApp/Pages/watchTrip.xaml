@@ -12,10 +12,11 @@
             <!--Button as a Link button using style-->
             <!--end Button as a Link button using style-->
 
-            <Grid Margin="0,0,-0.333,0.333"  Height="400" VerticalAlignment="Bottom">
+            <Grid Margin="0,0,-0.333,-1.667"  Height="400" VerticalAlignment="Bottom">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="0*"/>
-                    <ColumnDefinition/>
+                    <ColumnDefinition Width="369*"/>
+                    <ColumnDefinition Width="331*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.Background>
                     <ImageBrush ImageSource="../Pictures/trip5.jpg" TileMode="Tile"/>
@@ -24,18 +25,18 @@
                     <RowDefinition Height="252*" />
                     <!--   <RowDefinition Height="12*" />-->
                 </Grid.RowDefinitions>
-                <TextBlock Height="30" HorizontalAlignment="Left" Margin="245,72,0,0" x:Name="minParticipantsVal" VerticalAlignment="Top" Width="64" Grid.Column="1"  Foreground="Black" RenderTransformOrigin="0.536,-0.367" FontSize="20" Text="{Binding Min_age}"   />
-                <TextBlock Height="30" HorizontalAlignment="Left" Margin="259,107,0,0" x:Name="maxParticipantsVal" VerticalAlignment="Top" Width="64" Grid.Column="1"  Foreground="Black" FontSize="20"  Text="{Binding Max_age}" RenderTransformOrigin="-0.099,0.489" />
+                <TextBlock Height="30" HorizontalAlignment="Left" Margin="245,114,0,0" x:Name="minParticipantsVal" VerticalAlignment="Top" Width="64" Grid.Column="1"  Foreground="Black" RenderTransformOrigin="0.536,-0.367" FontSize="20" Text="{Binding Min_age}"   />
+                <TextBlock Height="30" HorizontalAlignment="Left" Margin="259,149,0,0" x:Name="maxParticipantsVal" VerticalAlignment="Top" Width="64" Grid.Column="1"  Foreground="Black" FontSize="20"  Text="{Binding Max_age}" RenderTransformOrigin="-0.099,0.489" />
                 <!--For password-->
 
-                <TextBlock Height="30" FontFamily="Century Gothic" FontSize="25" FontStretch="UltraExpanded" FontStyle="Italic" FontWeight="UltraBold" HorizontalAlignment="Left" Margin="35,107,0,0" x:Name="textBlockMinParticipants1" Text="Max age in trip" VerticalAlignment="Top" Width="200" Foreground="Black" Grid.Column="1" />
-                <TextBlock Height="30" FontFamily="Century Gothic" FontSize="25" FontStretch="UltraExpanded" FontStyle="Italic" FontWeight="UltraBold" HorizontalAlignment="Left" Margin="35,33,0,0" x:Name="textBlockMinParticipants1_Copy" Text="start date" VerticalAlignment="Top" Width="131" Foreground="Black" Grid.Column="1" />
-                <TextBlock Height="30" FontFamily="Century Gothic" FontSize="25" FontStretch="UltraExpanded" FontStyle="Italic" FontWeight="UltraBold" HorizontalAlignment="Left" Margin="281,33,0,0" x:Name="textBlockMinParticipants1_Copy1" Text="end date" VerticalAlignment="Top" Width="131" Foreground="Black" Grid.Column="1" />
-                <TextBlock Height="30" HorizontalAlignment="Left" Margin="429,33,0,0" x:Name="maxParticipantsVal_Copy1" VerticalAlignment="Top" Width="129" Grid.Column="1" Foreground="Black" FontSize="20" Text="{Binding End_date}" RenderTransformOrigin="2.521,0.524" />
-                <TextBlock Height="30" FontFamily="Century Gothic" FontSize="25" FontStretch="UltraExpanded" FontStyle="Italic" FontWeight="UltraBold" HorizontalAlignment="Left" Margin="35,72,0,0" x:Name="textBlockMinParticipants1_Copy2" Text="Min age in trip" VerticalAlignment="Top" Width="200" Foreground="Black" Grid.Column="1" />
+                <TextBlock Height="30" FontFamily="Century Gothic" FontSize="25" FontStretch="UltraExpanded" FontStyle="Italic" FontWeight="UltraBold" HorizontalAlignment="Left" Margin="35,151,0,0" x:Name="textBlockMinParticipants1" Text="Max age in trip" VerticalAlignment="Top" Width="200" Foreground="Black" Grid.Column="1" />
+                <TextBlock Height="30" FontFamily="Century Gothic" FontSize="25" FontStretch="UltraExpanded" FontStyle="Italic" FontWeight="UltraBold" HorizontalAlignment="Left" Margin="35,77,0,0" x:Name="textBlockMinParticipants1_Copy" Text="start date" VerticalAlignment="Top" Width="131" Foreground="Black" Grid.Column="1" />
+                <TextBlock Height="30" FontFamily="Century Gothic" FontSize="25" FontStretch="UltraExpanded" FontStyle="Italic" FontWeight="UltraBold" HorizontalAlignment="Left" Margin="303,77,0,0" x:Name="textBlockMinParticipants1_Copy1" Text="end date" VerticalAlignment="Top" Width="131" Foreground="Black" Grid.Column="1" Grid.ColumnSpan="2" />
+                <TextBlock Height="30" HorizontalAlignment="Left" Margin="90,77,0,0" x:Name="maxParticipantsVal_Copy1" VerticalAlignment="Top" Width="129" Grid.Column="2" Foreground="Black" FontSize="20" Text="{Binding End_date}" RenderTransformOrigin="2.521,0.524" />
+                <TextBlock Height="30" FontFamily="Century Gothic" FontSize="25" FontStretch="UltraExpanded" FontStyle="Italic" FontWeight="UltraBold" HorizontalAlignment="Left" Margin="35,114,0,0" x:Name="textBlockMinParticipants1_Copy2" Text="Min age in trip" VerticalAlignment="Top" Width="200" Foreground="Black" Grid.Column="1" />
 
-                <ListBox x:Name="allMemListBox" HorizontalAlignment="Left" Margin="35,225,0,0" Width="274" IsHitTestVisible="False"
-            ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderThickness="0" HorizontalContentAlignment="Stretch" Background="Transparent" Grid.ColumnSpan="2" Height="165" VerticalAlignment="Top">
+                <ListBox x:Name="allMemListBox" HorizontalAlignment="Left" Margin="35,267,0,0" Width="274" IsHitTestVisible="False"
+            ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderThickness="0" HorizontalContentAlignment="Stretch" Background="Transparent" Grid.ColumnSpan="2" Height="123" VerticalAlignment="Top">
                     <ListBox.ItemTemplate>
 
                         <DataTemplate>
@@ -46,10 +47,9 @@
 
                     </ListBox.ItemTemplate>
                 </ListBox>
-                <TextBlock Height="30" FontFamily="Century Gothic" FontSize="25" FontStretch="UltraExpanded" FontStyle="Italic" FontWeight="UltraBold" HorizontalAlignment="Left" Margin="35,190,0,0" x:Name="textBlockMinParticipants1_Copy3" Text="all members in trip" VerticalAlignment="Top" Width="245" Foreground="Black" Grid.Column="1" />
-                <TextBlock Height="30" HorizontalAlignment="Left" Margin="171,33,0,0" x:Name="maxParticipantsVal_Copy" VerticalAlignment="Top" Width="92" Grid.Column="1"  Foreground="Black" FontSize="20" Text="{Binding Start_Date}" RenderTransformOrigin="2.521,0.524"  />
-                <ListBox x:Name="allAttListBox" HorizontalAlignment="Left" Margin="344,225,0,0" Width="274"
-                    ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderThickness="0" HorizontalContentAlignment="Stretch" Background="Transparent" Grid.ColumnSpan="2" Height="165" VerticalAlignment="Top">
+                <TextBlock Height="30" FontFamily="Century Gothic" FontSize="25" FontStretch="UltraExpanded" FontStyle="Italic" FontWeight="UltraBold" HorizontalAlignment="Left" Margin="35,224,0,0" x:Name="textBlockMinParticipants1_Copy3" Text="all members in trip" VerticalAlignment="Top" Width="245" Foreground="Black" Grid.Column="1" />
+                <ListBox x:Name="allAttListBox" HorizontalAlignment="Left" Margin="344,267,0,0" Width="274"
+                    ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderThickness="0" HorizontalContentAlignment="Stretch" Background="Transparent" Grid.ColumnSpan="3" Height="123" VerticalAlignment="Top" IsHitTestVisible="False" >
                     <ListBox.ItemTemplate>
 
                         <DataTemplate>
@@ -59,8 +59,14 @@
 
                     </ListBox.ItemTemplate>
                 </ListBox>
-                <TextBlock Height="30" FontFamily="Century Gothic" FontSize="25" FontStretch="UltraExpanded" FontStyle="Italic" FontWeight="UltraBold" HorizontalAlignment="Left" Margin="344,190,0,0" x:Name="textBlockMinParticipants1_Copy4" Text="all atraction in trip" VerticalAlignment="Top" Width="245" Foreground="Black" Grid.Column="1" />
-                <TextBlock Height="30" HorizontalAlignment="Left" Margin="35,155,0,0" x:Name="maleOrFemale" VerticalAlignment="Top" Width="274" Grid.Column="1"  Foreground="Black" FontSize="20"  Text="{Binding GenderMassage}" RenderTransformOrigin="-0.099,0.489" />
+                <TextBlock Height="30" FontFamily="Century Gothic" FontSize="25" FontStretch="UltraExpanded" FontStyle="Italic" FontWeight="UltraBold" HorizontalAlignment="Left" Margin="344,226,0,0" x:Name="textBlockMinParticipants1_Copy4" Text="all atraction in trip" VerticalAlignment="Top" Width="245" Foreground="Black" Grid.Column="1" Grid.ColumnSpan="2" />
+                <TextBlock Height="30" HorizontalAlignment="Left" Margin="35,193,0,0" x:Name="maleOrFemale" VerticalAlignment="Top" Width="274" Grid.Column="1"  Foreground="Black" FontSize="20"  Text="{Binding GenderMassage}" RenderTransformOrigin="-0.099,0.489" />
+                <TextBlock Height="30" HorizontalAlignment="Left" Margin="168,76,0,0" x:Name="maxParticipantsVal_Copy2" VerticalAlignment="Top" Width="129" Grid.Column="1" Foreground="Black" FontSize="20" Text="{Binding Start_date}" RenderTransformOrigin="2.521,0.524" />
+                <TextBlock Height="30" FontFamily="Century Gothic" FontSize="25" FontStretch="UltraExpanded" FontStyle="Italic" FontWeight="UltraBold" HorizontalAlignment="Left" Margin="35,45,0,0" x:Name="textBlockMinParticipants1_Copy5" Text="trip id" VerticalAlignment="Top" Width="131" Foreground="Black" Grid.Column="1" />
+                <TextBlock Height="30" FontFamily="Century Gothic" FontSize="25" FontStretch="UltraExpanded" FontStyle="Italic" FontWeight="UltraBold" HorizontalAlignment="Left" Margin="303,45,0,0" x:Name="textBlockMinParticipants1_Copy6" Text="trip admin" VerticalAlignment="Top" Width="131" Foreground="Black" Grid.Column="1" Grid.ColumnSpan="2" />
+                <TextBlock Height="30" HorizontalAlignment="Left" Margin="90,45,0,0" x:Name="maxParticipantsVal_Copy" VerticalAlignment="Top" Width="129" Grid.Column="2" Foreground="Black" FontSize="20" Text="{Binding Admin}" RenderTransformOrigin="2.521,0.524" />
+                <TextBlock Height="30" HorizontalAlignment="Left" Margin="168,44,0,0" x:Name="maxParticipantsVal_Copy3" VerticalAlignment="Top" Width="129" Grid.Column="1" Foreground="Black" FontSize="20" Text="{Binding Id}" RenderTransformOrigin="2.521,0.524" />
+                <TextBlock Height="30" FontFamily="Century Gothic" FontSize="25" FontStretch="UltraExpanded" FontStyle="Italic" FontWeight="UltraBold" HorizontalAlignment="Left" Margin="10,14,0,0" x:Name="textBlockMinParticipants1_Copy7" VerticalAlignment="Top" Width="491" Foreground="Black" Grid.Column="1" RenderTransformOrigin="0.819,-0.511" Grid.ColumnSpan="2" ><Run Text="Here are all the details about your trip"/><Run FlowDirection="RightToLeft" Text=":"/></TextBlock>
 
             </Grid>
             <Button x:Name="exitButton" Content="EXIT"  HorizontalAlignment="Right" VerticalAlignment="Top" Width="71" FontWeight="Bold" Click="Button_Click_Exit" Margin="0,10,25,0" Height="52" FontFamily="BN Eyal" FontSize="10" Cursor="Hand" RenderTransformOrigin="-0.534,1.361" Foreground="#FFFBFAFA">
