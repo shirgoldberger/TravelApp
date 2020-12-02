@@ -10,7 +10,7 @@
 
     <Grid   Height="592.666" Width="1100">
         <Grid.Background>
-            <ImageBrush ImageSource="trip2.jpg" TileMode="Tile"/>
+            <ImageBrush ImageSource="../Pictures/trip2.jpg" TileMode="Tile"/>
         </Grid.Background>
         <ListView x:Name="allTripsListBox" HorizontalAlignment="Left" Height="479" Margin="357,87,0,0" VerticalAlignment="Top" Width="495"
             ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderThickness="0" HorizontalContentAlignment="Stretch" Background="Transparent">
@@ -150,7 +150,7 @@
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Border x:Name="bdr_main" CornerRadius="20" Margin="4" BorderThickness="1" BorderBrush="Black">
                         <Border.Background>
-                            <ImageBrush ImageSource="back.jpg"/>
+                            <ImageBrush ImageSource="../Pictures/back.jpg"/>
                         </Border.Background>
                         <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center" Margin="8,6,8,6" ContentSource="Content" />
                     </Border>

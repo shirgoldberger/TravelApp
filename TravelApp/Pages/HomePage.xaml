@@ -12,7 +12,7 @@
 
         <!--Background-->
         <Grid.Background>
-            <ImageBrush ImageSource="trip4.jpg" TileMode="Tile"/>
+            <ImageBrush ImageSource="../Pictures/trip4.jpg" TileMode="Tile"/>
         </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition />

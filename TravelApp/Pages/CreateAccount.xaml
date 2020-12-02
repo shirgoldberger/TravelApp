@@ -18,7 +18,7 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <Grid.Background>
-                <ImageBrush ImageSource="trip2.jpg" TileMode="Tile"/>
+                <ImageBrush ImageSource="../Pictures/trip2.jpg" TileMode="Tile"/>
             </Grid.Background>
             <Grid.RowDefinitions>
                 <RowDefinition Height="252*" />
@@ -171,7 +171,7 @@
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Border x:Name="bdr_main" CornerRadius="20" Margin="4" BorderThickness="1" BorderBrush="Black">
                         <Border.Background>
-                            <ImageBrush ImageSource="back.jpg"/>
+                            <ImageBrush ImageSource="../Pictures/back.jpg"/>
                         </Border.Background>
                         <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center" Margin="8,6,8,6" ContentSource="Content" />
                     </Border>

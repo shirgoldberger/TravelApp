@@ -11,7 +11,7 @@
     <Grid>
         <!--Background-->
         <Grid.Background>
-            <ImageBrush ImageSource="trip3.jpg" TileMode="Tile"/>
+            <ImageBrush ImageSource="../Pictures/trip3.jpg" TileMode="Tile"/>
         </Grid.Background>
         <ListBox x:Name="allTripsListBox" HorizontalAlignment="Left" Height="137" Margin="35,192,0,0" VerticalAlignment="Top" Width="549"
             ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderThickness="0" HorizontalContentAlignment="Stretch" Background="Transparent">

@@ -14,7 +14,7 @@
             <ColumnDefinition Width="50*"/>
         </Grid.ColumnDefinitions>
         <Grid.Background>
-            <ImageBrush ImageSource="trip5.jpg" TileMode="Tile"/>
+            <ImageBrush ImageSource="../Pictures/trip5.jpg" TileMode="Tile"/>
         </Grid.Background>
         <ListBox x:Name="allAtList" HorizontalAlignment="Left" Margin="18,20,0,0" Width="199"
             ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderThickness="0" HorizontalContentAlignment="Stretch" Background="Transparent" Height="233" VerticalAlignment="Top" Grid.ColumnSpan="2">

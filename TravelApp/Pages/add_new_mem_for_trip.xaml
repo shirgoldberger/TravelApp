@@ -8,7 +8,7 @@
         Title="add_new_mem_for_trip" Height="352.41" Width="377.108">
     <Grid Margin="0,0,-6.333,-0.667">
         <Grid.Background>
-            <ImageBrush ImageSource="trip5.jpg" TileMode="Tile"/>
+            <ImageBrush ImageSource="../Pictures/trip5.jpg" TileMode="Tile"/>
         </Grid.Background>
         <ListBox x:Name="allAtList" HorizontalAlignment="Left" Margin="18,20,-217,0" Width="199"
             ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderThickness="0" HorizontalContentAlignment="Stretch" Background="Transparent" Height="233" VerticalAlignment="Top">

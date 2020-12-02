@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="deleteTrip" Height="446.318" Width="411.129">
     <Window.Background>
-        <ImageBrush ImageSource="/trip6.jpg" Stretch="Fill" />
+        <ImageBrush ImageSource="../Pictures/trip6.jpg" Stretch="Fill" />
     </Window.Background>
     <Grid Margin="0,0,338.333,-0.333" >
 

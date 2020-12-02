@@ -117,84 +117,84 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="addNewTrip.xaml.cs">
+    <Compile Include="Pages\addNewTrip.xaml.cs">
       <DependentUpon>addNewTrip.xaml</DependentUpon>
     </Compile>
-    <Compile Include="add_new_att_for_trip.xaml.cs">
+    <Compile Include="Pages\add_new_att_for_trip.xaml.cs">
       <DependentUpon>add_new_att_for_trip.xaml</DependentUpon>
     </Compile>
-    <Compile Include="add_new_mem_for_trip.xaml.cs">
+    <Compile Include="Pages\add_new_mem_for_trip.xaml.cs">
       <DependentUpon>add_new_mem_for_trip.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Attraction.cs" />
-    <Compile Include="City.cs" />
-    <Compile Include="CreateAccoutModel.cs" />
-    <Compile Include="DbConnection.cs" />
-    <Compile Include="deleteTrip.xaml.cs">
+    <Compile Include="Objects\Attraction.cs" />
+    <Compile Include="Objects\City.cs" />
+    <Compile Include="Models\CreateAccoutModel.cs" />
+    <Compile Include="Objects\DbConnection.cs" />
+    <Compile Include="Pages\deleteTrip.xaml.cs">
       <DependentUpon>deleteTrip.xaml</DependentUpon>
     </Compile>
-    <Compile Include="editTheTrip.xaml.cs">
+    <Compile Include="Pages\editTheTrip.xaml.cs">
       <DependentUpon>editTheTrip.xaml</DependentUpon>
     </Compile>
-    <Compile Include="editTheTrip_Model.cs" />
-    <Compile Include="FindByLocation.xaml.cs">
+    <Compile Include="Models\editTheTrip_Model.cs" />
+    <Compile Include="Pages\FindByLocation.xaml.cs">
       <DependentUpon>FindByLocation.xaml</DependentUpon>
     </Compile>
-    <Compile Include="FindTrip.xaml.cs">
+    <Compile Include="Pages\FindTrip.xaml.cs">
       <DependentUpon>FindTrip.xaml</DependentUpon>
     </Compile>
-    <Compile Include="FindTripModel.cs" />
-    <Compile Include="Home_page_Model.cs" />
-    <Compile Include="Members.cs" />
-    <Compile Include="Trip.cs" />
-    <Compile Include="UserPage.xaml.cs">
+    <Compile Include="Models\FindTripModel.cs" />
+    <Compile Include="Models\Home_page_Model.cs" />
+    <Compile Include="Objects\Members.cs" />
+    <Compile Include="Objects\Trip.cs" />
+    <Compile Include="Pages\UserPage.xaml.cs">
       <DependentUpon>UserPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="viewAllTrip.xaml.cs">
+    <Compile Include="Pages\viewAllTrip.xaml.cs">
       <DependentUpon>viewAllTrip.xaml</DependentUpon>
     </Compile>
-    <Compile Include="viewAllTrip_Model.cs" />
-    <Compile Include="watchTrip.xaml.cs">
+    <Compile Include="Models\viewAllTrip_Model.cs" />
+    <Compile Include="Pages\watchTrip.xaml.cs">
       <DependentUpon>watchTrip.xaml</DependentUpon>
     </Compile>
-    <Compile Include="watchTrip_Model.cs" />
-    <Page Include="addNewTrip.xaml">
+    <Compile Include="Models\watchTrip_Model.cs" />
+    <Page Include="Pages\addNewTrip.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="add_new_att_for_trip.xaml">
+    <Page Include="Pages\add_new_att_for_trip.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="add_new_mem_for_trip.xaml">
+    <Page Include="Pages\add_new_mem_for_trip.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="CreateAccount.xaml">
+    <Page Include="Pages\CreateAccount.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="deleteTrip.xaml">
+    <Page Include="Pages\deleteTrip.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="editTheTrip.xaml">
+    <Page Include="Pages\editTheTrip.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="FindByLocation.xaml">
+    <Page Include="Pages\FindByLocation.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="FindTrip.xaml">
+    <Page Include="Pages\FindTrip.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="HomePage.xaml">
+    <Page Include="Pages\HomePage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="MainWindow.xaml">
+    <Page Include="Pages\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -202,25 +202,25 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="CreateAccount.xaml.cs">
+    <Compile Include="Pages\CreateAccount.xaml.cs">
       <DependentUpon>CreateAccount.xaml</DependentUpon>
     </Compile>
-    <Compile Include="HomePage.xaml.cs">
+    <Compile Include="Pages\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="Pages\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="UserPage.xaml">
+    <Page Include="Pages\UserPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="viewAllTrip.xaml">
+    <Page Include="Pages\viewAllTrip.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="watchTrip.xaml">
+    <Page Include="Pages\watchTrip.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -265,41 +265,17 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="back.jpg" />
+    <Resource Include="Pictures\trip7.jpg" />
+    <Resource Include="Pictures\trip6.jpg" />
+    <Resource Include="Pictures\trip5.jpg" />
+    <Resource Include="Pictures\trip4.jpg" />
+    <Resource Include="Pictures\trip3.jpg" />
+    <Resource Include="Pictures\trip2.jpg" />
+    <Resource Include="Pictures\trip.jpg" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Resource Include="picturs\trip7.jpg" />
-    <Resource Include="picturs\trip6.jpg" />
-    <Resource Include="picturs\trip5.jpg" />
-    <Resource Include="picturs\trip4.jpg" />
-    <Resource Include="picturs\trip3.jpg" />
-    <Resource Include="picturs\trip2.jpg" />
-    <Resource Include="picturs\trip.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="trip.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="trip2.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="trip3.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="trip4.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="trip5.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="trip6.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="trip7.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\" />
-    <Folder Include="Pages\" />
+    <Resource Include="Pictures\back.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
