@@ -12,26 +12,15 @@
         <Grid.Background>
             <ImageBrush ImageSource="trip2.jpg" TileMode="Tile"/>
         </Grid.Background>
-        <ListView x:Name="allTripsListBox" HorizontalAlignment="Left" Height="479" Margin="363,91,0,0" VerticalAlignment="Top" Width="450"
+        <ListView x:Name="allTripsListBox" HorizontalAlignment="Left" Height="479" Margin="357,87,0,0" VerticalAlignment="Top" Width="495"
             ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderThickness="0" HorizontalContentAlignment="Stretch" Background="Transparent">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Button Height="40" Uid="{Binding Id}" Content="{Binding Trip_String, Mode=OneWay}" Click="clickOnTrip">
+                    <Button Height="50" Uid="{Binding Id}" Content="{Binding Trip_String, Mode=OneWay}" Click="clickOnTrip">
                     </Button>
 
                 </DataTemplate>
             </ListBox.ItemTemplate>
-            <ListView.ItemContainerStyle>
-                <Style TargetType="ListViewItem">
-                    <Style.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="Transparent" />
-                            <Setter Property="BorderBrush" Value="Transparent" />
-                            <Setter Property="BorderThickness" Value="0" />
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </ListView.ItemContainerStyle>
         </ListView>
 
 
@@ -91,13 +80,13 @@
                 </ControlTemplate>
             </Button.Template>
         </Button>
-        <ListView x:Name="joinTripListBox" Background="Transparent" HorizontalAlignment="Left" Height="479" Margin="806,91,0,0" VerticalAlignment="Top" Width="149"
+        <ListView x:Name="joinTripListBox" Background="Transparent" HorizontalAlignment="Left" Height="479" Margin="849,87,0,0" VerticalAlignment="Top" Width="149"
             ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderThickness="0" HorizontalContentAlignment="Stretch">
 
 
             <ListView.ItemTemplate>
                 <DataTemplate x:Name="data">
-                    <Button Height="40" Uid="{Binding Id}" Content="join" Click="clickJoinTrip">
+                    <Button Height="50" Cursor="Hand" Uid="{Binding Id}" Content="join" Click="clickJoinTrip">
                     </Button>
                 </DataTemplate>
             </ListView.ItemTemplate>

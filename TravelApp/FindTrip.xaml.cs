@@ -44,13 +44,14 @@ namespace TravelApp
             trips = findTrip_model.getTripForUser(username);
             allTripsListBox.ItemsSource = trips;
             joinTripListBox.ItemsSource = trips;
-            choosenLanguages = new List<String>();
+            choosenLanguages = new List<string>();
             languages = findTrip_model.getLanguages();
             languagesComboBox.ItemsSource = languages;
             members = findTrip_model.getFriendsForUser(this.username);
             membersComboBox.ItemsSource = members;
             choosenMembers = new List<string>();
-            getCitiesAndAttractions();
+            cities = findTrip_model.getAllCities();
+            attractions = findTrip_model.GetAttractionsByCities(cities);
         }
 
         private async void getCitiesAndAttractions()
@@ -86,9 +87,19 @@ namespace TravelApp
         private void clickJoinTrip(object sender, RoutedEventArgs e)
         {
             string id = ((Button)sender).Uid.ToString();
-            if (findTrip_model.insertUserToTrip(username, trips.Find(x => x.Id == id)))
+            Trip t = trips.Find(x => x.Id == id);
+            if (findTrip_model.insertUserToTrip(username, t))
             {
-                MessageBox.Show("Your registration was successful");
+                if (trips.Exists(x => x.Id == id))
+                {
+                    trips.Remove(t);
+                    allTripsListBox.ItemsSource = null;
+                    allTripsListBox.ItemsSource = trips;
+                    joinTripListBox.ItemsSource = null;
+                    joinTripListBox.ItemsSource = trips;
+                    MessageBox.Show("Your registration was successful");
+                }
+
             } else
             {
                 MessageBox.Show("Something happened. Registration for the trip failed");
