@@ -120,6 +120,12 @@
     <Compile Include="addNewTrip.xaml.cs">
       <DependentUpon>addNewTrip.xaml</DependentUpon>
     </Compile>
+    <Compile Include="add_new_att_for_trip.xaml.cs">
+      <DependentUpon>add_new_att_for_trip.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="add_new_mem_for_trip.xaml.cs">
+      <DependentUpon>add_new_mem_for_trip.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Attraction.cs" />
     <Compile Include="City.cs" />
     <Compile Include="CreateAccoutModel.cs" />
@@ -139,6 +145,7 @@
     </Compile>
     <Compile Include="FindTripModel.cs" />
     <Compile Include="Language.cs" />
+    <Compile Include="Members.cs" />
     <Compile Include="Trip.cs" />
     <Compile Include="User.cs" />
     <Compile Include="UserPage.xaml.cs">
@@ -153,6 +160,14 @@
     </Compile>
     <Compile Include="watchTrip_Model.cs" />
     <Page Include="addNewTrip.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="add_new_att_for_trip.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="add_new_mem_for_trip.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

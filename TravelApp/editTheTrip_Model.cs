@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TravelApp
 {
-    class editTheTrip_Model
+    public class editTheTrip_Model
     {
         Trip trip;
 
@@ -19,6 +19,12 @@ namespace TravelApp
             string username = dr.GetString("username");
             string password = dr.GetString("password");
             User u = new User(username, password);
+            return u;
+        }
+        public User createMem(MySqlDataReader dr)
+        {
+            string username = dr.GetString("username");
+            User u = new User(username);
             return u;
         }
         public Attraction createAtt(MySqlDataReader dr)
@@ -70,8 +76,38 @@ namespace TravelApp
             dr.Close();
             return att;
         }
-    
-
+        public List<Attraction> getAllAttractionInSql()
+        {
+            List<Attraction> att = new List<Attraction>();
+            string command = "SELECT * FROM attraction ;";
+            MySqlDataReader dr = DbConnection.ExecuteQuery(command);
+            if (dr != null)
+            {
+                while (dr.Read())
+                {
+                    Attraction a = createAtt(dr);
+                    att.Add(a);
+                }
+            }
+            dr.Close();
+            return att;
+        }
+        public List<User> getAllMembersInSql()
+        {
+            List<User> mem = new List<User>();
+            string command = "SELECT * FROM user ;";
+            MySqlDataReader dr = DbConnection.ExecuteQuery(command);
+            if (dr != null)
+            {
+                while (dr.Read())
+                {
+                    User a = createUser(dr);
+                    mem.Add(a);
+                }
+            }
+            dr.Close();
+            return mem;
+        }
         public bool update_submit(string trip_code, string admin, string start_date, string end_date, string min_age, string max_age, string max_part)
         {
             string start_date1 = "'" + start_date + "'";
@@ -93,7 +129,59 @@ namespace TravelApp
             }
             return true;
         }
-       
+        public bool deleteMem(Trip trip, User user)
+        {
+            string trip_code = trip.Id;
+            trip_code = "'" + trip_code + "'";
+            string username = user.Username;
+            username = "'" + username + "'";
+            string command = "DELETE FROM member WHERE trip_code = " + trip_code + " AND username = " + username + ";";
+            bool dr = DbConnection.ExecuteNonQuery(command);
+            if (dr == false)
+            {
+                return false;
+            }
+            return true;
+        }
+        public bool deleteAtt(Trip trip, Attraction att)
+        {
+            string trip_code = trip.Id;
+            trip_code = "'" + trip_code + "'";
+            string Att_code ="'"+ att.Attraction_code+"'";
+            string command = "DELETE FROM trip_attractions WHERE trip_code = " + trip_code + " AND attraction_code = " + Att_code + ";";
+            bool dr = DbConnection.ExecuteNonQuery(command);
+            if (dr == false)
+            {
+                return false;
+            }
+            return true;
+        }
+        public bool add_new_Att_for_trip(Trip trip, Attraction att)
+        {
+            string trip_code = trip.Id;
+            trip_code = "'"+trip_code + "', ";
+            string Att_code = "'" + att.Attraction_code + "' ";
+            string command = "INSERT INTO trip_attractions(trip_code, attraction_code) VALUES (" + trip_code+ Att_code+");" ;
+            bool dr = DbConnection.ExecuteNonQuery(command);
+            if (dr == false)
+            {
+                return false;
+            }
+            return true;
+        }
+        public bool add_new_Mem_for_trip(Trip trip, User user)
+        {
+            string trip_code = trip.Id;
+            trip_code = "'" + trip_code + "', ";
+            string Att_code = "'" + user.Username + "' ";
+            string command = "INSERT INTO member(trip_code, username) VALUES (" + trip_code + Att_code + ");";
+            bool dr = DbConnection.ExecuteNonQuery(command);
+            if (dr == false)
+            {
+                return false;
+            }
+            return true;
+        }
     }
 }
 
