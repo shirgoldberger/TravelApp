@@ -46,7 +46,8 @@ namespace TravelApp
 
         private void searchNewTripButton_Click(object sender, RoutedEventArgs e)
         {
-
+             FindTrip vt = new FindTrip(username);
+            this.NavigationService.Navigate(vt);
         }
 
         private void addFriendButton_Click(object sender, RoutedEventArgs e)

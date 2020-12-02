@@ -34,7 +34,7 @@
                 <TextBlock Height="30" HorizontalAlignment="Left" Margin="429,33,0,0" x:Name="maxParticipantsVal_Copy1" VerticalAlignment="Top" Width="129" Grid.Column="1" Foreground="Black" FontSize="20" Text="{Binding End_date}" RenderTransformOrigin="2.521,0.524" />
                 <TextBlock Height="30" FontFamily="Century Gothic" FontSize="25" FontStretch="UltraExpanded" FontStyle="Italic" FontWeight="UltraBold" HorizontalAlignment="Left" Margin="35,72,0,0" x:Name="textBlockMinParticipants1_Copy2" Text="Min age in trip" VerticalAlignment="Top" Width="200" Foreground="Black" Grid.Column="1" />
 
-                <ListBox x:Name="allMemListBox" HorizontalAlignment="Left" Margin="35,225,0,0" Width="274"
+                <ListBox x:Name="allMemListBox" HorizontalAlignment="Left" Margin="35,225,0,0" Width="274" IsHitTestVisible="False"
             ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderThickness="0" HorizontalContentAlignment="Stretch" Background="Transparent" Grid.ColumnSpan="2" Height="165" VerticalAlignment="Top">
                     <ListBox.ItemTemplate>
 
