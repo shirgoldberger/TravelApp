@@ -21,26 +21,24 @@ namespace TravelApp
     /// </summary>
     public partial class viewAllTrip: Page
     {
-        User user;
+        string username;
         viewAllTrip_Model view;
         List<Trip> trips;
-        private List<Language> languages;
-        private List<Language> choosenLanguages;
-        public viewAllTrip(User _user)
+
+        public viewAllTrip(string _username)
         {
-            user = _user;
+            username = _username;
             InitializeComponent();
-            view= new viewAllTrip_Model(user);
+            view= new viewAllTrip_Model(username);
             trips = view.getAllTrip();
             allTripsListBox.ItemsSource = trips;
             buttomDelete.ItemsSource = trips;
             buttomEdit.ItemsSource = trips;
-            choosenLanguages = new List<Language>();
         }
         private void Button_Click_add_trip(object sender, RoutedEventArgs e)
         {
 
-            addNewTrip ant = new addNewTrip(user.Username, user.Password);
+            addNewTrip ant = new addNewTrip(username);
             this.NavigationService.Navigate(ant);
             //watchTrip watch = new watchTrip(trips[0]);
             //watch.Show();
@@ -57,18 +55,17 @@ namespace TravelApp
             var item = ((Button)sender).DataContext;
             var itemIndex = buttomDelete.Items.IndexOf(item);
             //check if he is the admin of this trip.
-            if (user.Username == trips[itemIndex].Admin)
+            if (username == trips[itemIndex].Admin)
             {
-                deleteTrip delete = new deleteTrip(trips[itemIndex], view, user);
+                deleteTrip delete = new deleteTrip(trips[itemIndex], view, username);
                 delete.Show();
                 trips = view.getAllTrip();
                 allTripsListBox.ItemsSource = trips;
                 buttomDelete.ItemsSource = trips;
-                choosenLanguages = new List<Language>();
             }
             else
             {
-                bool a = view.deleteTrip(trips[itemIndex], user);
+                bool a = view.deleteTrip(trips[itemIndex], username);
                 if (a == false)
                 {
                     MessageBox.Show("delete failed");
@@ -81,7 +78,6 @@ namespace TravelApp
                     allTripsListBox.ItemsSource = trips;
                     buttomDelete.ItemsSource = trips;
                     buttomEdit.ItemsSource = trips;
-                    choosenLanguages = new List<Language>();
 
                 }
             }
@@ -92,14 +88,14 @@ namespace TravelApp
             var item = ((Button)sender).DataContext;
             var itemIndex = buttomDelete.Items.IndexOf(item);
             Trip pushTrip = trips[itemIndex];
-            if (pushTrip.Admin!= user.Username)
+            if (pushTrip.Admin!= username)
             {
                 MessageBox.Show("you can not edit this trip - only admin can edit");
 
             }
             else
             {
-                editTheTrip edt = new editTheTrip(pushTrip, user);
+                editTheTrip edt = new editTheTrip(pushTrip, username);
                 edt.Show();
             }
         }
@@ -107,6 +103,10 @@ namespace TravelApp
         private void allTripsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
+        }
+        private void return_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.GoBack();
         }
     }
 }

@@ -21,13 +21,11 @@ namespace TravelApp
     public partial class UserPage : Page
     {
         private string username;
-        private string password;
 
-        public UserPage(string _username, string _password)
+        public UserPage(string _username)
         {
             DataContext = this;
             username = _username;
-            password = _password;
             InitializeComponent();
             
         }
@@ -42,8 +40,7 @@ namespace TravelApp
 
         private void viewTripsButton_Click(object sender, RoutedEventArgs e)
         {
-            User user = new User(username, password);
-            viewAllTrip vt = new viewAllTrip(user);
+            viewAllTrip vt = new viewAllTrip(username);
             this.NavigationService.Navigate(vt);
         }
 
@@ -59,7 +56,7 @@ namespace TravelApp
 
         private void addNewTripButton_Click(object sender, RoutedEventArgs e)
         {
-            addNewTrip nt = new addNewTrip(username, password);
+            addNewTrip nt = new addNewTrip(username);
             this.NavigationService.Navigate(nt);
         }
     }

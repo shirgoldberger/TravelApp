@@ -92,7 +92,7 @@ namespace TravelApp
                 set;
             }
         }
-        public addNewTrip(string username, string password)
+        public addNewTrip(string username)
         {
             InitializeComponent();
             choosenLocations = new List<string>();

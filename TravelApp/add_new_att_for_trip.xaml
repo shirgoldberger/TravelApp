@@ -6,9 +6,18 @@
         xmlns:local="clr-namespace:TravelApp"
         mc:Ignorable="d"
         Title="add_new_att_for_trip" Height="371.109" Width="365.295">
-    <Grid Margin="0,0,433.333,-0.333">
-        <ListBox x:Name="allAtList" HorizontalAlignment="Left" Margin="18,20,-217,0" Width="199"
-            ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderThickness="0" HorizontalContentAlignment="Stretch" Background="Transparent" Height="233" VerticalAlignment="Top">
+    <Grid Margin="0,0,-6.333,-76">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="61*"/>
+            <ColumnDefinition Width="237*"/>
+            <ColumnDefinition Width="17*"/>
+            <ColumnDefinition Width="50*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.Background>
+            <ImageBrush ImageSource="trip5.jpg" TileMode="Tile"/>
+        </Grid.Background>
+        <ListBox x:Name="allAtList" HorizontalAlignment="Left" Margin="18,20,0,0" Width="199"
+            ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderThickness="0" HorizontalContentAlignment="Stretch" Background="Transparent" Height="233" VerticalAlignment="Top" Grid.ColumnSpan="2">
             <ListBox.ItemTemplate>
 
                 <DataTemplate>
@@ -19,8 +28,8 @@
 
             </ListBox.ItemTemplate>
         </ListBox>
-        <ListBox x:Name="buttomAddAtt" HorizontalAlignment="Left" Height="233" Margin="256,20,-317,0" VerticalAlignment="Top" Width="61"
-            ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderThickness="0" HorizontalContentAlignment="Stretch" Background="Transparent">
+        <ListBox x:Name="buttomAddAtt" HorizontalAlignment="Left" Height="233" Margin="194.933,20,0,0" VerticalAlignment="Top" Width="61"
+            ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderThickness="0" HorizontalContentAlignment="Stretch" Background="Transparent" Grid.ColumnSpan="3" Grid.Column="1">
             <ListBox.ItemTemplate>
 
                 <DataTemplate>

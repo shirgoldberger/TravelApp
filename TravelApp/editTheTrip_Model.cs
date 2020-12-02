@@ -14,19 +14,7 @@ namespace TravelApp
         public editTheTrip_Model( Trip trip ) {
             this.trip = trip;
         }
-        public User createUser(MySqlDataReader dr)
-        {
-            string username = dr.GetString("username");
-            string password = dr.GetString("password");
-            User u = new User(username, password);
-            return u;
-        }
-        public User createMem(MySqlDataReader dr)
-        {
-            string username = dr.GetString("username");
-            User u = new User(username);
-            return u;
-        }
+
         public Attraction createAtt(MySqlDataReader dr)
         {
             string attraction_code = dr.GetString("attraction_code");
@@ -36,21 +24,19 @@ namespace TravelApp
             Attraction a = new Attraction(attraction_code, name, city_id, type);
             return a;
         }
-        public List<User> getAllMembers()
+        public List<string> getAllMembers()
         {
-            List<User> users = new List<User>();
+            List<string> users = new List<string>();
             String trip_code = trip.Id;
             trip_code = "'" + trip_code + "'";
-            string command = "SELECT * FROM user, member " +
-                "WHERE member.trip_code = " + trip_code +
-                " AND member.username = user.username;";
+            string command = "SELECT username FROM member " +
+                "WHERE member.trip_code = " + trip_code + ";";
             MySqlDataReader dr = DbConnection.ExecuteQuery(command);
             if (dr != null)
             {
                 while (dr.Read())
                 {
-                    User u = createUser(dr);
-                    users.Add(u);
+                    users.Add(dr.GetString("username"));
                 }
             }
             dr.Close();
@@ -92,17 +78,22 @@ namespace TravelApp
             dr.Close();
             return att;
         }
-        public List<User> getAllMembersInSql()
+        public List<string> getAllMembersInSql(Trip trip)
         {
-            List<User> mem = new List<User>();
-            string command = "SELECT * FROM user ;";
+            string trip_code = "'"+trip.Id+"'"; 
+            List<string> mem = new List<string>();
+            string command1 = "SELECT username FROM member " +
+                 "WHERE member.trip_code = " + trip_code;
+            string command = "Select user.username" +
+                            " From user left join( " + command1 + " ) as temp" +
+                            " On(user.username = temp.username)" +
+                            " Where temp.username is null;";
             MySqlDataReader dr = DbConnection.ExecuteQuery(command);
             if (dr != null)
             {
                 while (dr.Read())
                 {
-                    User a = createUser(dr);
-                    mem.Add(a);
+                    mem.Add(dr.GetString("username"));
                 }
             }
             dr.Close();
@@ -129,11 +120,10 @@ namespace TravelApp
             }
             return true;
         }
-        public bool deleteMem(Trip trip, User user)
+        public bool deleteMem(Trip trip, string username)
         {
             string trip_code = trip.Id;
             trip_code = "'" + trip_code + "'";
-            string username = user.Username;
             username = "'" + username + "'";
             string command = "DELETE FROM member WHERE trip_code = " + trip_code + " AND username = " + username + ";";
             bool dr = DbConnection.ExecuteNonQuery(command);
@@ -169,11 +159,11 @@ namespace TravelApp
             }
             return true;
         }
-        public bool add_new_Mem_for_trip(Trip trip, User user)
+        public bool add_new_Mem_for_trip(Trip trip, string username)
         {
             string trip_code = trip.Id;
             trip_code = "'" + trip_code + "', ";
-            string Att_code = "'" + user.Username + "' ";
+            string Att_code = "'" + username + "' ";
             string command = "INSERT INTO member(trip_code, username) VALUES (" + trip_code + Att_code + ");";
             bool dr = DbConnection.ExecuteNonQuery(command);
             if (dr == false)

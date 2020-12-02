@@ -144,10 +144,9 @@
       <DependentUpon>FindTrip.xaml</DependentUpon>
     </Compile>
     <Compile Include="FindTripModel.cs" />
-    <Compile Include="Language.cs" />
+    <Compile Include="Home_page_Model.cs" />
     <Compile Include="Members.cs" />
     <Compile Include="Trip.cs" />
-    <Compile Include="User.cs" />
     <Compile Include="UserPage.xaml.cs">
       <DependentUpon>UserPage.xaml</DependentUpon>
     </Compile>
@@ -254,18 +253,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="trip.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="trip2.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="trip3.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="trip4.jpg" />
-  </ItemGroup>
-  <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
       <Visible>False</Visible>
       <ProductName>Microsoft .NET Framework 4.7.2 %28x86 and x64%29</ProductName>
@@ -278,13 +265,41 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="back.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="picturs\trip7.jpg" />
+    <Resource Include="picturs\trip6.jpg" />
+    <Resource Include="picturs\trip5.jpg" />
+    <Resource Include="picturs\trip4.jpg" />
+    <Resource Include="picturs\trip3.jpg" />
+    <Resource Include="picturs\trip2.jpg" />
+    <Resource Include="picturs\trip.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="trip.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="trip2.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="trip3.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="trip4.jpg" />
+  </ItemGroup>
+  <ItemGroup>
     <Resource Include="trip5.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="trip6.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="back.jpg" />
+    <Resource Include="trip7.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\" />
+    <Folder Include="Pages\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -32,7 +32,7 @@ namespace TravelApp
 
         watchTrip_Model watchTrip_Model;
        // viewAllTrip_Model view;
-        List<User> members;
+        List<string> members;
         List<Attraction> attractions;
 
 

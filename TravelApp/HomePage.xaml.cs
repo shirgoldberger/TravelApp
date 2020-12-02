@@ -26,9 +26,11 @@ namespace TravelApp
         private string username = "";
         private string password = "";
         private string message = "";
+        Home_page_Model model;
         public HomePage()
         {
             InitializeComponent();
+            model = new Home_page_Model();
             DataContext = this;
         }
         public event PropertyChangedEventHandler PropertyChanged;
@@ -41,50 +43,17 @@ namespace TravelApp
         }
         private void Button_Click_Login(object sender, RoutedEventArgs e)
         {
-            Message = "";
-            // if the user didn't insert username or password
-            if (username.Equals("") || password.Equals(""))
+            try
             {
-                Message = "You need to insert username and password";
-                return;
+                string username = model.login(name.Text, passwordBox.Text);
+                UserPage userpage = new UserPage(username);
+                this.NavigationService.Navigate(userpage);
+
             }
-            // check username
-            string command = "SELECT username FROM user WHERE username='" + name.Text + "';";
-            MySqlDataReader dr = DbConnection.ExecuteQuery(command);
-            if (dr != null)
+            catch(Exception error)
             {
-                while (dr.Read())
-                {
-                    // Check the username & password 
-                    command = "SELECT username, password FROM user WHERE username='" + name.Text + "' AND password='" + passwordBox.Text + "';";
-                    dr.Close();
-                    MySqlDataReader dr2 = DbConnection.ExecuteQuery(command);
-                    if (dr2 != null)
-                    {
-                        while (dr2.Read())
-                        {
-                            string username = dr2.GetString("username");
-                            string password = dr2.GetString("password");
-                            dr2.Close();
-                            UserPage up = new UserPage(username, password);
-                            this.NavigationService.Navigate(up);
-                            return;
-                        }
-                        dr2.Close();
-                        MessageBox.Show("The password does not match this username");
-                        return;
-                    }
-                    else
-                    {
-                        MessageBox.Show("The password does not match this username");
-                        return;
-                    }
-                }
-                dr.Close();
-                MessageBox.Show("cannot find this account");
-                return;
+                MessageBox.Show(error.ToString());
             }
-            MessageBox.Show("cannot find this account");
         }
 
         private void Button_Click_New_Account(object sender, RoutedEventArgs e)

@@ -20,7 +20,7 @@ namespace TravelApp
     public partial class add_new_mem_for_trip : Window
     {
         editTheTrip_Model model;
-        List<User> members;
+        List<string> members;
         Trip trip;
 
         public add_new_mem_for_trip(editTheTrip_Model model, Trip trip1)
@@ -28,7 +28,7 @@ namespace TravelApp
             InitializeComponent();
             this.model = model;
             this.trip = trip1;
-            members = model.getAllMembersInSql();
+            members = model.getAllMembersInSql(trip);
             buttomAddAtt.ItemsSource = members;
             allAtList.ItemsSource = members;
         }
@@ -40,12 +40,16 @@ namespace TravelApp
             if (a == true)
             {
                 MessageBox.Show("delete sucses");
+
             }
             else
             {
                 MessageBox.Show("delete failed");
 
             }
+            members = model.getAllMembersInSql(trip);
+            buttomAddAtt.ItemsSource = members;
+            allAtList.ItemsSource = members;
         }
     }
 }

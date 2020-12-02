@@ -10,10 +10,10 @@ namespace TravelApp
 {
     public class viewAllTrip_Model
     {
-        User user;
-        public viewAllTrip_Model(User user)
+        string username;
+        public viewAllTrip_Model(string _username)
         {
-            this.user = user;
+            username = _username;
         }
         public Trip createTrip(MySqlDataReader dr)
         {
@@ -33,8 +33,7 @@ namespace TravelApp
         }
         public List<Trip> getAllTrip()
         {
-            string userName = user.Username;
-            userName = "'" + userName + "'";
+            string userName = "'" + username + "'";
             List<Trip> trips = new List<Trip>();
             string command = "SELECT * FROM trip, member " +
                 "WHERE member.username = " + userName +
@@ -51,11 +50,10 @@ namespace TravelApp
             dr.Close();
             return trips;
         }
-        public bool deleteTrip(Trip trip, User user)
+        public bool deleteTrip(Trip trip, string username)
         {
             string trip_code = trip.Id;
             trip_code = "'" + trip_code + "'";
-            string username = user.Username;
             username = "'" + username + "'";
             string command = "DELETE FROM member WHERE trip_code = "+trip_code+" AND username = "+username+";";
             bool dr = DbConnection.ExecuteNonQuery(command);
@@ -79,7 +77,7 @@ namespace TravelApp
             DateTime start_date = trip.Start_Date;
             return true;
         }
-        public bool setUserAdmin(Trip trip, User user, string newUsername)
+        public bool setUserAdmin(Trip trip, string username, string newUsername)
         {
             //first - set new admin
             string start_date1 = "'" + trip.Start_Date.ToString("dd.MM.yyyy") + "'";
@@ -100,7 +98,7 @@ namespace TravelApp
                 return false;
             }
             //now delete the user from trip.
-            bool dr2 = deleteTrip(trip, user);
+            bool dr2 = deleteTrip(trip, username);
             if (dr2 == false)
             {
                 return false;

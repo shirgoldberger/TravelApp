@@ -20,13 +20,13 @@ namespace TravelApp
     public partial class deleteTrip : Window
     {
         Trip trip;
-        User user;
+        string username;
         viewAllTrip_Model model;
-        List<User> members;
+        List<string> members;
         watchTrip_Model watchTrip_Model;
-        public deleteTrip(Trip trip, viewAllTrip_Model model, User user)
+        public deleteTrip(Trip trip, viewAllTrip_Model model, string _username)
         {
-            this.user = user;
+            username = _username;
             InitializeComponent();
             watchTrip_Model = new watchTrip_Model(trip);
             members = watchTrip_Model.getAllMembers();
@@ -56,10 +56,10 @@ namespace TravelApp
         {
             var item = ((Button)sender).DataContext;
             var itemIndex = allMemListBox.Items.IndexOf(item);
-            bool a = model.setUserAdmin(trip, user, members[itemIndex].Username);
+            bool a = model.setUserAdmin(trip, username, members[itemIndex]);
             if (a == true)
             {
-                MessageBox.Show("you deleted from trup and "+members[itemIndex].Username +" is the new admin.");
+                MessageBox.Show("you deleted from trup and "+members[itemIndex] +" is the new admin.");
                 this.Close();
             }
             else

@@ -39,7 +39,7 @@
                     <ListBox.ItemTemplate>
 
                         <DataTemplate>
-                            <TextBlock Uid="{Binding Username}" Text="{Binding Username}"  >
+                            <TextBlock Uid="{Binding Username}" Text="{Binding }"  >
                             </TextBlock>
 
                         </DataTemplate>

@@ -15,13 +15,7 @@ namespace TravelApp
             this.trip = t;
 
         }
-        public User createUser(MySqlDataReader dr)
-        {
-            string username = dr.GetString("username");
-            string password = dr.GetString("password");
-            User u = new User(username, password);
-            return u;
-        }
+       
         public Attraction createAtt(MySqlDataReader dr)
         {
             string attraction_code = dr.GetString("attraction_code");
@@ -31,21 +25,19 @@ namespace TravelApp
             Attraction a = new Attraction(attraction_code, name, city_id, type);
             return a;
         }
-        public List<User> getAllMembers()
+        public List<string> getAllMembers()
         {
-            List<User> users = new List<User>();
+            List<string> users = new List<string>();
             String trip_code = trip.Id;
             trip_code = "'" + trip_code + "'";
-            string command = "SELECT * FROM user, member " +
-                "WHERE member.trip_code = " + trip_code +
-                " AND member.username = user.username;";
+            string command = "SELECT username FROM member " +
+                "WHERE member.trip_code = " + trip_code + ";";
             MySqlDataReader dr = DbConnection.ExecuteQuery(command);
             if (dr != null)
             {
                 while (dr.Read())
                 {
-                    User u = createUser(dr);
-                    users.Add(u);
+                    users.Add(dr.GetString("username"));
                 }
             }
             dr.Close();

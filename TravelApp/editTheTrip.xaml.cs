@@ -20,7 +20,7 @@ namespace TravelApp
     public partial class editTheTrip : Window
     {
         Trip trip;
-        User user;
+        string username;
         DateTime start_date;
         DateTime end_date;
         private int min_age;
@@ -33,15 +33,15 @@ namespace TravelApp
 
         editTheTrip_Model model;
         // viewAllTrip_Model view;
-        List<User> members;
+        List<string> members;
         List<Attraction> attractions;
 
 
 
-        public editTheTrip(Trip trip, User user)
+        public editTheTrip(Trip trip, string _username)
         {
             this.trip = trip;
-            this.user = user;
+            username = _username;
             start_date = trip.Start_Date;
             end_date = trip.End_Date;
             min_age = trip.Min_Age;
@@ -80,7 +80,7 @@ namespace TravelApp
         {
             string a = start_date + "," + end_date + "," + min_age + "," + max_age + "," + max_participants;
             Console.WriteLine(a);
-            bool ans = model.update_submit(trip.Id, user.Username,Start_date, End_date, Min_age, Max_age, Max_participants);
+            bool ans = model.update_submit(trip.Id, username, Start_date, End_date, Min_age, Max_age, Max_participants);
             if (ans == true)
             {
                 MessageBox.Show("edit sucses");
