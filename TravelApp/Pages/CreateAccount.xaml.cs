@@ -104,85 +104,98 @@ namespace TravelApp
         }
         private void Submit_Click(object sender, RoutedEventArgs e)
         {
+            if (textBoxUserName.Text.Length == 0)
+            {
+                MessageBox.Show("Please insert username");
+                textBoxUserName.Focus();
+                return;
+            }
             if (choosenLanguages.Count == 0)
             {
                 MessageBox.Show("Please choose languages");
                 languagesComboBox.Focus();
+                return;
+            }
+            if (textBoxPhone.Text.Length != 10)
+            {
+                MessageBox.Show("Please insert correct phone number");
+                textBoxPhone.Focus();
+                return;
             }
             if (male.IsChecked == false && female.IsChecked == false)
             {
                 MessageBox.Show("Choose Gender");
                 male.Focus();
+                return;
             }
             if (textBoxEmail.Text.Length == 0)
             {
                 MessageBox.Show("Enter an email");
                 textBoxEmail.Focus();
+                return;
             }
-            else if (!Regex.IsMatch(textBoxEmail.Text, @"^[a-zA-Z][\w\.-]*[a-zA-Z0-9]@[a-zA-Z0-9][\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]$"))
+            if (!Regex.IsMatch(textBoxEmail.Text, @"^[a-zA-Z][\w\.-]*[a-zA-Z0-9]@[a-zA-Z0-9][\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]$"))
             {
                 MessageBox.Show("Enter a valid email");
                 textBoxEmail.Select(0, textBoxEmail.Text.Length);
                 textBoxEmail.Focus();
+                return;
+            }
+            char gender;
+            if ((bool)(female.IsChecked))
+            {
+                gender = '0';
+            } else
+            {
+                gender = '1';
+            }
+            int age;
+            try
+            {
+                age = int.Parse(textBoxAge.Text);
+            }
+            catch
+            {
+                MessageBox.Show("Enter valid age");
+                textBoxAge.Focus();
+                return;
+            }
+            if (passwordBox.Password.Length == 0)
+            {
+                MessageBox.Show("Enter password");
+                passwordBox.Focus();
+                return;
+            }
+            if (passwordBoxConfirm.Password.Length == 0)
+            {
+                MessageBox.Show("Enter Confirm password");
+                passwordBoxConfirm.Focus();
+                return;
+            }
+            if (passwordBox.Password != passwordBoxConfirm.Password)
+            {
+                MessageBox.Show("Confirm password must be same as password");
+                passwordBoxConfirm.Focus();
+                return;
             }
             else
             {
-                char gender;
-                if ((bool)(female.IsChecked))
+                int flag = ca_model.createAccount(textBoxUserName.Text, textBoxPhone.Text,
+                    textBoxEmail.Text, passwordBox.Password, textBoxAddress.Text, age, gender, choosenFriends, choosenLanguages);
+                if(flag == 0)
                 {
-                    gender = '0';
-                } else
-                {
-                    gender = '1';
+                    HomePage up = new HomePage();
+                    this.NavigationService.Navigate(up);
                 }
-                int age;
-                try
+                if (flag == 1)
                 {
-                    age = int.Parse(textBoxAge.Text);
-                }
-                catch
-                {
-                    MessageBox.Show("Enter valid age");
-                    textBoxAge.Focus();
+                    MessageBox.Show("username is already exist");
                     return;
                 }
-                if (passwordBox.Password.Length == 0)
+                if (flag == 2)
                 {
-                    MessageBox.Show("Enter password");
-                    passwordBox.Focus();
+                    MessageBox.Show("Cannot create account, please try again");
                     return;
-                }
-                else if (passwordBoxConfirm.Password.Length == 0)
-                {
-                    MessageBox.Show("Enter Confirm password");
-                    passwordBoxConfirm.Focus();
-                    return;
-                }
-                else if (passwordBox.Password != passwordBoxConfirm.Password)
-                {
-                    MessageBox.Show("Confirm password must be same as password");
-                    passwordBoxConfirm.Focus();
-                    return;
-                }
-                else
-                {
-                    int flag = ca_model.createAccount(textBoxUserName.Text, textBoxPhone.Text,
-                        textBoxEmail.Text, passwordBox.Password, textBoxAddress.Text, age, gender, choosenFriends, choosenLanguages);
-                    if(flag == 0)
-                    {
-                        HomePage up = new HomePage();
-                        this.NavigationService.Navigate(up);
-                    }
-                    if (flag == 1)
-                    {
-                        MessageBox.Show("username is already exist");
-                        return;
-                    }
-                    if (flag == 2)
-                    {
-                        MessageBox.Show("Cannot create account, please try again");
-                        return;
-                    }
                 }
             }
         }
@@ -190,6 +203,7 @@ namespace TravelApp
         {
             female.IsChecked = false;
         }
+
         private void female_Checked(object sender, RoutedEventArgs e)
         {
             male.IsChecked = false;
@@ -199,11 +213,11 @@ namespace TravelApp
         {
             languagesComboBox.ItemsSource = languages.Where(x => x.StartsWith(languagesComboBox.Text.Trim()));
         }
+
         private void Friends_TextChanged(object sender, EventArgs e)
         {
             languagesComboBox.ItemsSource = languages.Where(x => x.StartsWith(languagesComboBox.Text.Trim()));
         }
-
 
         private void Button_Click_Exit(object sender, RoutedEventArgs e)
         {
