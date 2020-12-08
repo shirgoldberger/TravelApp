@@ -68,29 +68,44 @@ namespace TravelApp
         {
             string trip_code = trip.Id;
             trip_code = "'" + trip_code + "'";
-            string command = "DELETE FROM member WHERE trip_code = " + trip_code +" ;";
-            bool dr = DbConnection.ExecuteNonQuery(command);
-            if (dr == false)
+            // Transaction:
+            //defenition for transaction
+            MySqlCommand myCommand = DbConnection.Connection.CreateCommand();
+            MySqlTransaction myTrans;
+            myTrans = DbConnection.Connection.BeginTransaction();
+            myCommand.Connection = DbConnection.Connection;
+            myCommand.Transaction = myTrans;
+            try
+            {
+                //add the command to send
+                //1
+                string command = "DELETE FROM member WHERE trip_code = " + trip_code + " ;";
+                myCommand.CommandText = command;
+                myCommand.ExecuteNonQuery();
+                //2
+                string command2 = "DELETE FROM trip_attractions WHERE trip_code = " + trip_code + " ;";
+                myCommand.CommandText = command2;
+                myCommand.ExecuteNonQuery();
+                //3
+                string command3 = "DELETE FROM trip WHERE trip_code = " + trip_code + " ;";
+                myCommand.CommandText = command3;
+                myCommand.ExecuteNonQuery();
+
+                myTrans.Commit();
+            }
+            catch (Exception e)
             {
                 return false;
             }
-            DateTime start_date = trip.Start_Date;
             return true;
         }
         public bool setUserAdmin(Trip trip, string username, string newUsername)
         {
             //first - set new admin
-            string start_date1 = "'" + trip.Start_Date.ToString("dd.MM.yyyy") + "'";
-            string end_date1 = "'" + trip.End_Date.ToString("dd.MM.yyyy") + "'";
-            string min_age1 = "'" + trip.Min_Age.ToString() + "'";
-            string max_age1 = "'" + trip.Min_Age.ToString() + "'";
-            string max_part1 = "'" + trip.Max_Participants.ToString() + "'";
             string trip_code1 = "'" + trip.Id.ToString() + "'";
             string admin1 = "'" + newUsername + "'";
-            string command = "UPDATE trip SET trip_code = " + trip_code1 +
-                " , admin = " + admin1 + " , start_date = " + start_date1 +
-                " , end_date = " + end_date1 + " , min_age = " + min_age1 +
-                " , max_age = " + max_age1 + " , max_participants = " + max_part1 +
+            string command = "UPDATE trip SET"+
+                " admin = " + admin1  +
                 " WHERE trip_code = " + trip_code1 + " ;";
             bool dr = DbConnection.ExecuteNonQuery(command);
             if (dr == false)

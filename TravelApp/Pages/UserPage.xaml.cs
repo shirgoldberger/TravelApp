@@ -63,5 +63,9 @@ namespace TravelApp
             AddNewAtt at = new AddNewAtt(model);
             at.Show();
         }
+        private void return_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.GoBack();
+        }
     }
 }

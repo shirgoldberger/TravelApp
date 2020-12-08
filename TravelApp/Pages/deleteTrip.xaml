@@ -11,8 +11,8 @@
     </Window.Background>
     <Grid Margin="0,0,338.333,-0.333" >
 
-        <TextBox Background="Transparent" HorizontalAlignment="Left"  FontFamily="Century Gothic" FontStyle="Italic" FontWeight="UltraBold" FontSize="25"  Height="61" Margin="11,10,-333.666,0" TextWrapping="Wrap" Text="Hey. you are the admin of this trip!" VerticalAlignment="Top" Width="389"/>
-        <TextBox Background="Transparent" HorizontalAlignment="Left" FontFamily="Century Gothic" FontStyle="Italic" FontWeight="UltraBold" FontSize="20"  Height="60" Margin="10,71,-333.666,0" TextWrapping="Wrap" Text="do you want to delete this trip for all members? or set new admin?" VerticalAlignment="Top" Width="390"/>
+        <TextBox Background="Transparent" BorderThickness="0" HorizontalAlignment="Left"  FontFamily="Century Gothic" FontStyle="Italic" FontWeight="UltraBold" FontSize="25"  Height="61" Margin="11,10,-333.666,0" TextWrapping="Wrap" Text="Hey. you are the admin of this trip!" VerticalAlignment="Top" Width="389"/>
+        <TextBox Background="Transparent" BorderThickness="0" HorizontalAlignment="Left" FontFamily="Century Gothic" FontStyle="Italic" FontWeight="UltraBold" FontSize="20"  Height="60" Margin="10,71,-333.666,0" TextWrapping="Wrap" Text="do you want to delete this trip for all members? or set new admin?" VerticalAlignment="Top" Width="390"/>
 
         <Button x:Name="yes" HorizontalAlignment="Center"
             Margin="10,131,-322.666,237" Padding="5" Width="379" Click="Button_Click_All" FontSize="20" FontWeight="Bold" Background="#FF28617A" Content="delete the trip for all members" FontFamily="Calisto MT" Cursor="Hand" RenderTransformOrigin="0.873,0.5">
@@ -48,12 +48,12 @@
             </Button.Template>
         </Button>
 
-        <ListBox x:Name="allMemListBox" HorizontalAlignment="Left" Height="137" Margin="121,260,-200.666,0" VerticalAlignment="Top" Width="146"
+        <ListBox x:Name="allMemListBox" HorizontalAlignment="Left" Height="137" Margin="67,241,-244.666,0" VerticalAlignment="Top" Width="244"
             ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderThickness="0" HorizontalContentAlignment="Stretch" Background="Transparent">
             <ListBox.ItemTemplate>
 
                 <DataTemplate>
-                    <Button Uid="{Binding Username}" Content ="{Binding Username}" Click="row_click"  >
+                    <Button Uid="{Binding }" Content ="{Binding }" Click="row_click"  >
                         <Button.Effect>
                             <DropShadowEffect Color="#FF48636F"/>
                         </Button.Effect>
@@ -63,6 +63,7 @@
 
             </ListBox.ItemTemplate>
         </ListBox>
-        <TextBox HorizontalAlignment="Left"  FontStyle="Italic" FontWeight="UltraBold" Background="Transparent" FontFamily="Century Gothic" FontSize="25"  Height="51" Margin="0,185,-322.666,0" TextWrapping="Wrap" Text="choose new admin from list:" VerticalAlignment="Top" Width="389"/>
+        <TextBox HorizontalAlignment="Left" BorderThickness="0" FontStyle="Italic" FontWeight="UltraBold"  Background="Transparent" FontFamily="Century Gothic" FontSize="25"  Height="51" Margin="0,185,-322.666,0" TextWrapping="Wrap"  TextDecorations="{x:Null}" Text="choose new admin from list:" VerticalAlignment="Top" Width="389"/>
+
     </Grid>
 </Window>

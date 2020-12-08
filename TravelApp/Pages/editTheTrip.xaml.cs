@@ -70,8 +70,6 @@ namespace TravelApp
             members = model.getAllMembers();
             attractions = model.getAllAttraction();
             allMemListBox.ItemsSource = members;
-            buttomDeleteMem.ItemsSource = members;
-            buttomDeleteAtt.ItemsSource = attractions;
             allAttListBox.ItemsSource = attractions;
 
 
@@ -139,16 +137,21 @@ namespace TravelApp
         {
             add_new_att_for_trip anl = new add_new_att_for_trip(model, trip);
             anl.Show();
+            attractions = model.getAllAttraction();
+            allAttListBox.ItemsSource = attractions;
         }
         private void Button_Click_Add_New_Member(object sender, RoutedEventArgs e)
         {
             add_new_mem_for_trip anl = new add_new_mem_for_trip(model, trip);
             anl.Show();
+            members = model.getAllMembers();
+            allMemListBox.ItemsSource = members;
+
         }
         private void clickDelete_mem(object sender, RoutedEventArgs e)
         {
             var item = ((Button)sender).DataContext;
-            var itemIndex = buttomDeleteMem.Items.IndexOf(item);
+            var itemIndex = allMemListBox.Items.IndexOf(item);
             bool delete = model.deleteMem(trip, members[itemIndex]);
             if (delete == true)
             {
@@ -161,12 +164,11 @@ namespace TravelApp
             }
             members = model.getAllMembers();
             allMemListBox.ItemsSource = members;
-            buttomDeleteMem.ItemsSource = members;
         }
         private void clickDelete_Att(object sender, RoutedEventArgs e)
         {
             var item = ((Button)sender).DataContext;
-            var itemIndex = buttomDeleteAtt.Items.IndexOf(item);
+            var itemIndex = allAttListBox.Items.IndexOf(item);
             bool delete = model.deleteAtt(trip, attractions[itemIndex]);
             if (delete == true)
             {
@@ -178,7 +180,6 @@ namespace TravelApp
 
             }
             attractions = model.getAllAttraction();
-            buttomDeleteAtt.ItemsSource = attractions;
             allAttListBox.ItemsSource = attractions;
         }
     }

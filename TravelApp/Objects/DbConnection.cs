@@ -28,6 +28,7 @@ namespace TravelApp
                 b.Port = (uint)port;
                 _connection = new MySqlConnection(b.ToString());
                 _connection.Open();
+
             }
         }
         public static MySqlConnection Connection
@@ -37,6 +38,7 @@ namespace TravelApp
                 return _connection;
             }
         }
+
         public static bool ExecuteNonQuery(string command)
         {
             try

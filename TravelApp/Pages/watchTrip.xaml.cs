@@ -19,8 +19,9 @@ namespace TravelApp
     /// </summary>
     public partial class watchTrip : Window
     {
-
-       DateTime start_date; 
+        string id;
+        string admin;
+        DateTime start_date; 
        DateTime end_date;
        private int min_age;
        private int max_age;
@@ -46,6 +47,8 @@ namespace TravelApp
             max_participants = trip.Max_Participants;
             male_only = trip.Male_Only;
             female_only = trip.Female_Only;
+            id = trip.Id;
+            admin = trip.Admin;
             //
             if (female_only== true)
             {
@@ -72,14 +75,24 @@ namespace TravelApp
 
 
         }
+        public string Id
+        {
+            get { return id; }
+
+        }
+        public string Admin
+        {
+            get { return admin; }
+
+        }
         public string Start_date
         {
-            get { return start_date.ToString(); }
+            get { return start_date.ToString("dd/MM/yyyy"); }
 
         }
         public string End_date
         {
-            get { return end_date.ToString(); }
+            get { return end_date.ToString("dd/MM/yyyy"); }
 
         }
         public string Min_age

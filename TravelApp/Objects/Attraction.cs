@@ -16,6 +16,7 @@ namespace TravelApp
         string type;
         private string attraction_string;
 
+
         public Attraction(string attraction_code,string name, string city_id, string type)
         {
             this.attraction_code = attraction_code;

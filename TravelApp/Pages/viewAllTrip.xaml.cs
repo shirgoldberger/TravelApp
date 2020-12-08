@@ -32,8 +32,6 @@ namespace TravelApp
             view= new viewAllTrip_Model(username);
             trips = view.getAllTrip();
             allTripsListBox.ItemsSource = trips;
-            buttomDelete.ItemsSource = trips;
-            buttomEdit.ItemsSource = trips;
         }
         private void Button_Click_add_trip(object sender, RoutedEventArgs e)
         {
@@ -53,7 +51,7 @@ namespace TravelApp
         public void clickDelete(object sender, RoutedEventArgs e) 
         {
             var item = ((Button)sender).DataContext;
-            var itemIndex = buttomDelete.Items.IndexOf(item);
+            var itemIndex = allTripsListBox.Items.IndexOf(item);
             //check if he is the admin of this trip.
             if (username == trips[itemIndex].Admin)
             {
@@ -61,7 +59,7 @@ namespace TravelApp
                 delete.Show();
                 trips = view.getAllTrip();
                 allTripsListBox.ItemsSource = trips;
-                buttomDelete.ItemsSource = trips;
+                allTripsListBox.ItemsSource = trips;
             }
             else
             {
@@ -76,8 +74,8 @@ namespace TravelApp
                     MessageBox.Show("delete sucses");
                     trips = view.getAllTrip();
                     allTripsListBox.ItemsSource = trips;
-                    buttomDelete.ItemsSource = trips;
-                    buttomEdit.ItemsSource = trips;
+                    allTripsListBox.ItemsSource = trips;
+                    allTripsListBox.ItemsSource = trips;
 
                 }
             }
@@ -86,7 +84,7 @@ namespace TravelApp
         public void clickEdit(object sender, RoutedEventArgs e)
         {
             var item = ((Button)sender).DataContext;
-            var itemIndex = buttomDelete.Items.IndexOf(item);
+            var itemIndex = allTripsListBox.Items.IndexOf(item);
             Trip pushTrip = trips[itemIndex];
             if (pushTrip.Admin!= username)
             {
