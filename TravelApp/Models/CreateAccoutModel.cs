@@ -78,6 +78,8 @@ namespace TravelApp
         {
             List<String> languages = new List<String>();
             string command = "SELECT * FROM Language;";
+            string command2 = "SELECT * FROM use;";
+
             MySqlDataReader dr = DbConnection.ExecuteQuery(command);
             while (dr.Read())
             {
