@@ -68,22 +68,32 @@ namespace TravelApp
         {
             string trip_code = trip.Id;
             trip_code = "'" + trip_code + "'";
-            string command = "DELETE FROM member WHERE trip_code = " + trip_code +" ;";
-            bool dr = DbConnection.ExecuteNonQuery(command);
-            if (dr == false)
+            // Transaction:
+            //defenition for transaction
+            MySqlCommand myCommand = DbConnection.Connection.CreateCommand();
+            MySqlTransaction myTrans;
+            myTrans = DbConnection.Connection.BeginTransaction();
+            myCommand.Connection = DbConnection.Connection;
+            myCommand.Transaction = myTrans;
+            try
             {
-                return false;
+                //add the command to send
+                //1
+                string command = "DELETE FROM member WHERE trip_code = " + trip_code + " ;";
+                myCommand.CommandText = command;
+                myCommand.ExecuteNonQuery();
+                //2
+                string command2 = "DELETE FROM trip_attractions WHERE trip_code = " + trip_code + " ;";
+                myCommand.CommandText = command2;
+                myCommand.ExecuteNonQuery();
+                //3
+                string command3 = "DELETE FROM trip WHERE trip_code = " + trip_code + " ;";
+                myCommand.CommandText = command3;
+                myCommand.ExecuteNonQuery();
+
+                myTrans.Commit();
             }
-            DateTime start_date = trip.Start_Date;
-            command = "DELETE FROM trip_attractions WHERE trip_code = " + trip_code + " ;";
-            bool dr2 = DbConnection.ExecuteNonQuery(command);
-            if (dr2 == false)
-            {
-                return false;
-            }
-            command = "DELETE FROM trip WHERE trip_code = " + trip_code + " ;";
-            bool dr3 = DbConnection.ExecuteNonQuery(command);
-            if (dr3 == false)
+            catch (Exception e)
             {
                 return false;
             }
