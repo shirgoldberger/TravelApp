@@ -27,13 +27,13 @@ namespace TravelApp
         private List<Attraction> attractions;
         private List<Attraction> selectedAttractions;
 
-        public FindByLocation(FindTripModel m, List<City> _cities, List<Attraction> _attractions)
+        public FindByLocation(FindTripModel m)
         {
             InitializeComponent();
             model = m;
-            cities = _cities;
+            cities = model.getAllCities();
+            attractions = model.GetAttractionsByCities(cities);
             CityListBox.ItemsSource = cities;
-            attractions = _attractions;
             AttractionListBox.ItemsSource = attractions;
             selectedCities = new List<City>();
             selectedAttractions = new List<Attraction>();
