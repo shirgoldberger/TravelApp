@@ -117,8 +117,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Models\UserPageModel.cs" />
+    <Compile Include="Pages\AddNewAtt.xaml.cs">
+      <DependentUpon>AddNewAtt.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\addNewTrip.xaml.cs">
       <DependentUpon>addNewTrip.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\addNewFriend.xaml.cs">
+      <DependentUpon>addNewFriend.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\add_new_att_for_trip.xaml.cs">
       <DependentUpon>add_new_att_for_trip.xaml</DependentUpon>
@@ -158,9 +165,17 @@
       <DependentUpon>watchTrip.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\watchTrip_Model.cs" />
+    <Page Include="Pages\AddNewAtt.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\addNewTrip.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\addNewFriend.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Pages\add_new_att_for_trip.xaml">
       <SubType>Designer</SubType>

@@ -14,7 +14,7 @@
             <ImageBrush ImageSource="../Pictures/trip3.jpg" TileMode="Tile"/>
         </Grid.Background>
         <Button x:Name="addFriend" HorizontalAlignment="Center"
-            Grid.ColumnSpan="1" Margin="117,305,678,159.666" Padding="5" Width="305" Click="addFriendButton_Click" FontSize="25" FontWeight="Bold" Background="#FF28617A" Content="Add New Friend" FontFamily="Calisto MT" Cursor="Hand">
+            Grid.ColumnSpan="1" Margin="580,286,281,223.666" Padding="5" Width="239" Click="addFriendButton_Click" FontSize="25" FontWeight="Bold" Background="#FF28617A" Content="Add New Friend" FontFamily="Calisto MT" Cursor="Hand">
             <Button.Effect>
                 <DropShadowEffect Color="#FF48636F"/>
             </Button.Effect>
@@ -47,7 +47,7 @@
             </Button.Template>
         </Button>
         <Button x:Name="addNewTrip" HorizontalAlignment="Center"
-            Grid.ColumnSpan="1" Margin="456,305,331,163.666" Padding="5" Width="313" Click="addNewTripButton_Click" FontSize="25" FontWeight="Bold" Background="#FF28617A" Content="Add New Trip" FontFamily="Calisto MT" Cursor="Hand">
+            Grid.ColumnSpan="1" Margin="580,170,278,339.666" Padding="5" Width="242"  Click="addNewTripButton_Click" FontSize="25" FontWeight="Bold" Background="#FF28617A" Content="Add New Trip" FontFamily="Calisto MT" Cursor="Hand">
             <Button.Effect>
                 <DropShadowEffect Color="#FF48636F"/>
             </Button.Effect>
@@ -80,7 +80,7 @@
             </Button.Template>
         </Button>
         <Button x:Name="searchNewTrip" HorizontalAlignment="Center"
-            Grid.ColumnSpan="1" Margin="452,154,334,317.666" Padding="5" Width="314" Click="searchNewTripButton_Click" FontSize="25" FontWeight="Bold" Background="#FF28617A" Content="Search New Trip" FontFamily="Calisto MT" Cursor="Hand">
+            Grid.ColumnSpan="1" Margin="260,286,598,223.666" Padding="5" Width="242" Click="searchNewTripButton_Click" FontSize="25" FontWeight="Bold" Background="#FF28617A" Content="Search New Trip" FontFamily="Calisto MT" Cursor="Hand">
             <Button.Effect>
                 <DropShadowEffect Color="#FF48636F"/>
             </Button.Effect>
@@ -113,7 +113,7 @@
             </Button.Template>
         </Button>
         <Button x:Name="viewTrips" HorizontalAlignment="Center"
-            Grid.ColumnSpan="1" Margin="116,149,671,316.666" Padding="5" Width="313" FontSize="25" FontWeight="Bold" Background="#FF28617A" Content="View Your Trips" FontFamily="Calisto MT" Cursor="Hand" Click="viewTripsButton_Click">
+            Grid.ColumnSpan="1" Margin="260,170,598,339.666" Padding="5" Width="242" FontSize="25" FontWeight="Bold" Background="#FF28617A" Content="View Your Trips" FontFamily="Calisto MT" Cursor="Hand" Click="viewTripsButton_Click">
             <Button.Effect>
                 <DropShadowEffect Color="#FF48636F"/>
             </Button.Effect>
@@ -145,19 +145,43 @@
                 </ControlTemplate>
             </Button.Template>
         </Button>
-        <Label Content="Hello" HorizontalAlignment="Left" Height="106" Margin="216,12,0,0" VerticalAlignment="Top" Width="188" FontSize="72"/>
-        <TextBlock HorizontalAlignment="Left" Margin="425,35,0,0" TextWrapping="Wrap" Text="{Binding Username}" VerticalAlignment="Top" Height="73" Width="248" FontSize="72" FontWeight="Bold"/>
-        <Button x:Name="return"  HorizontalAlignment="Right" VerticalAlignment="Top" Width="54" FontWeight="Bold" Margin="0,4,1041,0" Height="50" FontFamily="BN Eyal" FontSize="10" Cursor="Hand" RenderTransformOrigin="-0.534,1.361" Background="#FFDDDDDD" Foreground="White" Click="return_Click">
+        <Viewbox HorizontalAlignment="Left" Height="106" Margin="295,26,0,0" VerticalAlignment="Top" Width="488">
+            <TextBlock x:Name="helloStr" FontWeight="Bold"/>
+        </Viewbox>
+
+        <Button x:Name="addAttraction" HorizontalAlignment="Center"
+            Grid.ColumnSpan="1" Margin="408,389,436,120.666" Padding="5" Width="256" Click="addAttractionButton_Click" FontSize="25" FontWeight="Bold" Background="#FF28617A" Content="Add New Attraction" FontFamily="Calisto MT" Cursor="Hand">
+            <Button.Effect>
+                <DropShadowEffect Color="#FF48636F"/>
+            </Button.Effect>
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Border x:Name="bdr_main" CornerRadius="20" Margin="4" BorderThickness="1" BorderBrush="Black">
                         <Border.Background>
-                            <ImageBrush ImageSource="../Pictures/back.jpg"/>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#FF1DC3DB" Offset="0.5"/>
+                                <GradientStop Color="#FF2D5C5B" Offset="0"/>
+                                <GradientStop Color="#FF2D5C5B" Offset="1"/>
+                            </LinearGradientBrush>
                         </Border.Background>
                         <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center" Margin="8,6,8,6" ContentSource="Content" />
                     </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="bdr_main" Property="Background">
+                                <Setter.Value>
+                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                        <GradientStop Color="#FF2D5C5B" Offset="0.5"/>
+                                        <GradientStop Color="#FF1DC3DB" Offset="0"/>
+                                        <GradientStop Color="#FF1DC3DB" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Button.Template>
         </Button>
+
     </Grid>
 </Page>

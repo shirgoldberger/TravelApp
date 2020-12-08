@@ -53,7 +53,7 @@ namespace TravelApp
             }
             catch(Exception error)
             {
-                MessageBox.Show(error.ToString());
+                MessageBox.Show(error.Message);
             }
         }
 

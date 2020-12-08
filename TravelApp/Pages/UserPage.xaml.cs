@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TravelApp.Models;
+using TravelApp.Pages;
 
 namespace TravelApp
 {
@@ -21,44 +23,45 @@ namespace TravelApp
     public partial class UserPage : Page
     {
         private string username;
+        private UserPageModel model;
 
         public UserPage(string _username)
         {
             DataContext = this;
             username = _username;
             InitializeComponent();
-            
-        }
-
-        public string Username
-        {
-            get
-            {
-                return username;
-            }
+            helloStr.Text = "Hello " + username;
+            model = new UserPageModel();
         }
 
         private void viewTripsButton_Click(object sender, RoutedEventArgs e)
         {
             viewAllTrip vt = new viewAllTrip(username);
-            this.NavigationService.Navigate(vt);
+            NavigationService.Navigate(vt);
         }
 
         private void searchNewTripButton_Click(object sender, RoutedEventArgs e)
         {
-             FindTrip vt = new FindTrip(username);
-            this.NavigationService.Navigate(vt);
+            FindTrip vt = new FindTrip(username);
+            NavigationService.Navigate(vt);
         }
 
         private void addFriendButton_Click(object sender, RoutedEventArgs e)
         {
-
+            addNewFriend nf = new addNewFriend(username, model);
+            nf.Show();
         }
 
         private void addNewTripButton_Click(object sender, RoutedEventArgs e)
         {
             addNewTrip nt = new addNewTrip(username);
-            this.NavigationService.Navigate(nt);
+            NavigationService.Navigate(nt);
+        }
+
+        private void addAttractionButton_Click(object sender, RoutedEventArgs e)
+        {
+            AddNewAtt at = new AddNewAtt(model);
+            at.Show();
         }
         private void return_Click(object sender, RoutedEventArgs e)
         {
