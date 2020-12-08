@@ -75,22 +75,27 @@ namespace TravelApp
                 return false;
             }
             DateTime start_date = trip.Start_Date;
+            command = "DELETE FROM trip_attractions WHERE trip_code = " + trip_code + " ;";
+            bool dr2 = DbConnection.ExecuteNonQuery(command);
+            if (dr2 == false)
+            {
+                return false;
+            }
+            command = "DELETE FROM trip WHERE trip_code = " + trip_code + " ;";
+            bool dr3 = DbConnection.ExecuteNonQuery(command);
+            if (dr3 == false)
+            {
+                return false;
+            }
             return true;
         }
         public bool setUserAdmin(Trip trip, string username, string newUsername)
         {
             //first - set new admin
-            string start_date1 = "'" + trip.Start_Date.ToString("dd.MM.yyyy") + "'";
-            string end_date1 = "'" + trip.End_Date.ToString("dd.MM.yyyy") + "'";
-            string min_age1 = "'" + trip.Min_Age.ToString() + "'";
-            string max_age1 = "'" + trip.Min_Age.ToString() + "'";
-            string max_part1 = "'" + trip.Max_Participants.ToString() + "'";
             string trip_code1 = "'" + trip.Id.ToString() + "'";
             string admin1 = "'" + newUsername + "'";
-            string command = "UPDATE trip SET trip_code = " + trip_code1 +
-                " , admin = " + admin1 + " , start_date = " + start_date1 +
-                " , end_date = " + end_date1 + " , min_age = " + min_age1 +
-                " , max_age = " + max_age1 + " , max_participants = " + max_part1 +
+            string command = "UPDATE trip SET"+
+                " admin = " + admin1  +
                 " WHERE trip_code = " + trip_code1 + " ;";
             bool dr = DbConnection.ExecuteNonQuery(command);
             if (dr == false)
