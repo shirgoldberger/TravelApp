@@ -19,34 +19,30 @@ namespace TravelApp
     /// </summary>
     public partial class add_new_att_for_trip : Window
     {
-        editTheTrip_Model model;
         List<Attraction> attractions;
         Trip trip;
+        editTheTrip editTheTrip;
+        add_new_att_for_trip_Controller controller;
 
-        public add_new_att_for_trip(editTheTrip_Model model, Trip trip1)
+        public add_new_att_for_trip(Trip trip1, editTheTrip edt)
         {
             InitializeComponent();
-            this.model = model;
+            editTheTrip = edt;
+            controller = new add_new_att_for_trip_Controller(trip1);
             this.trip = trip1;
-            attractions = model.getAllAttractionNotInThisTrip(trip);
+            attractions = controller.getAllAttractionNotInThisTrip(trip);
             allAtList.ItemsSource = attractions;
         }
         private void clickAdd_loc(object sender, RoutedEventArgs e)
         {
             var item = ((Button)sender).DataContext;
             var itemIndex = allAtList.Items.IndexOf(item);
-            bool a = model.add_new_Att_for_trip(trip, attractions[itemIndex]);
-            if (a == true)
-            {
-                MessageBox.Show("add sucses");
-                attractions = model.getAllAttractionNotInThisTrip(trip);
-                allAtList.ItemsSource = attractions;
-            }
-            else
-            {
-                MessageBox.Show("add failed");
-
-            }
+            Attraction at = attractions[itemIndex];
+            var t = controller.click_add(at);
+            MessageBox.Show(t.Item2);
+            editTheTrip.updateAtt();
+            attractions = controller.getAllAttractionNotInThisTrip(trip);
+            allAtList.ItemsSource = attractions;
         }
     }
 }

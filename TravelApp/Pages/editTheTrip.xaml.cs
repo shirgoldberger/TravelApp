@@ -29,10 +29,7 @@ namespace TravelApp
         private int max_participants;
         public bool male_only;
         public bool female_only;
-
-
-        editTheTrip_Model model;
-        // viewAllTrip_Model view;
+        editTheTrip_Controller controller;
         List<string> members;
         List<Attraction> attractions;
 
@@ -66,9 +63,9 @@ namespace TravelApp
             //
             InitializeComponent();
             DataContext = this;
-            model = new editTheTrip_Model(trip);
-            members = model.getAllMembers();
-            attractions = model.getAllAttraction();
+            controller = new editTheTrip_Controller(trip);
+            members = controller.getAllMembers();
+            attractions = controller.getAllAttraction();
             allMemListBox.ItemsSource = members;
             allAttListBox.ItemsSource = attractions;
 
@@ -78,17 +75,8 @@ namespace TravelApp
         {
             string a = start_date + "," + end_date + "," + min_age + "," + max_age + "," + max_participants;
             Console.WriteLine(a);
-            bool ans = model.update_submit(trip.Id.ToString(), username, Start_date, End_date, Min_age, Max_age, Max_participants);
-            if (ans == true)
-            {
-                MessageBox.Show("edit sucses");
-
-            }
-            else
-            {
-                MessageBox.Show("edit faild");
-
-            }
+            var ans = controller.Button_Click_Submit(username, Start_date, End_date, Min_age, Max_age, Max_participants);
+            MessageBox.Show(ans.Item2);
         }
         public void Button_Click_Add_Member(object sender, RoutedEventArgs e) { }
         public string Start_date
@@ -135,16 +123,16 @@ namespace TravelApp
         
         private void Button_Click_Add_New_Att(object sender, RoutedEventArgs e)
         {
-            add_new_att_for_trip anl = new add_new_att_for_trip(model, trip);
-            anl.Show();
-            attractions = model.getAllAttraction();
+            add_new_att_for_trip anl = new add_new_att_for_trip( trip, this);
+            anl.ShowDialog();
+            attractions = controller.getAllAttraction();
             allAttListBox.ItemsSource = attractions;
         }
         private void Button_Click_Add_New_Member(object sender, RoutedEventArgs e)
         {
-            add_new_mem_for_trip anl = new add_new_mem_for_trip(model, trip);
-            anl.Show();
-            members = model.getAllMembers();
+            add_new_mem_for_trip anl = new add_new_mem_for_trip( trip, this);
+            anl.ShowDialog();
+            members = controller.getAllMembers();
             allMemListBox.ItemsSource = members;
 
         }
@@ -152,35 +140,31 @@ namespace TravelApp
         {
             var item = ((Button)sender).DataContext;
             var itemIndex = allMemListBox.Items.IndexOf(item);
-            bool delete = model.deleteMem(trip, members[itemIndex]);
-            if (delete == true)
-            {
-                MessageBox.Show("delete sucses");
-            }
-            else
-            {
-                MessageBox.Show("delete failed");
-
-            }
-            members = model.getAllMembers();
+            var t = controller.delete_mem(members[itemIndex]);
+            MessageBox.Show(t.Item2);
+            members = controller.getAllMembers();
             allMemListBox.ItemsSource = members;
         }
         private void clickDelete_Att(object sender, RoutedEventArgs e)
         {
             var item = ((Button)sender).DataContext;
             var itemIndex = allAttListBox.Items.IndexOf(item);
-            bool delete = model.deleteAtt(trip, attractions[itemIndex]);
-            if (delete == true)
-            {
-                MessageBox.Show("delete sucses");
-            }
-            else
-            {
-                MessageBox.Show("delete failed");
-
-            }
-            attractions = model.getAllAttraction();
+            var t = controller.delete_att(attractions[itemIndex]);
+            MessageBox.Show(t.Item2);
+            attractions = controller.getAllAttraction();
+            allAttListBox.ItemsSource = attractions;
+          
+        }
+        public void updateAtt()
+        {
+            attractions = controller.getAllAttraction();
             allAttListBox.ItemsSource = attractions;
         }
+        public void updateMember()
+        {
+            attractions = controller.getAllAttraction();
+            allAttListBox.ItemsSource = attractions;
+        }
+
     }
 }

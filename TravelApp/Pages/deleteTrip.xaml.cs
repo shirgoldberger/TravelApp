@@ -21,32 +21,23 @@ namespace TravelApp
     {
         Trip trip;
         string username;
-        viewAllTrip_Model model;
         List<string> members;
-        watchTrip_Model watchTrip_Model;
-        public deleteTrip(Trip trip, viewAllTrip_Model model, string _username)
+        deleteTrip_Controller controller;
+        public deleteTrip(Trip trip, string _username)
         {
             username = _username;
             InitializeComponent();
-            watchTrip_Model = new watchTrip_Model(trip);
-            members = watchTrip_Model.getAllMembers();
+            controller = new deleteTrip_Controller(trip, username);
+            members = controller.getAllMembers();
             allMemListBox.ItemsSource = members;
             this.trip = trip;
-            this.model = model;
         }
         public void Button_Click_All(object sender, RoutedEventArgs e)
         {
-            bool a = model.delteAllTripMember(trip);
-            if (a == false)
-            {
-                MessageBox.Show("delete failed");
+            var t = controller.Click_All();
+            MessageBox.Show(t.Item2);
+            this.Close();
 
-            }
-            if (a == true)
-            {
-                MessageBox.Show("delete sucses");
-                this.Close();
-            }
         }
         public void Button_Click_OnlyMe(object sender, RoutedEventArgs e)
         {
@@ -56,16 +47,9 @@ namespace TravelApp
         {
             var item = ((Button)sender).DataContext;
             var itemIndex = allMemListBox.Items.IndexOf(item);
-            bool a = model.setUserAdmin(trip, username, members[itemIndex]);
-            if (a == true)
-            {
-                MessageBox.Show("you deleted from trup and "+members[itemIndex] +" is the new admin.");
-                this.Close();
-            }
-            else
-            {
-                MessageBox.Show("delete faild");
-            }
+            var t = controller.row_click(members[itemIndex]);
+            MessageBox.Show(t.Item2);
+            this.Close();
         }
 
 

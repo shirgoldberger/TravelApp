@@ -56,13 +56,13 @@ namespace TravelApp
             string trip_code = trip.Id.ToString();
             trip_code = "'" + trip_code + "'";
             username = "'" + username + "'";
-            string command = "DELETE FROM member WHERE trip_code = "+trip_code+" AND username = "+username+";";
+            string command = "DELETE FROM member WHERE trip_code = " + trip_code + " AND username = " + username + ";";
             bool dr = DbConnection.ExecuteNonQuery(command);
             if (dr == false)
             {
                 return false;
             }
-            DateTime start_date= trip.Start_Date;
+            DateTime start_date = trip.Start_Date;
             return true;
         }
         public bool delteAllTripMember(Trip trip)
@@ -105,8 +105,8 @@ namespace TravelApp
             //first - set new admin
             string trip_code1 = "'" + trip.Id.ToString() + "'";
             string admin1 = "'" + newUsername + "'";
-            string command = "UPDATE trip SET"+
-                " admin = " + admin1  +
+            string command = "UPDATE trip SET" +
+                " admin = " + admin1 +
                 " WHERE trip_code = " + trip_code1 + " ;";
             bool dr = DbConnection.ExecuteNonQuery(command);
             if (dr == false)
@@ -121,7 +121,27 @@ namespace TravelApp
             }
             DateTime start_date = trip.Start_Date;
             return true;
-        
-    }
+
+        }
+        public List<string> getAllMembersWithoutMe( Trip trip){
+            List<string> users = new List<string>();
+            String trip_code = trip.Id;
+            trip_code = "'" + trip_code + "'";
+            username = "'" + username + "'";
+            string command = "SELECT username FROM member " +
+                "WHERE member.trip_code = " + trip_code +
+                "AND username != " + username + ";";
+
+            MySqlDataReader dr = DbConnection.ExecuteQuery(command);
+            if (dr != null)
+            {
+                while (dr.Read())
+                {
+                    users.Add(dr.GetString("username"));
+                }
+            }
+            dr.Close();
+            return users;
+        }
     }
 }
