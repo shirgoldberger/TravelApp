@@ -91,11 +91,13 @@ namespace TravelApp.Models
         public List<string> getContinents(string country, string begin)
         {
             List<string> continents = new List<string>();
+            string search = "name";
             string command = "SELECT name FROM continent WHERE name LIKE '" + begin + "%'";
             if(country != null)
             {
                 country = "'" + country + "'";
                 command = "SELECT continent FROM country WHERE name=" + country + " AND continent LIKE '" + begin + "%'";
+                search = "continent";
             }
             command += ";";
             MySqlDataReader dr = DbConnection.ExecuteQuery(command);
@@ -103,7 +105,7 @@ namespace TravelApp.Models
             {
                 while (dr.Read())
                 {
-                    continents.Add(dr.GetString("name"));
+                    continents.Add(dr.GetString(search));
                 }
                 dr.Close();
             }
@@ -114,10 +116,12 @@ namespace TravelApp.Models
         {
             List<string> countries = new List<string>();
             string command = "";
+            string search = "name";
             if (city != null)
             {
                 city = "'" + city + "'";
                 command = "SELECT country FROM city WHERE name=" + city + " AND country LIKE '" + begin + "%'";
+                search = "country";
             }
             else
             {
@@ -134,7 +138,7 @@ namespace TravelApp.Models
             {
                 while (dr.Read())
                 {
-                    countries.Add(dr.GetString("name"));
+                    countries.Add(dr.GetString(search));
                 }
                 dr.Close();
             }
