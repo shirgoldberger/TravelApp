@@ -49,7 +49,7 @@ namespace TravelApp
         private void addFriendButton_Click(object sender, RoutedEventArgs e)
         {
             addNewFriend nf = new addNewFriend(username, model);
-            nf.Show();
+            nf.ShowDialog();
         }
 
         private void addNewTripButton_Click(object sender, RoutedEventArgs e)
@@ -61,7 +61,7 @@ namespace TravelApp
         private void addAttractionButton_Click(object sender, RoutedEventArgs e)
         {
             AddNewAtt at = new AddNewAtt(model);
-            at.Show();
+            at.ShowDialog();
         }
         private void return_Click(object sender, RoutedEventArgs e)
         {
