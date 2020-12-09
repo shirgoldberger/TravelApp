@@ -26,39 +26,30 @@ namespace TravelApp
         List<Trip> trips;
         private List<String> languages;
         private List<String> choosenLanguages;
-        private List<City> cities;
         private List<City> choosenCities;
-        private List<Attraction> attractions;
         private List<Attraction> choosenAttractions;
-        private DateTime startDate;
-        private DateTime endDate;
+        private DateTime startDate_Selected;
+        private DateTime endDate_Selected;
         private List<String> members;
         private List<String> choosenMembers;
         string username;
         public FindTrip(string _username)
         {
             InitializeComponent();
-            //tripDate.SelectedDate = DateTime.Now.AddDays(1);
             username = _username;
             findTrip_model = new FindTripModel();
             trips = findTrip_model.getTripForUser(username);
             allTripsListBox.ItemsSource = trips;
-            joinTripListBox.ItemsSource = trips;
             choosenLanguages = new List<string>();
             languages = findTrip_model.getLanguages();
             languagesComboBox.ItemsSource = languages;
             members = findTrip_model.getFriendsForUser(this.username);
             membersComboBox.ItemsSource = members;
             choosenMembers = new List<string>();
-            cities = findTrip_model.getAllCities();
-            attractions = findTrip_model.GetAttractionsByCities(cities);
+            choosenCities = new List<City>();
+            choosenAttractions = new List<Attraction>();
         }
 
-        private async void getCitiesAndAttractions()
-        {
-            cities = await GetListAsync();
-            attractions =  findTrip_model.GetAttractionsByCities(cities);
-        }
         private async Task<List<City>> GetListAsync()
         {
             List<City> list = await Task.Run(() => findTrip_model.getAllCities());
@@ -95,8 +86,6 @@ namespace TravelApp
                     trips.Remove(t);
                     allTripsListBox.ItemsSource = null;
                     allTripsListBox.ItemsSource = trips;
-                    joinTripListBox.ItemsSource = null;
-                    joinTripListBox.ItemsSource = trips;
                     MessageBox.Show("Your registration was successful");
                 }
 
@@ -109,30 +98,31 @@ namespace TravelApp
         private void Button_Click_Find(object sender, RoutedEventArgs e)
         {
             int age = 0;
+            List<Trip> t = new List<Trip>();
             if (ageText.Text.ToString() != "")
             {
                 age = int.Parse(ageText.Text.ToString());
-                trips = findTrip_model.findTripByAge(age);
+                t.AddRange(findTrip_model.findTripByAge(age));
             }
             if (choosenLanguages.Count() != 0)
             {
-                trips.AddRange(findTrip_model.findTripByLanguage(choosenLanguages));
+                t.AddRange(findTrip_model.findTripByLanguage(choosenLanguages));
             }
             if (choosenAttractions.Count() != 0)
             {
-                trips.AddRange(findTrip_model.findTripByAttractions(choosenAttractions));
-            }
-            if (startDate != null && endDate != null)
-            {
-
+                t.AddRange(findTrip_model.findTripByAttractions(choosenAttractions));
             }
             if (choosenMembers.Count() != 0)
             {
-                trips.AddRange(findTrip_model.findTripByMember(choosenMembers));
+                t.AddRange(findTrip_model.findTripByMember(choosenMembers));
 
             }
-            allTripsListBox.ItemsSource = trips;
-            joinTripListBox.ItemsSource = trips;
+            if (startDate_Selected != null && endDate_Selected != null)
+            {
+                t.AddRange(findTrip_model.findTripByDates(startDate_Selected, endDate_Selected));
+            }
+            allTripsListBox.ItemsSource = null;
+            allTripsListBox.ItemsSource = t;
             if (allTripsListBox.Items.Count == 0)
             {
                 MessageBox.Show("There are no trips that match this search");
@@ -191,7 +181,7 @@ namespace TravelApp
         {
             if (fbl == null)
             {
-                fbl = new FindByLocation(findTrip_model, cities, attractions);
+                fbl = new FindByLocation(findTrip_model);
             }
             fbl.Show();
             choosenCities = fbl.SelectedCities;
@@ -202,12 +192,12 @@ namespace TravelApp
         {
 
             var calendar = sender as Calendar;
-            // ... See if a date is selected.
+            // See if a date is selected.
             if (calendar.SelectedDate.HasValue)
             {
-                startDate = calendar.SelectedDates[0];
+                startDate_Selected = calendar.SelectedDates[0];
                 int len = calendar.SelectedDates.Count();
-                endDate = calendar.SelectedDates[len - 1];
+                endDate_Selected = calendar.SelectedDates[len - 1];
             }
         }
 
@@ -218,6 +208,7 @@ namespace TravelApp
             ageText.Text = "";
             tripDate.SelectedDate = null;
             tripDate.DisplayDate = DateTime.Today;
+            allTripsListBox.ItemsSource = trips;
         }
 
         private void return_Click(object sender, RoutedEventArgs e)

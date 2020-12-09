@@ -12,19 +12,27 @@
         <Grid.Background>
             <ImageBrush ImageSource="../Pictures/trip2.jpg" TileMode="Tile"/>
         </Grid.Background>
-        <ListView x:Name="allTripsListBox" HorizontalAlignment="Left" Height="479" Margin="357,87,0,0" VerticalAlignment="Top" Width="495"
+        <ListView x:Name="allTripsListBox" HorizontalAlignment="Left" Height="479" Margin="357,87,0,0" VerticalAlignment="Top" Width="730"
             ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderThickness="0" HorizontalContentAlignment="Stretch" Background="Transparent">
             <ListBox.ItemTemplate>
+                
                 <DataTemplate>
-                    <Button Height="50" Uid="{Binding Id}" Content="{Binding Trip_String, Mode=OneWay}" Click="clickOnTrip">
-                    </Button>
-
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="3*"></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Button Height="40" Grid.Column="0" Uid="{Binding Id}" Content="{Binding Trip_String, Mode=OneWay}" Click="clickOnTrip">
+                        </Button>
+                        <Button Height="40" Grid.Column="1" Cursor="Hand" Uid="{Binding Id}" Content="join" Click="clickJoinTrip">
+                        </Button>
+                    </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListView>
 
 
-        <Calendar x:Name="tripDate"  SelectionMode="MultipleRange"   HorizontalAlignment="Left" Height="165" Margin="93,90,0,0" VerticalAlignment="Top" Width="170" SelectedDatesChanged="tripDate_SelectedDatesChanged"/>
+        <Calendar x:Name="tripDate"  SelectionMode="SingleRange"   HorizontalAlignment="Left" Height="165" Margin="93,90,0,0" VerticalAlignment="Top" Width="170" SelectedDatesChanged="tripDate_SelectedDatesChanged"/>
 
 
 
@@ -80,17 +88,7 @@
                 </ControlTemplate>
             </Button.Template>
         </Button>
-        <ListView x:Name="joinTripListBox" Background="Transparent" HorizontalAlignment="Left" Height="479" Margin="849,87,0,0" VerticalAlignment="Top" Width="149"
-            ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderThickness="0" HorizontalContentAlignment="Stretch">
-
-
-            <ListView.ItemTemplate>
-                <DataTemplate x:Name="data">
-                    <Button Height="50" Cursor="Hand" Uid="{Binding Id}" Content="join" Click="clickJoinTrip">
-                    </Button>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+        
         <Button x:Name="filter_location" Cursor="Hand"  Content="Filter by locations and attractions" HorizontalAlignment="Left" Height="43" Margin="50,445,0,0" VerticalAlignment="Top" Width="286" FontSize="16" FontWeight="Bold" Click="filter_location_Click" FontFamily="Ebrima">
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">

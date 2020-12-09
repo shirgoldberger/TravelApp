@@ -117,6 +117,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="CreateAccount_Controller.cs" />
     <Compile Include="Models\UserPageModel.cs" />
     <Compile Include="Pages\AddNewAtt.xaml.cs">
       <DependentUpon>AddNewAtt.xaml</DependentUpon>

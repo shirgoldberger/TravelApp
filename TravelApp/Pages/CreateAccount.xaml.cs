@@ -13,21 +13,21 @@ namespace TravelApp
     /// </summary>
     public partial class CreateAccount : Page
     {
-        private CreateAccoutModel ca_model;
-        private List<String> languages;
-        private List<String> choosenLanguages;
-        private List<String> users;
-        private List<String> choosenFriends;
+        private CreateAccount_Controller controller;
+        private List<string> languages;
+        private List<string> choosenLanguages;
+        private List<string> users;
+        private List<string> choosenFriends;
 
         public CreateAccount()
         {
             InitializeComponent();
-            ca_model = new CreateAccoutModel();
-            choosenLanguages = new List<String>();
-            choosenFriends = new List<String>();
-            languages = ca_model.getLanguages();
+            controller = new CreateAccount_Controller();
+            choosenLanguages = new List<string>();
+            choosenFriends = new List<string>();
+            languages = controller.getLanguages();
             languagesComboBox.ItemsSource = languages;
-            users = ca_model.getUsers();
+            users = controller.getUsers();
             friendsComboBox.ItemsSource = users;
         }
         
@@ -40,6 +40,7 @@ namespace TravelApp
                 choosenFriends.Add(username);
             }
         }
+
         private void Unchecked_Friend(object sender, RoutedEventArgs e)
         {
             // remove from choosen friands
@@ -56,12 +57,14 @@ namespace TravelApp
             languagesComboBox.Text = "";
             languagesComboBox.SelectedIndex = -1;
         }
+
         private void resetFriends()
         {
             choosenFriends.Clear();
             friendsComboBox.Text = "";
             friendsComboBox.SelectedIndex = -1;
         }
+
         private void Checked_Language(object sender, RoutedEventArgs e)
         {
             // add to choosen languages
@@ -74,7 +77,7 @@ namespace TravelApp
 
         private void Unchecked_Language(object sender, RoutedEventArgs e)
         {
-            // // remove from choosen languages
+            // remove from choosen languages
             string name = ((CheckBox)sender).Uid.ToString();
             if (choosenLanguages.Exists(x => x == name))
             {
@@ -180,22 +183,14 @@ namespace TravelApp
             }
             else
             {
-                int flag = ca_model.createAccount(textBoxUserName.Text, textBoxPhone.Text,
-                    textBoxEmail.Text, passwordBox.Password, textBoxAddress.Text, age, gender, choosenFriends, choosenLanguages);
-                if(flag == 0)
+                Tuple<bool, string> t = controller.createAccount(textBoxUserName.Text, textBoxPhone.Text, textBoxEmail.Text, passwordBox.Password, 
+                    passwordBoxConfirm.Password, textBoxAddress.Text, textBoxAge.Text, 
+                    (bool)male.IsChecked, (bool)female.IsChecked, choosenFriends, choosenLanguages);
+                MessageBox.Show(t.Item2);
+                if (t.Item1)
                 {
-                    HomePage up = new HomePage();
-                    this.NavigationService.Navigate(up);
-                }
-                if (flag == 1)
-                {
-                    MessageBox.Show("username is already exist");
-                    return;
-                }
-                if (flag == 2)
-                {
-                    MessageBox.Show("Cannot create account, please try again");
-                    return;
+                    HomePage hp = new HomePage();
+                    this.NavigationService.Navigate(hp);
                 }
             }
         }

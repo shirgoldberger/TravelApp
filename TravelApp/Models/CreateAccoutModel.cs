@@ -10,7 +10,7 @@ namespace TravelApp
     class CreateAccoutModel
     {
 
-        public int createAccount(string username, string phone, string email, string password,
+        public Tuple<bool, string> createAccount(string username, string phone, string email, string password,
             string address, int stringAge, char is_male, List<String> friends, List<String> languages)
         {
             string command = "SELECT username FROM user WHERE username='" + username + "';";
@@ -20,7 +20,7 @@ namespace TravelApp
                 while (dr.Read())
                 {
                     dr.Close();
-                    return 1;
+                    return new Tuple<bool, string>(false, "Username is already exist, try another username");
                 }
                 dr.Close();
                 // create account
@@ -57,38 +57,37 @@ namespace TravelApp
                         command = "insert into user_languages VALUES " + languageString + ";";
                         if (DbConnection.ExecuteNonQuery(command))
                         {
-                            return 0;
+                            return new Tuple<bool, string>(true, "Create account success!");
                         }
                     }
                 }
                 else
                 {
                     dr.Close();
-                    return 2;
+                    return new Tuple<bool, string>(false, "Cannot create account, please try again");
                 }
             }
-            else
-            {
-                return 2;
-            }
-            return 2;
+            return new Tuple<bool, string>(false, "Cannot create account, please try again");
         }
 
-        public List<String> getLanguages()
+        public List<string> getLanguages()
         {
-            List<String> languages = new List<String>();
+            List<string> languages = new List<string>();
             string command = "SELECT * FROM Language;";
             MySqlDataReader dr = DbConnection.ExecuteQuery(command);
-            while (dr.Read())
+            if (dr != null)
             {
-                string name = dr.GetString("name");
-                languages.Add(name);
+                while (dr.Read())
+                {
+                    string name = dr.GetString("name");
+                    languages.Add(name);
+                }
+                dr.Close();
             }
-            dr.Close();
             return languages;
         }
 
-        public List<String> getUsers()
+        public List<string> getUsers()
         {
             List<String> users = new List<String>();
             string command = "SELECT * FROM User;";

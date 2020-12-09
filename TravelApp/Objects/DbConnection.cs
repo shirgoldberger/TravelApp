@@ -27,8 +27,13 @@ namespace TravelApp
                 b.SslMode = MySqlSslMode.None;
                 b.Port = (uint)port;
                 _connection = new MySqlConnection(b.ToString());
-                _connection.Open();
-
+                try
+                {
+                    _connection.Open();
+                } catch (Exception e)
+                {
+                    throw e;
+                }
             }
         }
         public static MySqlConnection Connection

@@ -16,8 +16,14 @@ namespace TravelApp
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             MainWindow wnd = new MainWindow();
-            DbConnection.createConnection(e.Args[0], e.Args[1], e.Args[2], int.Parse(e.Args[3]));
-
+            try
+            {
+                DbConnection.createConnection(e.Args[0], e.Args[1], e.Args[2], int.Parse(e.Args[3]));
+            } catch(Exception e1)
+            {
+                MessageBox.Show(e1.Message);
+                return;
+            }
             wnd.Show();
         }
     }

@@ -153,14 +153,13 @@ namespace TravelApp
                     allUsers += ",";
                 }
             }
-            string createTable = "(select Lan.trip_code " +
-                "from(select user.username, trip.trip_code " +
-                "from user join trip join member " +
-                "where user.username = member.username " +
-                "and trip.trip_code = member.trip_code) as Lan";
-            string command = "select * from trip where trip_code in " + createTable
-                + " where username in (" + allUsers + "));";
-            MySqlDataReader dr = DbConnection.ExecuteQuery(command);
+            string command = "SELECT trip_code FROM member" +
+                " WHERE username IN(" + allUsers + ") " +
+                "GROUP BY trip_code " +
+                "HAVING COUNT(trip_code) =" + users.Count;
+            string command2 = "SELECT * FROM Trip WHERE trip_code IN(" +
+                command + ");";
+            MySqlDataReader dr = DbConnection.ExecuteQuery(command2);
             if (dr != null)
             {
                 while (dr.Read())
@@ -192,9 +191,32 @@ namespace TravelApp
         public List<Trip> findTripByAttractions(List<Attraction> attractions)
         {
             List<Trip> trips = new List<Trip>();
-            string command;
-
-
+            string allAttractions = "";
+            int i;
+            for (i = 0; i < attractions.Count; i++)
+            {
+                allAttractions += ("'" + attractions[i].Attraction_code + "'");
+                if (i != attractions.Count - 1)
+                {
+                    allAttractions += ",";
+                }
+            }
+            string command = "SELECT trip_code FROM trip_attractions" +
+                " WHERE attraction_code IN(" + allAttractions + ") " +
+                "GROUP BY trip_code " +
+                "HAVING COUNT(trip_code) =" + attractions.Count;
+            string command2 = "SELECT * FROM Trip WHERE trip_code IN(" +
+                command + ");";
+            MySqlDataReader dr = DbConnection.ExecuteQuery(command2);
+            if (dr != null)
+            {
+                while (dr.Read())
+                {
+                    Trip t = createTrip(dr);
+                    trips.Add(t);
+                }
+                dr.Close();
+            }
             return trips;
         }
 
@@ -303,6 +325,24 @@ namespace TravelApp
                 dr.Close();
             }
             return friends;
+        }
+
+        public List<Trip> findTripByDates(DateTime startDate, DateTime endDate)
+        {
+            List<Trip> trips = new List<Trip>();
+            string command = "SELECT * FROM Trip WHERE start_date >= '" +
+                startDate.ToString("yyyy-MM-dd") + "' AND end_date <= '" + endDate.ToString("yyyy-MM-dd") + "';";
+            MySqlDataReader dr = DbConnection.ExecuteQuery(command);
+            if (dr != null)
+            {
+                while (dr.Read())
+                {
+                    Trip t = createTrip(dr);
+                    trips.Add(t);
+                }
+                dr.Close();
+            }
+            return trips;
         }
     }
 }
