@@ -19,7 +19,7 @@ namespace TravelApp
     /// </summary>
     public partial class watchTrip : Window
     {
-        string id;
+        int id;
         string admin;
         DateTime start_date; 
        DateTime end_date;
@@ -72,7 +72,7 @@ namespace TravelApp
 
 
         }
-        public string Id
+        public int Id
         {
             get { return id; }
 
