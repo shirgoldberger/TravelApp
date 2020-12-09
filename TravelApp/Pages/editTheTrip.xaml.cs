@@ -78,7 +78,7 @@ namespace TravelApp
         {
             string a = start_date + "," + end_date + "," + min_age + "," + max_age + "," + max_participants;
             Console.WriteLine(a);
-            bool ans = model.update_submit(trip.Id, username, Start_date, End_date, Min_age, Max_age, Max_participants);
+            bool ans = model.update_submit(trip.Id.ToString(), username, Start_date, End_date, Min_age, Max_age, Max_participants);
             if (ans == true)
             {
                 MessageBox.Show("edit sucses");

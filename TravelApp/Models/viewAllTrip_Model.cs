@@ -17,7 +17,8 @@ namespace TravelApp
         }
         public Trip createTrip(MySqlDataReader dr)
         {
-            string id = dr.GetString("trip_code");
+            int id = int.Parse(dr.GetString("trip_code"));
+            string name = dr.GetString("name");
             string admin = dr.GetString("admin");
             DateTime start_date = DateTime.Parse(dr.GetString("start_date"));
             DateTime end_date = DateTime.Parse(dr.GetString("end_date"));
@@ -27,7 +28,7 @@ namespace TravelApp
             bool male_only = dr.GetBoolean(dr.GetOrdinal("male_only"));
             bool female_only = dr.GetBoolean(dr.GetOrdinal("female_only"));
 
-            Trip t = new Trip(id, admin, start_date, end_date, min_age,
+            Trip t = new Trip(id, name, admin, start_date, end_date, min_age,
                 max_age, max_participants, male_only, female_only);
             return t;
         }
@@ -52,7 +53,7 @@ namespace TravelApp
         }
         public bool deleteTrip(Trip trip, string username)
         {
-            string trip_code = trip.Id;
+            string trip_code = trip.Id.ToString();
             trip_code = "'" + trip_code + "'";
             username = "'" + username + "'";
             string command = "DELETE FROM member WHERE trip_code = "+trip_code+" AND username = "+username+";";
@@ -66,7 +67,7 @@ namespace TravelApp
         }
         public bool delteAllTripMember(Trip trip)
         {
-            string trip_code = trip.Id;
+            string trip_code = trip.Id.ToString();
             trip_code = "'" + trip_code + "'";
             // Transaction:
             //defenition for transaction
