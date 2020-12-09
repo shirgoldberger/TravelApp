@@ -74,12 +74,17 @@
             </Button.Template>
         </Button>
 
-        <ComboBox Name="cityBox" HorizontalAlignment="Left" Margin="152,154,0,0" VerticalAlignment="Top" Width="120" IsEditable="True" TextBoxBase.TextChanged="cityTextChanged" SelectionChanged="citySelectionChanged" MaxDropDownHeight="150">
+        <ComboBox Name="cityBox" HorizontalAlignment="Left" Margin="152,154,0,0" VerticalAlignment="Top" Width="120" IsEditable="True" SelectionChanged="citySelectionChanged" MaxDropDownHeight="150" >
             <ComboBox.ItemsPanel>
                 <ItemsPanelTemplate>
                     <VirtualizingStackPanel />
                 </ItemsPanelTemplate>
             </ComboBox.ItemsPanel>
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Name}" />
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
         </ComboBox>
 
         <ComboBox Name="typeBox" HorizontalAlignment="Left" Margin="152,240,0,0" VerticalAlignment="Top" Width="120" IsEditable="True" TextBoxBase.TextChanged="typeTextChanged" MaxDropDownHeight="70">
@@ -96,6 +101,7 @@
         <TextBox x:Name="continentName" HorizontalAlignment="Left" Height="23" Margin="152,93,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsEnabled="False"/>
         <Button Content="Find city by continent" HorizontalAlignment="center" Height="24" Margin="0,181,0,0" VerticalAlignment="Top" Width="130" Click="findByContinent"/>
         <Button Content="Find city by country" HorizontalAlignment="center" Height="24" Margin="114,211,114.667,0" VerticalAlignment="Top" Width="130" Click="findByCountry"/>
+        <Button Content="Filter" HorizontalAlignment="Left" Height="22" Margin="283,154,0,0" VerticalAlignment="Top" Width="43" Click="filterByText"/>
 
     </Grid>
 </Window>

@@ -33,6 +33,7 @@ namespace TravelApp.Pages
             InitializeComponent();
             continentBegin = "";
             bindContinents();
+            bindCities();
         }
 
         private async Task<List<string>> getContinentsAsync(string begin)

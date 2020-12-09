@@ -29,7 +29,7 @@ namespace TravelApp
         {
             int i;
             string msg;
-            bool ans = model.update_submit(trip.Id,admin, start_date, end_date, min_age, max_age, max_part);
+            bool ans = model.update_submit(trip.Id.ToString(),admin, start_date, end_date, min_age, max_age, max_part);
             if (ans == true)
             {
                 i = 0;

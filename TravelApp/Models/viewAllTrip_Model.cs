@@ -125,7 +125,7 @@ namespace TravelApp
         }
         public List<string> getAllMembersWithoutMe( Trip trip){
             List<string> users = new List<string>();
-            String trip_code = trip.Id;
+            String trip_code = trip.Id.ToString();
             trip_code = "'" + trip_code + "'";
             username = "'" + username + "'";
             string command = "SELECT username FROM member " +

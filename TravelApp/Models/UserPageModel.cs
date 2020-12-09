@@ -139,12 +139,15 @@ namespace TravelApp.Models
         public List<City> getCitiesByContinent(string continent, string begin)
         {
             List<City> cities = new List<City>();
-            string command = "SELECT * FROM city WHERE name LIKE '" + begin + "%'";
+            string command = "SELECT city_id, city.name, country, continent " +
+                          "FROM city join country ON city.country = country.name " +
+                          "WHERE city.name LIKE '" + begin + "%'";
             if (continent != null)
             {
-                continent = "'" + continent + "'";
-                string countriesOptions = "SELECT name FROM country WHERE continent=" + continent;
-                command += " AND country IN (" + continent + ")";
+                command = "SELECT * FROM city WHERE name LIKE '" + begin + "%'";
+                string continentTemp = "'" + continent + "'";
+                string countriesOptions = "SELECT name FROM country WHERE continent=" + continentTemp;
+                command += " AND country IN (" + countriesOptions + ")";
             }
             command += ";";
             MySqlDataReader dr = DbConnection.ExecuteQuery(command);
@@ -155,8 +158,8 @@ namespace TravelApp.Models
                     string city = dr.GetString("name");
                     string country = dr.GetString("country");
                     string city_id = dr.GetString("city_id");
-                    continent = continent != null? continent : getContinentByCountry(country);
-                    City cityObj = new City(city_id, city, country, continent);
+                    string continentArg = continent != null? continent : dr.GetString("continent");
+                    City cityObj = new City(city_id, city, country, continentArg);
                     cities.Add(cityObj);
                 }
                 dr.Close();

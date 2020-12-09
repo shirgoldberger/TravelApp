@@ -103,13 +103,8 @@ namespace TravelApp.Pages
             {
                 choosen = cities[selectedIndex];
                 changeFieldsByCity(choosen);
+                cityBox.Text = choosen.Name;
             }            
-        }
-
-        private void cityTextChanged(object sender, EventArgs e)
-        {
-            cityBegin = cityBox.Text;
-            bindCities();
         }
 
         private void typeTextChanged(object sender, EventArgs e)
@@ -139,6 +134,12 @@ namespace TravelApp.Pages
             continentName.Text = _city.Continent;
             countryName.Text = _city.Country;
             city_code = _city.Id;
+        }
+
+        private void filterByText(object sender, RoutedEventArgs e)
+        {
+            cityBegin = cityBox.Text;
+            bindCities();
         }
     }
 }
