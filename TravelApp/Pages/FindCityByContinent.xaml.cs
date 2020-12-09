@@ -22,10 +22,10 @@ namespace TravelApp.Pages
     {
         UserPageModel model;
         List<string> continents;
-        List<string> cities;
+        List<City> cities;
         private string continentBegin;
 
-        public string City {get;set;}
+        public City ReturenedCity { get; set; }
 
         public FindCityByContinent(UserPageModel _model)
         {
@@ -48,9 +48,9 @@ namespace TravelApp.Pages
         }
 
 
-        private async Task<List<string>> getCitiesAsync(string continent)
+        private async Task<List<City>> getCitiesAsync(string continent)
         {
-            List<string> list = await Task.Run(() => model.getCitiesByContinent(continent, ""));
+            List<City> list = await Task.Run(() => model.getCitiesByContinent(continent, ""));
             return list;
         }
 
@@ -69,7 +69,7 @@ namespace TravelApp.Pages
         {
             var item = ((Button)sender).DataContext;
             int itemIndex = citiesList.Items.IndexOf(item);
-            City = cities[itemIndex];
+            ReturenedCity = cities[itemIndex];
             GetWindow(this).Close();
         }
 

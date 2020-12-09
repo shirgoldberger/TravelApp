@@ -153,6 +153,12 @@
     <Compile Include="Pages\FindByLocation.xaml.cs">
       <DependentUpon>FindByLocation.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\FindCityByCountry.xaml.cs">
+      <DependentUpon>FindCityByCountry.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\FindCityByContinent.xaml.cs">
+      <DependentUpon>FindCityByContinent.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\FindTrip.xaml.cs">
       <DependentUpon>FindTrip.xaml</DependentUpon>
     </Compile>
@@ -208,6 +214,14 @@
     <Page Include="Pages\FindByLocation.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\FindCityByCountry.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\FindCityByContinent.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Pages\FindTrip.xaml">
       <SubType>Designer</SubType>
