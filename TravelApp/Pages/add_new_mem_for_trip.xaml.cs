@@ -19,43 +19,32 @@ namespace TravelApp
     /// </summary>
     public partial class add_new_mem_for_trip : Window
     {
-        editTheTrip_Model model;
         List<string> members;
         Trip trip;
-        string error;
+        editTheTrip editTheTrip;
+        add_new_mem_for_trip_Controller controller;
 
-        public add_new_mem_for_trip(editTheTrip_Model model, Trip trip1)
+        public add_new_mem_for_trip(Trip trip1, editTheTrip ed)
         {
             InitializeComponent();
-            this.model = model;
+            editTheTrip = ed;
             this.trip = trip1;
-            members = model.getAllMembersNOtInTHisTrip(trip);
+            controller = new add_new_mem_for_trip_Controller(trip1);
+            members = controller.getAllMembersNOtInTHisTrip();
             allAtList.ItemsSource = members;
-            error = "there is 0 members to add";
         }
         private void clickAdd_loc(object sender, RoutedEventArgs e)
         {
             var item = ((Button)sender).DataContext;
             var itemIndex = allAtList.Items.IndexOf(item);
-            bool a = model.add_new_Mem_for_trip(trip, members[itemIndex]);
-            if (a == true)
-            {
-                MessageBox.Show("delete sucses");
-
-            }
-            else
-            {
-                MessageBox.Show("delete failed");
-
-            }
-            members = model.getAllMembersNOtInTHisTrip(trip);
+            var t = controller.Click_add(members[itemIndex]);
+            MessageBox.Show(t.Item2);
+            members = controller.getAllMembersNOtInTHisTrip();
+            editTheTrip.updateMember();
             allAtList.ItemsSource = members;
         }
 
-        public string Error
-        {
-            get { return error; }
 
-        }
     }
 }
+

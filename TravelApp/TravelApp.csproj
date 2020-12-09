@@ -117,7 +117,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="CreateAccount_Controller.cs" />
+    <Compile Include="Controllers\add_new_att_for_trip_Controller.cs" />
+    <Compile Include="Controllers\add_new_mem_for_trip_Controller.cs" />
+    <Compile Include="Controllers\CreateAccount_Controller.cs" />
+    <Compile Include="Controllers\deleteTrip_Controller.cs" />
+    <Compile Include="Controllers\editTheTrip_Controller.cs" />
+    <Compile Include="Controllers\HomePage_Controller.cs" />
     <Compile Include="Models\UserPageModel.cs" />
     <Compile Include="Pages\AddNewAtt.xaml.cs">
       <DependentUpon>AddNewAtt.xaml</DependentUpon>
@@ -166,6 +171,8 @@
       <DependentUpon>watchTrip.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\watchTrip_Model.cs" />
+    <Compile Include="Controllers\viewAllTrip_controller.cs" />
+    <Compile Include="Controllers\watchTrup_Controller.cs" />
     <Page Include="Pages\AddNewAtt.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
