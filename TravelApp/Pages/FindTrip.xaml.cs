@@ -206,7 +206,7 @@ namespace TravelApp
             resetLanguages();
             resetMembers();
             ageText.Text = "";
-            tripDate.SelectedDate = null;
+            tripDate.SelectedDates.Clear();
             tripDate.DisplayDate = DateTime.Today;
             allTripsListBox.ItemsSource = trips;
         }

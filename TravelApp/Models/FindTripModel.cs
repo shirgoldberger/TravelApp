@@ -83,12 +83,6 @@ namespace TravelApp
             return trips;
         }
 
-        public List<Trip> findTripByAge(int age)
-        {
-            string command = "SELECT * FROM Trip WHERE min_age <= " + age.ToString() + " AND max_age >= " + age.ToString() + ";";
-            return getTripsByCommand(command);
-        }
-
         public List<String> getLanguages()
         {
             List<String> languages = new List<String>();
@@ -106,72 +100,6 @@ namespace TravelApp
             return languages;
         }
 
-        public List<Trip> findTripByLanguage(List<String> languages)
-        {
-            List<Trip> trips = new List<Trip>();
-            string allLanguages = "";
-            int i;
-            for(i = 0; i < languages.Count; i++)
-            {
-                allLanguages += ("'" + languages[i] + "'");
-                if (i != languages.Count - 1)
-                {
-                    allLanguages += ",";
-                }
-            }
-            string createTable = "(select language.name, trip.trip_code" +
-                " from user join user_languages join language join trip join member" +
-                " where user.username = user_languages.username and" +
-                " user.username = member.username and" +
-                " trip.trip_code = member.trip_code and" +
-                " language.language_code = user_languages.language_code) as Lan";
-            string command = "select * from trip where trip_code in(select Lan.trip_code from "
-                + createTable + " where name in (" + allLanguages + "));";
-            MySqlDataReader dr = DbConnection.ExecuteQuery(command);
-            if (dr != null)
-            {
-                while (dr.Read())
-                {
-                    Trip t = createTrip(dr);
-                    trips.Add(t);
-                }
-                dr.Close();
-            }
-            return trips;
-        }
-
-        public List<Trip> findTripByMember(List<String> users)
-        {
-            List<Trip> trips = new List<Trip>();
-            string allUsers = "";
-            int i;
-            for (i = 0; i < users.Count; i++)
-            {
-                allUsers += ("'" + users[i] + "'");
-                if (i != users.Count - 1)
-                {
-                    allUsers += ",";
-                }
-            }
-            string command = "SELECT trip_code FROM member" +
-                " WHERE username IN(" + allUsers + ") " +
-                "GROUP BY trip_code " +
-                "HAVING COUNT(trip_code) =" + users.Count;
-            string command2 = "SELECT * FROM Trip WHERE trip_code IN(" +
-                command + ");";
-            MySqlDataReader dr = DbConnection.ExecuteQuery(command2);
-            if (dr != null)
-            {
-                while (dr.Read())
-                {
-                    Trip t = createTrip(dr);
-                    trips.Add(t);
-                }
-                dr.Close();
-            }
-            return trips;
-        }
-
         public Trip getTripById(string id)
         {
             Trip t = null;
@@ -186,38 +114,6 @@ namespace TravelApp
                 dr.Close();
             }
             return t;
-        }
-
-        public List<Trip> findTripByAttractions(List<Attraction> attractions)
-        {
-            List<Trip> trips = new List<Trip>();
-            string allAttractions = "";
-            int i;
-            for (i = 0; i < attractions.Count; i++)
-            {
-                allAttractions += ("'" + attractions[i].Attraction_code + "'");
-                if (i != attractions.Count - 1)
-                {
-                    allAttractions += ",";
-                }
-            }
-            string command = "SELECT trip_code FROM trip_attractions" +
-                " WHERE attraction_code IN(" + allAttractions + ") " +
-                "GROUP BY trip_code " +
-                "HAVING COUNT(trip_code) =" + attractions.Count;
-            string command2 = "SELECT * FROM Trip WHERE trip_code IN(" +
-                command + ");";
-            MySqlDataReader dr = DbConnection.ExecuteQuery(command2);
-            if (dr != null)
-            {
-                while (dr.Read())
-                {
-                    Trip t = createTrip(dr);
-                    trips.Add(t);
-                }
-                dr.Close();
-            }
-            return trips;
         }
 
         public bool insertUserToTrip(string username, Trip trip)
@@ -332,17 +228,81 @@ namespace TravelApp
             List<Trip> trips = new List<Trip>();
             string command = "SELECT * FROM Trip WHERE start_date >= '" +
                 startDate.ToString("yyyy-MM-dd") + "' AND end_date <= '" + endDate.ToString("yyyy-MM-dd") + "';";
-            MySqlDataReader dr = DbConnection.ExecuteQuery(command);
-            if (dr != null)
+            return getTripsByCommand(command);
+        }
+
+        public List<Trip> findTripByAttractions(List<Attraction> attractions)
+        {
+            List<Trip> trips = new List<Trip>();
+            string allAttractions = "";
+            int i;
+            for (i = 0; i < attractions.Count; i++)
             {
-                while (dr.Read())
+                allAttractions += ("'" + attractions[i].Attraction_code + "'");
+                if (i != attractions.Count - 1)
                 {
-                    Trip t = createTrip(dr);
-                    trips.Add(t);
+                    allAttractions += ",";
                 }
-                dr.Close();
             }
-            return trips;
+            string innerTable = "SELECT trip_code FROM trip_attractions" +
+                " WHERE attraction_code IN(" + allAttractions + ") " +
+                "GROUP BY trip_code " +
+                "HAVING COUNT(trip_code) =" + attractions.Count;
+            string command = "SELECT * FROM Trip WHERE trip_code IN(" +
+                innerTable + ");";
+            return getTripsByCommand(command);
+        }
+
+        public List<Trip> findTripByLanguage(List<String> languages)
+        {
+            List<Trip> trips = new List<Trip>();
+            string allLanguages = "";
+            int i;
+            for (i = 0; i < languages.Count; i++)
+            {
+                allLanguages += ("'" + languages[i] + "'");
+                if (i != languages.Count - 1)
+                {
+                    allLanguages += ",";
+                }
+            }
+            string createTable = "(select language.name, trip.trip_code" +
+                " from user join user_languages join language join trip join member" +
+                " where user.username = user_languages.username and" +
+                " user.username = member.username and" +
+                " trip.trip_code = member.trip_code and" +
+                " language.language_code = user_languages.language_code) as Lan";
+            string command = "select * from trip where trip_code in(select Lan.trip_code from "
+                + createTable + " where name in (" + allLanguages + "));";
+            return getTripsByCommand(command);
+        }
+
+        public List<Trip> findTripByMember(List<String> users)
+        {
+            List<Trip> trips = new List<Trip>();
+            string allUsers = "";
+            int i;
+            for (i = 0; i < users.Count; i++)
+            {
+                allUsers += ("'" + users[i] + "'");
+                if (i != users.Count - 1)
+                {
+                    allUsers += ",";
+                }
+            }
+            string innerTable = "SELECT trip_code FROM member" +
+                " WHERE username IN(" + allUsers + ") " +
+                "GROUP BY trip_code " +
+                "HAVING COUNT(trip_code) =" + users.Count;
+            string command = "SELECT * FROM Trip WHERE trip_code IN(" +
+                innerTable + ");";
+            return getTripsByCommand(command);
+        }
+
+        public List<Trip> findTripByAge(int age)
+        {
+            string command = "SELECT * FROM Trip WHERE min_age <= " + age.ToString() + " AND max_age >= " + age.ToString() + ";";
+            return getTripsByCommand(command);
         }
     }
 }

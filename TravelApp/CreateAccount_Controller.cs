@@ -86,7 +86,7 @@ namespace TravelApp
             return cam.getLanguages();
         }
 
-        public List<String> getUsers()
+        public List<string> getUsers()
         {
             return cam.getUsers();
         }
