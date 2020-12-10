@@ -123,6 +123,7 @@
     <Compile Include="Controllers\CreateAccount_Controller.cs" />
     <Compile Include="Controllers\deleteTrip_Controller.cs" />
     <Compile Include="Controllers\editTheTrip_Controller.cs" />
+    <Compile Include="Controllers\FindTrip_Controller.cs" />
     <Compile Include="Controllers\HomePage_Controller.cs" />
     <Compile Include="Models\UserPageModel.cs" />
     <Compile Include="Pages\AddNewAtt.xaml.cs">
