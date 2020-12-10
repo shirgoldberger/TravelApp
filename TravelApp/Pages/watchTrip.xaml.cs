@@ -19,7 +19,7 @@ namespace TravelApp
     /// </summary>
     public partial class watchTrip : Window
     {
-        string id;
+        int id;
         string admin;
         DateTime start_date; 
        DateTime end_date;
@@ -29,12 +29,9 @@ namespace TravelApp
        private int max_participants;
        public bool male_only;
        public bool female_only;
-
-
-        watchTrip_Model watchTrip_Model;
-       // viewAllTrip_Model view;
         List<string> members;
         List<Attraction> attractions;
+        watchTrup_Controller controller;
 
 
 
@@ -66,16 +63,16 @@ namespace TravelApp
             //
             InitializeComponent();
             DataContext = this;
-            watchTrip_Model = new watchTrip_Model(trip);
-            members = watchTrip_Model.getAllMembers();
-            attractions = watchTrip_Model.getAllAttraction();
+            controller = new watchTrup_Controller(trip);
+            members = controller.getMem();
+            attractions = controller.getAtt();
 
             allMemListBox.ItemsSource = members;
             allAttListBox.ItemsSource = attractions;
 
 
         }
-        public string Id
+        public int Id
         {
             get { return id; }
 

@@ -22,15 +22,15 @@ namespace TravelApp
     public partial class viewAllTrip: Page
     {
         string username;
-        viewAllTrip_Model view;
         List<Trip> trips;
+        viewAllTrip_controller controller;
 
         public viewAllTrip(string _username)
         {
             username = _username;
             InitializeComponent();
-            view= new viewAllTrip_Model(username);
-            trips = view.getAllTrip();
+            controller = new viewAllTrip_controller(username);
+            trips = controller.getAllTrip();
             allTripsListBox.ItemsSource = trips;
         }
         private void Button_Click_add_trip(object sender, RoutedEventArgs e)
@@ -38,8 +38,7 @@ namespace TravelApp
 
             addNewTrip ant = new addNewTrip(username);
             this.NavigationService.Navigate(ant);
-            //watchTrip watch = new watchTrip(trips[0]);
-            //watch.Show();
+
         }
         public void row_click(object sender, RoutedEventArgs e)
         {
@@ -53,34 +52,17 @@ namespace TravelApp
             var item = ((Button)sender).DataContext;
             var itemIndex = allTripsListBox.Items.IndexOf(item);
             //check if he is the admin of this trip.
-            if (username == trips[itemIndex].Admin)
+            var t = controller.click_delete(trips[itemIndex]);
+            if (t.Item2 != "")
             {
-                deleteTrip delete = new deleteTrip(trips[itemIndex], view, username);
-                delete.Show();
-                trips = view.getAllTrip();
-                allTripsListBox.ItemsSource = trips;
-                allTripsListBox.ItemsSource = trips;
+                MessageBox.Show(t.Item2);
             }
-            else
-            {
-                bool a = view.deleteTrip(trips[itemIndex], username);
-                if (a == false)
-                {
-                    MessageBox.Show("delete failed");
+            trips = controller.getAllTrip();
+            allTripsListBox.ItemsSource = trips;
+            
+          }
 
-                }
-                if (a == true)
-                {
-                    MessageBox.Show("delete sucses");
-                    trips = view.getAllTrip();
-                    allTripsListBox.ItemsSource = trips;
-                    allTripsListBox.ItemsSource = trips;
-                    allTripsListBox.ItemsSource = trips;
-
-                }
-            }
-
-        }
+        
         public void clickEdit(object sender, RoutedEventArgs e)
         {
             var item = ((Button)sender).DataContext;

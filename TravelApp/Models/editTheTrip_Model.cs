@@ -27,7 +27,7 @@ namespace TravelApp
         public List<string> getAllMembers()
         {
             List<string> users = new List<string>();
-            String trip_code = trip.Id;
+            String trip_code = trip.Id.ToString();
             trip_code = "'" + trip_code + "'";
             string command = "SELECT username FROM member " +
                 "WHERE member.trip_code = " + trip_code + ";";
@@ -45,7 +45,7 @@ namespace TravelApp
         public List<Attraction> getAllAttraction()
         {
             List<Attraction> att = new List<Attraction>();
-            String trip_code = trip.Id;
+            String trip_code = trip.Id.ToString();
             trip_code = "'" + trip_code + "'";
             string command = "SELECT * FROM attraction, trip_attractions " +
                 "WHERE trip_attractions.trip_code = " + trip_code + " " +
@@ -128,7 +128,7 @@ namespace TravelApp
         }
         public bool deleteMem(Trip trip, string username)
         {
-            string trip_code = trip.Id;
+            string trip_code = trip.Id.ToString();
             trip_code = "'" + trip_code + "'";
             username = "'" + username + "'";
             string command = "DELETE FROM member WHERE trip_code = " + trip_code + " AND username = " + username + ";";
@@ -141,7 +141,7 @@ namespace TravelApp
         }
         public bool deleteAtt(Trip trip, Attraction att)
         {
-            string trip_code = trip.Id;
+            string trip_code = trip.Id.ToString();
             trip_code = "'" + trip_code + "'";
             string Att_code ="'"+ att.Attraction_code+"'";
             string command = "DELETE FROM trip_attractions WHERE trip_code = " + trip_code + " AND attraction_code = " + Att_code + ";";
@@ -154,7 +154,7 @@ namespace TravelApp
         }
         public bool add_new_Att_for_trip(Trip trip, Attraction att)
         {
-            string trip_code = trip.Id;
+            string trip_code = trip.Id.ToString();
             trip_code = "'"+trip_code + "', ";
             string Att_code = "'" + att.Attraction_code + "' ";
             string command = "INSERT INTO trip_attractions(trip_code, attraction_code) VALUES (" + trip_code+ Att_code+");" ;
@@ -167,7 +167,7 @@ namespace TravelApp
         }
         public bool add_new_Mem_for_trip(Trip trip, string username)
         {
-            string trip_code = trip.Id;
+            string trip_code = trip.Id.ToString();
             trip_code = "'" + trip_code + "', ";
             string Att_code = "'" + username + "' ";
             string command = "INSERT INTO member(trip_code, username) VALUES (" + trip_code + Att_code + ");";

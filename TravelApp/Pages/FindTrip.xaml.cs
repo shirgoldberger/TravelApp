@@ -69,7 +69,7 @@ namespace TravelApp
         private void clickOnTrip(object sender, RoutedEventArgs e)
         {
             string id = ((Button)sender).Uid.ToString();
-            Trip currentTrip = trips.Find(x => x.Id == id);
+            Trip currentTrip = trips.Find(x => x.Id.ToString() == id);
             watchTrip wt = new watchTrip(currentTrip);
             wt.Show();
 
@@ -78,10 +78,10 @@ namespace TravelApp
         private void clickJoinTrip(object sender, RoutedEventArgs e)
         {
             string id = ((Button)sender).Uid.ToString();
-            Trip t = trips.Find(x => x.Id == id);
+            Trip t = trips.Find(x => x.Id.ToString() == id);
             if (findTrip_model.insertUserToTrip(username, t))
             {
-                if (trips.Exists(x => x.Id == id))
+                if (trips.Exists(x => x.Id.ToString() == id))
                 {
                     trips.Remove(t);
                     allTripsListBox.ItemsSource = null;

@@ -53,7 +53,7 @@
                     <ListBox.ItemTemplate>
 
                         <DataTemplate>
-                            <TextBlock Uid="{Binding Name}" Text="{Binding Name}"  />
+                            <TextBlock Uid="{Binding Name}" Text="{Binding Attraction_String}"  />
 
                         </DataTemplate>
 

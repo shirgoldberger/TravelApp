@@ -17,7 +17,8 @@ namespace TravelApp
         }
         public Trip createTrip(MySqlDataReader dr)
         {
-            string id = dr.GetString("trip_code");
+            int id = int.Parse(dr.GetString("trip_code"));
+            string name = dr.GetString("name");
             string admin = dr.GetString("admin");
             DateTime start_date = DateTime.Parse(dr.GetString("start_date"));
             DateTime end_date = DateTime.Parse(dr.GetString("end_date"));
@@ -27,7 +28,7 @@ namespace TravelApp
             bool male_only = dr.GetBoolean(dr.GetOrdinal("male_only"));
             bool female_only = dr.GetBoolean(dr.GetOrdinal("female_only"));
 
-            Trip t = new Trip(id, admin, start_date, end_date, min_age,
+            Trip t = new Trip(id, name, admin, start_date, end_date, min_age,
                 max_age, max_participants, male_only, female_only);
             return t;
         }
@@ -52,21 +53,21 @@ namespace TravelApp
         }
         public bool deleteTrip(Trip trip, string username)
         {
-            string trip_code = trip.Id;
+            string trip_code = trip.Id.ToString();
             trip_code = "'" + trip_code + "'";
             username = "'" + username + "'";
-            string command = "DELETE FROM member WHERE trip_code = "+trip_code+" AND username = "+username+";";
+            string command = "DELETE FROM member WHERE trip_code = " + trip_code + " AND username = " + username + ";";
             bool dr = DbConnection.ExecuteNonQuery(command);
             if (dr == false)
             {
                 return false;
             }
-            DateTime start_date= trip.Start_Date;
+            DateTime start_date = trip.Start_Date;
             return true;
         }
         public bool delteAllTripMember(Trip trip)
         {
-            string trip_code = trip.Id;
+            string trip_code = trip.Id.ToString();
             trip_code = "'" + trip_code + "'";
             // Transaction:
             //defenition for transaction
@@ -104,8 +105,8 @@ namespace TravelApp
             //first - set new admin
             string trip_code1 = "'" + trip.Id.ToString() + "'";
             string admin1 = "'" + newUsername + "'";
-            string command = "UPDATE trip SET"+
-                " admin = " + admin1  +
+            string command = "UPDATE trip SET" +
+                " admin = " + admin1 +
                 " WHERE trip_code = " + trip_code1 + " ;";
             bool dr = DbConnection.ExecuteNonQuery(command);
             if (dr == false)
@@ -120,7 +121,27 @@ namespace TravelApp
             }
             DateTime start_date = trip.Start_Date;
             return true;
-        
-    }
+
+        }
+        public List<string> getAllMembersWithoutMe( Trip trip){
+            List<string> users = new List<string>();
+            String trip_code = trip.Id.ToString();
+            trip_code = "'" + trip_code + "'";
+            username = "'" + username + "'";
+            string command = "SELECT username FROM member " +
+                "WHERE member.trip_code = " + trip_code +
+                "AND username != " + username + ";";
+
+            MySqlDataReader dr = DbConnection.ExecuteQuery(command);
+            if (dr != null)
+            {
+                while (dr.Read())
+                {
+                    users.Add(dr.GetString("username"));
+                }
+            }
+            dr.Close();
+            return users;
+        }
     }
 }

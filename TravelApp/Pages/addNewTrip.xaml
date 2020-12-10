@@ -57,7 +57,7 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
             <TextBlock Height="30" FontFamily="Century Gothic" FontSize="25" FontStretch="UltraExpanded" FontStyle="Italic" FontWeight="UltraBold" HorizontalAlignment="Left" Margin="84,270,0,0" x:Name="datesText" Text="Dates:" VerticalAlignment="Top" Width="92" Foreground="#FFFEF5F5" Grid.Column="1" />
-            <Calendar x:Name="tripDates" HorizontalAlignment="Left" Height="174" Margin="206,270,0,0" VerticalAlignment="Top" Width="189" SelectionMode="MultipleRange" Grid.Column="1"/>
+            <Calendar x:Name="tripDates" HorizontalAlignment="Left" Height="174" Margin="206,270,0,0" VerticalAlignment="Top" Width="189" SelectionMode="SingleRange" Grid.Column="1"/>
             <TextBlock Height="30" FontFamily="Century Gothic" FontSize="25" FontStretch="UltraExpanded" FontStyle="Italic" FontWeight="UltraBold" HorizontalAlignment="Left" Margin="540,270,0,0" x:Name="addFriendsText" Text="Add Freinds:" VerticalAlignment="Top" Width="157" Foreground="#FFFEF5F5" Grid.Column="1" />
             <ComboBox x:Name="friendsComboBox" TextBoxBase.TextChanged="Friend_TextChanged" HorizontalAlignment="Left" Height="30" Margin="723,270,0,0" VerticalAlignment="Top" Width="222" IsEditable="True" Grid.Column="1" FontSize="20">
                 <ComboBox.ItemTemplate>

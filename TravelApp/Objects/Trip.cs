@@ -9,7 +9,8 @@ namespace TravelApp
 {
     public class Trip : INotifyPropertyChanged
     {
-        string id;
+        int id;
+        string name;
         string admin;
         DateTime start_date;
         DateTime end_date;
@@ -21,10 +22,11 @@ namespace TravelApp
         string trip_string;
         string temp_trip_string;
         int member_amount;
-        public Trip(string _id, string _admin, DateTime _start_date, DateTime _end_date, int _min_age,
+        public Trip(int _id, string _name, string _admin, DateTime _start_date, DateTime _end_date, int _min_age,
         int _max_age, int _max_participants, bool _male_only, bool _female_only)
         {
             id = _id;
+            name = _name;
             admin = _admin;
             start_date = _start_date;
             end_date = _end_date;
@@ -55,11 +57,18 @@ namespace TravelApp
             }
         }
 
-        public string Id
+        public int Id
         {
             get
             {
                 return id;
+            }
+        }
+        public string Name
+        {
+            get
+            {
+                return name;
             }
         }
         public string Admin

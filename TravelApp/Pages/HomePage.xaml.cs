@@ -27,12 +27,12 @@ namespace TravelApp
         private string username = "";
         private string password = "";
         private string message = "";
-        Home_page_Model model;
+        HomePage_Controller controller;
         public HomePage()
         {
             InitializeComponent();
-            model = new Home_page_Model();
             DataContext = this;
+            controller = new HomePage_Controller();
         }
         public event PropertyChangedEventHandler PropertyChanged;
         public void NotifyPropertyChanged(string propName)
@@ -44,16 +44,14 @@ namespace TravelApp
         }
         private void Button_Click_Login(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                string username = model.login(name.Text, passwordBox.Text);
+            var t = controller.click_Login(name.Text, passwordBox.Text);
+            if (t.Item1 == 0) { 
                 UserPage userpage = new UserPage(username);
                 this.NavigationService.Navigate(userpage);
-
             }
-            catch(Exception error)
+            else
             {
-                MessageBox.Show(error.Message);
+                MessageBox.Show(t.Item2);
             }
         }
 
@@ -64,23 +62,15 @@ namespace TravelApp
         }
         public string Username
         {
-            get
-            {
-                return this.username;
-            }
-            set
-            {
+            get {  return this.username; }
+            set {
                 this.username = value;
                 NotifyPropertyChanged("Ip");
-
             }
         }
         public string Password
         {
-            get
-            {
-                return this.password;
-            }
+            get { return this.password;   }
             set
             {
                 this.password = value;

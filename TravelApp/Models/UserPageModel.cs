@@ -74,30 +74,24 @@ namespace TravelApp.Models
             name = "'" + name + "'";
             city_code = "'" + city_code + "'";
             type = "'" + type + "'";
-            string id = "";
+            bool exist = false;
             string command = "SELECT attraction_code FROM attraction WHERE name=" + name + " AND city_id=" + city_code + " AND type=" + type + ";";
             MySqlDataReader dr = DbConnection.ExecuteQuery(command);
             if (dr != null)
             {
-                while (dr.Read())
+                if (dr.Read())
                 {
-                    id = dr.GetString("attraction_code");
+                    exist = true;
                 }
                 dr.Close();
             }
-            return id != "";
+            return exist;
         }
 
-        public List<string> getContinents(string country, string begin)
+        public List<string> getContinents(string begin)
         {
             List<string> continents = new List<string>();
-            string command = "SELECT name FROM continent WHERE name LIKE '" + begin + "%'";
-            if(country != null)
-            {
-                country = "'" + country + "'";
-                command = "SELECT continent FROM country WHERE name=" + country + " AND continent LIKE '" + begin + "%'";
-            }
-            command += ";";
+            string command = "SELECT name FROM continent WHERE name LIKE '" + begin + "%';";
             MySqlDataReader dr = DbConnection.ExecuteQuery(command);
             if (dr != null)
             {
@@ -110,25 +104,26 @@ namespace TravelApp.Models
             return continents;
         }
 
-        public List<string> getCountries(string continent,string city, string begin)
+        public string getContinentByCountry(string country)
+        {
+            string continent = "";
+            string command = "SELECT continent FROM country WHERE name='" + country + "';";
+            MySqlDataReader dr = DbConnection.ExecuteQuery(command);
+            if (dr != null)
+            {
+                while (dr.Read())
+                {
+                    continent = dr.GetString("continent");
+                }
+                dr.Close();
+            }
+            return continent;
+        }
+
+        public List<string> getCountries(string begin)
         {
             List<string> countries = new List<string>();
-            string command = "";
-            if (city != null)
-            {
-                city = "'" + city + "'";
-                command = "SELECT country FROM city WHERE name=" + city + " AND country LIKE '" + begin + "%'";
-            }
-            else
-            {
-                command = "SELECT name FROM country WHERE name LIKE '" + begin + "%'";
-                if (continent != null)
-                {
-                    continent = "'" + continent + "'";
-                    command += " AND continent=" + continent;
-                }
-            }
-            command += ";";
+            string command = "SELECT name FROM country WHERE name LIKE '" + begin + "%';";
             MySqlDataReader dr = DbConnection.ExecuteQuery(command);
             if (dr != null)
             {
@@ -141,20 +136,18 @@ namespace TravelApp.Models
             return countries;
         }
 
-        public List<string> getCities(string continent, string country, string begin)
+        public List<City> getCitiesByContinent(string continent, string begin)
         {
-            List<string> cities = new List<string>();
-            string command = "SELECT name FROM city WHERE name LIKE '" + "%'";
-            if (country != null)
+            List<City> cities = new List<City>();
+            string command = "SELECT city_id, city.name, country, continent " +
+                          "FROM city join country ON city.country = country.name " +
+                          "WHERE city.name LIKE '" + begin + "%'";
+            if (continent != null)
             {
-                country = "'" + country + "'";
-                command += " AND country=" + country;
-            }
-            else if (continent != null)
-            {
-                continent = "'" + country + "'";
-                string countriesOptions = "SELECT name FROM country WHERE continent=" + continent;
-                command += " AND country IN (" + continent + ")";
+                command = "SELECT * FROM city WHERE name LIKE '" + begin + "%'";
+                string continentTemp = "'" + continent + "'";
+                string countriesOptions = "SELECT name FROM country WHERE continent=" + continentTemp;
+                command += " AND country IN (" + countriesOptions + ")";
             }
             command += ";";
             MySqlDataReader dr = DbConnection.ExecuteQuery(command);
@@ -162,7 +155,40 @@ namespace TravelApp.Models
             {
                 while (dr.Read())
                 {
-                    cities.Add(dr.GetString("name"));
+                    string city = dr.GetString("name");
+                    string country = dr.GetString("country");
+                    string city_id = dr.GetString("city_id");
+                    string continentArg = continent != null? continent : dr.GetString("continent");
+                    City cityObj = new City(city_id, city, country, continentArg);
+                    cities.Add(cityObj);
+                }
+                dr.Close();
+            }
+            return cities;
+        }
+
+        public List<City> getCitiesByCountry(string country, string begin)
+        {
+            List<City> cities = new List<City>();
+            string command = "SELECT * FROM city WHERE name LIKE '" + "%'";
+            if (country != null)
+            {
+                country = "'" + country + "'";
+                command += " AND country=" + country;
+            }
+            
+            command += ";";
+            MySqlDataReader dr = DbConnection.ExecuteQuery(command);
+            if (dr != null)
+            {
+                while (dr.Read())
+                {
+                    string city = dr.GetString("name");
+                    country = dr.GetString("country");
+                    string city_id = dr.GetString("city_id");
+                    string continent = getContinentByCountry(country);
+                    City cityObj = new City(city_id, city, country, continent);
+                    cities.Add(cityObj);
                 }
                 dr.Close();
             }

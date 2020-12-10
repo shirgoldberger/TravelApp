@@ -28,7 +28,7 @@ namespace TravelApp
         public List<string> getAllMembers()
         {
             List<string> users = new List<string>();
-            String trip_code = trip.Id;
+            String trip_code = trip.Id.ToString();
             trip_code = "'" + trip_code + "'";
             string command = "SELECT username FROM member " +
                 "WHERE member.trip_code = " + trip_code + ";";
@@ -46,7 +46,7 @@ namespace TravelApp
         public List<Attraction> getAllAttraction()
         {
             List<Attraction> att = new List<Attraction>();
-            String trip_code = trip.Id;
+            String trip_code = trip.Id.ToString();
             trip_code = "'" + trip_code + "'";
             string command = "SELECT * FROM attraction, trip_attractions " +
                 "WHERE trip_attractions.trip_code = " + trip_code + " " +

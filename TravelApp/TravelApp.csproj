@@ -40,6 +40,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>ManagedMinimumRules.ruleset</CodeAnalysisRuleSet>
+    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -117,8 +118,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="CreateAccount_Controller.cs" />
-    <Compile Include="FindTrip_Controller.cs" />
+    <Compile Include="Controllers\add_new_att_for_trip_Controller.cs" />
+    <Compile Include="Controllers\add_new_mem_for_trip_Controller.cs" />
+    <Compile Include="Controllers\CreateAccount_Controller.cs" />
+    <Compile Include="Controllers\deleteTrip_Controller.cs" />
+    <Compile Include="Controllers\editTheTrip_Controller.cs" />
+    <Compile Include="Controllers\HomePage_Controller.cs" />
     <Compile Include="Models\UserPageModel.cs" />
     <Compile Include="Pages\AddNewAtt.xaml.cs">
       <DependentUpon>AddNewAtt.xaml</DependentUpon>
@@ -149,6 +154,12 @@
     <Compile Include="Pages\FindByLocation.xaml.cs">
       <DependentUpon>FindByLocation.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\FindCityByCountry.xaml.cs">
+      <DependentUpon>FindCityByCountry.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\FindCityByContinent.xaml.cs">
+      <DependentUpon>FindCityByContinent.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\FindTrip.xaml.cs">
       <DependentUpon>FindTrip.xaml</DependentUpon>
     </Compile>
@@ -167,6 +178,8 @@
       <DependentUpon>watchTrip.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\watchTrip_Model.cs" />
+    <Compile Include="Controllers\viewAllTrip_controller.cs" />
+    <Compile Include="Controllers\watchTrup_Controller.cs" />
     <Page Include="Pages\AddNewAtt.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -202,6 +215,14 @@
     <Page Include="Pages\FindByLocation.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\FindCityByCountry.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\FindCityByContinent.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Pages\FindTrip.xaml">
       <SubType>Designer</SubType>
