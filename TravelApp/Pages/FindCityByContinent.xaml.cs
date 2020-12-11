@@ -80,11 +80,10 @@ namespace TravelApp.Pages
             bindCities();
         }
 
-        private void continentTextChanged(object sender, EventArgs e)
+        private void filterByText(object sender, RoutedEventArgs e)
         {
             continentBegin = continentBox.Text;
             bindContinents();
         }
-
     }
 }

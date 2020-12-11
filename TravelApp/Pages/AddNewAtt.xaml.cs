@@ -26,7 +26,6 @@ namespace TravelApp.Pages
         private string cityBegin;
         private string typeBegin;
         private string city_code;
-        City choosen;
         public AddNewAtt(UserPageModel _model)
         {
             model = _model;
@@ -50,33 +49,49 @@ namespace TravelApp.Pages
             cityBox.ItemsSource = cities;
         }
 
-        private void bindTypes()
+        private async Task<List<string>> getTypesAsync(string begin)
         {
-            types = model.getTypes(typeBegin);
+            List<string> list = await Task.Run(() => model.getTypes(begin));
+            return list;
+        }
+
+        private async void bindTypes()
+        {
+            types = await getTypesAsync(typeBegin);
             typeBox.ItemsSource = types;
         }
 
-        private void resetClick(object sender, RoutedEventArgs e)
+        private void reset()
         {
             attrationName.Text = "";
             continentName.Text = "";
             countryName.Text = "";
+            cityName.Text = "";
             cityBox.Text = "";
             cityBox.SelectedIndex = -1;
             typeBox.Text = "";
             typeBox.SelectedIndex = -1;
-            choosen = null;
+            cityBegin = "";
+            typeBegin = "";
+            city_code = "";
+            bindCities();
+            bindTypes();
+        }
+
+        private void resetClick(object sender, RoutedEventArgs e)
+        {
+            reset();
         }
 
         private void addClick(object sender, RoutedEventArgs e)
         {
             if(attrationName.Text == "" || attrationName.Text.Length > 300 || typeBox.SelectedIndex == -1 ||
-               cityBox.SelectedIndex == -1 || choosen == null)
+               cityName.Text == "")
             {
                 MessageBox.Show("There is problem with arguments for creating your attraction");
                 return;
             }
-            string name = choosen.Name;
+            string name = attrationName.Text;
             string type = types[typeBox.SelectedIndex];
             if(model.attractionAlreadyExist(name, city_code, type))
             {
@@ -84,7 +99,7 @@ namespace TravelApp.Pages
                 return;
             }
             bool result = model.addNewAttraction(name, city_code, type);
-            string message = "Enter the attraction '" + name + "'";
+            string message = "Entering the attraction '" + name + "'";
             if(result)
             {
                 message += " succeed";
@@ -101,9 +116,9 @@ namespace TravelApp.Pages
             int selectedIndex = cityBox.SelectedIndex;
             if (selectedIndex != -1)
             {
-                choosen = cities[selectedIndex];
-                changeFieldsByCity(choosen);
-                cityBox.Text = choosen.Name;
+                City _city = cities[selectedIndex];
+                changeFieldsByCity(_city);
+                cityBox.Text = _city.Name;
             }            
         }
 
@@ -116,21 +131,31 @@ namespace TravelApp.Pages
         private void findByContinent(object sender, RoutedEventArgs e)
         {
             FindCityByContinent fbc = new FindCityByContinent(model);
+            fbc.ReturenedCity = null;
             fbc.ShowDialog();
-            choosen = fbc.ReturenedCity;
-            changeFieldsByCity(choosen);
+            City returnedCity = fbc.ReturenedCity;
+            if (returnedCity != null)
+            {
+                changeFieldsByCity(returnedCity);
+            }
         }
 
         private void findByCountry(object sender, RoutedEventArgs e)
         {
             FindCityByCountry fbc = new FindCityByCountry(model);
+            fbc.ReturenedCity = null;
             fbc.ShowDialog();
-            choosen = fbc.ReturenedCity;
-            changeFieldsByCity(choosen);
+            City returnedCity = fbc.ReturenedCity;
+            if (returnedCity != null)
+            {
+                changeFieldsByCity(returnedCity);
+            }
+            
         }
 
         private void changeFieldsByCity(City _city)
         {
+            cityName.Text = _city.Name;
             continentName.Text = _city.Continent;
             countryName.Text = _city.Country;
             city_code = _city.Id;

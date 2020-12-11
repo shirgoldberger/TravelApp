@@ -79,11 +79,10 @@ namespace TravelApp.Pages
             bindCities();
         }
 
-        private void countryTextChanged(object sender, EventArgs e)
+        private void filterByText(object sender, RoutedEventArgs e)
         {
             countryBegin = countryBox.Text;
             bindCountries();
         }
-
     }
 }

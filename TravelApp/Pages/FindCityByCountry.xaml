@@ -5,22 +5,23 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TravelApp.Pages"
         mc:Ignorable="d"
-        Title="Search city by country" Height="251.109" Width="365.295">
+        Title="Search city by country" Height="251.109" Width="445.295">
     <Grid Margin="0,0,0,0">
         <Grid.Background>
             <ImageBrush ImageSource="../Pictures/trip5.jpg" TileMode="Tile"/>
         </Grid.Background>
         <Label Content="country" HorizontalAlignment="Left" Margin="4,76,0,0" VerticalAlignment="Top"/>
-        <ComboBox Name="countryBox"  HorizontalAlignment="Left" Margin="65,80,0,0" VerticalAlignment="Top" Width="120" IsEditable="True" TextBoxBase.TextChanged="countryTextChanged" SelectionChanged="countrySelectionChanged">
+        <ComboBox Name="countryBox" IsTextSearchEnabled="false" HorizontalAlignment="Left" Margin="53,80,0,0" VerticalAlignment="Top" Width="118" IsEditable="True" SelectionChanged="countrySelectionChanged" MaxDropDownHeight="100">
             <ComboBox.ItemsPanel>
                 <ItemsPanelTemplate>
                     <VirtualizingStackPanel />
                 </ItemsPanelTemplate>
             </ComboBox.ItemsPanel>
         </ComboBox>
+        <Button Content="Filter" HorizontalAlignment="Left" Height="22" Margin="178,80,0,0" VerticalAlignment="Top" Width="43" Click="filterByText"/>
         <Label Content="Choose country and filter cities" HorizontalAlignment="center" Margin="18,10,17.667,0" VerticalAlignment="Top" FontSize="20" FontWeight="Bold"/>
-        <Label Content="Cities list :" HorizontalAlignment="right" Margin="0,47,37.667,0" VerticalAlignment="Top" FontSize="15" FontWeight="Bold"/>
-        <ListBox x:Name="citiesList" HorizontalAlignment="right" Margin="0,82,9.667,0" Width="150"
+        <Label Content="Cities list :" HorizontalAlignment="right" Margin="0,47,71.667,0" VerticalAlignment="Top" FontSize="15" FontWeight="Bold"/>
+        <ListBox x:Name="citiesList" HorizontalAlignment="right" Margin="0,82,9.667,0" Width="199"
             ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderThickness="0" HorizontalContentAlignment="Stretch" Background="Transparent" Height="120" VerticalAlignment="Top">
             <ListBox.ItemTemplate>
 
@@ -30,9 +31,8 @@
                             <ColumnDefinition Width="3*"></ColumnDefinition>
                             <ColumnDefinition></ColumnDefinition>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Uid="{Binding name}" Text="{Binding }"  >
-                        </TextBlock>
-                        <Button Grid.Column="1" Uid="{Binding name}" Content="choose" Click="chooseClick" />
+                        <TextBlock Grid.Column="0" Uid="{Binding Name}" Text="{Binding Name}"/>
+                        <Button Grid.Column="1" Uid="{Binding Name}" Content="choose" Click="chooseClick" />
                     </Grid>
                 </DataTemplate>
 
