@@ -35,7 +35,7 @@ namespace TravelApp
             max_participants = _max_participants;
             male_only = _male_only;
             female_only = _female_only;
-            trip_string = "start date: " + start_date.ToString() + ", end date: " + end_date.ToString();
+            trip_string = "Name:" + name + "Start date: " + start_date.ToString() + ", End date: " + end_date.ToString();
             if (male_only)
             {
                 trip_string += ",\ntrip to male only";
