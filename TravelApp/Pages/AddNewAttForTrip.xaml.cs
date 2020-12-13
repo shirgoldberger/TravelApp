@@ -20,17 +20,16 @@ namespace TravelApp.Pages
     /// </summary>
     public partial class AddNewAttForTrip : Window
     {
-        UserPageModel UPmodel;
-        List<City> cities;
-        List<string> types;
-        private string cityBegin;
-        private string typeBegin;
-        private string city_code;
+        private UserPageModel UPmodel;
         private List<Attraction> attractions;
+        private List<Attraction> newAttractionsChoosed;
         private CreateTripModel CTmodel;
         private List<Attraction> choosed;
+        private string type;
+        private string city_code;
+        private string attractionName;
 
-        public Attraction ReturenedAttraction { set; get; }
+        public List<Attraction> ReturenedAttractions { set; get; }
 
 
         public AddNewAttForTrip(UserPageModel _UPmodel, CreateTripModel _CTmodel, List<Attraction> _choosed)
@@ -39,119 +38,24 @@ namespace TravelApp.Pages
             choosed = _choosed;
             CTmodel = _CTmodel;
             InitializeComponent();
-            reset();
-        }
-
-        private async Task<List<City>> getCitiesAsync(string begin)
-        {
-            List<City> list = await Task.Run(() => UPmodel.getCitiesByContinent(null, begin));
-            return list;
-        }
-
-        private async void bindCities()
-        {
-            cities = await getCitiesAsync(cityBegin);
-            cityBox.ItemsSource = cities;
-        }
-
-        private async Task<List<string>> getTypesAsync(string begin)
-        {
-            List<string> list = await Task.Run(() => UPmodel.getTypes(begin));
-            return list;
-        }
-
-        private async void bindTypes()
-        {
-            types = await getTypesAsync(typeBegin);
-            typeBox.ItemsSource = types;
-        }
-
-        private void reset()
-        {
-            attrationName.Text = "";
-            continentName.Text = "";
-            countryName.Text = "";
-            cityName.Text = "";
-            cityBox.Text = "";
-            cityBox.SelectedIndex = -1;
-            typeBox.Text = "";
-            typeBox.SelectedIndex = -1;
-            cityBegin = "";
-            typeBegin = "";
-            city_code = "";
-            bindCities();
-            bindTypes();
+            newAttractionsChoosed = new List<Attraction>();
+            choosedAttractionsList.ItemsSource = null;
             attractionsList.ItemsSource = null;
-        }
-
-        private void resetClick(object sender, RoutedEventArgs e)
-        {
-            reset();
+            type = "";
+            city_code = "";
+            attractionName = "";
         }
 
         private void addClick(object sender, RoutedEventArgs e)
         {
             var item = ((Button)sender).DataContext;
             int itemIndex = attractionsList.Items.IndexOf(item);
-            ReturenedAttraction = attractions[itemIndex];
-            GetWindow(this).Close();
+            newAttractionsChoosed.Add(attractions[itemIndex]);
+            choosedAttractionsList.ItemsSource = null;
+            choosedAttractionsList.ItemsSource = newAttractionsChoosed;
+            bindAttractions();
         }
-
-        private void citySelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            int selectedIndex = cityBox.SelectedIndex;
-            if (selectedIndex != -1)
-            {
-                City _city = cities[selectedIndex];
-                changeFieldsByCity(_city);
-                cityBox.Text = _city.Name;
-            }            
-        }
-
-        private void findByContinent(object sender, RoutedEventArgs e)
-        {
-            FindCityByContinent fbc = new FindCityByContinent(UPmodel);
-            fbc.ReturenedCity = null;
-            fbc.ShowDialog();
-            City returnedCity = fbc.ReturenedCity;
-            if (returnedCity != null)
-            {
-                changeFieldsByCity(returnedCity);
-            }
-        }
-
-        private void findByCountry(object sender, RoutedEventArgs e)
-        {
-            FindCityByCountry fbc = new FindCityByCountry(UPmodel);
-            fbc.ReturenedCity = null;
-            fbc.ShowDialog();
-            City returnedCity = fbc.ReturenedCity;
-            if (returnedCity != null)
-            {
-                changeFieldsByCity(returnedCity);
-            }
-            
-        }
-
-        private void changeFieldsByCity(City _city)
-        {
-            cityName.Text = _city.Name;
-            continentName.Text = _city.Continent;
-            countryName.Text = _city.Country;
-            city_code = _city.Id;
-        }
-
-        private void filterByText(object sender, RoutedEventArgs e)
-        {
-            cityBegin = cityBox.Text;
-            bindCities();
-        }
-
-        private void filterTypeByText(object sender, RoutedEventArgs e)
-        {
-            typeBegin = typeBox.Text;
-            bindTypes();
-        }
+        
 
         private async Task<List<Attraction>> getAttractionsAsync(string cityId, string type, string name, List<Attraction> drop)
         {
@@ -161,18 +65,49 @@ namespace TravelApp.Pages
 
         private async void bindAttractions()
         {
-            string type = "";
-            if(typeBox.SelectedIndex != -1)
-            {
-                type = types[typeBox.SelectedIndex];
-            }
-            attractions = await getAttractionsAsync(city_code, type, attrationName.Text, choosed);
+            List<Attraction> toDrop = choosed.ToList();
+            toDrop.AddRange(newAttractionsChoosed);
+            attractions = await getAttractionsAsync(city_code, type, attractionName, toDrop);
+            attractionsList.ItemsSource = null;
             attractionsList.ItemsSource = attractions;
         }
 
         private void filterClick(object sender, RoutedEventArgs e)
         {
+            AttractionProperties ap = new AttractionProperties(UPmodel, false);
+            ap.AttractionReturned = null;
+            ap.TypeReturned = null;
+            ap.City_code = null;
+            ap.ShowDialog();
+            if (ap.AttractionReturned != null)
+            {
+                attractionName = ap.AttractionReturned;
+            }
+            if (ap.TypeReturned != null)
+            {
+                type = ap.TypeReturned;
+            }
+            if (ap.City_code != null)
+            {
+                city_code = ap.City_code;
+            }
             bindAttractions();
+        }
+
+        private void removeClick(object sender, RoutedEventArgs e)
+        {
+            var item = ((Button)sender).DataContext;
+            int itemIndex = choosedAttractionsList.Items.IndexOf(item);
+            newAttractionsChoosed.RemoveAt(itemIndex);
+            choosedAttractionsList.ItemsSource = null;
+            choosedAttractionsList.ItemsSource = newAttractionsChoosed;
+            bindAttractions();
+        }
+
+        private void addChoosenClick(object sender, RoutedEventArgs e)
+        {
+            ReturenedAttractions = newAttractionsChoosed;
+            GetWindow(this).Close();
         }
     }
 }

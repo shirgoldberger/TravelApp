@@ -60,7 +60,7 @@ namespace TravelApp
 
         private void addAttractionButton_Click(object sender, RoutedEventArgs e)
         {
-            AddNewAtt at = new AddNewAtt(model);
+            CreateNewAtt at = new CreateNewAtt(model);
             at.ShowDialog();
         }
         private void return_Click(object sender, RoutedEventArgs e)

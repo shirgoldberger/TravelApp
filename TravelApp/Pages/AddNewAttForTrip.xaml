@@ -5,48 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TravelApp.Pages"
         mc:Ignorable="d"
-        Title="Add New Attraction For Trip" Height="371.109" Width="600.295">
+        Title="Add New Attraction For Trip" Height="371.109" Width="500.295">
     <Grid Margin="0,0,0,0">
         <Grid.Background>
             <ImageBrush ImageSource="../Pictures/trip5.jpg" TileMode="Tile"/>
         </Grid.Background>
-        <Label Content="Attraction Name" HorizontalAlignment="Left" Margin="43,49,0,0" VerticalAlignment="Top"/>
-        <Label Content="Continent" HorizontalAlignment="Left" Margin="43,80,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.769,0.551"/>
-        <Label Content="Country" HorizontalAlignment="Left" Margin="43,111,0,0" VerticalAlignment="Top"/>
-        <Label Content="City Name" HorizontalAlignment="Left" Margin="43,141,0,0" VerticalAlignment="Top"/>
-        <Label Content="Search city" HorizontalAlignment="Left" Margin="43,174,0,0" VerticalAlignment="Top"/>
-        <Label Content="Type" HorizontalAlignment="Left" Margin="43,240,0,0" VerticalAlignment="Top"/>
         <Button x:Name="filterButton" HorizontalAlignment="Center"
-            Margin="47,272,414.333,10" Padding="5" Width="132" Click="filterClick" FontSize="22" FontWeight="Bold" Background="#FF28617A" Content="Filter" FontFamily="Ebrima" Cursor="Hand">
-            <Button.Effect>
-                <DropShadowEffect Color="#FF48636F"/>
-            </Button.Effect>
-            <Button.Template>
-                <ControlTemplate TargetType="{x:Type Button}">
-                    <Border x:Name="bdr_main" CornerRadius="20" Margin="4" BorderThickness="1" BorderBrush="Black">
-                        <Border.Background>
-                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                <GradientStop Color="#FFCD6B6A" Offset="1"/>
-                            </LinearGradientBrush>
-                        </Border.Background>
-                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center" Margin="8,6,8,6" ContentSource="Content" />
-                    </Border>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="bdr_main" Property="Background">
-                                <Setter.Value>
-                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                        <GradientStop Color="#FFA2756B" Offset="1"/>
-                                    </LinearGradientBrush>
-                                </Setter.Value>
-                            </Setter>
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Button.Template>
-        </Button>
-        <Button x:Name="resetButton" HorizontalAlignment="Center"
-            Margin="194,272,264.333,10" Padding="5" Width="135" Click="resetClick" FontSize="22" FontWeight="Bold" Background="#FF28617A" Content="Reset" FontFamily="Ebrima" Cursor="Hand">
+            Margin="300,226,28.333,65" Padding="5" Width="165" Click="filterClick" FontSize="15" FontWeight="Bold" Background="#FF28617A" Content="Filter Attractions" FontFamily="Ebrima" Cursor="Hand">
             <Button.Effect>
                 <DropShadowEffect Color="#FF48636F"/>
             </Button.Effect>
@@ -74,39 +39,39 @@
                 </ControlTemplate>
             </Button.Template>
         </Button>
-
-        <ComboBox Name="cityBox" SelectedValue="{Binding Name}" IsTextSearchEnabled="false" HorizontalAlignment="Left" Margin="145,178,0,0" VerticalAlignment="Top" Width="120" IsEditable="True" SelectionChanged="citySelectionChanged" MaxDropDownHeight="120">
-            <ComboBox.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <VirtualizingStackPanel />
-                </ItemsPanelTemplate>
-            </ComboBox.ItemsPanel>
-            <ComboBox.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Text="{Binding Name}" />
-                </DataTemplate>
-            </ComboBox.ItemTemplate>
-        </ComboBox>
-
-        <ComboBox Name="typeBox" IsTextSearchEnabled="false" HorizontalAlignment="Left" Margin="145,244,0,0" VerticalAlignment="Top" Width="120" IsEditable="True" MaxDropDownHeight="60">
-            <ComboBox.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <VirtualizingStackPanel />
-                </ItemsPanelTemplate>
-            </ComboBox.ItemsPanel>
-        </ComboBox>
-
-        <TextBox x:Name="attrationName" HorizontalAlignment="Left" Height="23" Margin="146,52,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="182"/>
-        <Label Content="Add New Attraction For Trip" HorizontalAlignment="center" Margin="99,7,86.333,0" VerticalAlignment="Top" FontSize="20" FontWeight="Bold" Width="288"/>
-        <TextBox x:Name="cityName" HorizontalAlignment="Left" Height="23" Margin="145,144,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="182" IsEnabled="False"/>
-        <TextBox x:Name="countryName" HorizontalAlignment="Left" Height="23" Margin="145,114,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="182" IsEnabled="False"/>
-        <TextBox x:Name="continentName" HorizontalAlignment="Left" Height="23" Margin="145,83,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="182" IsEnabled="False"/>
-        <Button Content="Find city by continent" HorizontalAlignment="center" Height="24" Margin="39,208,424.333,0" VerticalAlignment="Top" Width="130" Click="findByContinent"/>
-        <Button Content="Find city by country" HorizontalAlignment="center" Height="24" Margin="205,208,258.333,0" VerticalAlignment="Top" Width="130" Click="findByCountry"/>
-        <Button Content="Filter" HorizontalAlignment="Left" Height="22" Margin="284,178,0,0" VerticalAlignment="Top" Width="43" Click="filterByText"/>
-        <Label Content="Filtered Attractions List:" HorizontalAlignment="right" Margin="0,45,37.333,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="16"/>
-        <ListBox x:Name="attractionsList" HorizontalAlignment="right" Margin="0,82,22.333,0" Width="210"
-            ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderThickness="0" HorizontalContentAlignment="Stretch" Background="Transparent" Height="184" VerticalAlignment="Top">
+        <Button x:Name="addButton" HorizontalAlignment="Center"
+            Margin="101,277,100.333,10" Padding="5" Width="292" Click="addChoosenClick" FontSize="20" FontWeight="Bold" Background="#FF28617A" Content="Add Choosen Attractions" FontFamily="Ebrima" Cursor="Hand">
+            <Button.Effect>
+                <DropShadowEffect Color="#FF48636F"/>
+            </Button.Effect>
+            <Button.Template>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="bdr_main" CornerRadius="20" Margin="4" BorderThickness="1" BorderBrush="Black">
+                        <Border.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#FFCD6B6A" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center" Margin="8,6,8,6" ContentSource="Content" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="bdr_main" Property="Background">
+                                <Setter.Value>
+                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                        <GradientStop Color="#FFA2756B" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+        <Label Content="Add New Attractions For Trip" HorizontalAlignment="center" Margin="99,7,86.333,0" VerticalAlignment="Top" FontSize="20" FontWeight="Bold" Width="288"/>
+        <Label Content="Filtered Attractions List:" HorizontalAlignment="right" Margin="0,52,20.333,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="16"/>
+        <ListBox x:Name="attractionsList" HorizontalAlignment="right" Margin="0,81,14.333,0" Width="210"
+            ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderThickness="0" HorizontalContentAlignment="Stretch" Background="Transparent" Height="145" VerticalAlignment="Top">
             <ListBox.ItemTemplate>
 
                 <DataTemplate>
@@ -123,6 +88,24 @@
 
             </ListBox.ItemTemplate>
         </ListBox>
-        <Button Content="Filter" HorizontalAlignment="Left" Height="22" Margin="284,244,0,0" VerticalAlignment="Top" Width="43" Click="filterTypeByText"/>
+        <Label Content="Choosen Attractions List:" HorizontalAlignment="right" Margin="0,50,280.333,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="16"/>
+        <ListBox x:Name="choosedAttractionsList" HorizontalAlignment="right" Margin="0,81,273.333,0" Width="210"
+            ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderThickness="0" HorizontalContentAlignment="Stretch" Background="Transparent" Height="145" VerticalAlignment="Top">
+            <ListBox.ItemTemplate>
+
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="3*"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Uid="{Binding Name}" Text="{Binding Name}"/>
+
+                        <Button Grid.Column="1" Uid="{Binding Name}" Content="remove" Click="removeClick" />
+                    </Grid>
+                </DataTemplate>
+
+            </ListBox.ItemTemplate>
+        </ListBox>
     </Grid>
 </Window>

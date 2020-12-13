@@ -1,11 +1,11 @@
-﻿<Window x:Class="TravelApp.Pages.AddNewAtt"
+﻿<Window x:Class="TravelApp.Pages.CreateNewAtt"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TravelApp.Pages"
         mc:Ignorable="d"
-        Title="Add New Attraction" Height="371.109" Width="400.295">
+        Title="Create New Attraction" Height="371.109" Width="400.295">
     <Grid Margin="0,0,0,0">
         <Grid.Background>
             <ImageBrush ImageSource="../Pictures/trip5.jpg" TileMode="Tile"/>
@@ -14,10 +14,9 @@
         <Label Content="Continent" HorizontalAlignment="Left" Margin="43,80,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.769,0.551"/>
         <Label Content="Country" HorizontalAlignment="Left" Margin="43,111,0,0" VerticalAlignment="Top"/>
         <Label Content="City Name" HorizontalAlignment="Left" Margin="43,141,0,0" VerticalAlignment="Top"/>
-        <Label Content="Search city" HorizontalAlignment="Left" Margin="43,174,0,0" VerticalAlignment="Top"/>
-        <Label Content="Type" HorizontalAlignment="Left" Margin="43,240,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="addButton" HorizontalAlignment="Center"
-            Margin="40,272,186.667,10" Padding="5" Width="132" Click="addClick" FontSize="22" FontWeight="Bold" Background="#FF28617A" Content="Add!" FontFamily="Ebrima" Cursor="Hand">
+        <Label Content="Type" HorizontalAlignment="Left" Margin="43,171,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="createButton" HorizontalAlignment="Center"
+            Margin="133,277,128.333,10" Padding="5" Width="132" Click="createClick" FontSize="22" FontWeight="Bold" Background="#FF28617A" Content="Create!" FontFamily="Ebrima" Cursor="Hand" RenderTransformOrigin="1.626,0.511">
             <Button.Effect>
                 <DropShadowEffect Color="#FF48636F"/>
             </Button.Effect>
@@ -45,8 +44,15 @@
                 </ControlTemplate>
             </Button.Template>
         </Button>
-        <Button x:Name="resetButton" HorizontalAlignment="Center"
-            Margin="191,272,32.667,10" Padding="5" Width="135" Click="resetClick" FontSize="22" FontWeight="Bold" Background="#FF28617A" Content="Reset" FontFamily="Ebrima" Cursor="Hand">
+
+        <TextBox x:Name="attrationName" IsEnabled="False" HorizontalAlignment="Left" Height="23" Margin="146,52,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="182"/>
+        <Label Content="Create New Attraction" HorizontalAlignment="center" Margin="0,7,0,0" VerticalAlignment="Top" FontSize="20" FontWeight="Bold" Width="218"/>
+        <TextBox x:Name="cityName" HorizontalAlignment="Left" Height="23" Margin="145,144,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="182" IsEnabled="False"/>
+        <TextBox x:Name="countryName" HorizontalAlignment="Left" Height="23" Margin="145,114,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="182" IsEnabled="False"/>
+        <TextBox x:Name="continentName" HorizontalAlignment="Left" Height="23" Margin="145,83,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="182" IsEnabled="False"/>
+        <TextBox x:Name="typeName" HorizontalAlignment="Left" Height="23" Margin="145,174,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="182" IsEnabled="False"/>
+        <Button x:Name="setPropertiesButton" HorizontalAlignment="Center"
+            Margin="95,225,95.333,70" Padding="5" Width="203" Click="setPropertiesClick" FontSize="15" FontWeight="Bold" Background="#FF28617A" Content="Set Attraction Properties" FontFamily="Ebrima" Cursor="Hand">
             <Button.Effect>
                 <DropShadowEffect Color="#FF48636F"/>
             </Button.Effect>
@@ -74,36 +80,5 @@
                 </ControlTemplate>
             </Button.Template>
         </Button>
-
-        <ComboBox Name="cityBox" IsTextSearchEnabled="false" HorizontalAlignment="Left" Margin="145,178,0,0" VerticalAlignment="Top" Width="120" IsEditable="True" SelectionChanged="citySelectionChanged" MaxDropDownHeight="150" Text="{Binding Name}">
-            <ComboBox.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <VirtualizingStackPanel />
-                </ItemsPanelTemplate>
-            </ComboBox.ItemsPanel>
-            <ComboBox.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Text="{Binding Name}" />
-                </DataTemplate>
-            </ComboBox.ItemTemplate>
-        </ComboBox>
-
-        <ComboBox Name="typeBox" IsTextSearchEnabled="false" HorizontalAlignment="Left" Margin="145,244,0,0" VerticalAlignment="Top" Width="120" IsEditable="True" TextBoxBase.TextChanged="typeTextChanged" MaxDropDownHeight="70">
-            <ComboBox.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <VirtualizingStackPanel />
-                </ItemsPanelTemplate>
-            </ComboBox.ItemsPanel>
-        </ComboBox>
-
-        <TextBox x:Name="attrationName" HorizontalAlignment="Left" Height="23" Margin="146,52,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="182"/>
-        <Label Content="Enter New Attraction" HorizontalAlignment="center" Margin="99,7,86.333,0" VerticalAlignment="Top" FontSize="20" FontWeight="Bold" Width="208"/>
-        <TextBox x:Name="cityName" HorizontalAlignment="Left" Height="23" Margin="145,144,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="182" IsEnabled="False"/>
-        <TextBox x:Name="countryName" HorizontalAlignment="Left" Height="23" Margin="145,114,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="182" IsEnabled="False"/>
-        <TextBox x:Name="continentName" HorizontalAlignment="Left" Height="23" Margin="145,83,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="182" IsEnabled="False"/>
-        <Button Content="Find city by continent" HorizontalAlignment="center" Height="24" Margin="37,208,226.333,0" VerticalAlignment="Top" Width="130" Click="findByContinent"/>
-        <Button Content="Find city by country" HorizontalAlignment="center" Height="24" Margin="203,208,60.333,0" VerticalAlignment="Top" Width="130" Click="findByCountry"/>
-        <Button Content="Filter" HorizontalAlignment="Left" Height="22" Margin="284,178,0,0" VerticalAlignment="Top" Width="43" Click="filterByText"/>
-
     </Grid>
 </Window>

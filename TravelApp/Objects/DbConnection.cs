@@ -13,6 +13,7 @@ namespace TravelApp
     public class DbConnection
     {
         private static MySqlConnection _connection;
+        private static Object my_lock;
 
         public static void createConnection(string user_id, string password, string name_database, int port)
         {
@@ -20,6 +21,7 @@ namespace TravelApp
             {
                 // setup new connection
                 MySqlConnectionStringBuilder b = new MySqlConnectionStringBuilder();
+                my_lock = new Object();
                 b.Server = "127.0.0.1";
                 b.UserID = user_id;
                 b.Password = password;
@@ -44,6 +46,14 @@ namespace TravelApp
             }
         }
 
+        public static Object Locker
+        {
+            get
+            {
+                return my_lock;
+            }
+        }
+
         public static bool ExecuteNonQuery(string command)
         {
             try
@@ -53,7 +63,8 @@ namespace TravelApp
                 cmd2.CommandText = command;
                 cmd2.ExecuteNonQuery();
                 return true;
-            } catch
+            }
+            catch
             {
                 return false;
             }
@@ -66,11 +77,14 @@ namespace TravelApp
             try
             {
                 MySqlDataReader dr = cmd.ExecuteReader();
+
                 return dr;
-            } catch(Exception e)
+            }
+            catch (Exception)
             {
                 return null;
             }
+
         }
     }
 }

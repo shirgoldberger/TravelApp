@@ -10,11 +10,6 @@ namespace TravelApp.Models
 {
     public class UserPageModel
     {
-        private Object my_lock;
-        public UserPageModel()
-        {
-            my_lock = new object();
-        }
 
         public List<string> getRestUsers(string username, string beginning)
         {
@@ -26,7 +21,7 @@ namespace TravelApp.Models
             string command = "SELECT username FROM ((" + noUser + ") as noUser LEFT JOIN (" + userFriends + ") as userFriends " +
                              "ON noUser.username=userFriends.username1) WHERE userFriends.username1 IS NULL AND username LIKE '" + beginning + "%';";
 
-            lock(my_lock)
+            lock (DbConnection.Locker)
             {
                 MySqlDataReader dr = DbConnection.ExecuteQuery(command);
                 if (dr != null)
@@ -38,6 +33,7 @@ namespace TravelApp.Models
                     dr.Close();
                 }
             }
+                
             return users;
         }
 
@@ -46,11 +42,14 @@ namespace TravelApp.Models
             user1 = "'" + user1 + "'";
             user2 = "'" + user2 + "'";
             string command = "INSERT INTO friends(username1, username2) VALUES (" + user1 + ", " + user2 + ");";
-            lock(my_lock)
+            bool dr;
+
+            lock (DbConnection.Locker)
             {
-                bool dr = DbConnection.ExecuteNonQuery(command);
-                return dr;
+                dr = DbConnection.ExecuteNonQuery(command);
             }
+            
+            return dr;
         }
 
         public string getCityCode(string country, string city)
@@ -59,7 +58,8 @@ namespace TravelApp.Models
             city = "'" + city + "'";
             country = "'" + country + "'";
             string command = "SELECT city_id FROM city WHERE name=" + city + " AND country=" + country + ";";
-            lock(my_lock)
+
+            lock (DbConnection.Locker)
             {
                 MySqlDataReader dr = DbConnection.ExecuteQuery(command);
                 if (dr != null)
@@ -71,6 +71,7 @@ namespace TravelApp.Models
                     dr.Close();
                 }
             }
+            
             return cityCode;
         }
 
@@ -81,10 +82,12 @@ namespace TravelApp.Models
             city_code = "'" + city_code + "'";
             type = "'" + type + "'";
             string command = "INSERT INTO attraction(name, city_id, type) VALUES (" + name + ", " + city_code + ", " + type + ");";
-            lock(my_lock)
+
+            lock (DbConnection.Locker)
             {
                 success = DbConnection.ExecuteNonQuery(command);
             }
+            
             return success;
         }
 
@@ -95,7 +98,8 @@ namespace TravelApp.Models
             type = "'" + type + "'";
             bool exist = false;
             string command = "SELECT attraction_code FROM attraction WHERE name=" + name + " AND city_id=" + city_code + " AND type=" + type + ";";
-            lock(my_lock)
+
+            lock (DbConnection.Locker)
             {
                 MySqlDataReader dr = DbConnection.ExecuteQuery(command);
                 if (dr != null)
@@ -107,6 +111,7 @@ namespace TravelApp.Models
                     dr.Close();
                 }
             }
+            
             return exist;
         }
 
@@ -114,7 +119,8 @@ namespace TravelApp.Models
         {
             List<string> continents = new List<string>();
             string command = "SELECT name FROM continent WHERE name LIKE '" + begin + "%';";
-            lock(my_lock)
+
+            lock (DbConnection.Locker)
             {
                 MySqlDataReader dr = DbConnection.ExecuteQuery(command);
                 if (dr != null)
@@ -126,6 +132,7 @@ namespace TravelApp.Models
                     dr.Close();
                 }
             }
+   
             return continents;
         }
 
@@ -133,7 +140,8 @@ namespace TravelApp.Models
         {
             string continent = "";
             string command = "SELECT continent FROM country WHERE name='" + country + "';";
-            lock(my_lock)
+
+            lock (DbConnection.Locker)
             {
                 MySqlDataReader dr = DbConnection.ExecuteQuery(command);
                 if (dr != null)
@@ -145,6 +153,7 @@ namespace TravelApp.Models
                     dr.Close();
                 }
             }
+            
             return continent;
         }
 
@@ -152,7 +161,8 @@ namespace TravelApp.Models
         {
             List<string> countries = new List<string>();
             string command = "SELECT name FROM country WHERE name LIKE '" + begin + "%';";
-            lock(my_lock)
+
+            lock (DbConnection.Locker)
             {
                 MySqlDataReader dr = DbConnection.ExecuteQuery(command);
                 if (dr != null)
@@ -164,6 +174,7 @@ namespace TravelApp.Models
                     dr.Close();
                 }
             }
+            
             return countries;
         }
 
@@ -181,7 +192,8 @@ namespace TravelApp.Models
                 command += " AND country IN (" + countriesOptions + ")";
             }
             command += ";";
-            lock(my_lock)
+
+            lock (DbConnection.Locker)
             {
                 MySqlDataReader dr = DbConnection.ExecuteQuery(command);
                 if (dr != null)
@@ -198,6 +210,7 @@ namespace TravelApp.Models
                     dr.Close();
                 }
             }
+            
             return cities;
         }
 
@@ -212,9 +225,9 @@ namespace TravelApp.Models
                 country = "'" + country + "'";
                 command += " AND country=" + country;
             }
-            
             command += ";";
-            lock(my_lock)
+
+            lock (DbConnection.Locker)
             {
                 MySqlDataReader dr = DbConnection.ExecuteQuery(command);
                 if (dr != null)
@@ -231,6 +244,7 @@ namespace TravelApp.Models
                     dr.Close();
                 }
             }
+            
             return cities;
         }
 
@@ -238,7 +252,8 @@ namespace TravelApp.Models
         {
             List<string> types = new List<string>();
             string command = "SELECT type FROM attraction_types WHERE type LIKE '" + begin + "%';";
-            lock(my_lock)
+
+            lock (DbConnection.Locker)
             {
                 MySqlDataReader dr = DbConnection.ExecuteQuery(command);
                 if (dr != null)
@@ -250,6 +265,7 @@ namespace TravelApp.Models
                     dr.Close();
                 }
             }
+            
             return types;
         }
 

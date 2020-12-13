@@ -182,12 +182,12 @@ namespace TravelApp
         private void addAttractionsClick(object sender, RoutedEventArgs e)
         {
             AddNewAttForTrip ant = new AddNewAttForTrip(UPmodel, model, choosenAttractions);
-            ant.ReturenedAttraction = null;
+            ant.ReturenedAttractions = null;
             ant.ShowDialog();
-            Attraction returned = ant.ReturenedAttraction;
+            List<Attraction> returned = ant.ReturenedAttractions;
             if (returned != null)
             {
-                choosenAttractions.Add(returned);
+                choosenAttractions.AddRange(returned);
                 tripAttractions.ItemsSource = null;
                 tripAttractions.ItemsSource = choosenAttractions;
             }

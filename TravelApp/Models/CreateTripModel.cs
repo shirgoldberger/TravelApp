@@ -12,22 +12,18 @@ namespace TravelApp.Models
 {
     public class CreateTripModel
     {
-        private Object my_lock;
-        public CreateTripModel()
-        {
-            my_lock = new object();
-        }
+
 
         public User getUserByName(string username)
         {
             User result = null;
             string command = "SELECT * FROM user WHERE username = '" + username + "';";
-            lock(my_lock)
+            lock(DbConnection.Locker)
             {
                 MySqlDataReader dr = DbConnection.ExecuteQuery(command);
                 if (dr != null)
                 {
-                    
+
                     while (dr.Read())
                     {
                         string password = dr.GetString("password");
@@ -40,6 +36,7 @@ namespace TravelApp.Models
                     dr.Close();
                 }
             }
+            
             return result;
         }
 
@@ -97,7 +94,7 @@ namespace TravelApp.Models
                 command += " attraction_code NOT IN (" + dropIt + ")";
             }
             command += ";";
-            lock (my_lock)
+            lock (DbConnection.Locker)
             {
                 MySqlDataReader dr = DbConnection.ExecuteQuery(command);
                 if (dr != null)
@@ -114,6 +111,7 @@ namespace TravelApp.Models
                     dr.Close();
                 }
             }
+                
             return attractions;
         }
 
@@ -121,7 +119,7 @@ namespace TravelApp.Models
         {
             bool result = false;
             string command = "SELECT Count(*) as count FROM trip;";
-            lock (my_lock)
+            lock (DbConnection.Locker)
             {
                 MySqlDataReader dr = DbConnection.ExecuteQuery(command);
                 if (dr != null)
@@ -130,7 +128,7 @@ namespace TravelApp.Models
                     while (dr.Read())
                     {
                         int count = int.Parse(dr.GetString("count"));
-                        if(count > 0)
+                        if (count > 0)
                         {
                             result = true;
                         }
@@ -138,6 +136,7 @@ namespace TravelApp.Models
                     dr.Close();
                 }
             }
+            
             return result;
         }
 
@@ -213,7 +212,7 @@ namespace TravelApp.Models
                 command += " username NOT IN (" + dropIt + ")";
             }
             command += ";";
-            lock (my_lock)
+            lock (DbConnection.Locker)
             {
                 MySqlDataReader dr = DbConnection.ExecuteQuery(command);
                 if (dr != null)
@@ -232,7 +231,6 @@ namespace TravelApp.Models
                     dr.Close();
                 }
             }
-
             return rest;
         }
 
@@ -289,7 +287,7 @@ namespace TravelApp.Models
 
         public void generateTrip(TripToAdd trip, List<User> choosenParticipants, List<Attraction> choosenAttractions)
         {
-            lock (my_lock)
+            lock (DbConnection.Locker)
             {
                 MySqlCommand myCommand = DbConnection.Connection.CreateCommand();
                 MySqlTransaction myTrans;
@@ -337,9 +335,6 @@ namespace TravelApp.Models
                     catch (MySqlException) { }
                 }
             }
-            
-
         }
-
     }
 }

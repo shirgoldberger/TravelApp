@@ -129,14 +129,17 @@
     <Compile Include="Models\UserPageModel.cs" />
     <Compile Include="Objects\TripToAdd.cs" />
     <Compile Include="Objects\User.cs" />
+    <Compile Include="Pages\AttractionProperties.xaml.cs">
+      <DependentUpon>AttractionProperties.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\SetTripProperties.xaml.cs">
       <DependentUpon>SetTripProperties.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\AddNewAttForTrip.xaml.cs">
       <DependentUpon>AddNewAttForTrip.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\AddNewAtt.xaml.cs">
-      <DependentUpon>AddNewAtt.xaml</DependentUpon>
+    <Compile Include="Pages\CreateNewAtt.xaml.cs">
+      <DependentUpon>CreateNewAtt.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\addNewTrip.xaml.cs">
       <DependentUpon>addNewTrip.xaml</DependentUpon>
@@ -192,6 +195,10 @@
     <Compile Include="Models\watchTrip_Model.cs" />
     <Compile Include="Controllers\viewAllTrip_controller.cs" />
     <Compile Include="Controllers\watchTrup_Controller.cs" />
+    <Page Include="Pages\AttractionProperties.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Pages\SetTripProperties.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -200,7 +207,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Pages\AddNewAtt.xaml">
+    <Page Include="Pages\CreateNewAtt.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
