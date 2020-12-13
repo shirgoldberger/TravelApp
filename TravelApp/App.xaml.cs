@@ -22,6 +22,7 @@ namespace TravelApp
             } catch(Exception e1)
             {
                 MessageBox.Show(e1.Message);
+                System.Environment.Exit(0);
                 return;
             }
             wnd.Show();

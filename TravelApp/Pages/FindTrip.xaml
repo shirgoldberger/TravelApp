@@ -15,7 +15,7 @@
         <ListView x:Name="allTripsListBox" HorizontalAlignment="Left" Height="479" Margin="357,87,0,0" VerticalAlignment="Top" Width="730"
             ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderThickness="0" HorizontalContentAlignment="Stretch" Background="Transparent">
             <ListBox.ItemTemplate>
-                
+
                 <DataTemplate>
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -44,7 +44,7 @@
         <ComboBox x:Name="languagesComboBox" HorizontalAlignment="Left" Height="24" Margin="147,337,0,0" VerticalAlignment="Top" Width="170" TextBoxBase.TextChanged="Languages_TextChanged" IsEditable="True">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
-                    <CheckBox Name="checkCountry" Width="222" Checked="Checked_Language" Unchecked="Unchecked_Language" Content="{Binding}">
+                    <CheckBox Name="checkCountry" Uid="{Binding}" Width="222" Checked="Checked_Language" Unchecked="Unchecked_Language" Content="{Binding}">
                     </CheckBox>
                 </DataTemplate>
             </ComboBox.ItemTemplate>
@@ -60,7 +60,7 @@
         </ComboBox>
         <TextBlock HorizontalAlignment="Left" Height="51" Margin="572,25,0,0" TextWrapping="Wrap" Text="All Trips:" VerticalAlignment="Top" Width="302" FontSize="36" FontWeight="Bold" TextDecorations="{x:Null}" RenderTransformOrigin="0.57,0.452" FontFamily="Perpetua Titling MT"/>
         <Button x:Name="findButton" HorizontalAlignment="Center"
-            Margin="59,492,908,37.666" Padding="5" Width="133" Click="Button_Click_Find" FontSize="25" FontWeight="Bold" Background="#FF28617A" Content="Find!" FontFamily="Ebrima" Cursor="Hand">
+            Margin="41,517,926,12.666" Padding="5" Width="133" Click="Button_Click_Find" FontSize="25" FontWeight="Bold" Background="#FF28617A" Content="Find!" FontFamily="Ebrima" Cursor="Hand">
             <Button.Effect>
                 <DropShadowEffect Color="#FF48636F"/>
             </Button.Effect>
@@ -90,7 +90,7 @@
         </Button>
         <Button x:Name="filter_location" Cursor="Hand" Content="Choose Cities" HorizontalAlignment="center" Height="24" Margin="36,429,934,0" VerticalAlignment="Top" Width="130" Click="chooseCities_Click" FontFamily="Ebrima"/>
         <Button x:Name="findButton_Copy" HorizontalAlignment="Center"
-            Margin="197,503,774,41.666" Padding="5" Width="129" Click="Button_Click_Reset" FontSize="22" FontWeight="Bold" Background="#FF28617A" Content="Reset" FontFamily="Ebrima" Cursor="Hand">
+            Margin="184,525,787,19.666" Padding="5" Width="129" Click="Button_Click_Reset" FontSize="22" FontWeight="Bold" Background="#FF28617A" Content="Reset" FontFamily="Ebrima" Cursor="Hand">
             <Button.Effect>
                 <DropShadowEffect Color="#FF48636F"/>
             </Button.Effect>
@@ -132,5 +132,7 @@
         </Button>
 
         <Button x:Name="chooseAttraction" Content="Choose Attractions" HorizontalAlignment="center" Height="24" Margin="187,429,783,0" VerticalAlignment="Top" Width="130" Click="chooseAttractions_Click"/>
+        <CheckBox x:Name="someTrips" Content="Show trips with at least one of the filters" HorizontalAlignment="Left" Height="23" Margin="46,460,0,0" VerticalAlignment="Top" Width="260" Checked="someTrips_Checked" Unchecked="someTrips_Unchecked" FontWeight="Bold" Foreground="#FF5AFF03" />
+        <CheckBox x:Name="allTrips" Content="Show trips that keep all the filters" HorizontalAlignment="Left" Height="29" Margin="47,483,0,0" VerticalAlignment="Top" Width="227" Unchecked="allTrips_Unchecked" Checked="allTrips_Checked" FontWeight="Bold" Foreground="#FF5AFF03"/>
     </Grid>
 </Page>

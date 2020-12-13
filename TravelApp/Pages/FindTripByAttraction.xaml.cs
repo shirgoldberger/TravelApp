@@ -23,18 +23,26 @@ namespace TravelApp.Pages
     {
         private FindTrip_Controller controller;
         private List<City> cities;
-        private List<City> selectedCities;
         private List<Attraction> attractions;
         private List<Attraction> selectedAttractions;
         private string cityBegin;
+        private string selectedCity;
         public FindTripByAttraction(FindTrip_Controller c)
         {
             InitializeComponent();
             controller = c;
             cityBegin = "";
             bindCities();
-            selectedCities = new List<City>();
             selectedAttractions = new List<Attraction>();
+            selectedCity = "";
+        }
+
+        public string SelectedCity
+        {
+            get { return selectedCity; }
+            set { selectedCity = value;
+                NotifyPropertyChanged("SelectedCity");
+            }
         }
 
         public List<Attraction> Attractions
@@ -44,10 +52,6 @@ namespace TravelApp.Pages
         public List<City> Cities
         {
             get { return cities; }
-        }
-        public List<City> SelectedCities
-        {
-            get { return selectedCities; }
         }
         public List<Attraction> SelectedAttractions
         {
@@ -77,6 +81,13 @@ namespace TravelApp.Pages
 
         private async void bindCities()
         {
+            City city = null;
+            if (cityBox.SelectedItem != null)
+            {
+                city = (City)cityBox.SelectedItem;
+                SelectedCity = city.Name;
+            }
+            
             cities = await getCitiesAsync(cityBegin);
             cityBox.ItemsSource = cities;
         }

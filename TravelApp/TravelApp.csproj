@@ -135,6 +135,9 @@
     <Compile Include="Pages\FindTripByAttraction.xaml.cs">
       <DependentUpon>FindTripByAttraction.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\FindTripByCity.xaml.cs">
+      <DependentUpon>FindTripByCity.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\SetTripProperties.xaml.cs">
       <DependentUpon>SetTripProperties.xaml</DependentUpon>
     </Compile>
@@ -170,9 +173,6 @@
       <DependentUpon>editTheTrip.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\editTheTrip_Model.cs" />
-    <Compile Include="Pages\FindByLocation.xaml.cs">
-      <DependentUpon>FindByLocation.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Pages\FindCityByCountry.xaml.cs">
       <DependentUpon>FindCityByCountry.xaml</DependentUpon>
     </Compile>
@@ -203,6 +203,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Pages\FindTripByAttraction.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\FindTripByCity.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -247,10 +251,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\editTheTrip.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\FindByLocation.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

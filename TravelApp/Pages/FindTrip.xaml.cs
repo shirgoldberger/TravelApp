@@ -1,4 +1,5 @@
-﻿using Org.BouncyCastle.Crypto.Tls;
+﻿using K4os.Compression.LZ4.Internal;
+using Org.BouncyCastle.Crypto.Tls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +24,7 @@ namespace TravelApp
     public partial class FindTrip : Page
     {
         FindTrip_Controller controller;
-        private FindByLocation fbl;
+        private FindTripByCity fbc;
         List<Trip> trips;
         private List<String> languages;
         private List<String> choosenLanguages;
@@ -34,6 +35,7 @@ namespace TravelApp
         private List<String> members;
         private List<String> choosenMembers;
         string username;
+        string howToFilter;
         public FindTrip(string _username)
         {
             InitializeComponent();
@@ -49,6 +51,9 @@ namespace TravelApp
             choosenMembers = new List<string>();
             choosenCities = new List<City>();
             choosenAttractions = new List<Attraction>();
+            startDate_Selected = new DateTime();
+            endDate_Selected = new DateTime();
+            howToFilter = "";
         }
 
         private void Languages_TextChanged(object sender, EventArgs e)
@@ -92,12 +97,18 @@ namespace TravelApp
 
         private void Button_Click_Find(object sender, RoutedEventArgs e)
         {
+            if (howToFilter == "")
+            {
+                MessageBox.Show("Choose how to filter the trips");
+                return;
+            }
             int age = -1;
             if (ageText.Text.ToString() != "")
             {
                 age = int.Parse(ageText.Text.ToString());
             }
-            List<Trip> t = controller.filterTrips(age, choosenLanguages, choosenAttractions, choosenMembers, startDate_Selected, endDate_Selected);
+            List<Trip> t = controller.FindTrip(age, choosenMembers, choosenLanguages, choosenAttractions, choosenCities, startDate_Selected, endDate_Selected, howToFilter);
+            //List<Trip> t = controller.filterTrips(age, choosenLanguages, choosenAttractions, choosenMembers, startDate_Selected, endDate_Selected);
             allTripsListBox.ItemsSource = null;
             allTripsListBox.ItemsSource = t;
             if (allTripsListBox.Items.Count == 0)
@@ -156,12 +167,12 @@ namespace TravelApp
 
         private void chooseCities_Click(object sender, RoutedEventArgs e)
         {
-            if (fbl == null)
+            if (fbc == null)
             {
-                fbl = new FindByLocation(controller);
+                fbc = new FindTripByCity(controller);
             }
-            fbl.ShowDialog();
-            choosenCities = fbl.SelectedCities;
+            fbc.ShowDialog();
+            choosenCities = fbc.SelectedCities;
         }
 
         private void tripDate_SelectedDatesChanged(object sender, SelectionChangedEventArgs e)
@@ -197,6 +208,31 @@ namespace TravelApp
             FindTripByAttraction ftba = new FindTripByAttraction(controller);
             ftba.ShowDialog();
             choosenAttractions = ftba.SelectedAttractions;
+        }
+
+        private void someTrips_Checked(object sender, RoutedEventArgs e)
+        {
+            allTrips.IsChecked = false;
+            howToFilter = "some";
+
+        }
+
+        private void someTrips_Unchecked(object sender, RoutedEventArgs e)
+        {
+            allTrips.IsChecked = true;
+            howToFilter = "all";
+        }
+
+        private void allTrips_Checked(object sender, RoutedEventArgs e)
+        {
+            someTrips.IsChecked = false;
+            howToFilter = "all";
+        }
+
+        private void allTrips_Unchecked(object sender, RoutedEventArgs e)
+        {
+            someTrips.IsChecked = true;
+            howToFilter = "some";
         }
     }
 }

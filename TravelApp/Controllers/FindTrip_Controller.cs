@@ -1,4 +1,5 @@
-﻿using System;
+﻿using K4os.Compression.LZ4.Internal;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,6 +19,19 @@ namespace TravelApp
         public List<Trip> findTripByAge(int age)
         {
             return ftm.findTripByAge(age);
+        }
+
+        public List<Trip> FindTrip(int age, List<string> members, List<string> languages, List<Attraction> attractions, List<City> cities, DateTime start, DateTime end, string howToFilter)
+        {
+            string op;
+            if (howToFilter == "all")
+            {
+                op = "AND";
+            } else
+            {
+                op = "OR";
+            }
+            return ftm.FindTrip(age, members, languages, attractions, cities, start, end, op);
         }
 
         public List<Trip> filterTrips(int age, List<string> languages, List<Attraction> attractions,
@@ -95,11 +109,6 @@ namespace TravelApp
         public void AddMemberAmount(Trip t)
         {
             ftm.AddMemberAmount(t);
-        }
-
-        public List<Attraction> GetAttractionsByCities(List<City> cities)
-        {
-            return ftm.GetAttractionsByCities(cities);
         }
 
         public List<String> getFriendsForUser(string username)

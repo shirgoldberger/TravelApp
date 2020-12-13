@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using K4os.Compression.LZ4.Internal;
+using Microsoft.Win32;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
@@ -45,8 +46,8 @@ namespace TravelApp
                     Trip t = createTrip(dr);
                     trips.Add(t);
                 }
-            }
-            dr.Close();
+                dr.Close();
+            }  
             return trips;
         }
 
@@ -385,7 +386,7 @@ namespace TravelApp
                 " where user.username = user_languages.username and" +
                 " user.username = member.username and" +
                 " trip.trip_code = member.trip_code and" +
-                " language.language_code = user_languages.language_code) as Lan";
+                " language.name = user_languages.language_name) as Lan";
             string command = "select * from trip where trip_code in(select Lan.trip_code from "
                 + createTable + " where name in (" + allLanguages + "));";
             return getTripsByCommand(command);
@@ -417,6 +418,182 @@ namespace TravelApp
         {
             string command = "SELECT * FROM Trip WHERE min_age <= " + age.ToString() + " AND max_age >= " + age.ToString() + ";";
             return getTripsByCommand(command);
+        }
+
+        public List<Trip> FindTrip(int age, List<string> members, List<string> languages, List<Attraction> attractions, List<City> cities, DateTime start, DateTime end, string op)
+        {
+            List<Trip> trips = new List<Trip>();
+            string fullCommand = "";
+            bool filterSelected = false;
+            if (age != -1)
+            {
+                string ageCommand = "SELECT trip_code FROM Trip WHERE min_age <= " + age.ToString() + " AND max_age >= " + age.ToString();
+                fullCommand = fullCommand + "trip_code IN(" + ageCommand + ")";
+                filterSelected = true;
+            }
+            if (members.Count != 0)
+            {
+                string membersCommand = CreateMembersCommand(members);
+                if (filterSelected)
+                {
+                    fullCommand += "\n" + op + "\n";
+                }
+                fullCommand = fullCommand + "trip_code IN(" + membersCommand + ")";
+                filterSelected = true;
+            }
+            if (languages.Count != 0)
+            {
+                string languagesCommand = CreateLanguagesCommand(languages);
+                if (filterSelected)
+                {
+                    fullCommand += "\n" + op + "\n";
+                }
+                fullCommand = fullCommand + "trip_code IN(" + languagesCommand + ")";
+                filterSelected = true;
+            }
+            if (attractions.Count != 0)
+            {
+                string attractionsCommand = CreateAttractionsCommand(attractions);
+                if (filterSelected)
+                {
+                    fullCommand += "\n" + op + "\n";
+                }
+                fullCommand = fullCommand + "trip_code IN(" + attractionsCommand + ")";
+                filterSelected = true;
+            }
+            if (cities.Count != 0)
+            {
+                string citiesCommand = CreateCitiesCommand(cities);
+                if (filterSelected)
+                {
+                    fullCommand += "\n" + op + "\n";
+                }
+                fullCommand = fullCommand + "trip_code IN(" + citiesCommand + ")";
+                filterSelected = true;
+            }
+            if (checkDates(start, end))
+            {
+                string datesCommand = CreateDatesCommand(start, end);
+                if (filterSelected)
+                {
+                    fullCommand += "\n" + op + "\n";
+                }
+                fullCommand = fullCommand + "trip_code IN(" + datesCommand + ")";
+                filterSelected = true;
+            }
+            if (fullCommand == "") {
+                return trips;
+            }
+            fullCommand += ";";
+            fullCommand = "SELECT distinct trip_code FROM trip WHERE\n" + fullCommand;
+            return getTripsByCommand(fullCommand);
+        }
+
+        public string CreateMembersCommand(List<string> members)
+        {
+            string allUsers = "";
+            int i;
+            for (i = 0; i < members.Count; i++)
+            {
+                allUsers += ("'" + members[i] + "'");
+                if (i != members.Count - 1)
+                {
+                    allUsers += ",";
+                }
+            }
+            string innerTable = "SELECT trip_code FROM member" +
+                " WHERE username IN(" + allUsers + ") " +
+                "GROUP BY trip_code " +
+                "HAVING COUNT(trip_code) =" + members.Count;
+            string command = "SELECT trip_code FROM Trip WHERE trip_code IN(" +
+                innerTable + ")";
+            return command;
+        }
+
+        public string CreateLanguagesCommand(List<string> languages)
+        {
+            List<Trip> trips = new List<Trip>();
+            string allLanguages = "";
+            int i;
+            for (i = 0; i < languages.Count; i++)
+            {
+                allLanguages += ("'" + languages[i] + "'");
+                if (i != languages.Count - 1)
+                {
+                    allLanguages += ",";
+                }
+            }
+            string createTable = "(select language.name, trip.trip_code" +
+                " from user join user_languages join language join trip join member" +
+                " where user.username = user_languages.username and" +
+                " user.username = member.username and" +
+                " trip.trip_code = member.trip_code and" +
+                " language.name = user_languages.language_name) as Lan";
+            string command = "select trip_code from trip where trip_code in(select Lan.trip_code from "
+                + createTable + " where name in (" + allLanguages + "))";
+            return command;
+        }
+
+        public string CreateAttractionsCommand(List<Attraction> attractions)
+        {
+            List<Trip> trips = new List<Trip>();
+            string allAttractions = "";
+            int i;
+            for (i = 0; i < attractions.Count; i++)
+            {
+                allAttractions += ("'" + attractions[i].Attraction_code + "'");
+                if (i != attractions.Count - 1)
+                {
+                    allAttractions += ",";
+                }
+            }
+            string innerTable = "SELECT trip_code FROM trip_attractions" +
+                " WHERE attraction_code IN(" + allAttractions + ") " +
+                "GROUP BY trip_code " +
+                "HAVING COUNT(trip_code) =" + attractions.Count;
+            string command = "SELECT trip_code FROM Trip WHERE trip_code IN(" +
+                innerTable + ")";
+            return command;
+        }
+
+        public string CreateCitiesCommand(List<City> cities)
+        {
+            List<Trip> trips = new List<Trip>();
+            string allCities = "";
+            int i;
+            for (i = 0; i < cities.Count; i++)
+            {
+                allCities += ("'" + cities[i].Id + "'");
+                if (i != cities.Count - 1)
+                {
+                    allCities += ",";
+                }
+            }
+            string innerTable = "SELECT trip_attractions.trip_code FROM trip_attractions inner join attraction" +
+                " WHERE attraction.city_id IN(" + allCities + ") " +
+                "GROUP BY trip_code " +
+                "HAVING COUNT(trip_code) =" + cities.Count;
+            string command = "SELECT trip_code FROM Trip WHERE trip_code IN(" +
+                innerTable + ")";
+            return command;
+        }
+
+        public string CreateDatesCommand(DateTime start, DateTime end)
+        {
+            List<Trip> trips = new List<Trip>();
+            string command = "SELECT trip_code FROM Trip WHERE start_date >= '" +
+                start.ToString("yyyy-MM-dd") + "' AND end_date <= '" + end.ToString("yyyy-MM-dd") + "'";
+            return command;
+        }
+
+        public bool checkDates(DateTime start, DateTime end)
+        {
+            if (start.ToString("yyyy-MM-dd") == "0001-01-01" &&
+                end.ToString("yyyy-MM-dd") == "0001-01-01")
+            {
+                return false;
+            }
+            return true;
         }
     }
 }
