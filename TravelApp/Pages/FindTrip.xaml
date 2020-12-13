@@ -88,32 +88,7 @@
                 </ControlTemplate>
             </Button.Template>
         </Button>
-        
-        <Button x:Name="filter_location" Cursor="Hand"  Content="Filter by locations and attractions" HorizontalAlignment="Left" Height="43" Margin="50,445,0,0" VerticalAlignment="Top" Width="286" FontSize="16" FontWeight="Bold" Click="filter_location_Click" FontFamily="Ebrima">
-            <Button.Template>
-                <ControlTemplate TargetType="{x:Type Button}">
-                    <Border x:Name="bdr_main" CornerRadius="20" Margin="4" BorderThickness="1" BorderBrush="Black">
-                        <Border.Background>
-                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                <GradientStop Color="#FFF3DFBC" Offset="1"/>
-                            </LinearGradientBrush>
-                        </Border.Background>
-                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center" Margin="8,6,8,6" ContentSource="Content" />
-                    </Border>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="bdr_main" Property="Background">
-                                <Setter.Value>
-                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                        <GradientStop Color="#FFD19D85" Offset="1"/>
-                                    </LinearGradientBrush>
-                                </Setter.Value>
-                            </Setter>
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Button.Template>
-        </Button>
+        <Button x:Name="filter_location" Cursor="Hand" Content="Choose Cities" HorizontalAlignment="center" Height="24" Margin="36,429,934,0" VerticalAlignment="Top" Width="130" Click="chooseCities_Click" FontFamily="Ebrima"/>
         <Button x:Name="findButton_Copy" HorizontalAlignment="Center"
             Margin="197,503,774,41.666" Padding="5" Width="129" Click="Button_Click_Reset" FontSize="22" FontWeight="Bold" Background="#FF28617A" Content="Reset" FontFamily="Ebrima" Cursor="Hand">
             <Button.Effect>
@@ -155,5 +130,7 @@
                 </ControlTemplate>
             </Button.Template>
         </Button>
+
+        <Button x:Name="chooseAttraction" Content="Choose Attractions" HorizontalAlignment="center" Height="24" Margin="187,429,783,0" VerticalAlignment="Top" Width="130" Click="chooseAttractions_Click"/>
     </Grid>
 </Page>

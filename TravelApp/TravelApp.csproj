@@ -129,6 +129,9 @@
     <Compile Include="Models\UserPageModel.cs" />
     <Compile Include="Objects\TripToAdd.cs" />
     <Compile Include="Objects\User.cs" />
+    <Compile Include="Pages\FindTripByAttraction.xaml.cs">
+      <DependentUpon>FindTripByAttraction.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\SetTripProperties.xaml.cs">
       <DependentUpon>SetTripProperties.xaml</DependentUpon>
     </Compile>
@@ -192,6 +195,10 @@
     <Compile Include="Models\watchTrip_Model.cs" />
     <Compile Include="Controllers\viewAllTrip_controller.cs" />
     <Compile Include="Controllers\watchTrup_Controller.cs" />
+    <Page Include="Pages\FindTripByAttraction.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\SetTripProperties.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

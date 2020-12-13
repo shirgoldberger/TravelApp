@@ -15,10 +15,12 @@ namespace TravelApp
         string city_id;
         string type;
         private string attraction_string;
+        private bool can_choose;
 
 
         public Attraction(string attraction_code,string name, string city_id, string type)
         {
+            can_choose = true;
             this.attraction_code = attraction_code;
             this.name = name;
             this.city_id = city_id;
@@ -44,6 +46,11 @@ namespace TravelApp
         public string Attraction_String
         {
             get { return attraction_string; }
+        }
+        public bool Can_Choose
+        {
+            get { return can_choose; }
+            set { can_choose = value; }
         }
     }
 }

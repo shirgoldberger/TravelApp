@@ -77,6 +77,20 @@ namespace TravelApp
         {
             return ftm.getAllCities();
         }
+        public List<string> getCountriesByBegin(string begin)
+        {
+            return ftm.getCountriesByBegin(begin);
+        }
+
+        public List<City> getCitiesByBegin(string begin)
+        {
+            return ftm.getCitiesByBegin(begin);
+        }
+
+        public List<Attraction> getAttractionsByCity(City city, string begin)
+        {
+            return ftm.getAttractionsByCity(city, begin);
+        }
 
         public void AddMemberAmount(Trip t)
         {
@@ -91,6 +105,11 @@ namespace TravelApp
         public List<String> getFriendsForUser(string username)
         {
             return ftm.getFriendsForUser(username);
+        }
+
+        public List<City> getCitiesByCountry(string country, string begin)
+        {
+            return ftm.getCitiesByCountry(country, begin);
         }
     }
 }

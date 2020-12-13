@@ -10,7 +10,12 @@ namespace TravelApp
 {
     public class FindTripModel
     {
+        private Object my_lock;
 
+        public FindTripModel()
+        {
+            my_lock = new object();
+        }
         public Trip createTrip(MySqlDataReader dr)
         {
             int id = int.Parse(dr.GetString("trip_code"));
@@ -149,6 +154,114 @@ namespace TravelApp
             }
             return cities;
 
+        }
+
+        public List<string> getCountriesByBegin(string begin)
+        {
+            List<string> countries = new List<string>();
+            string command = "SELECT name FROM country WHERE name LIKE '" + begin + "%';";
+            lock (my_lock)
+            {
+                MySqlDataReader dr = DbConnection.ExecuteQuery(command);
+                if (dr != null)
+                {
+                    while (dr.Read())
+                    {
+                        countries.Add(dr.GetString("name"));
+                    }
+                    dr.Close();
+                }
+            }
+            return countries;
+        }
+
+        public List<City> getCitiesByBegin(string begin)
+        {
+            List<City> cities = new List<City>();
+            string command = "SELECT * FROM city WHERE name LIKE '" + begin + "%';";
+            lock (my_lock)
+            {
+                MySqlDataReader dr = DbConnection.ExecuteQuery(command);
+                if (dr != null)
+                {
+                    while (dr.Read())
+                    {
+                        string id = dr.GetString("city_id");
+                        string name = dr.GetString("name");
+                        string country = dr.GetString("country");
+                        City c = new City(id, name, country);
+                        cities.Add(c);
+                    }
+                    dr.Close();
+                }
+            }
+            return cities;
+        }
+
+        public List<City> getCitiesByCountry(string country, string begin)
+        {
+            List<City> cities = new List<City>();
+            string command = "SELECT city_id, city.name, country, continent " +
+                          "FROM city join country ON city.country = country.name " +
+                          "WHERE city.name LIKE '" + begin + "%'";
+            if (country != null)
+            {
+                country = "'" + country + "'";
+                command += " AND country=" + country;
+            }
+
+            command += ";";
+            lock (my_lock)
+            {
+                MySqlDataReader dr = DbConnection.ExecuteQuery(command);
+                if (dr != null)
+                {
+                    while (dr.Read())
+                    {
+                        string city = dr.GetString("name");
+                        string countryArg = dr.GetString("country");
+                        string city_id = dr.GetString("city_id");
+                        string continent = dr.GetString("continent");
+                        City cityObj = new City(city_id, city, countryArg, continent);
+                        cities.Add(cityObj);
+                    }
+                    dr.Close();
+                }
+            }
+            return cities;
+        }
+
+        public List<Attraction> getAttractionsByCity(City city, string begin)
+        {
+            List<Attraction> attractions = new List<Attraction>();
+            string command = "SELECT * " +
+                          "FROM city join attraction ON city.city_id = attraction.city_id " +
+                          "WHERE city.name LIKE '" + begin + "%'";
+            if (city != null)
+            {
+                string c = "'" + city.Name + "'";
+                command += " AND city.name=" + c;
+            }
+
+            command += ";";
+            lock (my_lock)
+            {
+                MySqlDataReader dr = DbConnection.ExecuteQuery(command);
+                if (dr != null)
+                {
+                    while (dr.Read())
+                    {
+                        string id = dr.GetString("attraction_code");
+                        string name = dr.GetString("name");
+                        string city_id = dr.GetString("city_id");
+                        string type = dr.GetString("type");
+                        Attraction a = new Attraction(id, name, city_id, type);
+                        attractions.Add(a);
+                    }
+                    dr.Close();
+                }
+            }
+            return attractions;
         }
 
         public void AddMemberAmount(Trip t)

@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TravelApp.Pages;
 
 namespace TravelApp
 {
@@ -153,7 +154,7 @@ namespace TravelApp
             languagesComboBox.SelectedIndex = -1;
         }
 
-        private void filter_location_Click(object sender, RoutedEventArgs e)
+        private void chooseCities_Click(object sender, RoutedEventArgs e)
         {
             if (fbl == null)
             {
@@ -161,7 +162,6 @@ namespace TravelApp
             }
             fbl.ShowDialog();
             choosenCities = fbl.SelectedCities;
-            choosenAttractions = fbl.SelectedAttractions; 
         }
 
         private void tripDate_SelectedDatesChanged(object sender, SelectionChangedEventArgs e)
@@ -190,6 +190,13 @@ namespace TravelApp
         private void return_Click(object sender, RoutedEventArgs e)
         {
             this.NavigationService.GoBack();
+        }
+
+        private void chooseAttractions_Click(object sender, RoutedEventArgs e)
+        {
+            FindTripByAttraction ftba = new FindTripByAttraction(controller);
+            ftba.ShowDialog();
+            choosenAttractions = ftba.SelectedAttractions;
         }
     }
 }

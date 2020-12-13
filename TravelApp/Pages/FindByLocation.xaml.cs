@@ -21,20 +21,20 @@ namespace TravelApp
     /// </summary>
     public partial class FindByLocation : Window, INotifyPropertyChanged
     {
-        private FindTripModel model;
+        private FindTrip_Controller controller;
         private List<City> cities;
         private List<City> selectedCities;
         private List<Attraction> attractions;
         private List<Attraction> selectedAttractions;
+        private List<string> countries;
+        private string countryBegin;
 
-        public FindByLocation(FindTripModel m)
+        public FindByLocation(FindTrip_Controller c)
         {
             InitializeComponent();
-            model = m;
-            cities = model.getAllCities();
-            attractions = model.GetAttractionsByCities(cities);
-            CityListBox.ItemsSource = cities;
-            AttractionListBox.ItemsSource = attractions;
+            controller = c;
+            countryBegin = "";
+            bindCountries();
             selectedCities = new List<City>();
             selectedAttractions = new List<Attraction>();
         }
@@ -66,36 +66,6 @@ namespace TravelApp
             }
         }
 
-        private void CheckBox_Checked_City(object sender, RoutedEventArgs e)
-        {
-            string id = ((CheckBox)sender).Uid.ToString();
-            City currentCity = cities.Find(x => x.Id == id);
-            if (!selectedCities.Exists(x => x.Id == id))
-            {
-                selectedCities.Add(currentCity);
-            }
-            CityListBox.ItemsSource = selectedCities;
-            attractions = model.GetAttractionsByCities(selectedCities);
-            AttractionListBox.ItemsSource = attractions;
-        }
-
-        private void CheckBox_Unchecked_City(object sender, RoutedEventArgs e)
-        {
-            string id = ((CheckBox)sender).Uid.ToString();
-            City currentCity = cities.Find(x => x.Id == id);
-            if (selectedCities.Exists(x => x.Id == id))
-            {
-                selectedCities.Remove(currentCity);
-            }
-            if (selectedCities.Count() == 0)
-            {
-                selectedCities = cities;
-            }
-            CityListBox.ItemsSource = selectedCities;
-            attractions = model.GetAttractionsByCities(selectedCities);
-            AttractionListBox.ItemsSource = attractions;
-        }
-
         private void CheckBox_Checked_Attraction(object sender, RoutedEventArgs e)
         {
             string id = ((CheckBox)sender).Uid.ToString();
@@ -110,20 +80,77 @@ namespace TravelApp
             selectedAttractions.Remove(currentAttraction);
         }
 
-        private void TextBox_TextChanged_City(object sender, TextChangedEventArgs e)
-        {
-            string text = searchBoxCity.Text;
-            CityListBox.ItemsSource = cities.Where(x => x.City_String.Contains(text));
-        }
-
-        private void TextBox_TextChanged_Attraction(object sender, TextChangedEventArgs e)
-        {
-            string text = searchBoxAttraction.Text;
-            CityListBox.ItemsSource = attractions.Where(x => x.Attraction_String.Contains(text));
-        }
         private void find_Click(object sender, RoutedEventArgs e)
         {
-            
+            GetWindow(this).Close();
+        }
+
+        private async Task<List<string>> getCountriesAsync(string begin)
+        {
+            List<string> list = await Task.Run(() => controller.getCountriesByBegin(begin));
+            return list;
+        }
+
+        private async void bindCountries()
+        {
+            countries = await getCountriesAsync(countryBegin);
+            countryBox.ItemsSource = countries;
+        }
+
+        private async Task<List<City>> getCitiesAsync(string country)
+        {
+            List<City> list = await Task.Run(() => controller.getCitiesByCountry(country, ""));
+            return list;
+        }
+
+        private async void bindCities()
+        {
+            string country = null;
+            if (countryBox.SelectedIndex != -1)
+            {
+                country = countryBox.SelectedItem.ToString();
+            }
+            cities = await getCitiesAsync(country);
+            foreach (City c in cities)
+            {
+                if (selectedCities.Exists(x => x.Id == c.Id))
+                {
+                    c.Can_Choose = false;
+                }
+            }
+            citiesList.ItemsSource = cities;
+
+        }
+
+        private void chooseClick(object sender, RoutedEventArgs e)
+        {
+            var item = ((Button)sender).DataContext;
+            int itemIndex = citiesList.Items.IndexOf(item);
+            City c = cities[itemIndex];
+            if (!selectedCities.Exists(x => x.Id == c.Id))
+            {
+                selectedCities.Add(c);
+            }
+            Button b = (Button)sender;
+            b.IsEnabled = false;
+        }
+
+        private void countrySelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            bindCountries();
+            bindCities();
+        }
+
+        private void filterByText(object sender, RoutedEventArgs e)
+        {
+            countryBegin = countryBox.Text;
+            bindCountries();
+            countryBox.IsDropDownOpen = true;
+        }
+
+        private void cityBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }
