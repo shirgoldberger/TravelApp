@@ -132,6 +132,9 @@
     <Compile Include="Pages\AttractionProperties.xaml.cs">
       <DependentUpon>AttractionProperties.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\FindTripByAttraction.xaml.cs">
+      <DependentUpon>FindTripByAttraction.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\SetTripProperties.xaml.cs">
       <DependentUpon>SetTripProperties.xaml</DependentUpon>
     </Compile>
@@ -198,6 +201,10 @@
     <Page Include="Pages\AttractionProperties.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\FindTripByAttraction.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\SetTripProperties.xaml">
       <Generator>MSBuild:Compile</Generator>
