@@ -8,74 +8,65 @@
       d:DesignHeight="592.666" d:DesignWidth="1100"
       Title="addNewTrip">
 
-    <Grid  Height="592.666" Width="1100" >
-        <!--Button as a Link button using style-->
-        <!--end Button as a Link button using style-->
+    <Grid   Height="592.666" Width="1100">
+        <Grid.Background>
+            <ImageBrush ImageSource="../Pictures/trip2.jpg" TileMode="Tile"/>
+        </Grid.Background>
+        <ListBox x:Name="tripParticipants" HorizontalAlignment="Left" Height="226" Margin="635,245,0,0" VerticalAlignment="Top" Width="324"
+            ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderThickness="0" HorizontalContentAlignment="Stretch" Background="Transparent" >
+            <ListBox.ItemTemplate>
 
-        <Grid Margin="6,0,-6,-0.334"  Height="593" VerticalAlignment="Bottom">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0*"/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <Grid.Background>
-                <ImageBrush ImageSource="../Pictures/trip3.jpg" TileMode="Tile"/>
-            </Grid.Background>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="252*" />
-                <!--   <RowDefinition Height="12*" />-->
-            </Grid.RowDefinitions>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="3*"></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Uid="{Binding Username}" Text="{Binding Username}"/>
 
-            <TextBlock Height="20" HorizontalAlignment="Left" x:Name ="errormessage" VerticalAlignment="Top" Width="247"  OpacityMask="Crimson" Foreground="#FFE5572C" Grid.Column="1" />
-            <TextBlock Height="30" FontFamily="Century Gothic" FontSize="25" FontStretch="UltraExpanded" FontStyle="Italic" FontWeight="UltraBold" HorizontalAlignment="Left" Margin="84,50,0,0" x:Name="textBlockTripName" Text="Trip Name:" VerticalAlignment="Top" Width="150" Foreground="#FFFCF8F8" Grid.Column="1"  />
-            <TextBlock Height="30" FontFamily="Century Gothic" FontSize="25" FontStretch="UltraExpanded" FontStyle="Italic" FontWeight="UltraBold" HorizontalAlignment="Left" Margin="84,90,0,0" x:Name="textBlockMinParticipants" Text="Number of Participants:" VerticalAlignment="Top" Width="286" Foreground="#FFFEF5F5" Grid.Column="1" Padding="0" />
-            <TextBox Height="30" HorizontalAlignment="Left" Margin="263,50,0,0" x:Name="tripNameVal" VerticalAlignment="Top" Width="222" Grid.Column="1" FontSize="20" />
-            <TextBox Height="30" HorizontalAlignment="Left" Margin="462,90,0,0" x:Name="minParticipantsVal" VerticalAlignment="Top" Width="64" Grid.Column="1" Background="#FFF8F4F4" Foreground="Black" RenderTransformOrigin="0.536,-0.367" FontSize="20" />
-            <TextBox Height="30" HorizontalAlignment="Left" Margin="611,90,0,0" x:Name="maxParticipantsVal" VerticalAlignment="Top" Width="64" Grid.Column="1" Background="#FFFCF2F2" Foreground="Black" FontSize="20" />
-            <!--For password-->
-            <Button Content="Submit" FontFamily="Century Gothic" FontSize="25" FontStretch="UltraExpanded" FontStyle="Italic" FontWeight="UltraBold" Height="37" HorizontalAlignment="Left" Margin="242,485,0,0" Name="Submit" VerticalAlignment="Top" Width="120" Click="Submit_Click" Grid.Column="1" />
-            <Button Content="Reset" FontFamily="Century Gothic" FontSize="25" FontStretch="UltraExpanded" FontStyle="Italic" FontWeight="UltraBold" Height="37" HorizontalAlignment="Left" Margin="494,485,0,0" x:Name="resetButton" VerticalAlignment="Top" Width="120" Click="reset_Click" Grid.Column="1" />
-            <Button Content="Cancel" FontFamily="Century Gothic" FontSize="25" FontStretch="UltraExpanded" FontStyle="Italic" FontWeight="UltraBold" Height="37" HorizontalAlignment="Right" Margin="0,485,227,0" x:Name="cancelButton" VerticalAlignment="Top" Width="120" Click="cancel_Click" RenderTransformOrigin="0.31,0.57" Grid.Column="1" />
-            <CheckBox FontFamily="Century Gothic" FontSize="25" FontStretch="UltraExpanded" FontStyle="Italic" FontWeight="UltraBold" x:Name="female" Content="Female Only" HorizontalAlignment="Left" Margin="299,220,0,0" VerticalAlignment="Top" Grid.Column="1" Height="29" Width="174" RenderTransformOrigin="0.134,0.713" Checked="femaleChecked"/>
-            <TextBlock Height="30" FontFamily="Century Gothic" FontSize="25" FontStretch="UltraExpanded" FontStyle="Italic" FontWeight="UltraBold" HorizontalAlignment="Left" Margin="390,90,0,0" x:Name="textBlockMinParticipants1" Text="Min" VerticalAlignment="Top" Width="67" Foreground="White" Grid.Column="1" />
-            <CheckBox FontFamily="Century Gothic" FontSize="25" FontStretch="UltraExpanded" FontStyle="Italic" FontWeight="UltraBold" x:Name="male" Content="Male Only" Checked="maleChecked" HorizontalAlignment="Left" Margin="84,220,0,0" VerticalAlignment="Top" Grid.Column="1" Height="29" Width="145"/>
-            <TextBlock Height="30" FontFamily="Century Gothic" FontSize="25" FontStretch="UltraExpanded" FontStyle="Italic" FontWeight="UltraBold" HorizontalAlignment="Left" Margin="84,130,0,0" x:Name="locationText" Text="Locations:" VerticalAlignment="Top" Width="130" Foreground="#FFFEF5F5" Grid.Column="1" />
-            <TextBlock Height="30" FontFamily="Century Gothic" FontSize="25" FontStretch="UltraExpanded" FontStyle="Italic" FontWeight="UltraBold" HorizontalAlignment="Left" Margin="84,170,0,0" x:Name="textBlockMinParticipants_Copy1" Text="Trip Properties:" VerticalAlignment="Top" Width="184" Foreground="#FFFEF5F5" Grid.Column="1" />
-            <ComboBox x:Name="locationComboBox" TextBoxBase.TextChanged="Location_TextChanged" HorizontalAlignment="Left" Height="30" Margin="263,135,0,0" VerticalAlignment="Top" Width="222" IsEditable="True" Grid.Column="1" FontSize="20">
-                <ComboBox.ItemTemplate>
-                    <DataTemplate>
-                        <CheckBox Name="checkLocation" Width="222" Checked="MyCheckedAndUncheckedLocations" Unchecked="MyCheckedAndUncheckedLocations" Content="{Binding LocationString}" IsChecked="{Binding Check_Status}" CommandParameter="{Binding LocationID}">
-                        </CheckBox>
-                    </DataTemplate>
-                </ComboBox.ItemTemplate>
-            </ComboBox>
-            <ComboBox x:Name="propComboBox" TextBoxBase.TextChanged="Properties_TextChanged" HorizontalAlignment="Left" Height="30" Margin="263,175,0,0" VerticalAlignment="Top" Width="222" IsEditable="True" Grid.Column="1" FontSize="20">
-                <ComboBox.ItemTemplate>
-                    <DataTemplate>
-                        <CheckBox Name="checkPropertie" Width="222" Checked="MyCheckedAndUncheckedProps" Unchecked="MyCheckedAndUncheckedProps" Content="{Binding ProprtyString}" IsChecked="{Binding Check_Status}" CommandParameter="{Binding PropID}">
-                        </CheckBox>
-                    </DataTemplate>
-                </ComboBox.ItemTemplate>
-            </ComboBox>
-            <TextBlock Height="30" FontFamily="Century Gothic" FontSize="25" FontStretch="UltraExpanded" FontStyle="Italic" FontWeight="UltraBold" HorizontalAlignment="Left" Margin="84,270,0,0" x:Name="datesText" Text="Dates:" VerticalAlignment="Top" Width="92" Foreground="#FFFEF5F5" Grid.Column="1" />
-            <Calendar x:Name="tripDates" HorizontalAlignment="Left" Height="174" Margin="206,270,0,0" VerticalAlignment="Top" Width="189" SelectionMode="SingleRange" Grid.Column="1"/>
-            <TextBlock Height="30" FontFamily="Century Gothic" FontSize="25" FontStretch="UltraExpanded" FontStyle="Italic" FontWeight="UltraBold" HorizontalAlignment="Left" Margin="540,270,0,0" x:Name="addFriendsText" Text="Add Freinds:" VerticalAlignment="Top" Width="157" Foreground="#FFFEF5F5" Grid.Column="1" />
-            <ComboBox x:Name="friendsComboBox" TextBoxBase.TextChanged="Friend_TextChanged" HorizontalAlignment="Left" Height="30" Margin="723,270,0,0" VerticalAlignment="Top" Width="222" IsEditable="True" Grid.Column="1" FontSize="20">
-                <ComboBox.ItemTemplate>
-                    <DataTemplate>
-                        <CheckBox x:Name="checkFriend" Width="222" Checked="MyCheckedAndUncheckedFriends" Unchecked="MyCheckedAndUncheckedFriends" Content="{Binding FriendString}" IsChecked="{Binding Check_Status}" CommandParameter="{Binding FriendID}"/>
-                    </DataTemplate>
-                </ComboBox.ItemTemplate>
-            </ComboBox>
-        </Grid>
-        <Button x:Name="exitButton" Content="EXIT"  HorizontalAlignment="Right" VerticalAlignment="Top" Width="71" FontWeight="Bold" Click="Button_Click_Exit" Margin="0,10,42,0" Height="52" FontFamily="BN Eyal" FontSize="10" Cursor="Hand" RenderTransformOrigin="-0.534,1.361" Foreground="#FFFBFAFA" Grid.Row="1">
+                        <Button Grid.Column="1" Uid="{Binding Username}" Content="remove" Click="removeParticipantClick" />
+                    </Grid>
+                </DataTemplate>
+
+            </ListBox.ItemTemplate>
+        </ListBox>
+        
+        <ListBox x:Name="tripAttractions" HorizontalAlignment="Left" Height="226" Margin="106,245,0,0" VerticalAlignment="Top" Width="324"
+            ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderThickness="0" HorizontalContentAlignment="Stretch" Background="Transparent" >
+            <ListBox.ItemTemplate>
+
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="3*"></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Uid="{Binding Name}" Text="{Binding Name}"/>
+
+                        <Button Grid.Column="1" Uid="{Binding Name}" Content="remove" Click="removeAttClick" />
+                    </Grid>
+                </DataTemplate>
+
+            </ListBox.ItemTemplate>
+        </ListBox>
+        
+
+
+        <TextBlock HorizontalAlignment="Center" Height="51" Margin="0,35,0,0" TextWrapping="Wrap" Text="Create New Trip" VerticalAlignment="Top" Width="412" FontSize="40" FontWeight="Bold" TextDecorations="{x:Null}" FontFamily="Perpetua Titling MT"/>
+
+        <TextBlock HorizontalAlignment="Left" Height="29" Margin="169,210,0,0" TextWrapping="Wrap" Text="Trip Attractions:" VerticalAlignment="Top" Width="218" FontSize="20" FontWeight="Bold" TextDecorations="{x:Null}" FontFamily="Perpetua Titling MT"/>
+        <TextBlock HorizontalAlignment="Left" Height="29" Margin="696,210,0,0" TextWrapping="Wrap" Text="Trip Prticipants:" VerticalAlignment="Top" Width="212" FontSize="20" FontWeight="Bold" TextDecorations="{x:Null}" RenderTransformOrigin="0.57,0.452" FontFamily="Perpetua Titling MT"/>
+        <Button x:Name="findButton" HorizontalAlignment="Center"
+            Margin="440,488,469,41.666" Padding="5" Width="191" Click="createTripClick" FontSize="25" FontWeight="Bold" Background="#FF28617A" Content="Create Trip" FontFamily="Ebrima" Cursor="Hand">
+            <Button.Effect>
+                <DropShadowEffect Color="#FF48636F"/>
+            </Button.Effect>
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Border x:Name="bdr_main" CornerRadius="20" Margin="4" BorderThickness="1" BorderBrush="Black">
                         <Border.Background>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                <GradientStop Color="#FFEE0000" Offset="0.5"/>
-                                <GradientStop Color="#FF7A1111" Offset="0"/>
-                                <GradientStop Color="#FF7A1111" Offset="1"/>
+                                <GradientStop Color="#FFCD6B6A" Offset="1"/>
                             </LinearGradientBrush>
                         </Border.Background>
                         <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center" Margin="8,6,8,6" ContentSource="Content" />
@@ -85,9 +76,7 @@
                             <Setter TargetName="bdr_main" Property="Background">
                                 <Setter.Value>
                                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                        <GradientStop Color="#FF7A1111" Offset="0.5"/>
-                                        <GradientStop Color="#FFEE0000" Offset="0"/>
-                                        <GradientStop Color="#FFEE0000" Offset="1"/>
+                                        <GradientStop Color="#FFA2756B" Offset="1"/>
                                     </LinearGradientBrush>
                                 </Setter.Value>
                             </Setter>
@@ -96,6 +85,104 @@
                 </ControlTemplate>
             </Button.Template>
         </Button>
-        <TextBlock Height="30" FontFamily="Century Gothic" FontSize="25" FontStretch="UltraExpanded" FontStyle="Italic" FontWeight="UltraBold" HorizontalAlignment="Left" Margin="545,91,0,0" x:Name="textBlockMaxParticipants" Text="Max" VerticalAlignment="Top" Width="67" Foreground="White" />
+        <Button x:Name="addAttractionsButton" HorizontalAlignment="Center"
+            Margin="184,126,724,415.666" Padding="5" Width="192" Click="addAttractionsClick" FontSize="20" FontWeight="Bold" Background="#FF28617A" Content="Add Attractions" FontFamily="Ebrima" Cursor="Hand">
+            <Button.Effect>
+                <DropShadowEffect Color="#FF48636F"/>
+            </Button.Effect>
+            <Button.Template>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="bdr_main" CornerRadius="20" Margin="4" BorderThickness="1" BorderBrush="Black">
+                        <Border.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#FFF5E0C3" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center" Margin="8,6,8,6" ContentSource="Content" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="bdr_main" Property="Background">
+                                <Setter.Value>
+                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                        <GradientStop Color="#FFA2756B" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+        <Button x:Name="addParticipantsButton" HorizontalAlignment="Center"
+            Margin="696,126,191,415.666" Padding="5" Width="213" Click="addPartsClick" FontSize="20" FontWeight="Bold" Background="#FF28617A" Content="Add Participants" FontFamily="Ebrima" Cursor="Hand">
+            <Button.Effect>
+                <DropShadowEffect Color="#FF48636F"/>
+            </Button.Effect>
+            <Button.Template>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="bdr_main" CornerRadius="20" Margin="4" BorderThickness="1" BorderBrush="Black">
+                        <Border.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#FFF5E0C3" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center" Margin="8,6,8,6" ContentSource="Content" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="bdr_main" Property="Background">
+                                <Setter.Value>
+                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                        <GradientStop Color="#FFA2756B" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+        <Button x:Name="setPropertiesButton" HorizontalAlignment="Center"
+            Margin="428,126,455,415.666" Padding="5" Width="217" Click="setTripPropClick" FontSize="20" FontWeight="Bold" Background="#FF28617A" Content="Set Trip Properties" FontFamily="Ebrima" Cursor="Hand">
+            <Button.Effect>
+                <DropShadowEffect Color="#FF48636F"/>
+            </Button.Effect>
+            <Button.Template>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="bdr_main" CornerRadius="20" Margin="4" BorderThickness="1" BorderBrush="Black">
+                        <Border.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#FFF5E0C3" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center" Margin="8,6,8,6" ContentSource="Content" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="bdr_main" Property="Background">
+                                <Setter.Value>
+                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                        <GradientStop Color="#FFA2756B" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+        <Button x:Name="return"  HorizontalAlignment="Right" VerticalAlignment="Top" Width="54" FontWeight="Bold" Margin="0,4,1041,0" Height="50" FontFamily="BN Eyal" FontSize="10" Cursor="Hand" RenderTransformOrigin="-0.534,1.361" Background="#FFDDDDDD" Foreground="White" Click="return_Click">
+            <Button.Template>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="bdr_main" CornerRadius="20" Margin="4" BorderThickness="1" BorderBrush="Black">
+                        <Border.Background>
+                            <ImageBrush ImageSource="../Pictures/back.jpg"/>
+                        </Border.Background>
+                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center" Margin="8,6,8,6" ContentSource="Content" />
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
     </Grid>
 </Page>

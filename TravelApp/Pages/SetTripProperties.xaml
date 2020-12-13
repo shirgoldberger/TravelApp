@@ -1,0 +1,86 @@
+﻿<Window x:Class="TravelApp.Pages.SetTripProperties"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TravelApp.Pages"
+        mc:Ignorable="d"
+        Title="Set Trip Properties" Height="371.109" Width="550.295">
+    <Grid Margin="0,0,0,0">
+        <Grid.Background>
+            <ImageBrush ImageSource="../Pictures/trip5.jpg" TileMode="Tile"/>
+        </Grid.Background>
+        <Label Content="Trip Name" HorizontalAlignment="Left" Margin="43,49,0,0" VerticalAlignment="Top"/>
+        <Label Content="Min age for participants" HorizontalAlignment="Left" Margin="43,80,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.769,0.551"/>
+        <Label Content="Max age for participants" HorizontalAlignment="Left" Margin="43,111,0,0" VerticalAlignment="Top"/>
+        <Label Content="Max number of participants" HorizontalAlignment="Left" Margin="43,141,0,0" VerticalAlignment="Top"/>
+        <CheckBox FontFamily="Century Gothic" FontSize="15" FontStretch="UltraExpanded" FontStyle="Italic" FontWeight="UltraBold" x:Name="gender" Content="Male Only" HorizontalAlignment="Left" Margin="44,179,0,0" VerticalAlignment="Top"/>
+        <TextBlock FontFamily="Century Gothic" FontSize="12" FontStretch="UltraExpanded" FontStyle="Italic" FontWeight="UltraBold" HorizontalAlignment="Left" Margin="416,55,0,0" x:Name="datesText" Text="Dates:" VerticalAlignment="Top" />
+        <Calendar x:Name="tripDates" HorizontalAlignment="Left" Height="174" Margin="344,75,0,0" VerticalAlignment="Top" Width="189" SelectionMode="SingleRange"/>
+        <Button x:Name="setButton" HorizontalAlignment="Center"
+            Margin="140,272,271.333,10" Padding="5" Width="132" Click="setClick" FontSize="22" FontWeight="Bold" Background="#FF28617A" Content="Set!" FontFamily="Ebrima" Cursor="Hand">
+            <Button.Effect>
+                <DropShadowEffect Color="#FF48636F"/>
+            </Button.Effect>
+            <Button.Template>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="bdr_main" CornerRadius="20" Margin="4" BorderThickness="1" BorderBrush="Black">
+                        <Border.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#FFCD6B6A" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center" Margin="8,6,8,6" ContentSource="Content" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="bdr_main" Property="Background">
+                                <Setter.Value>
+                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                        <GradientStop Color="#FFA2756B" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+        <Button x:Name="resetButton" HorizontalAlignment="Center"
+            Margin="287,272,121.333,10" Padding="5" Width="135" Click="resetClick" FontSize="22" FontWeight="Bold" Background="#FF28617A" Content="Reset" FontFamily="Ebrima" Cursor="Hand">
+            <Button.Effect>
+                <DropShadowEffect Color="#FF48636F"/>
+            </Button.Effect>
+            <Button.Template>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="bdr_main" CornerRadius="20" Margin="4" BorderThickness="1" BorderBrush="Black">
+                        <Border.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#FFF5E0C3" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center" Margin="8,6,8,6" ContentSource="Content" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="bdr_main" Property="Background">
+                                <Setter.Value>
+                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                        <GradientStop Color="#FFA2756B" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+
+        <TextBox x:Name="tripName" HorizontalAlignment="Left" Height="23" Margin="208,52,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Set Your Trip Properties" HorizontalAlignment="center" Margin="79,7,88.333,0" VerticalAlignment="Top" FontSize="20" FontWeight="Bold" Width="235"/>
+        <TextBox x:Name="maxParts" HorizontalAlignment="Left" Height="23" Margin="208,144,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="119"/>
+        <TextBox x:Name="maxAge" HorizontalAlignment="Left" Height="23" Margin="208,114,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="119"/>
+        <TextBox x:Name="minAge" HorizontalAlignment="Left" Height="23" Margin="209,83,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="119"/>
+
+    </Grid>
+</Window>

@@ -125,7 +125,16 @@
     <Compile Include="Controllers\editTheTrip_Controller.cs" />
     <Compile Include="Controllers\FindTrip_Controller.cs" />
     <Compile Include="Controllers\HomePage_Controller.cs" />
+    <Compile Include="Models\CreateTripModel.cs" />
     <Compile Include="Models\UserPageModel.cs" />
+    <Compile Include="Objects\TripToAdd.cs" />
+    <Compile Include="Objects\User.cs" />
+    <Compile Include="Pages\SetTripProperties.xaml.cs">
+      <DependentUpon>SetTripProperties.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\AddNewAttForTrip.xaml.cs">
+      <DependentUpon>AddNewAttForTrip.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\AddNewAtt.xaml.cs">
       <DependentUpon>AddNewAtt.xaml</DependentUpon>
     </Compile>
@@ -137,6 +146,9 @@
     </Compile>
     <Compile Include="Pages\add_new_att_for_trip.xaml.cs">
       <DependentUpon>add_new_att_for_trip.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\addNewMembersToTrip.xaml.cs">
+      <DependentUpon>addNewMembersToTrip.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\add_new_mem_for_trip.xaml.cs">
       <DependentUpon>add_new_mem_for_trip.xaml</DependentUpon>
@@ -166,7 +178,6 @@
     </Compile>
     <Compile Include="Models\FindTripModel.cs" />
     <Compile Include="Models\Home_page_Model.cs" />
-    <Compile Include="Objects\Members.cs" />
     <Compile Include="Objects\Trip.cs" />
     <Compile Include="Pages\UserPage.xaml.cs">
       <DependentUpon>UserPage.xaml</DependentUpon>
@@ -181,6 +192,14 @@
     <Compile Include="Models\watchTrip_Model.cs" />
     <Compile Include="Controllers\viewAllTrip_controller.cs" />
     <Compile Include="Controllers\watchTrup_Controller.cs" />
+    <Page Include="Pages\SetTripProperties.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\AddNewAttForTrip.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Pages\AddNewAtt.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -196,6 +215,10 @@
     <Page Include="Pages\add_new_att_for_trip.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\addNewMembersToTrip.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Pages\add_new_mem_for_trip.xaml">
       <SubType>Designer</SubType>

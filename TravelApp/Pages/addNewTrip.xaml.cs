@@ -14,6 +14,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TravelApp.Models;
+using TravelApp.Pages;
 
 enum Type
 {
@@ -26,323 +28,241 @@ namespace TravelApp
     /// </summary>
     public partial class addNewTrip : Page
     {
-        
-        private ArrayList objLocationList;
-        private ArrayList objPropertiesList;
-        private ArrayList objFriendsList;
-        private List<string> friends;
-        private List<string> locations;
-        private List<string> properties;
-        private List<string> choosenLocations;
-        private List<string> choosenProperties;
-        private List<string> choosenFriends;
-        public class MyLocation
-        {
-            public int LocationID
-            {
-                get;
-                set;
-            }
-            public string LocationString
-            {
-                get;
-                set;
-            }
-            public Boolean Check_Status
-            {
-                get;
-                set;
-            }
-        }
+        private List<Attraction> choosenAttractions;
+        private List<User> choosenMaleParticipants;
+        private List<User> choosenFemaleParticipants;
+        private List<User> choosenParticipants;
+        private CreateTripModel model;
+        private UserPageModel UPmodel;
+        private bool maleOnly;
+        private bool femaleOnly;
+        private bool isAdminMale;
+        private User admin;
+        private DateTime startDate;
+        private DateTime endDate;
+        private int minChoosenAge;
+        private int maxChoosenAge;
+        private string user_tripName;
+        private string user_maxAge;
+        private string user_minAge;
+        private bool user_genderOnly;
+        private string user_maxParticipants;
+        private bool assignDates;
 
-        public class MyFriend
-        {
-            public int FriendID
-            {
-                get;
-                set;
-            }
-            public string FriendString
-            {
-                get;
-                set;
-            }
-            public Boolean Check_Status
-            {
-                get;
-                set;
-            }
-        }
-
-        public class MyProperty
-        {
-            public int PropID
-            {
-                get;
-                set;
-            }
-            public string ProprtyString
-            {
-                get;
-                set;
-            }
-            public Boolean Check_Status
-            {
-                get;
-                set;
-            }
-        }
         public addNewTrip(string username)
         {
             InitializeComponent();
-            choosenLocations = new List<string>();
-            choosenProperties = new List<string>();
-            choosenFriends = new List<string>();
-            friends = new List<string>() { "Gilad", "Ben", "Yael", "Rinat", "Ehud" };
-            locations = new List<string>() { "Paris", "Eilat", "Roma", "London", "Haifa" };
-            properties = new List<string>() { "Adventurous", "Organized", "Cultural" };
-            objLocationList = InsertElementsInList(locations, Type.Locations);
-            objFriendsList = InsertElementsInList(friends, Type.Friends);
-            objPropertiesList = InsertElementsInList(properties, Type.Properties);
-            BindCBDropDown<MyProperty>(propComboBox, objPropertiesList);
-            BindCBDropDown<MyLocation>(locationComboBox, objLocationList);
-            BindCBDropDown<MyFriend>(friendsComboBox, objFriendsList);
-        }
+            model = new CreateTripModel();
+            UPmodel = new UserPageModel();
+            choosenAttractions = new List<Attraction>();
+            choosenMaleParticipants = new List<User>();
+            choosenFemaleParticipants = new List<User>();
+            choosenParticipants = new List<User>();
+            maleOnly = false;
+            femaleOnly = false;
+            setAdminAndGender(username);
+            
+            user_tripName = "";
+            user_maxAge = "";
+            user_minAge = "";
+            user_genderOnly = false;
+            user_maxParticipants = "";
+            assignDates = false;
+    }
 
-        private ArrayList InsertElementsInList(List<string> inputList, Type type)
+        private void setMinAndMaxAge()
         {
-            ArrayList returnedList = new ArrayList();
-            int counter = 0;
-            foreach (string element in inputList)
+            minChoosenAge = maxChoosenAge = admin.Age;
+            foreach (User user in choosenParticipants)
             {
-                switch(type)
+                int age = user.Age;
+                if(age > maxChoosenAge)
                 {
-                    case Type.Friends:
-                        MyFriend friend = new MyFriend();
-                        friend.FriendID = counter++;
-                        friend.FriendString = element;
-                        returnedList.Add(friend);
-                        break;
-                    case Type.Locations:
-                        MyLocation location = new MyLocation();
-                        location.LocationID = counter++;
-                        location.LocationString = element;
-                        returnedList.Add(location);
-                        break;
-                    case Type.Properties:
-                        MyProperty prop = new MyProperty();
-                        prop.PropID = counter++;
-                        prop.ProprtyString = element;
-                        returnedList.Add(prop);
-                        break;
+                    maxChoosenAge = age;
+                }
+                else if(minChoosenAge > age)
+                {
+                    minChoosenAge = age;
                 }
             }
-            return returnedList;
         }
 
-        private void BindCBDropDown<T>(ComboBox cb, ArrayList objList)
+        private void setAdminAndGender(string username)
         {
-            cb.ItemsSource = objList;
+            admin = model.getUserByName(username);
+            isAdminMale = admin.Is_male == '1';
         }
 
-        private void MyCheckedAndUncheckedProps(object sender, RoutedEventArgs e)
-        {
-            var baseobj = sender as FrameworkElement;
-            var prop = baseobj.DataContext as MyProperty;
-            BindListBox<MyProperty>(prop, choosenProperties, Type.Properties);
-        }
 
-        private void MyCheckedAndUncheckedLocations(object sender, RoutedEventArgs e)
+        private void addPartsClick(object sender, RoutedEventArgs e)
         {
-            var baseobj = sender as FrameworkElement;
-            var location = baseobj.DataContext as MyLocation;
-            BindListBox<MyLocation>(location, choosenLocations, Type.Locations);
-        }
-
-        private void MyCheckedAndUncheckedFriends(object sender, RoutedEventArgs e)
-        {
-            var baseobj = sender as FrameworkElement;
-            var friend = baseobj.DataContext as MyFriend;
-            BindListBox<MyFriend>(friend, choosenFriends, Type.Friends);
-        }
-
-        private void BindListBox<T>(T currObject, List<string> inputList, Type type)
-        {
-            switch (type)
+            int max = -1;
+            if(user_maxParticipants != "")
             {
-                case Type.Friends:
-                    var friend = currObject as MyFriend;
-                    if (friend.Check_Status)
-                    {
-                        inputList.Add(friend.FriendString);
-                    }
-                    else
-                    {
-                        inputList.Remove(friend.FriendString);
-                    }
-                    break;
-                case Type.Locations:
-                    var location = currObject as MyLocation;
-                    if (location.Check_Status)
-                    {
-                        inputList.Add(location.LocationString);
-                    }
-                    else
-                    {
-                        inputList.Remove(location.LocationString);
-                    }
-                    break;
-                case Type.Properties:
-                    var prop = currObject as MyProperty;
-                    if (prop.Check_Status)
-                    {
-                        inputList.Add(prop.ProprtyString);
-                    }
-                    else
-                    {
-                        inputList.Remove(prop.ProprtyString);
-                    }
-                    break;
+                max = int.Parse(user_maxParticipants);
             }
+            int minAgeArg = -1, maxAgeArg = -1;
+            if(user_minAge != "")
+            {
+                minAgeArg = int.Parse(user_minAge);
+            }
+            if (user_maxAge != "")
+            {
+                maxAgeArg = int.Parse(user_maxAge);
+            }
+            addNewMembersToTrip anm = new addNewMembersToTrip(choosenParticipants, admin.Username, maleOnly, femaleOnly, max, minAgeArg, maxAgeArg, model);
+            anm.FemalesAdded = null;
+            anm.MalesAdded = null;
+            anm.ShowDialog();
+            bool changed = false;
+            if(anm.FemalesAdded != null && anm.FemalesAdded.Count > 0)
+            {
+                choosenFemaleParticipants.AddRange(anm.FemalesAdded);
+                changed = true;
+            }
+            if (anm.MalesAdded != null && anm.MalesAdded.Count > 0)
+            {
+                choosenMaleParticipants.AddRange(anm.MalesAdded);
+                changed = true;
+            }
+            if(changed)
+            {
+                choosenParticipants = choosenFemaleParticipants.ToList();
+                choosenParticipants.AddRange(choosenMaleParticipants);
+                tripParticipants.ItemsSource = null;
+                tripParticipants.ItemsSource = choosenParticipants;
+            }
+        }
+
+        private void setTripPropClick(object sender, RoutedEventArgs e)
+        {
+            setMinAndMaxAge();
+            bool containBoth = choosenFemaleParticipants.Count > 0 && choosenMaleParticipants.Count > 0;
+            SetTripProperties stp = new SetTripProperties(admin, containBoth, minChoosenAge, maxChoosenAge, choosenParticipants.Count + 1);
+            stp.TripName = user_tripName;
+            stp.MaxAge = user_maxAge;
+            stp.MinAge = user_minAge;
+            stp.GenderOnly = user_genderOnly;
+            stp.MaxParticipants = user_maxParticipants;
+            stp.Changed = false;
+            if(assignDates)
+            {
+                stp.TripDates = new Tuple<DateTime, DateTime>(startDate, endDate);
+            }
+            stp.ShowDialog();
+            if(stp.Changed)
+            {
+                user_tripName = stp.TripName;
+                user_maxAge = stp.MaxAge;
+                user_minAge = stp.MinAge;
+                user_genderOnly = stp.GenderOnly;
+                if(user_genderOnly)
+                {
+                    if(isAdminMale)
+                    {
+                        maleOnly = true;
+                    }
+                    else
+                    {
+                        femaleOnly = true;
+                    }
+                }
+                else
+                {
+                    maleOnly = false;
+                    femaleOnly = false;
+                }
+                startDate = stp.TripDates.Item1;
+                endDate = stp.TripDates.Item2;
+                assignDates = true;
+                user_maxParticipants = stp.MaxParticipants;
+            }
+        }
+
+        private void addAttractionsClick(object sender, RoutedEventArgs e)
+        {
+            AddNewAttForTrip ant = new AddNewAttForTrip(UPmodel, model, choosenAttractions);
+            ant.ReturenedAttraction = null;
+            ant.ShowDialog();
+            Attraction returned = ant.ReturenedAttraction;
+            if (returned != null)
+            {
+                choosenAttractions.Add(returned);
+                tripAttractions.ItemsSource = null;
+                tripAttractions.ItemsSource = choosenAttractions;
+            }
+
+        }
+
+        private bool isFieldsWrong()
+        {
+            if(choosenAttractions.Count == 0)
+            {
+                MessageBox.Show("Please enter attractions for the trip");
+                return true;
+            }
+            if(user_tripName == "" || user_maxAge == "" || user_minAge == "" || user_maxParticipants == "" || !assignDates)
+            {
+                MessageBox.Show("Please enter the trip properties");
+                return true;
+            }
+            return false;
+        }
+
+        private void createTrip(TripToAdd trip)
+        {
+            model.generateTrip(trip, choosenParticipants, choosenAttractions);
+            MessageBox.Show("Trip was added sccessfully");
+            this.NavigationService.GoBack();
+        }
+
+        private void createTripClick(object sender, RoutedEventArgs e)
+        {
+            if(isFieldsWrong())
+            {
+                return;
+            }
+            int minAge = int.Parse(user_minAge);
+            int maxAge = int.Parse(user_maxAge);
+            string adminName = admin.Username;
+            int maxParts = int.Parse(user_maxParticipants);
+            string startConverted = startDate.ToString("yyyy-MM-dd");
+            string endConverted = endDate.ToString("yyyy-MM-dd");
+            TripToAdd trip = new TripToAdd(user_tripName, adminName, startConverted, endConverted, minAge, maxAge, maxParts, maleOnly, femaleOnly);
+            createTrip(trip);
             
         }
 
-        private void reset_Click(object sender, RoutedEventArgs e)
+        private void return_Click(object sender, RoutedEventArgs e)
         {
-            Reset();
-        }
-        public void Reset()
-        {
-            tripDates.SelectedDate = null;
-            tripDates.DisplayDate = DateTime.Today;
-            tripNameVal.Text = "";
-            minParticipantsVal.Text = "";
-            maxParticipantsVal.Text = "";
-            resetComboBox(friendsComboBox, choosenFriends, objFriendsList, Type.Friends);
-            resetComboBox(locationComboBox, choosenLocations, objLocationList, Type.Locations);
-            resetComboBox(propComboBox, choosenProperties, objPropertiesList, Type.Properties);
+            this.NavigationService.GoBack();
         }
 
-        private void resetComboBox(ComboBox cb, List<string> lst, ArrayList objList, Type type)
+        private void removeAttClick(object sender, RoutedEventArgs e)
         {
-            
-            switch (type)
+            var item = ((Button)sender).DataContext;
+            int itemIndex = tripAttractions.Items.IndexOf(item);
+            choosenAttractions.RemoveAt(itemIndex);
+            tripAttractions.ItemsSource = null;
+            tripAttractions.ItemsSource = choosenAttractions;
+        }
+
+        private void removeParticipantClick(object sender, RoutedEventArgs e)
+        {
+            var item = ((Button)sender).DataContext;
+            int itemIndex = tripParticipants.Items.IndexOf(item);
+            User selected = choosenParticipants[itemIndex];
+            if (selected.Is_male == '1')
             {
-                case Type.Friends:
-                    
-                    foreach (var friend in objList)
-                    {
-                        var friendCasted = friend as MyFriend;
-                        friendCasted.Check_Status = false;
-                    }
-                    break;
-                case Type.Locations:
-                    foreach (var location in objList)
-                    {
-                        var locationCasted = location as MyLocation;
-                        locationCasted.Check_Status = false;
-                    }
-                    break;
-                case Type.Properties:
-                    foreach (var prop in objList)
-                    {
-                        var propCasted = prop as MyProperty;
-                        propCasted.Check_Status = false;
-                    }
-                    break;
-            }
-            lst.Clear();
-            cb.SelectedIndex = -1;
-        }
-
-        private void cancel_Click(object sender, RoutedEventArgs e)
-        {
-            HomePage login = new HomePage();
-            this.NavigationService.Navigate(login);
-        }
-
-        private void Friend_TextChanged(object sender, EventArgs e)
-        {
-            friendsComboBox.ItemsSource = objFriendsList.Cast<MyFriend>().ToList().Where(x => x.FriendString.StartsWith(friendsComboBox.Text.Trim()));
-        }
-
-        private void Properties_TextChanged(object sender, EventArgs e)
-        {
-            propComboBox.ItemsSource = objPropertiesList.Cast<MyProperty>().ToList().Where(x => x.ProprtyString.StartsWith(propComboBox.Text.Trim()));
-        }
-
-        private void Location_TextChanged(object sender, EventArgs e)
-        {
-            locationComboBox.ItemsSource = objLocationList.Cast<MyLocation>().ToList().Where(x => x.LocationString.StartsWith(locationComboBox.Text.Trim()));
-        }
-
-        private void Submit_Click(object sender, RoutedEventArgs e)
-        {
-            if (tripDates.SelectedDate == null)
-            {
-                errormessage.Text = "Enter dates of the trip";
-                tripDates.Focus();
-                return;
-            }
-            if (choosenLocations.Count == 0)
-            {
-                errormessage.Text = "Enter location for the trip";
-                locationComboBox.Focus();
-                return;
-            }
-            if (choosenProperties.Count == 0)
-            {
-                errormessage.Text = "Enter properties of the trip";
-                propComboBox.Focus();
-                return;
-            }
-            if (minParticipantsVal.Text == "" || maxParticipantsVal.Text == "")
-            {
-                errormessage.Text = "Enter number of participants for the trip";
-                minParticipantsVal.Focus();
-                return;
+                choosenMaleParticipants.Remove(selected);
             }
             else
             {
-                try
-                {
-                    int min = int.Parse(minParticipantsVal.Text);
-                    int max = int.Parse(maxParticipantsVal.Text);
-                    if(min < 1 || min > max)
-                    {
-                        errormessage.Text = "Enter valid number of participants for the trip";
-                        minParticipantsVal.Focus();
-                        return;
-                    }
-                }
-                catch
-                {
-                    errormessage.Text = "Enter valid number of participants for the trip";
-                    minParticipantsVal.Focus();
-                    return;
-                }
+                choosenFemaleParticipants.Remove(selected);
             }
-            if(tripNameVal.Text == "")
-            {
-                errormessage.Text = "Enter the name of the trip";
-                tripNameVal.Focus();
-                return;
-            }
-        }
-        private void Button_Click_Exit(object sender, RoutedEventArgs e)
-        {
-            // close the program
-            System.Environment.Exit(0);
-        }
-
-        private void maleChecked(object sender, RoutedEventArgs e)
-        {
-            female.IsChecked = false;
-        }
-
-        private void femaleChecked(object sender, RoutedEventArgs e)
-        {
-            male.IsChecked = false;
+            choosenParticipants.RemoveAt(itemIndex);
+            tripParticipants.ItemsSource = null;
+            tripParticipants.ItemsSource = choosenParticipants;
         }
     }
 }

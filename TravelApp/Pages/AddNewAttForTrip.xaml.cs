@@ -18,24 +18,33 @@ namespace TravelApp.Pages
     /// <summary>
     /// Interaction logic for AddNewAtt.xaml
     /// </summary>
-    public partial class AddNewAtt : Window
+    public partial class AddNewAttForTrip : Window
     {
-        UserPageModel model;
+        UserPageModel UPmodel;
         List<City> cities;
         List<string> types;
         private string cityBegin;
         private string typeBegin;
         private string city_code;
-        public AddNewAtt(UserPageModel _model)
+        private List<Attraction> attractions;
+        private CreateTripModel CTmodel;
+        private List<Attraction> choosed;
+
+        public Attraction ReturenedAttraction { set; get; }
+
+
+        public AddNewAttForTrip(UserPageModel _UPmodel, CreateTripModel _CTmodel, List<Attraction> _choosed)
         {
-            model = _model;
+            UPmodel = _UPmodel;
+            choosed = _choosed;
+            CTmodel = _CTmodel;
             InitializeComponent();
             reset();
         }
 
         private async Task<List<City>> getCitiesAsync(string begin)
         {
-            List<City> list = await Task.Run(() => model.getCitiesByContinent(null, begin));
+            List<City> list = await Task.Run(() => UPmodel.getCitiesByContinent(null, begin));
             return list;
         }
 
@@ -47,7 +56,7 @@ namespace TravelApp.Pages
 
         private async Task<List<string>> getTypesAsync(string begin)
         {
-            List<string> list = await Task.Run(() => model.getTypes(begin));
+            List<string> list = await Task.Run(() => UPmodel.getTypes(begin));
             return list;
         }
 
@@ -72,6 +81,7 @@ namespace TravelApp.Pages
             city_code = "";
             bindCities();
             bindTypes();
+            attractionsList.ItemsSource = null;
         }
 
         private void resetClick(object sender, RoutedEventArgs e)
@@ -81,30 +91,10 @@ namespace TravelApp.Pages
 
         private void addClick(object sender, RoutedEventArgs e)
         {
-            if(attrationName.Text == "" || attrationName.Text.Length > 300 || typeBox.SelectedIndex == -1 ||
-               cityName.Text == "")
-            {
-                MessageBox.Show("There is problem with arguments for creating your attraction");
-                return;
-            }
-            string name = attrationName.Text;
-            string type = types[typeBox.SelectedIndex];
-            if(model.attractionAlreadyExist(name, city_code, type))
-            {
-                MessageBox.Show("This attraction is already exist");
-                return;
-            }
-            bool result = model.addNewAttraction(name, city_code, type);
-            string message = "Entering the attraction '" + name + "'";
-            if(result)
-            {
-                message += " succeed";
-            }
-            else
-            {
-                message += " failed";
-            }
-            MessageBox.Show(message);
+            var item = ((Button)sender).DataContext;
+            int itemIndex = attractionsList.Items.IndexOf(item);
+            ReturenedAttraction = attractions[itemIndex];
+            GetWindow(this).Close();
         }
 
         private void citySelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -118,15 +108,9 @@ namespace TravelApp.Pages
             }            
         }
 
-        private void typeTextChanged(object sender, EventArgs e)
-        {
-            typeBegin = typeBox.Text;
-            bindTypes();
-        }
-
         private void findByContinent(object sender, RoutedEventArgs e)
         {
-            FindCityByContinent fbc = new FindCityByContinent(model);
+            FindCityByContinent fbc = new FindCityByContinent(UPmodel);
             fbc.ReturenedCity = null;
             fbc.ShowDialog();
             City returnedCity = fbc.ReturenedCity;
@@ -138,7 +122,7 @@ namespace TravelApp.Pages
 
         private void findByCountry(object sender, RoutedEventArgs e)
         {
-            FindCityByCountry fbc = new FindCityByCountry(model);
+            FindCityByCountry fbc = new FindCityByCountry(UPmodel);
             fbc.ReturenedCity = null;
             fbc.ShowDialog();
             City returnedCity = fbc.ReturenedCity;
@@ -161,6 +145,34 @@ namespace TravelApp.Pages
         {
             cityBegin = cityBox.Text;
             bindCities();
+        }
+
+        private void filterTypeByText(object sender, RoutedEventArgs e)
+        {
+            typeBegin = typeBox.Text;
+            bindTypes();
+        }
+
+        private async Task<List<Attraction>> getAttractionsAsync(string cityId, string type, string name, List<Attraction> drop)
+        {
+            List<Attraction> list = await Task.Run(() => CTmodel.getAttractions(cityId, type, name, drop));
+            return list;
+        }
+
+        private async void bindAttractions()
+        {
+            string type = "";
+            if(typeBox.SelectedIndex != -1)
+            {
+                type = types[typeBox.SelectedIndex];
+            }
+            attractions = await getAttractionsAsync(city_code, type, attrationName.Text, choosed);
+            attractionsList.ItemsSource = attractions;
+        }
+
+        private void filterClick(object sender, RoutedEventArgs e)
+        {
+            bindAttractions();
         }
     }
 }
