@@ -21,7 +21,7 @@ namespace TravelApp
     /// </summary>
     public partial class FindTrip : Page
     {
-        FindTripModel findTrip_model;
+        FindTrip_Controller controller;
         private FindByLocation fbl;
         List<Trip> trips;
         private List<String> languages;
@@ -37,23 +37,17 @@ namespace TravelApp
         {
             InitializeComponent();
             username = _username;
-            findTrip_model = new FindTripModel();
-            trips = findTrip_model.getTripForUser(username);
+            controller = new FindTrip_Controller();
+            trips = controller.getTripForUser(username);
             allTripsListBox.ItemsSource = trips;
             choosenLanguages = new List<string>();
-            languages = findTrip_model.getLanguages();
+            languages = controller.getLanguages();
             languagesComboBox.ItemsSource = languages;
-            members = findTrip_model.getFriendsForUser(this.username);
+            members = controller.getFriendsForUser(this.username);
             membersComboBox.ItemsSource = members;
             choosenMembers = new List<string>();
             choosenCities = new List<City>();
             choosenAttractions = new List<Attraction>();
-        }
-
-        private async Task<List<City>> GetListAsync()
-        {
-            List<City> list = await Task.Run(() => findTrip_model.getAllCities());
-            return list;
         }
 
         private void Languages_TextChanged(object sender, EventArgs e)
@@ -71,7 +65,7 @@ namespace TravelApp
             string id = ((Button)sender).Uid.ToString();
             Trip currentTrip = trips.Find(x => x.Id.ToString() == id);
             watchTrip wt = new watchTrip(currentTrip);
-            wt.Show();
+            wt.ShowDialog();
 
         }
 
@@ -79,7 +73,7 @@ namespace TravelApp
         {
             string id = ((Button)sender).Uid.ToString();
             Trip t = trips.Find(x => x.Id.ToString() == id);
-            if (findTrip_model.insertUserToTrip(username, t))
+            if (controller.insertUserToTrip(username, t))
             {
                 if (trips.Exists(x => x.Id.ToString() == id))
                 {
@@ -97,30 +91,12 @@ namespace TravelApp
 
         private void Button_Click_Find(object sender, RoutedEventArgs e)
         {
-            int age = 0;
-            List<Trip> t = new List<Trip>();
+            int age = -1;
             if (ageText.Text.ToString() != "")
             {
                 age = int.Parse(ageText.Text.ToString());
-                t.AddRange(findTrip_model.findTripByAge(age));
             }
-            if (choosenLanguages.Count() != 0)
-            {
-                t.AddRange(findTrip_model.findTripByLanguage(choosenLanguages));
-            }
-            if (choosenAttractions.Count() != 0)
-            {
-                t.AddRange(findTrip_model.findTripByAttractions(choosenAttractions));
-            }
-            if (choosenMembers.Count() != 0)
-            {
-                t.AddRange(findTrip_model.findTripByMember(choosenMembers));
-
-            }
-            if (startDate_Selected != null && endDate_Selected != null)
-            {
-                t.AddRange(findTrip_model.findTripByDates(startDate_Selected, endDate_Selected));
-            }
+            List<Trip> t = controller.filterTrips(age, choosenLanguages, choosenAttractions, choosenMembers, startDate_Selected, endDate_Selected);
             allTripsListBox.ItemsSource = null;
             allTripsListBox.ItemsSource = t;
             if (allTripsListBox.Items.Count == 0)
@@ -181,9 +157,9 @@ namespace TravelApp
         {
             if (fbl == null)
             {
-                fbl = new FindByLocation(findTrip_model);
+                fbl = new FindByLocation(controller);
             }
-            fbl.Show();
+            fbl.ShowDialog();
             choosenCities = fbl.SelectedCities;
             choosenAttractions = fbl.SelectedAttractions; 
         }
