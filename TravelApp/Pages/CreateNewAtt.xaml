@@ -1,46 +1,22 @@
-﻿<Window x:Class="TravelApp.Pages.AddNewAttForTrip"
+﻿<Window x:Class="TravelApp.Pages.CreateNewAtt"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TravelApp.Pages"
         mc:Ignorable="d"
-        Title="Add New Attraction For Trip" Height="371.109" Width="500.295">
+        Title="Create New Attraction" Height="371.109" Width="400.295">
     <Grid Margin="0,0,0,0">
         <Grid.Background>
             <ImageBrush ImageSource="../Pictures/trip5.jpg" TileMode="Tile"/>
         </Grid.Background>
-        <Button x:Name="filterButton" HorizontalAlignment="Center"
-            Margin="300,226,28.333,65" Padding="5" Width="165" Click="filterClick" FontSize="15" FontWeight="Bold" Background="#FF28617A" Content="Filter Attractions" FontFamily="Ebrima" Cursor="Hand">
-            <Button.Effect>
-                <DropShadowEffect Color="#FF48636F"/>
-            </Button.Effect>
-            <Button.Template>
-                <ControlTemplate TargetType="{x:Type Button}">
-                    <Border x:Name="bdr_main" CornerRadius="20" Margin="4" BorderThickness="1" BorderBrush="Black">
-                        <Border.Background>
-                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                <GradientStop Color="#FFF5E0C3" Offset="1"/>
-                            </LinearGradientBrush>
-                        </Border.Background>
-                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center" Margin="8,6,8,6" ContentSource="Content" />
-                    </Border>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="bdr_main" Property="Background">
-                                <Setter.Value>
-                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                        <GradientStop Color="#FFA2756B" Offset="1"/>
-                                    </LinearGradientBrush>
-                                </Setter.Value>
-                            </Setter>
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Button.Template>
-        </Button>
-        <Button x:Name="addButton" HorizontalAlignment="Center"
-            Margin="101,277,100.333,10" Padding="5" Width="292" Click="addChoosenClick" FontSize="20" FontWeight="Bold" Background="#FF28617A" Content="Add Choosen Attractions" FontFamily="Ebrima" Cursor="Hand">
+        <Label Content="Attraction Name" HorizontalAlignment="Left" Margin="43,49,0,0" VerticalAlignment="Top"/>
+        <Label Content="Continent" HorizontalAlignment="Left" Margin="43,80,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.769,0.551"/>
+        <Label Content="Country" HorizontalAlignment="Left" Margin="43,111,0,0" VerticalAlignment="Top"/>
+        <Label Content="City Name" HorizontalAlignment="Left" Margin="43,141,0,0" VerticalAlignment="Top"/>
+        <Label Content="Type" HorizontalAlignment="Left" Margin="43,171,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="createButton" HorizontalAlignment="Center"
+            Margin="133,277,128.333,10" Padding="5" Width="132" Click="createClick" FontSize="22" FontWeight="Bold" Background="#FF28617A" Content="Create!" FontFamily="Ebrima" Cursor="Hand" RenderTransformOrigin="1.626,0.511">
             <Button.Effect>
                 <DropShadowEffect Color="#FF48636F"/>
             </Button.Effect>
@@ -68,44 +44,41 @@
                 </ControlTemplate>
             </Button.Template>
         </Button>
-        <Label Content="Add New Attractions For Trip" HorizontalAlignment="center" Margin="99,7,86.333,0" VerticalAlignment="Top" FontSize="20" FontWeight="Bold" Width="288"/>
-        <Label Content="Filtered Attractions List:" HorizontalAlignment="right" Margin="0,52,20.333,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="16"/>
-        <ListBox x:Name="attractionsList" HorizontalAlignment="right" Margin="0,81,14.333,0" Width="210"
-            ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderThickness="0" HorizontalContentAlignment="Stretch" Background="Transparent" Height="145" VerticalAlignment="Top">
-            <ListBox.ItemTemplate>
 
-                <DataTemplate>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="3*"></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Uid="{Binding Name}" Text="{Binding Name}"/>
-
-                        <Button Grid.Column="1" Uid="{Binding Name}" Content="add" Click="addClick" />
-                    </Grid>
-                </DataTemplate>
-
-            </ListBox.ItemTemplate>
-        </ListBox>
-        <Label Content="Choosen Attractions List:" HorizontalAlignment="right" Margin="0,50,280.333,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="16"/>
-        <ListBox x:Name="choosedAttractionsList" HorizontalAlignment="right" Margin="0,81,273.333,0" Width="210"
-            ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderThickness="0" HorizontalContentAlignment="Stretch" Background="Transparent" Height="145" VerticalAlignment="Top">
-            <ListBox.ItemTemplate>
-
-                <DataTemplate>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="3*"/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Uid="{Binding Name}" Text="{Binding Name}"/>
-
-                        <Button Grid.Column="1" Uid="{Binding Name}" Content="remove" Click="removeClick" />
-                    </Grid>
-                </DataTemplate>
-
-            </ListBox.ItemTemplate>
-        </ListBox>
+        <TextBox x:Name="attrationName" IsEnabled="False" HorizontalAlignment="Left" Height="23" Margin="146,52,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="182"/>
+        <Label Content="Create New Attraction" HorizontalAlignment="center" Margin="0,7,0,0" VerticalAlignment="Top" FontSize="20" FontWeight="Bold" Width="218"/>
+        <TextBox x:Name="cityName" HorizontalAlignment="Left" Height="23" Margin="145,144,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="182" IsEnabled="False"/>
+        <TextBox x:Name="countryName" HorizontalAlignment="Left" Height="23" Margin="145,114,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="182" IsEnabled="False"/>
+        <TextBox x:Name="continentName" HorizontalAlignment="Left" Height="23" Margin="145,83,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="182" IsEnabled="False"/>
+        <TextBox x:Name="typeName" HorizontalAlignment="Left" Height="23" Margin="145,174,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="182" IsEnabled="False"/>
+        <Button x:Name="setPropertiesButton" HorizontalAlignment="Center"
+            Margin="95,225,95.333,70" Padding="5" Width="203" Click="setPropertiesClick" FontSize="15" FontWeight="Bold" Background="#FF28617A" Content="Set Attraction Properties" FontFamily="Ebrima" Cursor="Hand">
+            <Button.Effect>
+                <DropShadowEffect Color="#FF48636F"/>
+            </Button.Effect>
+            <Button.Template>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="bdr_main" CornerRadius="20" Margin="4" BorderThickness="1" BorderBrush="Black">
+                        <Border.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#FFF5E0C3" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center" Margin="8,6,8,6" ContentSource="Content" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="bdr_main" Property="Background">
+                                <Setter.Value>
+                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                        <GradientStop Color="#FFA2756B" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
     </Grid>
 </Window>

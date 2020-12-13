@@ -36,12 +36,13 @@ namespace TravelApp
         {
             string beginning = beginTextBox.Text;
             users = model.getRestUsers(username, beginning);
+            userList.ItemsSource = null;
             userList.ItemsSource = users;
         }
 
-        private void addClick(object sender, MouseButtonEventArgs e)
+        private void clickAdd(object sender, RoutedEventArgs e)
         {
-            var item = ((Viewbox)sender).DataContext;
+            var item = ((Button)sender).DataContext;
             var itemIndex = userList.Items.IndexOf(item);
             string candidate = users[itemIndex];
             bool result = model.addNewFriend(username, candidate);
@@ -57,10 +58,9 @@ namespace TravelApp
             }
         }
 
-        private void textChanged(object sender, TextChangedEventArgs e)
+        private void filterByText(object sender, RoutedEventArgs e)
         {
             bindNonUserList();
         }
-
     }
 }

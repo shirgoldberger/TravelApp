@@ -10,8 +10,9 @@
         <Grid.Background>
             <ImageBrush ImageSource="../Pictures/trip5.jpg" TileMode="Tile"/>
         </Grid.Background>
+        <Button Content="Filter" HorizontalAlignment="Left" Height="22" Margin="210,57,0,0" VerticalAlignment="Top" Width="43" Click="filterByText"/>
         <TextBlock HorizontalAlignment="center" Margin="0,20,0,0" TextWrapping="Wrap" TextAlignment="Center" Text="Click username for adding him to your friends list&#10;You can type the beginning of required name" VerticalAlignment="Top"/>
-        <TextBox x:Name="beginTextBox" Grid.Column="1" HorizontalAlignment="center" Height="23" Margin="0,60,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" TextChanged="textChanged"/>
+        <TextBox x:Name="beginTextBox" HorizontalAlignment="center" Height="23" Margin="79,57,159.667,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="61*"/>
@@ -23,17 +24,24 @@
             <ListBox x:Name="userList" HorizontalAlignment="center" Margin="0,90,0,0" Width="297"
             ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderThickness="0" HorizontalContentAlignment="Stretch" Background="Transparent" Height="200" VerticalAlignment="Top" Grid.ColumnSpan="4">
                 <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <Viewbox Height="20" HorizontalAlignment="left" PreviewMouseDown="addClick">
-                            <TextBlock Uid="{Binding }" Text="{Binding }" FontSize="20"/>
-                        </Viewbox>
 
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="3*"></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Uid="{Binding }" Text="{Binding }"  >
+                            </TextBlock>
+                            <Button Grid.Column="1" Uid="{Binding }" Content="add" Click="clickAdd" />
+                        </Grid>
                     </DataTemplate>
+
                 </ListBox.ItemTemplate>
             </ListBox>
-            
+
         </Grid>
-        
+
     </Grid>
-    
+
 </Window>

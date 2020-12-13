@@ -18,17 +18,28 @@ namespace TravelApp.Pages
     /// <summary>
     /// Interaction logic for AddNewAtt.xaml
     /// </summary>
-    public partial class AddNewAtt : Window
+    public partial class AttractionProperties : Window
     {
-        UserPageModel model;
-        List<City> cities;
-        List<string> types;
+        private UserPageModel model;
+        private List<City> cities;
+        private List<string> types;
         private string cityBegin;
         private string typeBegin;
         private string city_code;
-        public AddNewAtt(UserPageModel _model)
+        private bool creation;
+
+        public string AttractionReturned { set; get; }
+        public string ContinentReturned { set; get; }
+        public string CountryReturned { set; get; }
+        public string CityReturned { set; get; }
+        public string TypeReturned { set;get; }
+        public string City_code { set; get; }
+
+
+        public AttractionProperties(UserPageModel _model, bool _creation)
         {
             model = _model;
+            creation = _creation;
             InitializeComponent();
             reset();
         }
@@ -74,37 +85,36 @@ namespace TravelApp.Pages
             bindTypes();
         }
 
-        private void resetClick(object sender, RoutedEventArgs e)
+        private void setClick(object sender, RoutedEventArgs e)
         {
-            reset();
-        }
-
-        private void addClick(object sender, RoutedEventArgs e)
-        {
-            if(attrationName.Text == "" || attrationName.Text.Length > 300 || typeBox.SelectedIndex == -1 ||
-               cityName.Text == "")
+            if(creation)
             {
-                MessageBox.Show("There is problem with arguments for creating your attraction");
-                return;
-            }
-            string name = attrationName.Text;
-            string type = types[typeBox.SelectedIndex];
-            if(model.attractionAlreadyExist(name, city_code, type))
-            {
-                MessageBox.Show("This attraction is already exist");
-                return;
-            }
-            bool result = model.addNewAttraction(name, city_code, type);
-            string message = "Entering the attraction '" + name + "'";
-            if(result)
-            {
-                message += " succeed";
+                if (attrationName.Text == "" || typeBox.SelectedIndex == -1 || typeBox.SelectedIndex == -1 ||
+                    cityName.Text == "")
+                {
+                    MessageBox.Show("There is problem with arguments for creating your attraction");
+                    return;
+                }
+                TypeReturned = types[typeBox.SelectedIndex];
+                ContinentReturned = continentName.Text;
+                CountryReturned = countryName.Text;
+                CityReturned = cityName.Text;
             }
             else
             {
-                message += " failed";
+                if(typeBox.SelectedIndex != -1)
+                {
+                    TypeReturned = types[typeBox.SelectedIndex];
+                }
+                else
+                {
+                    TypeReturned = "";
+                }
             }
-            MessageBox.Show(message);
+            AttractionReturned = attrationName.Text;
+            City_code = city_code;
+            GetWindow(this).Close();
+
         }
 
         private void citySelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -116,12 +126,6 @@ namespace TravelApp.Pages
                 changeFieldsByCity(_city);
                 cityBox.Text = _city.Name;
             }            
-        }
-
-        private void typeTextChanged(object sender, EventArgs e)
-        {
-            typeBegin = typeBox.Text;
-            bindTypes();
         }
 
         private void findByContinent(object sender, RoutedEventArgs e)
@@ -161,6 +165,17 @@ namespace TravelApp.Pages
         {
             cityBegin = cityBox.Text;
             bindCities();
+        }
+
+        private void filterTypeByText(object sender, RoutedEventArgs e)
+        {
+            typeBegin = typeBox.Text;
+            bindTypes();
+        }
+
+        private void resetClick(object sender, RoutedEventArgs e)
+        {
+            reset();
         }
     }
 }
