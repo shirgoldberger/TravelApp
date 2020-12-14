@@ -134,7 +134,7 @@ namespace TravelApp.Pages
             if (c != null)
             {
                 SelectedCity = c;
-                bindCities();
+                //bindCities();
                 bindAttractions();
             }
         }
