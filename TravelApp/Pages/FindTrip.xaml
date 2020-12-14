@@ -131,7 +131,7 @@
             </Button.Template>
         </Button>
 
-        <Button x:Name="chooseAttraction" Content="Choose Attractions" HorizontalAlignment="center" Height="24" Margin="187,429,783,0" VerticalAlignment="Top" Width="130" Click="chooseAttractions_Click"/>
+        <Button x:Name="chooseAttraction" Cursor="Hand" Content="Choose Attractions" HorizontalAlignment="center" Height="24" Margin="187,429,783,0" VerticalAlignment="Top" Width="130" Click="chooseAttractions_Click"/>
         <CheckBox x:Name="someTrips" Content="Show trips with at least one of the filters" HorizontalAlignment="Left" Height="23" Margin="46,460,0,0" VerticalAlignment="Top" Width="260" Checked="someTrips_Checked" Unchecked="someTrips_Unchecked" FontWeight="Bold" Foreground="#FF5AFF03" />
         <CheckBox x:Name="allTrips" Content="Show trips that keep all the filters" HorizontalAlignment="Left" Height="29" Margin="47,483,0,0" VerticalAlignment="Top" Width="227" Unchecked="allTrips_Unchecked" Checked="allTrips_Checked" FontWeight="Bold" Foreground="#FF5AFF03"/>
     </Grid>

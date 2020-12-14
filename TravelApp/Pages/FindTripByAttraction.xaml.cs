@@ -26,7 +26,7 @@ namespace TravelApp.Pages
         private List<Attraction> attractions;
         private List<Attraction> selectedAttractions;
         private string cityBegin;
-        private string selectedCity;
+        private City selectedCity;
         public FindTripByAttraction(FindTrip_Controller c)
         {
             InitializeComponent();
@@ -34,14 +34,13 @@ namespace TravelApp.Pages
             cityBegin = "";
             bindCities();
             selectedAttractions = new List<Attraction>();
-            selectedCity = "";
+            selectedCity = null;
         }
 
-        public string SelectedCity
+        public City SelectedCity
         {
             get { return selectedCity; }
             set { selectedCity = value;
-                NotifyPropertyChanged("SelectedCity");
             }
         }
 
@@ -81,12 +80,12 @@ namespace TravelApp.Pages
 
         private async void bindCities()
         {
-            City city = null;
-            if (cityBox.SelectedItem != null)
-            {
-                city = (City)cityBox.SelectedItem;
-                SelectedCity = city.Name;
-            }
+            //City city = null;
+            //if (cityBox.SelectedItem != null)
+            //{
+            //    city = (City)cityBox.SelectedItem;
+            //    SelectedCity = city.Name;
+            //}
             
             cities = await getCitiesAsync(cityBegin);
             cityBox.ItemsSource = cities;
@@ -105,7 +104,7 @@ namespace TravelApp.Pages
             {
                 city = (City)cityBox.SelectedItem;
             }
-            attractions = await getAttractionsAsync(city);
+            attractions = await getAttractionsAsync(selectedCity);
             foreach (Attraction a in attractions)
             {
                 if (selectedAttractions.Exists(x => x.Attraction_code == a.Attraction_code))
@@ -131,8 +130,13 @@ namespace TravelApp.Pages
 
         private void citySelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            bindCities();
-            bindAttractions();
+            City c = (City)cityBox.SelectedItem;
+            if (c != null)
+            {
+                SelectedCity = c;
+                bindCities();
+                bindAttractions();
+            }
         }
 
         private void filterByText(object sender, RoutedEventArgs e)
@@ -140,6 +144,11 @@ namespace TravelApp.Pages
             cityBegin = cityBox.Text;
             bindCities();
             cityBox.IsDropDownOpen = true;
+        }
+
+        private void finishButton_Click(object sender, RoutedEventArgs e)
+        {
+            GetWindow(this).Close();
         }
     }
 }

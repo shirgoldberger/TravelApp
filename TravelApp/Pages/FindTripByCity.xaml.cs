@@ -122,5 +122,9 @@ namespace TravelApp.Pages
             bindCountries();
             countryBox.IsDropDownOpen = true;
         }
+        private void finishButton_Click(object sender, RoutedEventArgs e)
+        {
+            GetWindow(this).Close();
+        }
     }
 }

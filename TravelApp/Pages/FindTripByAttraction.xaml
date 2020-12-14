@@ -11,18 +11,13 @@
             <ImageBrush ImageSource="../Pictures/trip5.jpg" TileMode="Tile"/>
         </Grid.Background>
         <Label Content="city" HorizontalAlignment="Left" Margin="4,76,0,0" VerticalAlignment="Top"/>
-        <ComboBox Name="cityBox"  IsTextSearchEnabled="false" HorizontalAlignment="Left" Margin="53,80,0,0" VerticalAlignment="Top" Width="118" IsEditable="True" SelectionChanged="citySelectionChanged" MaxDropDownHeight="100" Text="{Binding SelectedCity, Mode=OneWay}">
+        <ComboBox Name="cityBox"  Text="{Binding SelectedCity.Name}" SelectedValue="{Binding SelectedCity.Name, Mode=OneWay}" SelectedValuePath="Name" DisplayMemberPath="Name"  IsTextSearchEnabled="false" HorizontalAlignment="Left" Margin="53,80,0,0" VerticalAlignment="Top" Width="118" IsEditable="True" SelectionChanged="citySelectionChanged" MaxDropDownHeight="100">
             <ComboBox.ItemsPanel>
                 <ItemsPanelTemplate>
                     <VirtualizingStackPanel>
                     </VirtualizingStackPanel>
                 </ItemsPanelTemplate>
             </ComboBox.ItemsPanel>
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Text="{Binding Name}" />
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
         </ComboBox>
         <Button Content="Filter" HorizontalAlignment="Left" Height="22" Margin="178,80,0,0" VerticalAlignment="Top" Width="43" Click="filterByText"/>
         <Label Content="Choose country and filter cities" HorizontalAlignment="center" Margin="18,10,17.667,0" VerticalAlignment="Top" FontSize="20" FontWeight="Bold"/>
@@ -44,5 +39,34 @@
 
             </ListBox.ItemTemplate>
         </ListBox>
+        <Button x:Name="finishButton" HorizontalAlignment="Center"
+            Margin="184,225,190,19" Padding="5" Width="138" FontSize="16" FontWeight="Bold" Background="#FF28617A" Content="Finish select" FontFamily="Ebrima" Cursor="Hand" Click="finishButton_Click">
+            <Button.Effect>
+                <DropShadowEffect Color="#FF48636F"/>
+            </Button.Effect>
+            <Button.Template>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="bdr_main" CornerRadius="20" Margin="4" BorderThickness="1" BorderBrush="Black">
+                        <Border.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#FFCD6B6A" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center" Margin="8,6,8,6" ContentSource="Content" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="bdr_main" Property="Background">
+                                <Setter.Value>
+                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                        <GradientStop Color="#FFA2756B" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
     </Grid>
 </Window>

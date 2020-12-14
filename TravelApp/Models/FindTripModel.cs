@@ -485,7 +485,7 @@ namespace TravelApp
                 return trips;
             }
             fullCommand += ";";
-            fullCommand = "SELECT distinct trip_code FROM trip WHERE\n" + fullCommand;
+            fullCommand = "SELECT distinct * FROM trip WHERE\n" + fullCommand;
             return getTripsByCommand(fullCommand);
         }
 
