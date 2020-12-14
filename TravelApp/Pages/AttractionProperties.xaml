@@ -75,17 +75,13 @@
             </Button.Template>
         </Button>
 
-        <ComboBox Name="cityBox" IsTextSearchEnabled="false" HorizontalAlignment="Left" Margin="145,178,0,0" VerticalAlignment="Top" Width="120" IsEditable="True" SelectionChanged="citySelectionChanged" MaxDropDownHeight="135" Text="{Binding Name}" RenderTransformOrigin="0.454,6.281">
+        <ComboBox Name="cityBox" Text="{Binding CitySelected.Name}" SelectedValue="{Binding CitySelected.Name, Mode=OneWay}" SelectedValuePath="Name" DisplayMemberPath="Name" IsTextSearchEnabled="false" HorizontalAlignment="Left" Margin="145,178,0,0" VerticalAlignment="Top" Width="120" IsEditable="True" SelectionChanged="citySelectionChanged" MaxDropDownHeight="135" RenderTransformOrigin="0.454,6.281">
             <ComboBox.ItemsPanel>
                 <ItemsPanelTemplate>
                     <VirtualizingStackPanel />
                 </ItemsPanelTemplate>
             </ComboBox.ItemsPanel>
-            <ComboBox.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Text="{Binding Name, Mode=OneWay}" />
-                </DataTemplate>
-            </ComboBox.ItemTemplate>
+           
         </ComboBox>
         <Button Content="Filter" HorizontalAlignment="Left" Height="22" Margin="284,244,0,0" VerticalAlignment="Top" Width="43" Click="filterTypeByText"/>
         <ComboBox Name="typeBox" IsTextSearchEnabled="false" HorizontalAlignment="Left" Margin="145,244,0,0" VerticalAlignment="Top" Width="120" IsEditable="True" MaxDropDownHeight="65">

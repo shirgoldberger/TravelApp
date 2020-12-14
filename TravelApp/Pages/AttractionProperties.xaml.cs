@@ -85,6 +85,8 @@ namespace TravelApp.Pages
             bindTypes();
         }
 
+        public City CitySelected { set; get; }
+
         private void setClick(object sender, RoutedEventArgs e)
         {
             if(creation)
@@ -124,7 +126,8 @@ namespace TravelApp.Pages
             {
                 City _city = cities[selectedIndex];
                 changeFieldsByCity(_city);
-                cityBox.Text = _city.Name;
+                CitySelected = _city;
+                //cityBox.Text = _city.Name;
             }            
         }
 
@@ -165,12 +168,14 @@ namespace TravelApp.Pages
         {
             cityBegin = cityBox.Text;
             bindCities();
+            cityBox.IsDropDownOpen = true;
         }
 
         private void filterTypeByText(object sender, RoutedEventArgs e)
         {
             typeBegin = typeBox.Text;
             bindTypes();
+            typeBox.IsDropDownOpen = true;
         }
 
         private void resetClick(object sender, RoutedEventArgs e)
