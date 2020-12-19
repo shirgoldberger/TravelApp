@@ -7,19 +7,19 @@
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
         mc:Ignorable="d"
-        Title="Attraction Properties" Height="371.109" Width="400.295">
+        Title="Attraction Properties" Height="448.109" Width="405.295">
     <Grid Margin="0,0,0,0">
         <Grid.Background>
             <ImageBrush ImageSource="../Pictures/trip5.jpg" TileMode="Tile"/>
         </Grid.Background>
         <Label Content="Attraction Name" HorizontalAlignment="Left" Margin="43,49,0,0" VerticalAlignment="Top"/>
-        <Label Content="Continent" HorizontalAlignment="Left" Margin="43,80,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.769,0.551"/>
-        <Label Content="Country" HorizontalAlignment="Left" Margin="43,111,0,0" VerticalAlignment="Top"/>
-        <Label Content="City Name" HorizontalAlignment="Left" Margin="43,141,0,0" VerticalAlignment="Top"/>
-        <Label Content="Search city" HorizontalAlignment="Left" Margin="43,174,0,0" VerticalAlignment="Top"/>
-        <Label Content="Type" HorizontalAlignment="Left" Margin="43,240,0,0" VerticalAlignment="Top"/>
+        <Label Content="Continent" HorizontalAlignment="Left" Margin="43,136,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.769,0.551"/>
+        <Label Content="Country" HorizontalAlignment="Left" Margin="43,167,0,0" VerticalAlignment="Top"/>
+        <Label Content="City Name" HorizontalAlignment="Left" Margin="43,197,0,0" VerticalAlignment="Top"/>
+        <Label Content="Search city" HorizontalAlignment="Left" Margin="43,248,0,0" VerticalAlignment="Top"/>
+        <Label Content="Type" HorizontalAlignment="Left" Margin="43,100,0,0" VerticalAlignment="Top"/>
         <Button x:Name="resetButton" HorizontalAlignment="Center"
-            Margin="203,271,55.333,11" Padding="5" Width="135" Click="resetClick" FontSize="22" FontWeight="Bold" Background="#FF28617A" Content="Reset" FontFamily="Ebrima" Cursor="Hand">
+            Margin="204,351,55.667,11.333" Padding="5" Width="135" Click="resetClick" FontSize="22" FontWeight="Bold" Background="#FF28617A" Content="Reset" FontFamily="Ebrima" Cursor="Hand">
             <Button.Effect>
                 <DropShadowEffect Color="#FF48636F"/>
             </Button.Effect>
@@ -48,7 +48,7 @@
             </Button.Template>
         </Button>
         <Button x:Name="setButton" HorizontalAlignment="Center"
-            Margin="43,271,218.333,11" Padding="5" Width="132" Click="setClick" FontSize="22" FontWeight="Bold" Background="#FF28617A" Content="Set!" FontFamily="Ebrima" Cursor="Hand">
+            Margin="44,351,218.667,11.333" Padding="5" Width="132" Click="setClick" FontSize="22" FontWeight="Bold" Background="#FF28617A" Content="Set!" FontFamily="Ebrima" Cursor="Hand">
             <Button.Effect>
                 <DropShadowEffect Color="#FF48636F"/>
             </Button.Effect>
@@ -77,16 +77,21 @@
             </Button.Template>
         </Button>
 
-        <ComboBox Name="cityBox" Text="{Binding CitySelected.Name}" SelectedValue="{Binding CitySelected.Name, Mode=OneWay}" SelectedValuePath="Name" DisplayMemberPath="Name" IsTextSearchEnabled="false" HorizontalAlignment="Left" Margin="145,178,0,0" VerticalAlignment="Top" Width="120" IsEditable="True" SelectionChanged="citySelectionChanged" MaxDropDownHeight="135" RenderTransformOrigin="0.454,6.281">
+        <ComboBox Name="cityBox" Text="{Binding CitySelected.Name}" SelectedValue="{Binding CitySelected.Name, Mode=OneWay}" SelectedValuePath="Name" DisplayMemberPath="Name" IsTextSearchEnabled="false" HorizontalAlignment="Left" Margin="145,252,0,0" VerticalAlignment="Top" Width="120" IsEditable="True" SelectionChanged="citySelectionChanged" MaxDropDownHeight="95" RenderTransformOrigin="0.454,6.281">
             <ComboBox.ItemsPanel>
                 <ItemsPanelTemplate>
                     <VirtualizingStackPanel />
                 </ItemsPanelTemplate>
             </ComboBox.ItemsPanel>
-           
+
         </ComboBox>
-        <Button Content="Filter" HorizontalAlignment="Left" Height="22" Margin="284,244,0,0" VerticalAlignment="Top" Width="43" Click="filterTypeByText"/>
-        <ComboBox Name="typeBox" IsTextSearchEnabled="false" HorizontalAlignment="Left" Margin="145,244,0,0" VerticalAlignment="Top" Width="120" IsEditable="True" MaxDropDownHeight="65">
+        <ProgressBar x:Name="progressBar" Visibility="Visible" HorizontalAlignment="Left" Height="14" Margin="204,231,0,0" VerticalAlignment="Top" Width="100" Minimum="0" Maximum="100"/>
+        <Label x:Name="progressBarText" Content="Loading Cities" Visibility="Visible" HorizontalAlignment="Left" Margin="103,224,0,0" VerticalAlignment="Top" Width="90"/>
+        <ProgressBar x:Name="progressBarTypes" Visibility="Visible" HorizontalAlignment="Left" Height="14" Margin="204,83,0,0" VerticalAlignment="Top" Width="100" Minimum="0" Maximum="100"/>
+        <Label x:Name="progressBarTextTypes" Content="Loading Types" Visibility="Visible" HorizontalAlignment="Left" Margin="103,76,0,0" VerticalAlignment="Top" Width="90"/>
+
+        <Button Content="Filter" HorizontalAlignment="Left" Height="22" Margin="284,104,0,0" VerticalAlignment="Top" Width="43" Click="filterTypeByText"/>
+        <ComboBox Name="typeBox" IsTextSearchEnabled="false" HorizontalAlignment="Left" Margin="145,104,0,0" VerticalAlignment="Top" Width="120" IsEditable="True" MaxDropDownHeight="65">
             <ComboBox.ItemsPanel>
                 <ItemsPanelTemplate>
                     <VirtualizingStackPanel />
@@ -96,12 +101,12 @@
 
         <TextBox x:Name="attrationName" HorizontalAlignment="Left" Height="23" Margin="146,52,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="182"/>
         <Label Content="Set Attraction Properties" HorizontalAlignment="center" Margin="0,7,0,0" VerticalAlignment="Top" FontSize="20" FontWeight="Bold" Width="248"/>
-        <TextBox x:Name="cityName" HorizontalAlignment="Left" Height="23" Margin="145,144,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="182" IsEnabled="False"/>
-        <TextBox x:Name="countryName" HorizontalAlignment="Left" Height="23" Margin="145,114,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="182" IsEnabled="False"/>
-        <TextBox x:Name="continentName" HorizontalAlignment="Left" Height="23" Margin="145,83,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="182" IsEnabled="False"/>
-        <Button Content="Find city by continent" HorizontalAlignment="center" Height="24" Margin="37,208,226.333,0" VerticalAlignment="Top" Width="130" Click="findByContinent"/>
-        <Button Content="Find city by country" HorizontalAlignment="center" Height="24" Margin="203,208,60.333,0" VerticalAlignment="Top" Width="130" Click="findByCountry"/>
-        <Button Content="Filter" HorizontalAlignment="Left" Height="22" Margin="284,178,0,0" VerticalAlignment="Top" Width="43" Click="filterByText"/>
+        <TextBox x:Name="cityName" HorizontalAlignment="Left" Height="23" Margin="145,200,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="182" IsEnabled="False"/>
+        <TextBox x:Name="countryName" HorizontalAlignment="Left" Height="23" Margin="145,170,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="182" IsEnabled="False"/>
+        <TextBox x:Name="continentName" HorizontalAlignment="Left" Height="23" Margin="145,139,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="182" IsEnabled="False"/>
+        <Button Content="Find city by continent" HorizontalAlignment="center" Height="24" Margin="38,286,226.667,0" VerticalAlignment="Top" Width="130" Click="findByContinent"/>
+        <Button Content="Find city by country" HorizontalAlignment="center" Height="24" Margin="200,286,64.667,0" VerticalAlignment="Top" Width="130" Click="findByCountry"/>
+        <Button Content="Filter" HorizontalAlignment="Left" Height="22" Margin="284,252,0,0" VerticalAlignment="Top" Width="43" Click="filterByText"/>
 
     </Grid>
 </Window>

@@ -52,8 +52,10 @@ namespace TravelApp.Pages
 
         private async void bindCities()
         {
+            startLoadCities();
             cities = await getCitiesAsync(cityBegin);
             cityBox.ItemsSource = cities;
+            endLoadCities();
         }
 
         private async Task<List<string>> getTypesAsync(string begin)
@@ -64,12 +66,44 @@ namespace TravelApp.Pages
 
         private async void bindTypes()
         {
+            startLoadTypes();
             types = await getTypesAsync(typeBegin);
             typeBox.ItemsSource = types;
+            endLoadTypes();
+        }
+
+        private void startLoadCities()
+        {
+            progressBar.IsIndeterminate = true;
+            progressBarText.Visibility = Visibility.Visible;
+            progressBar.Visibility = Visibility.Visible;
+        }
+
+        private void endLoadCities()
+        {
+            progressBar.IsIndeterminate = false;
+            progressBarText.Visibility = Visibility.Hidden;
+            progressBar.Visibility = Visibility.Hidden;
+        }
+
+        private void startLoadTypes()
+        {
+            progressBarTypes.IsIndeterminate = true;
+            progressBarTextTypes.Visibility = Visibility.Visible;
+            progressBarTypes.Visibility = Visibility.Visible;
+        }
+
+        private void endLoadTypes()
+        {
+            progressBarTypes.IsIndeterminate = false;
+            progressBarTextTypes.Visibility = Visibility.Hidden;
+            progressBarTypes.Visibility = Visibility.Hidden;
         }
 
         private void reset()
         {
+            endLoadCities();
+            endLoadTypes();
             attrationName.Text = "";
             continentName.Text = "";
             countryName.Text = "";

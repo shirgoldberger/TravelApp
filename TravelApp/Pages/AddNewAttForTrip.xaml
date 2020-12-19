@@ -7,13 +7,13 @@
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
         mc:Ignorable="d"
-        Title="Add New Attraction For Trip" Height="371.109" Width="500.295">
+        Title="Add New Attraction For Trip" Height="401.109" Width="500.295">
     <Grid Margin="0,0,0,0">
         <Grid.Background>
             <ImageBrush ImageSource="../Pictures/trip5.jpg" TileMode="Tile"/>
         </Grid.Background>
         <Button x:Name="filterButton" HorizontalAlignment="Center"
-            Margin="300,226,28.333,65" Padding="5" Width="165" Click="filterClick" FontSize="15" FontWeight="Bold" Background="#FF28617A" Content="Filter Attractions" FontFamily="Ebrima" Cursor="Hand">
+            Margin="301,259,28.667,66.333" Padding="5" Width="165" Click="filterClick" FontSize="15" FontWeight="Bold" Background="#FF28617A" Content="Filter Attractions" FontFamily="Ebrima" Cursor="Hand">
             <Button.Effect>
                 <DropShadowEffect Color="#FF48636F"/>
             </Button.Effect>
@@ -41,8 +41,11 @@
                 </ControlTemplate>
             </Button.Template>
         </Button>
+        <ProgressBar x:Name="progressBar" Visibility="Visible" HorizontalAlignment="Left" Height="14" Margin="383,234,0,0" VerticalAlignment="Top" Width="90" Minimum="0" Maximum="100"/>
+        <Label x:Name="progressBarText" Content="Loading Attractions" Visibility="Visible" HorizontalAlignment="Left" Margin="270,226,0,0" VerticalAlignment="Top" Width="115"/>
+  
         <Button x:Name="addButton" HorizontalAlignment="Center"
-            Margin="101,277,100.333,10" Padding="5" Width="292" Click="addChoosenClick" FontSize="20" FontWeight="Bold" Background="#FF28617A" Content="Add Choosen Attractions" FontFamily="Ebrima" Cursor="Hand">
+            Margin="102,308,100.667,10.333" Padding="5" Width="292" Click="addChoosenClick" FontSize="20" FontWeight="Bold" Background="#FF28617A" Content="Add Choosen Attractions" FontFamily="Ebrima" Cursor="Hand">
             <Button.Effect>
                 <DropShadowEffect Color="#FF48636F"/>
             </Button.Effect>

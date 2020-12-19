@@ -7,7 +7,7 @@
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
         mc:Ignorable="d"
-        Title="Create New Attraction" Height="371.109" Width="400.295">
+        Title="Create New Attraction" Height="375.109" Width="405.295">
     <Grid Margin="0,0,0,0">
         <Grid.Background>
             <ImageBrush ImageSource="../Pictures/trip5.jpg" TileMode="Tile"/>

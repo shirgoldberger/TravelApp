@@ -7,7 +7,7 @@
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
         mc:Ignorable="d"
-        Title="Search city by continent" Height="251.109" Width="445.295">
+        Title="Search city by continent" Height="261.109" Width="445.295">
     <Grid Margin="0,0,0,0">
         <Grid.Background>
             <ImageBrush ImageSource="../Pictures/trip5.jpg" TileMode="Tile"/>
@@ -23,8 +23,8 @@
         <Button Content="Filter" HorizontalAlignment="Left" Height="22" Margin="175,80,0,0" VerticalAlignment="Top" Width="43" Click="filterByText"/>
         <Label Content="Choose continent and filter cities" HorizontalAlignment="center" Margin="18,10,17.667,0" VerticalAlignment="Top" FontSize="20" FontWeight="Bold"/>
         <Label Content="Cities list :" HorizontalAlignment="right" Margin="0,47,66.667,0" VerticalAlignment="Top" FontSize="15" FontWeight="Bold"/>
-        <ListBox x:Name="citiesList" HorizontalAlignment="right" Margin="0,82,9.667,0" Width="200"
-            ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderThickness="0" HorizontalContentAlignment="Stretch" Background="Transparent" Height="120" VerticalAlignment="Top">
+        <ListBox x:Name="citiesList" HorizontalAlignment="right" Margin="0,82,10,0" Width="200"
+            ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderThickness="0" HorizontalContentAlignment="Stretch" Background="Transparent" Height="103" VerticalAlignment="Top">
             <ListBox.ItemTemplate>
 
                 <DataTemplate>
@@ -41,5 +41,7 @@
 
             </ListBox.ItemTemplate>
         </ListBox>
+        <ProgressBar x:Name="progressBar" Visibility="Visible" HorizontalAlignment="Left" Height="14" Margin="316,197,0,0" VerticalAlignment="Top" Width="100" Minimum="0" Maximum="100"/>
+        <Label x:Name="progressBarText" Content="Loading Cities" Visibility="Visible" HorizontalAlignment="Left" Margin="230,190,0,0" VerticalAlignment="Top" Width="85"/>
     </Grid>
 </Window>

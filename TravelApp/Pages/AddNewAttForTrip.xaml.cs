@@ -37,12 +37,27 @@ namespace TravelApp.Pages
             controller = new AddNewAttForTrip_Controller();
             choosed = _choosed;
             InitializeComponent();
+            endLoadData();
             newAttractionsChoosed = new List<Attraction>();
             choosedAttractionsList.ItemsSource = null;
             attractionsList.ItemsSource = null;
             type = "";
             city_code = "";
             attractionName = "";
+        }
+
+        private void startLoadData()
+        {
+            progressBar.IsIndeterminate = true;
+            progressBarText.Visibility = Visibility.Visible;
+            progressBar.Visibility = Visibility.Visible;
+        }
+
+        private void endLoadData()
+        {
+            progressBar.IsIndeterminate = false;
+            progressBarText.Visibility = Visibility.Hidden;
+            progressBar.Visibility = Visibility.Hidden;
         }
 
         private void addClick(object sender, RoutedEventArgs e)
@@ -66,9 +81,11 @@ namespace TravelApp.Pages
         {
             List<Attraction> toDrop = choosed.ToList();
             toDrop.AddRange(newAttractionsChoosed);
-            attractions = await getAttractionsAsync(city_code, type, attractionName, toDrop);
+            startLoadData();
             attractionsList.ItemsSource = null;
+            attractions = await getAttractionsAsync(city_code, type, attractionName, toDrop);
             attractionsList.ItemsSource = attractions;
+            endLoadData();
         }
 
         private void filterClick(object sender, RoutedEventArgs e)

@@ -31,6 +31,8 @@ namespace TravelApp.Pages
         {
             controller = _controller;
             InitializeComponent();
+            endLoadCities();
+            endLoadCountries();
             countryBegin = "";
             bindCountries();
         }
@@ -43,8 +45,11 @@ namespace TravelApp.Pages
 
         private async void bindCountries()
         {
+            startLoadCountries();
             countries = await getCountriesAsync(countryBegin);
+            countryBox.ItemsSource = null;
             countryBox.ItemsSource = countries;
+            endLoadCountries();
         }
 
 
@@ -61,8 +66,39 @@ namespace TravelApp.Pages
             {
                 country = countryBox.SelectedItem.ToString();
             }
+            startLoadCities();
             cities = await getCitiesAsync(country);
+            citiesList.ItemsSource = null;
             citiesList.ItemsSource = cities;
+            endLoadCities();
+        }
+
+        private void startLoadCities()
+        {
+            progressBar.IsIndeterminate = true;
+            progressBarText.Visibility = Visibility.Visible;
+            progressBar.Visibility = Visibility.Visible;
+        }
+
+        private void endLoadCities()
+        {
+            progressBar.IsIndeterminate = false;
+            progressBarText.Visibility = Visibility.Hidden;
+            progressBar.Visibility = Visibility.Hidden;
+        }
+
+        private void startLoadCountries()
+        {
+            progressBarCountries.IsIndeterminate = true;
+            progressBarTextCountries.Visibility = Visibility.Visible;
+            progressBarCountries.Visibility = Visibility.Visible;
+        }
+
+        private void endLoadCountries()
+        {
+            progressBarCountries.IsIndeterminate = false;
+            progressBarTextCountries.Visibility = Visibility.Hidden;
+            progressBarCountries.Visibility = Visibility.Hidden;
         }
 
         private void chooseClick(object sender, RoutedEventArgs e)
@@ -75,8 +111,10 @@ namespace TravelApp.Pages
 
         private void countrySelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            bindCountries();
-            bindCities();
+            if(countryBox.SelectedIndex != -1)
+            {
+                bindCities();
+            }
         }
 
         private void filterByText(object sender, RoutedEventArgs e)

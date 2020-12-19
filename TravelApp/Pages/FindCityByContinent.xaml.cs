@@ -31,9 +31,9 @@ namespace TravelApp.Pages
         {
             controller = _controller;
             InitializeComponent();
+            endLoadData();
             continentBegin = "";
             bindContinents();
-            bindCities();
         }
 
         private async Task<List<string>> getContinentsAsync(string begin)
@@ -62,8 +62,25 @@ namespace TravelApp.Pages
             {
                 continent = continentBox.SelectedItem.ToString();
             }
+            startLoadData();
             cities = await getCitiesAsync(continent);
+            citiesList.ItemsSource = null;
             citiesList.ItemsSource = cities;
+            endLoadData();
+        }
+
+        private void startLoadData()
+        {
+            progressBar.IsIndeterminate = true;
+            progressBarText.Visibility = Visibility.Visible;
+            progressBar.Visibility = Visibility.Visible;
+        }
+
+        private void endLoadData()
+        {
+            progressBar.IsIndeterminate = false;
+            progressBarText.Visibility = Visibility.Hidden;
+            progressBar.Visibility = Visibility.Hidden;
         }
 
         private void chooseClick(object sender, RoutedEventArgs e)

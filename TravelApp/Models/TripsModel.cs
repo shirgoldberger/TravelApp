@@ -122,20 +122,6 @@ namespace TravelApp.Models
                     myCommand.CommandText = tripCommand;
                     myCommand.ExecuteNonQuery();
 
-                    /*
-                    string trip_code = "";
-                    myCommand.CommandText = "SELECT MAX(trip_code) AS max FROM trip;";
-                    MySqlDataReader dr = myCommand.ExecuteReader();
-                    if (dr != null)
-                    {
-                        while (dr.Read())
-                        {
-                            trip_code = dr.GetString("max");
-                        }
-                        dr.Close();
-                    }
-                    */
-
                     string trip_code = myCommand.LastInsertedId.ToString();
 
                     string membersCommand = addTripMembersCommand(trip.Admin, trip_code, choosenParticipants);
