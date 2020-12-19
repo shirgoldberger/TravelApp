@@ -27,8 +27,8 @@ namespace TravelApp
             int min_age = int.Parse(dr.GetString("min_age"));
             int max_age = int.Parse(dr.GetString("max_age"));
             int max_participants = int.Parse(dr.GetString("max_participants"));
-            bool male_only = dr.GetBoolean("male_only");
-            bool female_only = dr.GetBoolean("female_only");
+            bool male_only = dr.GetString("male_only")[0] == '1';
+            bool female_only = dr.GetString("female_only")[0] == '1';
 
             Trip t = new Trip(id, name, admin, start_date, end_date, min_age,
                 max_age, max_participants, male_only, female_only);

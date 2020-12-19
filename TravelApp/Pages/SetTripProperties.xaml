@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TravelApp.Pages"
+        ResizeMode="NoResize"
         mc:Ignorable="d"
         Title="Set Trip Properties" Height="371.109" Width="550.295">
     <Grid Margin="0,0,0,0">
@@ -14,7 +15,7 @@
         <Label Content="Min age for participants" HorizontalAlignment="Left" Margin="43,80,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.769,0.551"/>
         <Label Content="Max age for participants" HorizontalAlignment="Left" Margin="43,111,0,0" VerticalAlignment="Top"/>
         <Label Content="Max number of participants" HorizontalAlignment="Left" Margin="43,141,0,0" VerticalAlignment="Top"/>
-        <CheckBox FontFamily="Century Gothic" FontSize="15" FontStretch="UltraExpanded" FontStyle="Italic" FontWeight="UltraBold" x:Name="gender" Content="Male Only" HorizontalAlignment="Left" Margin="44,179,0,0" VerticalAlignment="Top"/>
+        <CheckBox FontFamily="Century Gothic" FontSize="15" FontStretch="UltraExpanded" FontStyle="Italic" FontWeight="UltraBold" x:Name="gender" Content="Is Male Only" HorizontalAlignment="Left" Margin="44,179,0,0" VerticalAlignment="Top"/>
         <TextBlock FontFamily="Century Gothic" FontSize="12" FontStretch="UltraExpanded" FontStyle="Italic" FontWeight="UltraBold" HorizontalAlignment="Left" Margin="416,55,0,0" x:Name="datesText" Text="Dates:" VerticalAlignment="Top" />
         <Calendar x:Name="tripDates" HorizontalAlignment="Left" Height="174" Margin="344,75,0,0" VerticalAlignment="Top" Width="189" SelectionMode="SingleRange"/>
         <Button x:Name="setButton" HorizontalAlignment="Center"

@@ -142,11 +142,15 @@ namespace TravelApp.Pages
 
         private bool wrongValues()
         {
-            bool result = false;
-
+            int min = 0;
             try
             {
-                int min = int.Parse(minAge.Text);
+                min = int.Parse(minAge.Text);
+                if(min < 0)
+                {
+                    MessageBox.Show("Please enter positive number for min age");
+                    return true;
+                }
                 if (min > minSoFar)
                 {
                     MessageBox.Show("There is already participant which his age is less than your input");
@@ -162,6 +166,16 @@ namespace TravelApp.Pages
             try
             {
                 int max = int.Parse(maxAge.Text);
+                if (max < 0)
+                {
+                    MessageBox.Show("Please enter positive number for max age");
+                    return true;
+                }
+                if(max < min)
+                {
+                    MessageBox.Show("Max age value has cannot be less min age value");
+                    return true;
+                }
                 if (max < maxSoFar)
                 {
                     MessageBox.Show("There is already participant which his age is more than your input");
@@ -177,6 +191,11 @@ namespace TravelApp.Pages
             try
             {
                 int max = int.Parse(maxParts.Text);
+                if(max < 0)
+                {
+                    MessageBox.Show("please enter positive number for max participants");
+                    return true;
+                }
                 if (max < currParts)
                 {
                     MessageBox.Show("There is already more participants than your input");
@@ -200,7 +219,7 @@ namespace TravelApp.Pages
                 MessageBox.Show("Please enter dates for the trip");
                 return true;
             }
-            return result;
+            return true;
         }
 
         private void setClick(object sender, RoutedEventArgs e)

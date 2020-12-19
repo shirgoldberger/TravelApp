@@ -20,7 +20,7 @@ namespace TravelApp.Pages
     /// </summary>
     public partial class AttractionProperties : Window
     {
-        private UserPageModel model;
+        private AttractionProperties_Controller controller;
         private List<City> cities;
         private List<string> types;
         private string cityBegin;
@@ -36,9 +36,9 @@ namespace TravelApp.Pages
         public string City_code { set; get; }
 
 
-        public AttractionProperties(UserPageModel _model, bool _creation)
+        public AttractionProperties(bool _creation)
         {
-            model = _model;
+            controller = new AttractionProperties_Controller();
             creation = _creation;
             InitializeComponent();
             reset();
@@ -46,7 +46,7 @@ namespace TravelApp.Pages
 
         private async Task<List<City>> getCitiesAsync(string begin)
         {
-            List<City> list = await Task.Run(() => model.getCitiesByContinent(null, begin));
+            List<City> list = await Task.Run(() => controller.getCitiesByContinent(null, begin));
             return list;
         }
 
@@ -58,7 +58,7 @@ namespace TravelApp.Pages
 
         private async Task<List<string>> getTypesAsync(string begin)
         {
-            List<string> list = await Task.Run(() => model.getTypes(begin));
+            List<string> list = await Task.Run(() => controller.getTypes(begin));
             return list;
         }
 
@@ -127,13 +127,12 @@ namespace TravelApp.Pages
                 City _city = cities[selectedIndex];
                 changeFieldsByCity(_city);
                 CitySelected = _city;
-                //cityBox.Text = _city.Name;
             }            
         }
 
         private void findByContinent(object sender, RoutedEventArgs e)
         {
-            FindCityByContinent fbc = new FindCityByContinent(model);
+            FindCityByContinent fbc = new FindCityByContinent(controller);
             fbc.ReturenedCity = null;
             fbc.ShowDialog();
             City returnedCity = fbc.ReturenedCity;
@@ -145,7 +144,7 @@ namespace TravelApp.Pages
 
         private void findByCountry(object sender, RoutedEventArgs e)
         {
-            FindCityByCountry fbc = new FindCityByCountry(model);
+            FindCityByCountry fbc = new FindCityByCountry(controller);
             fbc.ReturenedCity = null;
             fbc.ShowDialog();
             City returnedCity = fbc.ReturenedCity;

@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TravelApp.Pages"
+        ResizeMode="NoResize"
         mc:Ignorable="d"
         Title="Find Trip By Attraction" Height="327.621" Width="518.432">
     <Grid>

@@ -20,16 +20,16 @@ namespace TravelApp.Pages
     /// </summary>
     public partial class FindCityByContinent : Window
     {
-        UserPageModel model;
+        AttractionProperties_Controller controller;
         List<string> continents;
         List<City> cities;
         private string continentBegin;
 
         public City ReturenedCity { get; set; }
 
-        public FindCityByContinent(UserPageModel _model)
+        public FindCityByContinent(AttractionProperties_Controller _controller)
         {
-            model = _model;
+            controller = _controller;
             InitializeComponent();
             continentBegin = "";
             bindContinents();
@@ -38,7 +38,7 @@ namespace TravelApp.Pages
 
         private async Task<List<string>> getContinentsAsync(string begin)
         {
-            List<string> list = await Task.Run(() => model.getContinents(begin));
+            List<string> list = await Task.Run(() => controller.getContinents(begin));
             return list;
         }
 
@@ -51,7 +51,7 @@ namespace TravelApp.Pages
 
         private async Task<List<City>> getCitiesAsync(string continent)
         {
-            List<City> list = await Task.Run(() => model.getCitiesByContinent(continent, ""));
+            List<City> list = await Task.Run(() => controller.getCitiesByContinent(continent, ""));
             return list;
         }
 
@@ -84,6 +84,7 @@ namespace TravelApp.Pages
         {
             continentBegin = continentBox.Text;
             bindContinents();
+            continentBox.IsDropDownOpen = true;
         }
     }
 }

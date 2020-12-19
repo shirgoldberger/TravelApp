@@ -23,7 +23,7 @@ namespace TravelApp
     public partial class UserPage : Page
     {
         private string username;
-        private UserPageModel model;
+        private UserPage_Controller controller;
 
         public UserPage(string _username)
         {
@@ -31,7 +31,7 @@ namespace TravelApp
             username = _username;
             InitializeComponent();
             helloStr.Text = "Hello " + username;
-            model = new UserPageModel();
+            controller = new UserPage_Controller();
         }
 
         private void viewTripsButton_Click(object sender, RoutedEventArgs e)
@@ -48,7 +48,7 @@ namespace TravelApp
 
         private void addFriendButton_Click(object sender, RoutedEventArgs e)
         {
-            addNewFriend nf = new addNewFriend(username, model);
+            addNewFriend nf = new addNewFriend(username, controller);
             nf.ShowDialog();
         }
 
@@ -60,7 +60,7 @@ namespace TravelApp
 
         private void addAttractionButton_Click(object sender, RoutedEventArgs e)
         {
-            CreateNewAtt at = new CreateNewAtt(model);
+            CreateNewAtt at = new CreateNewAtt(controller);
             at.ShowDialog();
         }
         private void return_Click(object sender, RoutedEventArgs e)

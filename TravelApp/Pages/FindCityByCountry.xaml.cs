@@ -20,16 +20,16 @@ namespace TravelApp.Pages
     /// </summary>
     public partial class FindCityByCountry : Window
     {
-        UserPageModel model;
+        AttractionProperties_Controller controller;
         List<string> countries;
         List<City> cities;
         private string countryBegin;
 
         public City ReturenedCity { get;set;}
 
-        public FindCityByCountry(UserPageModel _model)
+        public FindCityByCountry(AttractionProperties_Controller _controller)
         {
-            model = _model;
+            controller = _controller;
             InitializeComponent();
             countryBegin = "";
             bindCountries();
@@ -37,7 +37,7 @@ namespace TravelApp.Pages
 
         private async Task<List<string>> getCountriesAsync(string begin)
         {
-            List<string> list = await Task.Run(() => model.getCountries(begin));
+            List<string> list = await Task.Run(() => controller.getCountries(begin));
             return list;
         }
 
@@ -50,7 +50,7 @@ namespace TravelApp.Pages
 
         private async Task<List<City>> getCitiesAsync(string country)
         {
-            List<City> list = await Task.Run(() => model.getCitiesByCountry(country, ""));
+            List<City> list = await Task.Run(() => controller.getCitiesByCountry(country, ""));
             return list;
         }
 
@@ -83,6 +83,7 @@ namespace TravelApp.Pages
         {
             countryBegin = countryBox.Text;
             bindCountries();
+            countryBox.IsDropDownOpen = true;
         }
     }
 }

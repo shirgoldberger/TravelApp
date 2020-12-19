@@ -118,14 +118,23 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controllers\AddNewAttForTrip_Controller.cs" />
+    <Compile Include="Controllers\AddNewMembers_Controller.cs" />
     <Compile Include="Controllers\add_new_att_for_trip_Controller.cs" />
     <Compile Include="Controllers\add_new_mem_for_trip_Controller.cs" />
+    <Compile Include="Controllers\AttractionProperties_Controller.cs" />
     <Compile Include="Controllers\CreateAccount_Controller.cs" />
     <Compile Include="Controllers\deleteTrip_Controller.cs" />
     <Compile Include="Controllers\editTheTrip_Controller.cs" />
+    <Compile Include="Controllers\CreateTrip_Controller.cs" />
+    <Compile Include="Controllers\UserPage_Controller.cs" />
     <Compile Include="Controllers\FindTrip_Controller.cs" />
     <Compile Include="Controllers\HomePage_Controller.cs" />
     <Compile Include="Models\CreateTripModel.cs" />
+    <Compile Include="Models\AttractionsModel.cs" />
+    <Compile Include="Models\TripsModel.cs" />
+    <Compile Include="Models\UsersModel.cs" />
+    <Compile Include="Models\LocationsModel.cs" />
     <Compile Include="Models\UserPageModel.cs" />
     <Compile Include="Objects\TripToAdd.cs" />
     <Compile Include="Objects\User.cs" />

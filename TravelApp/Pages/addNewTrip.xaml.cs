@@ -32,8 +32,7 @@ namespace TravelApp
         private List<User> choosenMaleParticipants;
         private List<User> choosenFemaleParticipants;
         private List<User> choosenParticipants;
-        private CreateTripModel model;
-        private UserPageModel UPmodel;
+        private CreateTrip_Controller controller;
         private bool maleOnly;
         private bool femaleOnly;
         private bool isAdminMale;
@@ -52,8 +51,7 @@ namespace TravelApp
         public addNewTrip(string username)
         {
             InitializeComponent();
-            model = new CreateTripModel();
-            UPmodel = new UserPageModel();
+            controller = new CreateTrip_Controller();
             choosenAttractions = new List<Attraction>();
             choosenMaleParticipants = new List<User>();
             choosenFemaleParticipants = new List<User>();
@@ -89,7 +87,7 @@ namespace TravelApp
 
         private void setAdminAndGender(string username)
         {
-            admin = model.getUserByName(username);
+            admin = controller.getUserByName(username);
             isAdminMale = admin.Is_male == '1';
         }
 
@@ -110,7 +108,7 @@ namespace TravelApp
             {
                 maxAgeArg = int.Parse(user_maxAge);
             }
-            addNewMembersToTrip anm = new addNewMembersToTrip(choosenParticipants, admin.Username, maleOnly, femaleOnly, max, minAgeArg, maxAgeArg, model);
+            addNewMembersToTrip anm = new addNewMembersToTrip(choosenParticipants, admin.Username, maleOnly, femaleOnly, max, minAgeArg, maxAgeArg);
             anm.FemalesAdded = null;
             anm.MalesAdded = null;
             anm.ShowDialog();
@@ -181,7 +179,7 @@ namespace TravelApp
 
         private void addAttractionsClick(object sender, RoutedEventArgs e)
         {
-            AddNewAttForTrip ant = new AddNewAttForTrip(UPmodel, model, choosenAttractions);
+            AddNewAttForTrip ant = new AddNewAttForTrip(choosenAttractions);
             ant.ReturenedAttractions = null;
             ant.ShowDialog();
             List<Attraction> returned = ant.ReturenedAttractions;
@@ -211,7 +209,7 @@ namespace TravelApp
 
         private void createTrip(TripToAdd trip)
         {
-            model.generateTrip(trip, choosenParticipants, choosenAttractions);
+            controller.generateTrip(trip, choosenParticipants, choosenAttractions);
             MessageBox.Show("Trip was added sccessfully");
             this.NavigationService.GoBack();
         }

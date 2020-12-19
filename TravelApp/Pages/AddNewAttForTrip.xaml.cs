@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using TravelApp.Controllers;
 using TravelApp.Models;
 
 namespace TravelApp.Pages
@@ -20,23 +21,21 @@ namespace TravelApp.Pages
     /// </summary>
     public partial class AddNewAttForTrip : Window
     {
-        private UserPageModel UPmodel;
         private List<Attraction> attractions;
         private List<Attraction> newAttractionsChoosed;
-        private CreateTripModel CTmodel;
         private List<Attraction> choosed;
         private string type;
         private string city_code;
         private string attractionName;
+        private AddNewAttForTrip_Controller controller;
 
         public List<Attraction> ReturenedAttractions { set; get; }
 
 
-        public AddNewAttForTrip(UserPageModel _UPmodel, CreateTripModel _CTmodel, List<Attraction> _choosed)
+        public AddNewAttForTrip(List<Attraction> _choosed)
         {
-            UPmodel = _UPmodel;
+            controller = new AddNewAttForTrip_Controller();
             choosed = _choosed;
-            CTmodel = _CTmodel;
             InitializeComponent();
             newAttractionsChoosed = new List<Attraction>();
             choosedAttractionsList.ItemsSource = null;
@@ -59,7 +58,7 @@ namespace TravelApp.Pages
 
         private async Task<List<Attraction>> getAttractionsAsync(string cityId, string type, string name, List<Attraction> drop)
         {
-            List<Attraction> list = await Task.Run(() => CTmodel.getAttractions(cityId, type, name, drop));
+            List<Attraction> list = await Task.Run(() => controller.getAttractions(cityId, type, name, drop));
             return list;
         }
 
@@ -74,7 +73,7 @@ namespace TravelApp.Pages
 
         private void filterClick(object sender, RoutedEventArgs e)
         {
-            AttractionProperties ap = new AttractionProperties(UPmodel, false);
+            AttractionProperties ap = new AttractionProperties(false);
             ap.AttractionReturned = null;
             ap.TypeReturned = null;
             ap.City_code = null;

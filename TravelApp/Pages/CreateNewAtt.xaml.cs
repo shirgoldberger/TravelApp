@@ -20,11 +20,11 @@ namespace TravelApp.Pages
     /// </summary>
     public partial class CreateNewAtt : Window
     {
-        private UserPageModel model;
+        private UserPage_Controller controller;
         private string city_code;
-        public CreateNewAtt(UserPageModel _model)
+        public CreateNewAtt(UserPage_Controller _controller)
         {
-            model = _model;
+            controller = _controller;
             InitializeComponent();
             reset();
         }
@@ -49,12 +49,12 @@ namespace TravelApp.Pages
             }
             string name = attrationName.Text;
             string type = typeName.Text;
-            if(model.attractionAlreadyExist(name, city_code, type))
+            if(controller.attractionAlreadyExist(name, city_code, type))
             {
                 MessageBox.Show("This attraction is already exist");
                 return;
             }
-            bool result = model.addNewAttraction(name, city_code, type);
+            bool result = controller.addNewAttraction(name, city_code, type);
             string message = "Creating the attraction '" + name + "'";
             if(result)
             {
@@ -69,16 +69,21 @@ namespace TravelApp.Pages
             }  
         }
 
-
-        private void setPropertiesClick(object sender, RoutedEventArgs e)
+        private void resetProps(AttractionProperties ap)
         {
-            AttractionProperties ap = new AttractionProperties(model, true);
             ap.AttractionReturned = null;
             ap.ContinentReturned = null;
             ap.CountryReturned = null;
             ap.CityReturned = null;
             ap.TypeReturned = null;
             ap.City_code = null;
+        }
+
+
+        private void setPropertiesClick(object sender, RoutedEventArgs e)
+        {
+            AttractionProperties ap = new AttractionProperties(true);
+            resetProps(ap);
             ap.ShowDialog();
             if(ap.AttractionReturned != null)
             {

@@ -22,20 +22,20 @@ namespace TravelApp
     {
         string username;
         List<string> users;
-        UserPageModel model;
+        UserPage_Controller controller;
 
-        public addNewFriend(string _username, UserPageModel _model)
+        public addNewFriend(string _username, UserPage_Controller _controller)
         {
             InitializeComponent();
             username = _username;
-            model = _model;
+            controller = _controller;
             bindNonUserList();
         }
 
         private void bindNonUserList()
         {
             string beginning = beginTextBox.Text;
-            users = model.getRestUsers(username, beginning);
+            users = controller.getRestUsers(username, beginning);
             userList.ItemsSource = null;
             userList.ItemsSource = users;
         }
@@ -45,7 +45,7 @@ namespace TravelApp
             var item = ((Button)sender).DataContext;
             var itemIndex = userList.Items.IndexOf(item);
             string candidate = users[itemIndex];
-            bool result = model.addNewFriend(username, candidate);
+            bool result = controller.addNewFriend(username, candidate);
             string msg = "Adding " + candidate + " to friends list";
             if (result)
             {

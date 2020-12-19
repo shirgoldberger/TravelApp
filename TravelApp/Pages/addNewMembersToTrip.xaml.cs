@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using TravelApp.Controllers;
 using TravelApp.Models;
 
 namespace TravelApp
@@ -20,15 +21,15 @@ namespace TravelApp
     /// </summary>
     public partial class addNewMembersToTrip : Window
     {
-        List<User> members;
-        string admin;
-        List<User> drop;
-        bool maleOnly;
-        bool femaleOnly;
-        int minAge;
-        int maxAge;
-        int maxParts;
-        CreateTripModel model;
+        private List<User> members;
+        private string admin;
+        private List<User> drop;
+        private bool maleOnly;
+        private bool femaleOnly;
+        private int minAge;
+        private int maxAge;
+        private int maxParts;
+        private AddNewMembers_Controller controller;
         private List<User> malesAdded;
         private List<User> femalesAdded;
         private int left;
@@ -36,10 +37,10 @@ namespace TravelApp
         public List<User> MalesAdded { set;get; }
         public List<User> FemalesAdded { set; get; }
 
-        public addNewMembersToTrip(List<User> _drop, string _admin, bool _maleOnly, bool _femaleOnly, int _max_parts, int _minAge, int _maxAge, CreateTripModel _model)
+        public addNewMembersToTrip(List<User> _drop, string _admin, bool _maleOnly, bool _femaleOnly, int _max_parts, int _minAge, int _maxAge)
         {
             InitializeComponent();
-            model = _model;
+            controller = new AddNewMembers_Controller();
             admin = _admin;
             drop = _drop;
             maleOnly = _maleOnly;
@@ -54,7 +55,7 @@ namespace TravelApp
 
         private async Task<List<User>> getRestMembersAsync(List<User> dropped)
         {
-            List<User> list = await Task.Run(() => model.getRestFriends(dropped, admin, minAge, maxAge, femaleOnly, maleOnly));
+            List<User> list = await Task.Run(() => controller.getRestFriends(dropped, admin, minAge, maxAge, femaleOnly, maleOnly));
             return list;
         }
 
