@@ -29,7 +29,9 @@ namespace TravelApp
     /// </summary>
     public partial class addNewTrip : Page
     {
+        private List<Attraction> inputedAttractions;
         private List<Attraction> choosenAttractions;
+        private List<User> inputedParticipants;
         private List<User> choosenMaleParticipants;
         private List<User> choosenFemaleParticipants;
         private List<User> choosenParticipants;
@@ -49,15 +51,22 @@ namespace TravelApp
         private string user_maxParticipants;
         private bool assignDates;
         private bool creation;
+        private int trip_code;
 
         public addNewTrip(Trip trip, List<Attraction> attractions, List<User> participants)
         {
-            setAdminAndGender(trip.Admin);
+            InitializeComponent();
 
+            controller = new CreateTrip_Controller();
+            setAdminAndGender(trip.Admin);
+            
             choosenAttractions = attractions;
             tripParticipants.ItemsSource = null;
             tripParticipants.ItemsSource = choosenParticipants;
+            inputedAttractions = choosenAttractions.ToList();
 
+            choosenMaleParticipants = new List<User>();
+            choosenFemaleParticipants = new List<User>();
             choosenParticipants = participants;
             tripParticipants.ItemsSource = null;
             tripParticipants.ItemsSource = choosenParticipants;
@@ -72,7 +81,7 @@ namespace TravelApp
                     choosenFemaleParticipants.Add(user);
                 }
             }
-
+            inputedParticipants = choosenParticipants.ToList();
 
             maleOnly = trip.Male_Only;
             femaleOnly = trip.Female_Only;
@@ -86,6 +95,7 @@ namespace TravelApp
             startDate = trip.Start_Date;
             endDate = trip.End_Date;
             creation = false;
+            trip_code = trip.Id;
     }
 
         public addNewTrip(string username)
@@ -255,12 +265,21 @@ namespace TravelApp
             this.NavigationService.GoBack();
         }
 
+        private void updateTrip()
+        {
+            List<User> partsToRemove = inputedParticipants.Except(choosenParticipants).ToList();
+            List<User> partsToAdd = choosenParticipants.Except(inputedParticipants).ToList();
+
+            List<Attraction> attractionsToRemove = inputedAttractions.Except(choosenAttractions).ToList();
+            List<Attraction> attractionsToAdd = choosenAttractions.Except(inputedAttractions).ToList();
+
+            //controller.updateTrip(trip, choosenParticipants, choosenAttractions);
+            MessageBox.Show("Trip was updated sccessfully");
+            this.NavigationService.GoBack();
+        }
+
         private void createTripClick(object sender, RoutedEventArgs e)
         {
-            if(creation)
-            {
-
-            }
             if(isFieldsWrong())
             {
                 return;
@@ -271,8 +290,16 @@ namespace TravelApp
             int maxParts = int.Parse(user_maxParticipants);
             string startConverted = startDate.ToString("yyyy-MM-dd");
             string endConverted = endDate.ToString("yyyy-MM-dd");
-            TripToAdd trip = new TripToAdd(user_tripName, adminName, startConverted, endConverted, minAge, maxAge, maxParts, maleOnly, femaleOnly);
-            createTrip(trip);
+            if (creation)
+            {
+                TripToAdd trip = new TripToAdd(user_tripName, adminName, startConverted, endConverted, minAge, maxAge, maxParts, maleOnly, femaleOnly);
+                createTrip(trip);
+            }
+            else
+            {
+                updateTrip();
+            }
+            
             
         }
 
