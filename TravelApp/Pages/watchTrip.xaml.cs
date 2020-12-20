@@ -21,11 +21,11 @@ namespace TravelApp
     {
         int id;
         string admin;
+        string nameTrip;
         DateTime start_date; 
        DateTime end_date;
        private int min_age;
        private int max_age;
-       private string genderMassage;
        private int max_participants;
        public bool male_only;
        public bool female_only;
@@ -37,6 +37,7 @@ namespace TravelApp
 
         public watchTrip(Trip trip)
         {
+            InitializeComponent();
             start_date = trip.Start_Date;
             end_date = trip.End_Date;
             min_age = trip.Min_Age;
@@ -44,24 +45,26 @@ namespace TravelApp
             max_participants = trip.Max_Participants;
             male_only = trip.Male_Only;
             female_only = trip.Female_Only;
+            nameTrip = trip.Name;
             id = trip.Id;
             admin = trip.Admin;
             //
             if (female_only== true)
             {
-                genderMassage = "female only trip";
+                female.IsChecked = true;
             }
             else if (male_only == true)
             {
-                genderMassage = "men only trip";
+                male.IsChecked = true;
             }
             else
             {
-                genderMassage = "There are no gender restrictions";
 
             }
+            female.IsEnabled = false;
+            male.IsEnabled = false;
+
             //
-            InitializeComponent();
             DataContext = this;
             controller = new watchTrup_Controller(trip);
             members = controller.getMem();
@@ -80,6 +83,11 @@ namespace TravelApp
         public string Admin
         {
             get { return admin; }
+
+        }
+        public string NameTrip
+        {
+            get { return nameTrip; }
 
         }
         public string Start_date
@@ -110,17 +118,15 @@ namespace TravelApp
 
         }
         
-        public string GenderMassage
-        {
-            get { return genderMassage.ToString(); }
-            set { genderMassage = value; }
 
-        }
         private void Button_Click_Exit(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
 
+        private void gender_Copy_Checked(object sender, RoutedEventArgs e)
+        {
 
+        }
     }
 }
