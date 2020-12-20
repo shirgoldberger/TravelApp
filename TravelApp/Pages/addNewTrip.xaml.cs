@@ -63,8 +63,8 @@ namespace TravelApp
             setAdminAndGender(trip.Admin);
             
             choosenAttractions = attractions;
-            tripParticipants.ItemsSource = null;
-            tripParticipants.ItemsSource = choosenParticipants;
+            tripAttractions.ItemsSource = null;
+            tripAttractions.ItemsSource = choosenAttractions;
             inputedAttractions = choosenAttractions.ToList();
 
             choosenMaleParticipants = new List<User>();
