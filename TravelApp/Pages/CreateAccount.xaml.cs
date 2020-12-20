@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -27,10 +28,23 @@ namespace TravelApp
             choosenFriends = new List<string>();
             languages = controller.getLanguages();
             languagesComboBox.ItemsSource = languages;
-            users = controller.getUsers();
-            friendsComboBox.ItemsSource = users;
+            bindUsers();
         }
-        
+
+        private async void bindUsers()
+        {
+            startLoadUsers();
+            users = await getUsersAsync();
+            friendsComboBox.ItemsSource = users;
+            endLoadUsers();
+        }
+
+        private async Task<List<string>> getUsersAsync()
+        {
+            List<string> list = await Task.Run(() => controller.getUsers());
+            return list;
+        }
+
         private void Checked_Friend(object sender, RoutedEventArgs e)
         {
             // add to choosen friends
@@ -144,14 +158,6 @@ namespace TravelApp
                 textBoxEmail.Focus();
                 return;
             }
-            char gender;
-            if ((bool)(female.IsChecked))
-            {
-                gender = '0';
-            } else
-            {
-                gender = '1';
-            }
             int age;
             try
             {
@@ -223,6 +229,20 @@ namespace TravelApp
         private void return_Click(object sender, RoutedEventArgs e)
         {
             this.NavigationService.GoBack();
+        }
+        private void startLoadUsers()
+        {
+            progressBarUsers.IsIndeterminate = true;
+            progressBarTextUsers.Visibility = Visibility.Visible;
+            progressBarUsers.Visibility = Visibility.Visible;
+        }
+
+        private void endLoadUsers()
+        {
+            progressBarUsers.IsIndeterminate = false;
+            progressBarTextUsers.Visibility = Visibility.Hidden;
+            progressBarUsers.Visibility = Visibility.Hidden;
+
         }
     }
 }

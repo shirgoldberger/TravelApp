@@ -30,6 +30,8 @@ namespace TravelApp.Pages
         public FindTripByCity(FindTrip_Controller c)
         {
             InitializeComponent();
+            endLoadCities();
+            endLoadCountries();
             controller = c;
             countryBegin = "";
             bindCountries();
@@ -68,8 +70,10 @@ namespace TravelApp.Pages
 
         private async void bindCountries()
         {
+            startLoadCountries();
             countries = await getCountriesAsync(countryBegin);
             countryBox.ItemsSource = countries;
+            endLoadCountries();
         }
 
         private async Task<List<City>> getCitiesAsync(string country)
@@ -80,6 +84,7 @@ namespace TravelApp.Pages
 
         private async void bindCities()
         {
+            startLoadCities();
             string country = null;
             if (countryBox.SelectedIndex != -1)
             {
@@ -94,7 +99,7 @@ namespace TravelApp.Pages
                 }
             }
             citiesList.ItemsSource = cities;
-
+            endLoadCities();
         }
 
         private void chooseClick(object sender, RoutedEventArgs e)
@@ -125,6 +130,34 @@ namespace TravelApp.Pages
         private void finishButton_Click(object sender, RoutedEventArgs e)
         {
             GetWindow(this).Close();
+        }
+
+        private void startLoadCities()
+        {
+            progressBarCities.IsIndeterminate = true;
+            progressBarTextCities.Visibility = Visibility.Visible;
+            progressBarCities.Visibility = Visibility.Visible;
+        }
+
+        private void endLoadCities()
+        {
+            progressBarCities.IsIndeterminate = false;
+            progressBarTextCities.Visibility = Visibility.Hidden;
+            progressBarCities.Visibility = Visibility.Hidden;
+        }
+
+        private void startLoadCountries()
+        {
+            progressBarCountries.IsIndeterminate = true;
+            progressBarTextCountries.Visibility = Visibility.Visible;
+            progressBarCountries.Visibility = Visibility.Visible;
+        }
+
+        private void endLoadCountries()
+        {
+            progressBarCountries.IsIndeterminate = false;
+            progressBarTextCountries.Visibility = Visibility.Hidden;
+            progressBarCountries.Visibility = Visibility.Hidden;
         }
     }
 }

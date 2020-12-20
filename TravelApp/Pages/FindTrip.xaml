@@ -9,11 +9,19 @@
       Title="FindTrip">
 
     <Grid   Height="592.666" Width="1100">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="27*"/>
+            <ColumnDefinition Width="523*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="195*"/>
+            <RowDefinition Height="398*"/>
+        </Grid.RowDefinitions>
         <Grid.Background>
             <ImageBrush ImageSource="../Pictures/trip2.jpg" TileMode="Tile"/>
         </Grid.Background>
-        <ListView x:Name="allTripsListBox" HorizontalAlignment="Left" Height="479" Margin="357,87,0,0" VerticalAlignment="Top" Width="730"
-            ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderThickness="0" HorizontalContentAlignment="Stretch" Background="Transparent">
+        <ListView x:Name="allTripsListBox" HorizontalAlignment="Left" Height="479" Margin="303.057,87,0,0" VerticalAlignment="Top" Width="730"
+            ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderThickness="0" HorizontalContentAlignment="Stretch" Background="Transparent" Grid.RowSpan="2" Grid.Column="1">
             <ListBox.ItemTemplate>
 
                 <DataTemplate>
@@ -32,16 +40,16 @@
         </ListView>
 
 
-        <Calendar x:Name="tripDate"  SelectionMode="SingleRange"   HorizontalAlignment="Left" Height="165" Margin="93,90,0,0" VerticalAlignment="Top" Width="170" SelectedDatesChanged="tripDate_SelectedDatesChanged"/>
+        <Calendar x:Name="tripDate"  SelectionMode="SingleRange"   HorizontalAlignment="Left" Height="165" Margin="39.057,71,0,0" VerticalAlignment="Top" Width="170" SelectedDatesChanged="tripDate_SelectedDatesChanged" Grid.RowSpan="2" Grid.Column="1"/>
 
 
 
-        <TextBlock HorizontalAlignment="Left" Height="51" Margin="60,27,0,0" TextWrapping="Wrap" Text="Filter Trips:" VerticalAlignment="Top" Width="302" FontSize="36" FontWeight="Bold" TextDecorations="{x:Null}" FontFamily="Perpetua Titling MT"/>
-        <TextBlock HorizontalAlignment="Left" Height="31" Margin="26,94,0,0" TextWrapping="Wrap" Text="Date:" VerticalAlignment="Top" Width="83" FontSize="22" FontWeight="Bold" FontFamily="Ebrima"/>
-        <TextBlock HorizontalAlignment="Left" Height="33" Margin="26,282,0,0" TextWrapping="Wrap" Text="Age:" VerticalAlignment="Top" Width="66" FontSize="22" FontWeight="Bold" FontFamily="Ebrima"/>
-        <TextBox x:Name="ageText" HorizontalAlignment="Left" Height="24" Margin="90,290,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="170"/>
-        <TextBlock HorizontalAlignment="Left" Height="31" Margin="20,330,0,0" TextWrapping="Wrap" Text="Languages:" VerticalAlignment="Top" Width="119" FontSize="22" FontWeight="Bold" FontFamily="Ebrima"/>
-        <ComboBox x:Name="languagesComboBox" HorizontalAlignment="Left" Height="24" Margin="147,337,0,0" VerticalAlignment="Top" Width="170" TextBoxBase.TextChanged="Languages_TextChanged" IsEditable="True">
+        <TextBlock HorizontalAlignment="Left" Height="51" Margin="6.057,11,0,0" TextWrapping="Wrap" Text="Filter Trips:" VerticalAlignment="Top" Width="302" FontSize="36" FontWeight="Bold" TextDecorations="{x:Null}" FontFamily="Perpetua Titling MT" Grid.Column="1"/>
+        <TextBlock HorizontalAlignment="Left" Height="31" Margin="25,69,0,0" TextWrapping="Wrap" Text="Dates:" VerticalAlignment="Top" Width="83" FontSize="22" FontWeight="Bold" FontFamily="Ebrima" Grid.ColumnSpan="2"/>
+        <TextBlock HorizontalAlignment="Left" Height="33" Margin="26,49.333,0,0" TextWrapping="Wrap" Text="Age:" VerticalAlignment="Top" Width="66" FontSize="22" FontWeight="Bold" FontFamily="Ebrima" Grid.Row="1" Grid.ColumnSpan="2"/>
+        <TextBox x:Name="ageText" HorizontalAlignment="Left" Height="24" Margin="36.057,57.333,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="170" Grid.Row="1" Grid.Column="1"/>
+        <TextBlock HorizontalAlignment="Left" Height="31" Margin="20,97.333,0,0" TextWrapping="Wrap" Text="Languages:" VerticalAlignment="Top" Width="119" FontSize="22" FontWeight="Bold" FontFamily="Ebrima" Grid.Row="1" Grid.ColumnSpan="2"/>
+        <ComboBox x:Name="languagesComboBox" HorizontalAlignment="Left" Height="24" Margin="93.057,104.333,0,0" VerticalAlignment="Top" Width="170" TextBoxBase.TextChanged="Languages_TextChanged" IsEditable="True" Grid.Row="1" Grid.Column="1">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <CheckBox Name="checkCountry" Uid="{Binding}" Width="222" Checked="Checked_Language" Unchecked="Unchecked_Language" Content="{Binding}">
@@ -49,8 +57,8 @@
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
-        <TextBlock HorizontalAlignment="Left" Height="28" Margin="16,383,0,0" TextWrapping="Wrap" Text="Friends in trip:" VerticalAlignment="Top" Width="158" FontSize="22" FontWeight="Bold" FontFamily="Ebrima" RenderTransformOrigin="0.442,0.376"/>
-        <ComboBox x:Name="membersComboBox" TextBoxBase.TextChanged="Members_TextChanged"  HorizontalAlignment="Left" Height="24" Margin="183,387,0,0" VerticalAlignment="Top" Width="170" >
+        <TextBlock HorizontalAlignment="Left" Height="28" Margin="16,150.333,0,0" TextWrapping="Wrap" Text="Friends in trip:" VerticalAlignment="Top" Width="158" FontSize="22" FontWeight="Bold" FontFamily="Ebrima" RenderTransformOrigin="0.442,0.376" Grid.Row="1" Grid.ColumnSpan="2"/>
+        <ComboBox x:Name="membersComboBox" TextBoxBase.TextChanged="Members_TextChanged"  HorizontalAlignment="Left" Height="24" Margin="129.057,154.333,0,0" VerticalAlignment="Top" Width="170" Grid.Row="1" Grid.Column="1" >
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <CheckBox Uid="{Binding}" Name="checkFriend" Width="222" Checked="Checked_Member" Unchecked="Unchecked_Member" Content="{Binding}">
@@ -58,9 +66,9 @@
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
-        <TextBlock HorizontalAlignment="Left" Height="51" Margin="572,25,0,0" TextWrapping="Wrap" Text="All Trips:" VerticalAlignment="Top" Width="302" FontSize="36" FontWeight="Bold" TextDecorations="{x:Null}" RenderTransformOrigin="0.57,0.452" FontFamily="Perpetua Titling MT"/>
+        <TextBlock HorizontalAlignment="Left" Height="51" Margin="518.057,25,0,0" TextWrapping="Wrap" Text="All Trips:" VerticalAlignment="Top" Width="302" FontSize="36" FontWeight="Bold" TextDecorations="{x:Null}" RenderTransformOrigin="0.57,0.452" FontFamily="Perpetua Titling MT" Grid.Column="1"/>
         <Button x:Name="findButton" HorizontalAlignment="Center"
-            Margin="41,517,926,12.666" Padding="5" Width="133" Click="Button_Click_Find" FontSize="25" FontWeight="Bold" Background="#FF28617A" Content="Find!" FontFamily="Ebrima" Cursor="Hand">
+            Margin="41,284.333,926,50.667" Padding="5" Width="133" Click="Button_Click_Find" FontSize="25" FontWeight="Bold" Background="#FF28617A" Content="Find!" FontFamily="Ebrima" Cursor="Hand" Grid.Row="1" Grid.ColumnSpan="2">
             <Button.Effect>
                 <DropShadowEffect Color="#FF48636F"/>
             </Button.Effect>
@@ -88,9 +96,9 @@
                 </ControlTemplate>
             </Button.Template>
         </Button>
-        <Button x:Name="filter_location" Cursor="Hand" Content="Choose Cities" HorizontalAlignment="center" Height="24" Margin="36,429,934,0" VerticalAlignment="Top" Width="130" Click="chooseCities_Click" FontFamily="Ebrima"/>
+        <Button x:Name="filter_location" Cursor="Hand" Content="Choose Cities" HorizontalAlignment="center" Height="24" Margin="36,196.333,934,0" VerticalAlignment="Top" Width="130" Click="chooseCities_Click" FontFamily="Ebrima" Grid.Row="1" Grid.ColumnSpan="2"/>
         <Button x:Name="findButton_Copy" HorizontalAlignment="Center"
-            Margin="184,525,787,19.666" Padding="5" Width="129" Click="Button_Click_Reset" FontSize="22" FontWeight="Bold" Background="#FF28617A" Content="Reset" FontFamily="Ebrima" Cursor="Hand">
+            Margin="130.057,292.333,787,57.667" Padding="5" Width="129" Click="Button_Click_Reset" FontSize="22" FontWeight="Bold" Background="#FF28617A" Content="Reset" FontFamily="Ebrima" Cursor="Hand" Grid.Row="1" Grid.Column="1">
             <Button.Effect>
                 <DropShadowEffect Color="#FF48636F"/>
             </Button.Effect>
@@ -118,7 +126,7 @@
                 </ControlTemplate>
             </Button.Template>
         </Button>
-        <Button x:Name="return"  HorizontalAlignment="Right" VerticalAlignment="Top" Width="54" FontWeight="Bold" Margin="0,4,1041,0" Height="50" FontFamily="BN Eyal" FontSize="10" Cursor="Hand" RenderTransformOrigin="-0.534,1.361" Background="#FFDDDDDD" Foreground="White" Click="return_Click">
+        <Button x:Name="return"  HorizontalAlignment="Right" VerticalAlignment="Top" Width="54" FontWeight="Bold" Margin="0,4,1041,0" Height="50" FontFamily="BN Eyal" FontSize="10" Cursor="Hand" RenderTransformOrigin="-0.534,1.361" Background="#FFDDDDDD" Foreground="White" Click="return_Click" Grid.ColumnSpan="2">
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Border x:Name="bdr_main" CornerRadius="20" Margin="4" BorderThickness="1" BorderBrush="Black">
@@ -131,8 +139,10 @@
             </Button.Template>
         </Button>
 
-        <Button x:Name="chooseAttraction" Cursor="Hand" Content="Choose Attractions" HorizontalAlignment="center" Height="24" Margin="187,429,783,0" VerticalAlignment="Top" Width="130" Click="chooseAttractions_Click"/>
-        <CheckBox x:Name="someTrips" Content="Show trips with at least one of the filters" HorizontalAlignment="Left" Height="23" Margin="46,460,0,0" VerticalAlignment="Top" Width="260" Checked="someTrips_Checked" Unchecked="someTrips_Unchecked" FontWeight="Bold" Foreground="#FF5AFF03" />
-        <CheckBox x:Name="allTrips" Content="Show trips that keep all the filters" HorizontalAlignment="Left" Height="29" Margin="47,483,0,0" VerticalAlignment="Top" Width="227" Unchecked="allTrips_Unchecked" Checked="allTrips_Checked" FontWeight="Bold" Foreground="#FF5AFF03"/>
+        <Button x:Name="chooseAttraction" Cursor="Hand" Content="Choose Attractions" HorizontalAlignment="center" Height="24" Margin="133.057,196.333,783,0" VerticalAlignment="Top" Width="130" Click="chooseAttractions_Click" Grid.Row="1" Grid.Column="1"/>
+        <CheckBox x:Name="someTrips" Content="Show trips with at least one of the filters" HorizontalAlignment="Left" Height="23" Margin="46,227.333,0,0" VerticalAlignment="Top" Width="260" Checked="someTrips_Checked" Unchecked="someTrips_Unchecked" FontWeight="Bold" Foreground="#FF5AFF03" Grid.Row="1" Grid.ColumnSpan="2" />
+        <CheckBox x:Name="allTrips" Content="Show trips that keep all the filters" HorizontalAlignment="Left" Height="29" Margin="47,250.333,0,0" VerticalAlignment="Top" Width="227" Unchecked="allTrips_Unchecked" Checked="allTrips_Checked" FontWeight="Bold" Foreground="#FF5AFF03" Grid.Row="1" Grid.ColumnSpan="2"/>
+        <ProgressBar x:Name="progressBarTrips" Visibility="Visible" HorizontalAlignment="Left" Height="14" Margin="852.057,42,0,0" VerticalAlignment="Top" Width="100" Minimum="0" Maximum="100" Grid.Column="1"/>
+        <Label x:Name="progressBarTextTrips" Content="Loading Trips" Visibility="Visible" HorizontalAlignment="Left" Margin="759.057,34,0,0" VerticalAlignment="Top" Width="81" Grid.Column="1"/>
     </Grid>
 </Page>

@@ -23,22 +23,23 @@ namespace TravelApp
     /// </summary>
     public partial class FindTrip : Page
     {
-        FindTrip_Controller controller;
+        private FindTrip_Controller controller;
         private FindTripByCity fbc;
-        List<Trip> trips;
-        private List<String> languages;
-        private List<String> choosenLanguages;
+        private List<Trip> trips;
+        private List<string> languages;
+        private List<string> choosenLanguages;
         private List<City> choosenCities;
         private List<Attraction> choosenAttractions;
         private DateTime startDate_Selected;
         private DateTime endDate_Selected;
-        private List<String> members;
-        private List<String> choosenMembers;
+        private List<string> members;
+        private List<string> choosenMembers;
         string username;
         string howToFilter;
         public FindTrip(string _username)
         {
             InitializeComponent();
+            endLoadTrips();
             username = _username;
             controller = new FindTrip_Controller();
             trips = controller.getTripForUser(username);
@@ -60,7 +61,7 @@ namespace TravelApp
         {
             languagesComboBox.ItemsSource = languages.Where(x => x.StartsWith(languagesComboBox.Text.Trim()));
         }
-        
+
         private void Members_TextChanged(object sender, EventArgs e)
         {
             membersComboBox.ItemsSource = members.Where(x => x.StartsWith(languagesComboBox.Text.Trim()));
@@ -72,7 +73,6 @@ namespace TravelApp
             Trip currentTrip = trips.Find(x => x.Id.ToString() == id);
             watchTrip wt = new watchTrip(currentTrip);
             wt.ShowDialog();
-
         }
 
         private void clickJoinTrip(object sender, RoutedEventArgs e)
@@ -89,7 +89,8 @@ namespace TravelApp
                     MessageBox.Show("Your registration was successful");
                 }
 
-            } else
+            }
+            else
             {
                 MessageBox.Show("Something happened. Registration for the trip failed");
             }
@@ -97,6 +98,7 @@ namespace TravelApp
 
         private void Button_Click_Find(object sender, RoutedEventArgs e)
         {
+            startLoadTrips();
             if (howToFilter == "")
             {
                 MessageBox.Show("Choose how to filter the trips");
@@ -105,16 +107,24 @@ namespace TravelApp
             int age = -1;
             if (ageText.Text.ToString() != "")
             {
-                age = int.Parse(ageText.Text.ToString());
+                try
+                {
+                    age = int.Parse(ageText.Text.ToString());
+                }
+                catch
+                {
+                    MessageBox.Show("Please insert a valid age");
+                    return;
+                }
             }
             List<Trip> t = controller.FindTrip(age, choosenMembers, choosenLanguages, choosenAttractions, choosenCities, startDate_Selected, endDate_Selected, howToFilter);
-            //List<Trip> t = controller.filterTrips(age, choosenLanguages, choosenAttractions, choosenMembers, startDate_Selected, endDate_Selected);
             allTripsListBox.ItemsSource = null;
             allTripsListBox.ItemsSource = t;
             if (allTripsListBox.Items.Count == 0)
             {
                 MessageBox.Show("There are no trips that match this search");
             }
+            endLoadTrips();
         }
 
         private void Checked_Member(object sender, RoutedEventArgs e)
@@ -233,6 +243,21 @@ namespace TravelApp
         {
             someTrips.IsChecked = true;
             howToFilter = "some";
+        }
+
+        private void startLoadTrips()
+        {
+            progressBarTrips.IsIndeterminate = true;
+            progressBarTextTrips.Visibility = Visibility.Visible;
+            progressBarTrips.Visibility = Visibility.Visible;
+        }
+
+        private void endLoadTrips()
+        {
+            progressBarTrips.IsIndeterminate = false;
+            progressBarTextTrips.Visibility = Visibility.Hidden;
+            progressBarTrips.Visibility = Visibility.Hidden;
+
         }
     }
 }

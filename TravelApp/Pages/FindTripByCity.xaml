@@ -22,8 +22,8 @@
         </ComboBox>
         <Button Content="Filter" HorizontalAlignment="Left" Height="22" Margin="178,80,0,0" VerticalAlignment="Top" Width="43" Click="filterByText"/>
         <Label Content="Choose country and filter cities" HorizontalAlignment="center" Margin="18,10,17.667,0" VerticalAlignment="Top" FontSize="20" FontWeight="Bold"/>
-        <Label Content="Cities list :" HorizontalAlignment="right" Margin="0,47,71.667,0" VerticalAlignment="Top" FontSize="15" FontWeight="Bold"/>
-        <ListBox x:Name="citiesList" HorizontalAlignment="right" Margin="0,82,9.667,0" Width="199"
+        <Label Content="Cities list :" HorizontalAlignment="right" Margin="0,73,71.333,0" VerticalAlignment="Top" FontSize="15" FontWeight="Bold"/>
+        <ListBox x:Name="citiesList" HorizontalAlignment="right" Margin="0,105,9.333,0" Width="199"
             ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderThickness="0" HorizontalContentAlignment="Stretch" Background="Transparent" Height="120" VerticalAlignment="Top">
             <ListBox.ItemTemplate>
 
@@ -69,5 +69,9 @@
                 </ControlTemplate>
             </Button.Template>
         </Button>
+        <ProgressBar x:Name="progressBarCities" Visibility="Visible" HorizontalAlignment="Left" Height="14" Margin="399,57,0,0" VerticalAlignment="Top" Width="100" Minimum="0" Maximum="100"/>
+        <Label x:Name="progressBarTextCities" Content="Loading Cities" Visibility="Visible" HorizontalAlignment="Left" Margin="311,49,0,0" VerticalAlignment="Top" Width="88"/>
+        <ProgressBar x:Name="progressBarCountries" Visibility="Visible" HorizontalAlignment="Left" Height="14" Margin="123,57,0,0" VerticalAlignment="Top" Width="100" Minimum="0" Maximum="100"/>
+        <Label x:Name="progressBarTextCountries" Content="Loading Countries" Visibility="Visible" HorizontalAlignment="Left" Margin="11,49,0,0" VerticalAlignment="Top" Width="111"/>
     </Grid>
 </Window>

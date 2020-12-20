@@ -30,11 +30,14 @@ namespace TravelApp.Pages
         public FindTripByAttraction(FindTrip_Controller c)
         {
             InitializeComponent();
+            endLoadAttractions();
+            endLoadCities();
             controller = c;
             cityBegin = "";
             bindCities();
             selectedAttractions = new List<Attraction>();
             selectedCity = null;
+            
         }
 
         public City SelectedCity
@@ -80,6 +83,7 @@ namespace TravelApp.Pages
 
         private async void bindCities()
         {
+            startLoadCities();
             //City city = null;
             //if (cityBox.SelectedItem != null)
             //{
@@ -89,6 +93,7 @@ namespace TravelApp.Pages
             
             cities = await getCitiesAsync(cityBegin);
             cityBox.ItemsSource = cities;
+            endLoadCities();
         }
 
         private async Task<List<Attraction>> getAttractionsAsync(City city)
@@ -99,6 +104,7 @@ namespace TravelApp.Pages
 
         private async void bindAttractions()
         {
+            startLoadAttractions();
             City city = null;
             if (cityBox.SelectedItem != null)
             {
@@ -113,6 +119,7 @@ namespace TravelApp.Pages
                 }
             }
             attractionsList.ItemsSource = attractions;
+            endLoadAttractions();
         }
 
         private void chooseClick(object sender, RoutedEventArgs e)
@@ -134,7 +141,6 @@ namespace TravelApp.Pages
             if (c != null)
             {
                 SelectedCity = c;
-                //bindCities();
                 bindAttractions();
             }
         }
@@ -149,6 +155,34 @@ namespace TravelApp.Pages
         private void finishButton_Click(object sender, RoutedEventArgs e)
         {
             GetWindow(this).Close();
+        }
+
+        private void startLoadCities()
+        {
+            progressBarCities.IsIndeterminate = true;
+            progressBarTextCities.Visibility = Visibility.Visible;
+            progressBarCities.Visibility = Visibility.Visible;
+        }
+
+        private void endLoadCities()
+        {
+            progressBarCities.IsIndeterminate = false;
+            progressBarTextCities.Visibility = Visibility.Hidden;
+            progressBarCities.Visibility = Visibility.Hidden;
+        }
+
+        private void startLoadAttractions()
+        {
+            progressBarAttractions.IsIndeterminate = true;
+            progressBarTextAttractions.Visibility = Visibility.Visible;
+            progressBarAttractions.Visibility = Visibility.Visible;
+        }
+
+        private void endLoadAttractions()
+        {
+            progressBarAttractions.IsIndeterminate = false;
+            progressBarTextAttractions.Visibility = Visibility.Hidden;
+            progressBarAttractions.Visibility = Visibility.Hidden;
         }
     }
 }
