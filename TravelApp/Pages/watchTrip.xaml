@@ -22,7 +22,7 @@
                     <ImageBrush ImageSource="../Pictures/trip5.jpg" TileMode="Tile"/>
                 </Grid.Background>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="252*" />
+                    <RowDefinition Height="400" />
                     <!--   <RowDefinition Height="12*" />-->
                 </Grid.RowDefinitions>
                 <TextBlock Height="30" HorizontalAlignment="Left" Margin="245,114,0,0" x:Name="minParticipantsVal" VerticalAlignment="Top" Width="64" Grid.Column="1"  Foreground="Black" RenderTransformOrigin="0.536,-0.367" FontSize="20" Text="{Binding Min_age}"   />
@@ -60,12 +60,11 @@
                     </ListBox.ItemTemplate>
                 </ListBox>
                 <TextBlock Height="30" FontFamily="Century Gothic" FontSize="25" FontStretch="UltraExpanded" FontStyle="Italic" FontWeight="UltraBold" HorizontalAlignment="Left" Margin="344,226,0,0" x:Name="textBlockMinParticipants1_Copy4" Text="all atraction in trip" VerticalAlignment="Top" Width="245" Foreground="Black" Grid.Column="1" Grid.ColumnSpan="2" />
-                <TextBlock Height="30" HorizontalAlignment="Left" Margin="35,193,0,0" x:Name="maleOrFemale" VerticalAlignment="Top" Width="274" Grid.Column="1"  Foreground="Black" FontSize="20"  Text="{Binding GenderMassage}" RenderTransformOrigin="-0.099,0.489" />
                 <TextBlock Height="30" HorizontalAlignment="Left" Margin="168,76,0,0" x:Name="maxParticipantsVal_Copy2" VerticalAlignment="Top" Width="129" Grid.Column="1" Foreground="Black" FontSize="20" Text="{Binding Start_date}" RenderTransformOrigin="2.521,0.524" />
-                <TextBlock Height="30" FontFamily="Century Gothic" FontSize="25" FontStretch="UltraExpanded" FontStyle="Italic" FontWeight="UltraBold" HorizontalAlignment="Left" Margin="35,45,0,0" x:Name="textBlockMinParticipants1_Copy5" Text="trip id" VerticalAlignment="Top" Width="131" Foreground="Black" Grid.Column="1" />
+                <TextBlock Height="30" FontFamily="Century Gothic" FontSize="25" FontStretch="UltraExpanded" FontStyle="Italic" FontWeight="UltraBold" HorizontalAlignment="Left" Margin="35,45,0,0" x:Name="textBlockMinParticipants1_Copy5" Text="trip name" VerticalAlignment="Top" Width="131" Foreground="Black" Grid.Column="1" />
                 <TextBlock Height="30" FontFamily="Century Gothic" FontSize="25" FontStretch="UltraExpanded" FontStyle="Italic" FontWeight="UltraBold" HorizontalAlignment="Left" Margin="303,45,0,0" x:Name="textBlockMinParticipants1_Copy6" Text="trip admin" VerticalAlignment="Top" Width="131" Foreground="Black" Grid.Column="1" Grid.ColumnSpan="2" />
                 <TextBlock Height="30" HorizontalAlignment="Left" Margin="90,45,0,0" x:Name="maxParticipantsVal_Copy" VerticalAlignment="Top" Width="129" Grid.Column="2" Foreground="Black" FontSize="20" Text="{Binding Admin}" RenderTransformOrigin="2.521,0.524" />
-                <TextBlock Height="30" HorizontalAlignment="Left" Margin="168,44,0,0" x:Name="maxParticipantsVal_Copy3" VerticalAlignment="Top" Width="129" Grid.Column="1" Foreground="Black" FontSize="20" Text="{Binding Id}" RenderTransformOrigin="2.521,0.524" />
+                <TextBlock Height="30" HorizontalAlignment="Left" Margin="168,44,0,0" x:Name="maxParticipantsVal_Copy3" VerticalAlignment="Top" Width="129" Grid.Column="1" Foreground="Black" FontSize="20" Text="{Binding NameTrip}" RenderTransformOrigin="2.521,0.524" />
                 <TextBlock Height="30" FontFamily="Century Gothic" FontSize="25" FontStretch="UltraExpanded" FontStyle="Italic" FontWeight="UltraBold" HorizontalAlignment="Left" Margin="10,14,0,0" x:Name="textBlockMinParticipants1_Copy7" VerticalAlignment="Top" Width="491" Foreground="Black" Grid.Column="1" RenderTransformOrigin="0.819,-0.511" Grid.ColumnSpan="2" ><Run Text="Here are all the details about your trip"/><Run FlowDirection="RightToLeft" Text=":"/></TextBlock>
 
             </Grid>
@@ -99,5 +98,7 @@
                 </Button.Template>
             </Button>
         </Grid>
+        <CheckBox FontFamily="Century Gothic" FontSize="25" FontStretch="UltraExpanded" FontStyle="Italic" FontWeight="UltraBold" x:Name="male" Content="Is Male Only" HorizontalAlignment="Left" Margin="34,199,0,0" VerticalAlignment="Top"/>
+        <CheckBox FontFamily="Century Gothic" FontSize="25" FontStretch="UltraExpanded" FontStyle="Italic" FontWeight="UltraBold" x:Name="female" Content="is female only" HorizontalAlignment="Left" Margin="316,199,0,0" VerticalAlignment="Top" Checked="gender_Copy_Checked"/>
     </Grid>
 </Window>

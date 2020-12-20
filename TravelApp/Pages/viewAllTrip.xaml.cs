@@ -75,8 +75,10 @@ namespace TravelApp
             }
             else
             {
-                editTheTrip edt = new editTheTrip(pushTrip, username);
-                edt.Show();
+                List<User> mem = controller.getAllMem(pushTrip);
+                List<Attraction> att = controller.getAllAtt(pushTrip);
+                addNewTrip ant = new addNewTrip(pushTrip, att, mem);
+                NavigationService.Navigate(ant);
             }
         }
 

@@ -32,6 +32,26 @@ namespace TravelApp
                 max_age, max_participants, male_only, female_only);
             return t;
         }
+        public Attraction createAtt(MySqlDataReader dr)
+        {
+            string attraction_code = dr.GetString("attraction_code");
+            string name = dr.GetString("name");
+            string city_id = dr.GetString("city_id");
+            string type = dr.GetString("type");
+            Attraction a = new Attraction(attraction_code, name, city_id, type);
+            return a;
+        }
+        public User createUser(MySqlDataReader dr)
+        {
+            string usernameArg = dr.GetString("username");
+            string password = dr.GetString("password");
+            string mail = dr.GetString("mail");
+            char is_male = dr.GetString("is_male")[0];
+            int age = int.Parse(dr.GetString("age"));
+            string phone = dr.GetString("phone");
+            User a = new User(usernameArg,password,mail,is_male, age, phone);
+            return a;
+        }
         public List<Trip> getAllTrip()
         {
             string userName = "'" + username + "'";
@@ -127,10 +147,10 @@ namespace TravelApp
             List<string> users = new List<string>();
             String trip_code = trip.Id.ToString();
             trip_code = "'" + trip_code + "'";
-            username = "'" + username + "'";
+            string username1 = "'" + username + "'";
             string command = "SELECT username FROM member " +
                 "WHERE member.trip_code = " + trip_code +
-                "AND username != " + username + ";";
+                "AND username != " + username1 + ";";
 
             MySqlDataReader dr = DbConnection.ExecuteQuery(command);
             if (dr != null)
@@ -142,6 +162,47 @@ namespace TravelApp
             }
             dr.Close();
             return users;
+        }
+        public List<User> getAllMembers(Trip trip)
+        {
+            List<User> users = new List<User>();
+            String trip_code = trip.Id.ToString();
+            trip_code = "'" + trip_code + "'";
+            string username1 = "'" + username + "'";
+            string command = "SELECT * FROM user WHERE username in (SELECT username FROM member" +
+                    " WHERE trip_code =" + trip_code + ")" +
+                       "AND username<>" + username1 + ";";
+            MySqlDataReader dr = DbConnection.ExecuteQuery(command);
+            if (dr != null)
+            {
+                while (dr.Read())
+                {
+                    User a = createUser(dr);
+                    users.Add(a);
+                }
+            }
+            dr.Close();
+            return users;
+        }
+        public List<Attraction> getAllAttraction(Trip trip)
+        {
+            List<Attraction> att = new List<Attraction>();
+            String trip_code = trip.Id.ToString();
+            trip_code = "'" + trip_code + "'";
+            string command = "SELECT * FROM attraction, trip_attractions " +
+                "WHERE trip_attractions.trip_code = " + trip_code + " " +
+                "AND trip_attractions.attraction_code = attraction.attraction_code;";
+            MySqlDataReader dr = DbConnection.ExecuteQuery(command);
+            if (dr != null)
+            {
+                while (dr.Read())
+                {
+                    Attraction a = createAtt(dr);
+                    att.Add(a);
+                }
+            }
+            dr.Close();
+            return att;
         }
     }
 }

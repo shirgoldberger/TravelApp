@@ -48,5 +48,13 @@ namespace TravelApp
             }
             return Tuple.Create(i, msg);
         }
+        public List<User> getAllMem(Trip trip)
+        {
+           return this.model.getAllMembers(trip);
+        }
+        public List<Attraction> getAllAtt(Trip trip)
+        {
+            return this.model.getAllAttraction(trip);
+        }
     }
 }
