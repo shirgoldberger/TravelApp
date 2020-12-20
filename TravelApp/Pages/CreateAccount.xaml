@@ -180,5 +180,7 @@
         </Button>
         <ProgressBar x:Name="progressBarUsers" Visibility="Visible" HorizontalAlignment="Left" Height="14" Margin="823,232,0,0" VerticalAlignment="Top" Width="100" Minimum="0" Maximum="100"/>
         <Label x:Name="progressBarTextUsers" Content="Loading Users" Visibility="Visible" HorizontalAlignment="Left" Margin="711,224,0,0" VerticalAlignment="Top" Width="111"/>
+        <ProgressBar x:Name="progressBarLanguages" Visibility="Visible" HorizontalAlignment="Left" Height="14" Margin="319,405,0,0" VerticalAlignment="Top" Width="100" Minimum="0" Maximum="100"/>
+        <Label x:Name="progressBarTextLanguages" Content="Loading Languages" Visibility="Visible" HorizontalAlignment="Left" Margin="198,397,0,0" VerticalAlignment="Top" Width="114"/>
     </Grid>
 </Page>

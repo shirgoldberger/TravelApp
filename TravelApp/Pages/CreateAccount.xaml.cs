@@ -26,9 +26,8 @@ namespace TravelApp
             controller = new CreateAccount_Controller();
             choosenLanguages = new List<string>();
             choosenFriends = new List<string>();
-            languages = controller.getLanguages();
-            languagesComboBox.ItemsSource = languages;
             bindUsers();
+            bindLanguages();
         }
 
         private async void bindUsers()
@@ -39,9 +38,22 @@ namespace TravelApp
             endLoadUsers();
         }
 
+        private async void bindLanguages()
+        {
+            startLoadLanguages();
+            languages = await getLanguagesAsync();
+            languagesComboBox.ItemsSource = languages;
+            endLoadLanguages();
+        }
+
         private async Task<List<string>> getUsersAsync()
         {
             List<string> list = await Task.Run(() => controller.getUsers());
+            return list;
+        }
+        private async Task<List<string>> getLanguagesAsync()
+        {
+            List<string> list = await Task.Run(() => controller.getLanguages());
             return list;
         }
 
@@ -243,6 +255,20 @@ namespace TravelApp
             progressBarTextUsers.Visibility = Visibility.Hidden;
             progressBarUsers.Visibility = Visibility.Hidden;
 
+        }
+
+        private void startLoadLanguages()
+        {
+            progressBarLanguages.IsIndeterminate = true;
+            progressBarTextLanguages.Visibility = Visibility.Visible;
+            progressBarLanguages.Visibility = Visibility.Visible;
+        }
+
+        private void endLoadLanguages()
+        {
+            progressBarLanguages.IsIndeterminate = false;
+            progressBarTextLanguages.Visibility = Visibility.Hidden;
+            progressBarLanguages.Visibility = Visibility.Hidden;
         }
     }
 }

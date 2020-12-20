@@ -36,28 +36,66 @@ namespace TravelApp
         private DateTime endDate_Selected;
         private List<string> members;
         private List<string> choosenMembers;
-        string username;
-        string howToFilter;
+        private string username;
+        private string howToFilter;
         public FindTrip(string _username)
         {
             InitializeComponent();
             endLoadTrips();
             username = _username;
-            controller = new FindTrip_Controller();
-            trips = controller.getTripForUser(username);
-            allTripsListBox.ItemsSource = trips;
+            controller = new FindTrip_Controller();;
             choosenLanguages = new List<string>();
-            languages = controller.getLanguages();
-            languagesComboBox.ItemsSource = languages;
-            members = controller.getFriendsForUser(this.username);
-            membersComboBox.ItemsSource = members;
             choosenMembers = new List<string>();
             choosenCities = new List<City>();
             choosenAttractions = new List<Attraction>();
             startDate_Selected = new DateTime();
             endDate_Selected = new DateTime();
             howToFilter = "";
+            bindUsers();
+            bindLanguages();
+            bindTrips();
         }
+
+        private async void bindUsers()
+        {
+            startLoadUsers();
+            members = await getFriendsAsync();
+            membersComboBox.ItemsSource = members;
+            endLoadUsers();
+        }
+
+        private async void bindTrips()
+        {
+            startLoadTrips();
+            trips = await getTripsAsync();
+            allTripsListBox.ItemsSource = trips;
+            endLoadTrips();
+        }
+
+        private async void bindLanguages()
+        {
+            startLoadLanguages();
+            languages = await getLanguagesAsync();
+            languagesComboBox.ItemsSource = languages;
+            endLoadLanguages();
+        }
+
+        private async Task<List<string>> getFriendsAsync()
+        {
+            List<string> list = await Task.Run(() => controller.getFriendsForUser(this.username));
+            return list;
+        }
+        private async Task<List<Trip>> getTripsAsync()
+        {
+            List<Trip> list = await Task.Run(() => controller.getTripForUser(this.username));
+            return list;
+        }
+        private async Task<List<string>> getLanguagesAsync()
+        {
+            List<string> list = await Task.Run(() => controller.getLanguages());
+            return list;
+        }
+
 
         private void Languages_TextChanged(object sender, EventArgs e)
         {
@@ -256,6 +294,35 @@ namespace TravelApp
             progressBarTrips.IsIndeterminate = false;
             progressBarTextTrips.Visibility = Visibility.Hidden;
             progressBarTrips.Visibility = Visibility.Hidden;
+
+        }
+
+        private void startLoadLanguages()
+        {
+            progressBarLanguages.IsIndeterminate = true;
+            progressBarTextLanguages.Visibility = Visibility.Visible;
+            progressBarLanguages.Visibility = Visibility.Visible;
+        }
+
+        private void endLoadLanguages()
+        {
+            progressBarLanguages.IsIndeterminate = false;
+            progressBarTextLanguages.Visibility = Visibility.Hidden;
+            progressBarLanguages.Visibility = Visibility.Hidden;
+        }
+
+        private void startLoadUsers()
+        {
+            progressBarFriends.IsIndeterminate = true;
+            progressBarTextFriends.Visibility = Visibility.Visible;
+            progressBarFriends.Visibility = Visibility.Visible;
+        }
+
+        private void endLoadUsers()
+        {
+            progressBarFriends.IsIndeterminate = false;
+            progressBarTextFriends.Visibility = Visibility.Hidden;
+            progressBarFriends.Visibility = Visibility.Hidden;
 
         }
     }
