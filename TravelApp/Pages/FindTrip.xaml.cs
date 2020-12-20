@@ -2,6 +2,7 @@
 using Org.BouncyCastle.Crypto.Tls;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,6 +26,7 @@ namespace TravelApp
     {
         private FindTrip_Controller controller;
         private FindTripByCity fbc;
+        private FindTripByAttraction ftba;
         private List<Trip> trips;
         private List<string> languages;
         private List<string> choosenLanguages;
@@ -177,10 +179,7 @@ namespace TravelApp
 
         private void chooseCities_Click(object sender, RoutedEventArgs e)
         {
-            if (fbc == null)
-            {
-                fbc = new FindTripByCity(controller);
-            }
+            fbc = new FindTripByCity(controller);
             fbc.ShowDialog();
             choosenCities = fbc.SelectedCities;
         }
@@ -215,7 +214,7 @@ namespace TravelApp
 
         private void chooseAttractions_Click(object sender, RoutedEventArgs e)
         {
-            FindTripByAttraction ftba = new FindTripByAttraction(controller);
+            ftba = new FindTripByAttraction(controller);
             ftba.ShowDialog();
             choosenAttractions = ftba.SelectedAttractions;
         }
