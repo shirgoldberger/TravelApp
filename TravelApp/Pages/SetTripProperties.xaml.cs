@@ -219,7 +219,7 @@ namespace TravelApp.Pages
                 MessageBox.Show("Please enter dates for the trip");
                 return true;
             }
-            return true;
+            return false;
         }
 
         private void setClick(object sender, RoutedEventArgs e)

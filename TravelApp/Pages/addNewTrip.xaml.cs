@@ -52,10 +52,12 @@ namespace TravelApp
         private bool assignDates;
         private bool creation;
         private int trip_code;
+        private Trip inputedtrip;
 
         public addNewTrip(Trip trip, List<Attraction> attractions, List<User> participants)
         {
             InitializeComponent();
+            inputedtrip = trip;
 
             controller = new CreateTrip_Controller();
             setAdminAndGender(trip.Admin);
@@ -265,7 +267,7 @@ namespace TravelApp
             this.NavigationService.GoBack();
         }
 
-        private void updateTrip()
+        private void updateTrip(int minAge, int maxAge, int maxParts, string startConverted, string endConverted, bool maleOnly, bool femaleOnly)
         {
             List<User> partsToRemove = inputedParticipants.Except(choosenParticipants).ToList();
             List<User> partsToAdd = choosenParticipants.Except(inputedParticipants).ToList();
@@ -273,7 +275,7 @@ namespace TravelApp
             List<Attraction> attractionsToRemove = inputedAttractions.Except(choosenAttractions).ToList();
             List<Attraction> attractionsToAdd = choosenAttractions.Except(inputedAttractions).ToList();
 
-            //controller.updateTrip(trip, choosenParticipants, choosenAttractions);
+            controller.updateTrip(inputedtrip, user_tripName, minAge, maxAge, maxParts, startConverted, endConverted, maleOnly, femaleOnly, partsToRemove, partsToAdd, attractionsToRemove, attractionsToAdd);
             MessageBox.Show("Trip was updated sccessfully");
             this.NavigationService.GoBack();
         }
@@ -297,7 +299,7 @@ namespace TravelApp
             }
             else
             {
-                updateTrip();
+                updateTrip(minAge, maxAge, maxParts, startConverted, endConverted, maleOnly, femaleOnly);
             }
             
             

@@ -54,6 +54,43 @@ namespace TravelApp
             }
         }
 
+        public static bool ExecuteNonQueryTransaction(List<string> commands)
+        {
+            bool result = true;
+
+            if (commands.Count == 0)
+            {
+                return result;
+            }
+
+            MySqlCommand myCommand = DbConnection.Connection.CreateCommand();
+            MySqlTransaction myTrans;
+            myTrans = DbConnection.Connection.BeginTransaction();
+            myCommand.Connection = DbConnection.Connection;
+            myCommand.Transaction = myTrans;
+
+            try
+            {
+                foreach (string command in commands)
+                {
+                    myCommand.CommandText = command;
+                    myCommand.ExecuteNonQuery();
+                }
+
+                myTrans.Commit();
+            }
+            catch (Exception)
+            {
+                result = false;
+                try
+                {
+                    myTrans.Rollback();
+                }
+                catch (MySqlException) { }
+            }
+            return result;
+        }
+
         public static bool ExecuteNonQuery(string command)
         {
             try
