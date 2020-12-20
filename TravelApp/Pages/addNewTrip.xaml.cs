@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Google.Protobuf.WellKnownTypes;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -47,6 +48,45 @@ namespace TravelApp
         private bool user_genderOnly;
         private string user_maxParticipants;
         private bool assignDates;
+        private bool creation;
+
+        public addNewTrip(Trip trip, List<Attraction> attractions, List<User> participants)
+        {
+            setAdminAndGender(trip.Admin);
+
+            choosenAttractions = attractions;
+            tripParticipants.ItemsSource = null;
+            tripParticipants.ItemsSource = choosenParticipants;
+
+            choosenParticipants = participants;
+            tripParticipants.ItemsSource = null;
+            tripParticipants.ItemsSource = choosenParticipants;
+            foreach (User user in choosenParticipants)
+            {
+                if (user.Is_male == '1')
+                {
+                    choosenMaleParticipants.Add(user);
+                }
+                else
+                {
+                    choosenFemaleParticipants.Add(user);
+                }
+            }
+
+
+            maleOnly = trip.Male_Only;
+            femaleOnly = trip.Female_Only;
+            user_tripName = trip.Name;
+            user_maxAge = trip.Max_Age.ToString();
+            user_minAge = trip.Min_Age.ToString();
+            user_genderOnly = maleOnly || femaleOnly;
+            user_maxParticipants = trip.Max_Participants.ToString() ;
+            assignDates = true;
+            createButton.Content = "Update Trip";
+            startDate = trip.Start_Date;
+            endDate = trip.End_Date;
+            creation = false;
+    }
 
         public addNewTrip(string username)
         {
@@ -66,6 +106,7 @@ namespace TravelApp
             user_genderOnly = false;
             user_maxParticipants = "";
             assignDates = false;
+            creation = true;
     }
 
         private void setMinAndMaxAge()
@@ -216,6 +257,10 @@ namespace TravelApp
 
         private void createTripClick(object sender, RoutedEventArgs e)
         {
+            if(creation)
+            {
+
+            }
             if(isFieldsWrong())
             {
                 return;

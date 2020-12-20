@@ -56,7 +56,7 @@
 
         <TextBlock HorizontalAlignment="Left" Height="29" Margin="169,210,0,0" TextWrapping="Wrap" Text="Trip Attractions:" VerticalAlignment="Top" Width="218" FontSize="20" FontWeight="Bold" TextDecorations="{x:Null}" FontFamily="Perpetua Titling MT"/>
         <TextBlock HorizontalAlignment="Left" Height="29" Margin="696,210,0,0" TextWrapping="Wrap" Text="Trip Prticipants:" VerticalAlignment="Top" Width="212" FontSize="20" FontWeight="Bold" TextDecorations="{x:Null}" RenderTransformOrigin="0.57,0.452" FontFamily="Perpetua Titling MT"/>
-        <Button x:Name="findButton" HorizontalAlignment="Center"
+        <Button x:Name="createButton" HorizontalAlignment="Center"
             Margin="440,488,469,41.666" Padding="5" Width="191" Click="createTripClick" FontSize="25" FontWeight="Bold" Background="#FF28617A" Content="Create Trip" FontFamily="Ebrima" Cursor="Hand">
             <Button.Effect>
                 <DropShadowEffect Color="#FF48636F"/>
