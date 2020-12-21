@@ -28,6 +28,7 @@ namespace TravelApp
             {
                 deleteTrip delete = new deleteTrip(trip, username);
                 delete.Show();
+
             }
             //just delete this username from trip - using the model.
             else

@@ -82,7 +82,7 @@ namespace TravelApp
                 NavigationService.Navigate(ant);
                 if(ant.Updated)
                 {
-                    //TODO
+                    update();
                 }
             }
         }
@@ -94,6 +94,12 @@ namespace TravelApp
         private void return_Click(object sender, RoutedEventArgs e)
         {
             this.NavigationService.GoBack();
+        }
+        private void update()
+        {
+            trips = null;
+            trips = controller.getAllTrip();
+            allTripsListBox.ItemsSource = trips;
         }
     }
 }
