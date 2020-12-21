@@ -54,6 +54,8 @@ namespace TravelApp
         private int trip_code;
         private Trip inputedtrip;
 
+        public bool Updated { set;get; }
+
         public addNewTrip(Trip trip, List<Attraction> attractions, List<User> participants)
         {
             InitializeComponent();
@@ -277,6 +279,7 @@ namespace TravelApp
 
             controller.updateTrip(inputedtrip, user_tripName, minAge, maxAge, maxParts, startConverted, endConverted, maleOnly, femaleOnly, partsToRemove, partsToAdd, attractionsToRemove, attractionsToAdd);
             MessageBox.Show("Trip was updated sccessfully");
+            Updated = true;
             this.NavigationService.GoBack();
         }
 

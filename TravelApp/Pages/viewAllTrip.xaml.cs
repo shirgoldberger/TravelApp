@@ -78,7 +78,12 @@ namespace TravelApp
                 List<User> mem = controller.getAllMem(pushTrip);
                 List<Attraction> att = controller.getAllAtt(pushTrip);
                 addNewTrip ant = new addNewTrip(pushTrip, att, mem);
+                ant.Updated = false;
                 NavigationService.Navigate(ant);
+                if(ant.Updated)
+                {
+                    //TODO
+                }
             }
         }
 
