@@ -21,9 +21,9 @@ namespace TravelApp
     /// </summary>
     public partial class viewAllTrip: Page
     {
-        string username;
-        List<Trip> trips;
-        viewAllTrip_controller controller;
+        private string username;
+        private List<Trip> trips;
+        private viewAllTrip_controller controller;
 
         public viewAllTrip(string _username)
         {
@@ -62,7 +62,16 @@ namespace TravelApp
             
           }
 
-        
+        public bool Updated
+        {
+            set
+            {
+                if(value)
+                {
+                    update();
+                }
+            }
+        }
         public void clickEdit(object sender, RoutedEventArgs e)
         {
             var item = ((Button)sender).DataContext;
@@ -77,13 +86,9 @@ namespace TravelApp
             {
                 List<User> mem = controller.getAllMem(pushTrip);
                 List<Attraction> att = controller.getAllAtt(pushTrip);
-                addNewTrip ant = new addNewTrip(pushTrip, att, mem);
-                ant.Updated = false;
+                addNewTrip ant = new addNewTrip(this, pushTrip, att, mem);
+                Updated = false;
                 NavigationService.Navigate(ant);
-                if(ant.Updated)
-                {
-                    update();
-                }
             }
         }
 
@@ -97,8 +102,8 @@ namespace TravelApp
         }
         private void update()
         {
-            trips = null;
             trips = controller.getAllTrip();
+            allTripsListBox.ItemsSource = null;
             allTripsListBox.ItemsSource = trips;
         }
     }

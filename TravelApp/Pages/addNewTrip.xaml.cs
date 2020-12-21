@@ -53,10 +53,9 @@ namespace TravelApp
         private bool creation;
         private int trip_code;
         private Trip inputedtrip;
+        private Page calledPage;
 
-        public bool Updated { set;get; }
-
-        public addNewTrip(Trip trip, List<Attraction> attractions, List<User> participants)
+        public addNewTrip(Page page, Trip trip, List<Attraction> attractions, List<User> participants)
         {
             InitializeComponent();
             inputedtrip = trip;
@@ -100,6 +99,7 @@ namespace TravelApp
             endDate = trip.End_Date;
             creation = false;
             trip_code = trip.Id;
+            calledPage = page;
     }
 
         public addNewTrip(string username)
@@ -279,7 +279,7 @@ namespace TravelApp
 
             controller.updateTrip(inputedtrip, user_tripName, minAge, maxAge, maxParts, startConverted, endConverted, maleOnly, femaleOnly, partsToRemove, partsToAdd, attractionsToRemove, attractionsToAdd);
             MessageBox.Show("Trip was updated sccessfully");
-            Updated = true;
+            (calledPage as viewAllTrip).Updated = true;
             this.NavigationService.GoBack();
         }
 
