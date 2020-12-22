@@ -52,7 +52,7 @@ namespace TravelApp
             var item = ((Button)sender).DataContext;
             var itemIndex = allTripsListBox.Items.IndexOf(item);
             //check if he is the admin of this trip.
-            var t = controller.click_delete(trips[itemIndex]);
+            var t = controller.click_delete(trips[itemIndex], this);
             if (t.Item2 != "")
             {
                 MessageBox.Show(t.Item2);

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace TravelApp
 {
@@ -10,7 +11,7 @@ namespace TravelApp
     {
         viewAllTrip_Model model;
         string username;
-        public viewAllTrip_controller(string username)
+        public viewAllTrip_controller(string username )
         {
             this.username = username;
             model = new viewAllTrip_Model(username);
@@ -19,14 +20,14 @@ namespace TravelApp
         {
            return model.getAllTrip();
         }
-        public Tuple<int, string> click_delete(Trip trip)
+        public Tuple<int, string> click_delete(Trip trip, Page pageToUpdate)
         {
             int i=0;
             string msg="";
             //if the username is the admin he need to choose - so he make the decision in tjr deleteTrip page
             if (username == trip.Admin)
             {
-                deleteTrip delete = new deleteTrip(trip, username);
+                deleteTrip delete = new deleteTrip(trip, username, pageToUpdate);
                 delete.Show();
 
             }
@@ -44,6 +45,8 @@ namespace TravelApp
                 {
                     i = 0;
                    msg ="delete sucses";
+                   (pageToUpdate as viewAllTrip).Updated = true;
+
 
                 }
             }

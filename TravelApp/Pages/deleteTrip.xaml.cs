@@ -23,7 +23,8 @@ namespace TravelApp
         string username;
         List<string> members;
         deleteTrip_Controller controller;
-        public deleteTrip(Trip trip, string _username)
+        Page pageToUpdate;
+        public deleteTrip(Trip trip, string _username, Page pageToUpdate)
         {
             username = _username;
             InitializeComponent();
@@ -31,11 +32,13 @@ namespace TravelApp
             members = controller.getAllMembers();
             allMemListBox.ItemsSource = members;
             this.trip = trip;
+            this.pageToUpdate = pageToUpdate;
         }
         public void Button_Click_All(object sender, RoutedEventArgs e)
         {
             var t = controller.Click_All();
             MessageBox.Show(t.Item2);
+            (pageToUpdate as viewAllTrip).Updated = true;
             this.Close();
 
         }
@@ -49,6 +52,7 @@ namespace TravelApp
             var itemIndex = allMemListBox.Items.IndexOf(item);
             var t = controller.row_click(members[itemIndex]);
             MessageBox.Show(t.Item2);
+            (pageToUpdate as viewAllTrip).Updated = true;
             this.Close();
         }
 
