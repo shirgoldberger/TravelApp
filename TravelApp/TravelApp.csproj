@@ -132,6 +132,7 @@
     <Compile Include="Controllers\HomePage_Controller.cs" />
     <Compile Include="Models\CreateTripModel.cs" />
     <Compile Include="Models\AttractionsModel.cs" />
+    <Compile Include="Models\LanguagesModel.cs" />
     <Compile Include="Models\TripsModel.cs" />
     <Compile Include="Models\UsersModel.cs" />
     <Compile Include="Models\LocationsModel.cs" />

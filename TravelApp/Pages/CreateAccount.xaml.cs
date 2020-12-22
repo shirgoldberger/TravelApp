@@ -133,83 +133,14 @@ namespace TravelApp
         }
         private void Submit_Click(object sender, RoutedEventArgs e)
         {
-            if (textBoxUserName.Text.Length == 0)
+            Tuple<bool, string> t = controller.createAccount(textBoxUserName.Text, textBoxPhone.Text, textBoxEmail.Text, passwordBox.Password, 
+                passwordBoxConfirm.Password, textBoxAddress.Text, textBoxAge.Text, 
+                (bool)male.IsChecked, (bool)female.IsChecked, choosenFriends, choosenLanguages);
+            MessageBox.Show(t.Item2);
+            if (t.Item1)
             {
-                MessageBox.Show("Please insert username");
-                textBoxUserName.Focus();
-                return;
-            }
-            if (choosenLanguages.Count == 0)
-            {
-                MessageBox.Show("Please choose languages");
-                languagesComboBox.Focus();
-                return;
-            }
-            if (textBoxPhone.Text.Length != 10)
-            {
-                MessageBox.Show("Please insert correct phone number");
-                textBoxPhone.Focus();
-                return;
-            }
-            if (male.IsChecked == false && female.IsChecked == false)
-            {
-                MessageBox.Show("Choose Gender");
-                male.Focus();
-                return;
-            }
-            if (textBoxEmail.Text.Length == 0)
-            {
-                MessageBox.Show("Enter an email");
-                textBoxEmail.Focus();
-                return;
-            }
-            if (!Regex.IsMatch(textBoxEmail.Text, @"^[a-zA-Z][\w\.-]*[a-zA-Z0-9]@[a-zA-Z0-9][\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]$"))
-            {
-                MessageBox.Show("Enter a valid email");
-                textBoxEmail.Select(0, textBoxEmail.Text.Length);
-                textBoxEmail.Focus();
-                return;
-            }
-            int age;
-            try
-            {
-                age = int.Parse(textBoxAge.Text);
-            }
-            catch
-            {
-                MessageBox.Show("Enter valid age");
-                textBoxAge.Focus();
-                return;
-            }
-            if (passwordBox.Password.Length == 0)
-            {
-                MessageBox.Show("Enter password");
-                passwordBox.Focus();
-                return;
-            }
-            if (passwordBoxConfirm.Password.Length == 0)
-            {
-                MessageBox.Show("Enter Confirm password");
-                passwordBoxConfirm.Focus();
-                return;
-            }
-            if (passwordBox.Password != passwordBoxConfirm.Password)
-            {
-                MessageBox.Show("Confirm password must be same as password");
-                passwordBoxConfirm.Focus();
-                return;
-            }
-            else
-            {
-                Tuple<bool, string> t = controller.createAccount(textBoxUserName.Text, textBoxPhone.Text, textBoxEmail.Text, passwordBox.Password, 
-                    passwordBoxConfirm.Password, textBoxAddress.Text, textBoxAge.Text, 
-                    (bool)male.IsChecked, (bool)female.IsChecked, choosenFriends, choosenLanguages);
-                MessageBox.Show(t.Item2);
-                if (t.Item1)
-                {
                     HomePage hp = new HomePage();
                     this.NavigationService.Navigate(hp);
-                }
             }
         }
         private void male_Checked(object sender, RoutedEventArgs e)

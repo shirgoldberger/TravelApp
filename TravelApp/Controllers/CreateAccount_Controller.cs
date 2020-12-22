@@ -5,16 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using TravelApp.Models;
 
 namespace TravelApp
 {
     class CreateAccount_Controller
     {
-        private CreateAccoutModel cam;
-
         public CreateAccount_Controller()
         {
-            cam = new CreateAccoutModel();
         }
         public Tuple<bool, string> createAccount(string username, string phone, string email, string password, string passwordConfirm,
         string address, string stringAge, bool male_box, bool female_box, List<String> friends, List<String> languages)
@@ -75,7 +73,7 @@ namespace TravelApp
             }
             else
             {
-                Tuple<bool, string> t = cam.createAccount(username, phone,
+                Tuple<bool, string> t = UsersModel.Instance.createAccount(username, phone,
                     email, password, address, age, male, friends, languages);
                 return t;
             }
@@ -83,12 +81,12 @@ namespace TravelApp
 
         public List<string> getLanguages()
         {
-            return cam.getLanguages();
+            return LanguagessModel.Instance.getLanguages();
         }
 
         public List<string> getUsers()
         {
-            return cam.getUsers();
+            return UsersModel.Instance.getUsers();
         }
     }
 }
