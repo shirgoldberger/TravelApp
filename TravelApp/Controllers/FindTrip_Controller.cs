@@ -34,33 +34,33 @@ namespace TravelApp
             return ftm.FindTrip(age, members, languages, attractions, cities, start, end, op);
         }
 
-        public List<Trip> filterTrips(int age, List<string> languages, List<Attraction> attractions,
-            List<string> users, DateTime start, DateTime end)
-        {
-            List<Trip> trips = new List<Trip>();
-            if (age != -1)
-            {
-                trips.AddRange(ftm.findTripByAge(age));
-            }
-            if (languages.Count() != 0)
-            {
-                trips.AddRange(ftm.findTripByLanguage(languages));
-            }
-            if (attractions.Count() != 0)
-            {
-                trips.AddRange(ftm.findTripByAttractions(attractions));
-            }
-            if (users.Count() != 0)
-            {
-                trips.AddRange(ftm.findTripByMember(users));
+        //public List<Trip> filterTrips(int age, List<string> languages, List<Attraction> attractions,
+        //    List<string> users, DateTime start, DateTime end)
+        //{
+        //    List<Trip> trips = new List<Trip>();
+        //    if (age != -1)
+        //    {
+        //        trips.AddRange(ftm.findTripByAge(age));
+        //    }
+        //    if (languages.Count() != 0)
+        //    {
+        //        trips.AddRange(ftm.findTripByLanguage(languages));
+        //    }
+        //    if (attractions.Count() != 0)
+        //    {
+        //        trips.AddRange(ftm.findTripByAttractions(attractions));
+        //    }
+        //    if (users.Count() != 0)
+        //    {
+        //        trips.AddRange(ftm.findTripByMember(users));
 
-            }
-            if (start != null && end != null)
-            {
-                trips.AddRange(ftm.findTripByDates(start, end));
-            }
-            return trips;
-        }
+        //    }
+        //    if (start != null && end != null)
+        //    {
+        //        trips.AddRange(ftm.findTripByDates(start, end));
+        //    }
+        //    return trips;
+        //}
 
         public List<Trip> getAllTrip()
         {

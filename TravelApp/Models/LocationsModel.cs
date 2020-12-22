@@ -53,6 +53,26 @@ namespace TravelApp.Models
             return cityCode;
         }
 
+        public List<City> getCitiesByBegin(string begin)
+        {
+            List<City> cities = new List<City>();
+            string command = "SELECT * FROM city WHERE name LIKE '" + begin + "%';";
+                MySqlDataReader dr = DbConnection.ExecuteQuery(command);
+                if (dr != null)
+                {
+                    while (dr.Read())
+                    {
+                        string id = dr.GetString("city_id");
+                        string name = dr.GetString("name");
+                        string country = dr.GetString("country");
+                        City c = new City(id, name, country);
+                        cities.Add(c);
+                    }
+                    dr.Close();
+                }
+            return cities;
+        }
+
         public List<string> getContinents(string begin)
         {
             List<string> continents = new List<string>();
@@ -185,6 +205,30 @@ namespace TravelApp.Models
 
             return cities;
         }
+
+        public List<City> getAllCities()
+        {
+            List<City> cities = new List<City>();
+            string command = "SELECT * FROM City JOIN Country WHERE City.country=Country.name;";
+            MySqlDataReader dr = DbConnection.ExecuteQuery(command);
+            if (dr != null)
+            {
+                while (dr.Read())
+                {
+                    string id = dr.GetString("city_id");
+                    string name = dr.GetString("name");
+                    string country = dr.GetString("country");
+                    string continent = dr.GetString("continent");
+                    City c = new City(id, name, country, continent);
+                    cities.Add(c);
+                }
+                dr.Close();
+            }
+            return cities;
+
+        }
+
+     
     }
 }
     

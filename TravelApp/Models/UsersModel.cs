@@ -171,5 +171,155 @@ namespace TravelApp.Models
 
             return result;
         }
+
+        public List<string> getUsers()
+        {
+            List<String> users = new List<String>();
+            string command = "SELECT * FROM User;";
+            MySqlDataReader dr = DbConnection.ExecuteQuery(command);
+            if (dr != null)
+            {
+                while (dr.Read())
+                {
+                    string name = dr.GetString("username");
+                    users.Add(name);
+                }
+                dr.Close();
+            }
+            return users;
+        }
+
+        public Tuple<bool, string> createAccount(string username, string phone, string email, string password,
+    string address, int stringAge, char is_male, List<String> friends, List<String> languages)
+        {
+            string command = "SELECT username FROM user WHERE username='" + username + "';";
+            MySqlDataReader dr = DbConnection.ExecuteQuery(command);
+            if (dr != null)
+            {
+                while (dr.Read())
+                {
+                    dr.Close();
+                    return new Tuple<bool, string>(false, "Username is already exist, try another username");
+                }
+                dr.Close();
+                // create account
+                command = "insert into user (username,password,mail,is_male,age,phone) values('" + username + "','" + password + "','" + email + "','" + is_male + "'," + stringAge + ",'" + phone + "');";
+                if (DbConnection.ExecuteNonQuery(command))
+                {
+                    dr.Close();
+                    // insert friends here
+                    int i;
+                    string friendString = "";
+                    for (i = 0; i < friends.Count(); i++)
+                    {
+                        friendString += ("('" + username + "', '" +
+                            friends[i] + "')");
+                        if (i != friends.Count() - 1)
+                        {
+                            friendString += ", ";
+                        }
+                    }
+                    command = "insert into Friends VALUES " + friendString + ";";
+                    if (DbConnection.ExecuteNonQuery(command))
+                    {
+                        // insert languages here
+                        string languageString = "";
+                        for (i = 0; i < languages.Count(); i++)
+                        {
+                            languageString += ("('" + username + "', '" +
+                                languages[i] + "')");
+                            if (i != languages.Count() - 1)
+                            {
+                                languageString += ", ";
+                            }
+                        }
+                        command = "insert into user_languages VALUES " + languageString + ";";
+                        if (DbConnection.ExecuteNonQuery(command))
+                        {
+                            return new Tuple<bool, string>(true, "Create account success!");
+                        }
+                    }
+                }
+                else
+                {
+                    dr.Close();
+                    return new Tuple<bool, string>(false, "Cannot create account, please try again");
+                }
+            }
+            return new Tuple<bool, string>(false, "Cannot create account, please try again");
+        }
+
+        public User createUser(MySqlDataReader dr)
+        {
+            string usernameArg = dr.GetString("username");
+            string password = dr.GetString("password");
+            string mail = dr.GetString("mail");
+            char is_male = dr.GetString("is_male")[0];
+            int age = int.Parse(dr.GetString("age"));
+            string phone = dr.GetString("phone");
+            User a = new User(usernameArg, password, mail, is_male, age, phone);
+            return a;
+        }
+
+        public List<String> getFriendsForUser(string username)
+        {
+            List<String> friends = new List<string>();
+            string command = "SELECT * FROM Friends WHERE username1='" + username
+                + "' OR username2='" + username + "';";
+            MySqlDataReader dr = DbConnection.ExecuteQuery(command);
+            if (dr != null)
+            {
+                while (dr.Read())
+                {
+                    string name1 = dr.GetString("username1");
+                    string name2 = dr.GetString("username2");
+                    if (name1 != username)
+                    {
+                        friends.Add(name1);
+                    }
+                    else if (name2 != username)
+                    {
+                        friends.Add(name2);
+                    }
+                }
+                dr.Close();
+            }
+            return friends;
+        }
+
+        public string login(string name, string password)
+        {
+            // check username
+            string command = "SELECT username FROM user WHERE username='" + name + "';";
+            MySqlDataReader dr = DbConnection.ExecuteQuery(command);
+            if (dr != null)
+            {
+                while (dr.Read())
+                {
+                    // Check the username & password 
+                    command = "SELECT username FROM user WHERE username='" + name + "' AND password='" + password + "';";
+                    dr.Close();
+                    MySqlDataReader dr2 = DbConnection.ExecuteQuery(command);
+                    if (dr2 != null)
+                    {
+                        while (dr2.Read())
+                        {
+                            string username = dr2.GetString("username");
+                            dr2.Close();
+                            return username;
+                        }
+                        dr2.Close();
+                        throw new Exception("The password does not match this username");
+                    }
+                    else
+                    {
+                        throw new Exception("The password does not match this username");
+                    }
+                }
+                dr.Close();
+                throw new Exception("cannot find this account");
+            }
+            throw new Exception("cannot find this account");
+        }
     }
 }

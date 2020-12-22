@@ -30,6 +30,16 @@ namespace TravelApp.Models
             }
         }
 
+        public Attraction createAtt(MySqlDataReader dr)
+        {
+            string attraction_code = dr.GetString("attraction_code");
+            string name = dr.GetString("name");
+            string city_id = dr.GetString("city_id");
+            string type = dr.GetString("type");
+            Attraction a = new Attraction(attraction_code, name, city_id, type);
+            return a;
+        }
+
         public bool addNewAttraction(string name, string city_code, string type)
         {
             bool success;
@@ -154,6 +164,56 @@ namespace TravelApp.Models
             }
 
             return types;
+        }
+
+        public List<Attraction> getAttractionsByCity(City city, string begin)
+        {
+            List<Attraction> attractions = new List<Attraction>();
+            string command = "SELECT * " +
+                          "FROM city join attraction ON city.city_id = attraction.city_id " +
+                          "WHERE city.name LIKE '" + begin + "%'";
+            if (city != null)
+            {
+                string c = "'" + city.Name + "'";
+                command += " AND city.name=" + c;
+            }
+
+            command += ";";
+                MySqlDataReader dr = DbConnection.ExecuteQuery(command);
+                if (dr != null)
+                {
+                    while (dr.Read())
+                    {
+                        string id = dr.GetString("attraction_code");
+                        string name = dr.GetString("name");
+                        string city_id = dr.GetString("city_id");
+                        string type = dr.GetString("type");
+                        Attraction a = new Attraction(id, name, city_id, type);
+                        attractions.Add(a);
+                    }
+                    dr.Close();
+                }
+            return attractions;
+        }
+        public List<Attraction> getAllAttractionOfTrip(Trip trip)
+        {
+            List<Attraction> att = new List<Attraction>();
+            String trip_code = trip.Id.ToString();
+            trip_code = "'" + trip_code + "'";
+            string command = "SELECT * FROM attraction, trip_attractions " +
+                "WHERE trip_attractions.trip_code = " + trip_code + " " +
+                "AND trip_attractions.attraction_code = attraction.attraction_code;";
+            MySqlDataReader dr = DbConnection.ExecuteQuery(command);
+            if (dr != null)
+            {
+                while (dr.Read())
+                {
+                    Attraction a = createAtt(dr);
+                    att.Add(a);
+                }
+            }
+            dr.Close();
+            return att;
         }
     }
 }
