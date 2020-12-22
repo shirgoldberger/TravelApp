@@ -4,21 +4,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using TravelApp.Models;
 
 namespace TravelApp
 {
     class viewAllTrip_controller
     {
-        viewAllTrip_Model model;
+        //viewAllTrip_Model model;
         string username;
         public viewAllTrip_controller(string username )
         {
             this.username = username;
-            model = new viewAllTrip_Model(username);
+            //model = new viewAllTrip_Model(username);
         }
         public List<Trip> getAllTrip()
         {
-           return model.getAllTrip();
+            return TripsModel.Instance.getAllTripForUser(username); 
         }
         public Tuple<int, string> click_delete(Trip trip, Page pageToUpdate)
         {
@@ -34,7 +35,7 @@ namespace TravelApp
             //just delete this username from trip - using the model.
             else
             {
-                bool a = model.deleteTrip(trip, username);
+                bool a = TripsModel.Instance.deleteTrip(trip, username); 
                 if (a == false)
                 {
                     i = 1;
@@ -54,11 +55,11 @@ namespace TravelApp
         }
         public List<User> getAllMem(Trip trip)
         {
-           return this.model.getAllMembers(trip);
+            return UsersModel.Instance.getAllMembers(trip, username);
         }
         public List<Attraction> getAllAtt(Trip trip)
         {
-            return this.model.getAllAttraction(trip);
+            return AttractionsModel.Instance.getAllAttractionOfTrip(trip);
         }
     }
 }

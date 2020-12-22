@@ -321,5 +321,44 @@ namespace TravelApp.Models
             }
             throw new Exception("cannot find this account");
         }
+        public List<User> getAllMembers(Trip trip, string username)
+        {
+            List<User> users = new List<User>();
+            String trip_code = trip.Id.ToString();
+            trip_code = "'" + trip_code + "'";
+            string username1 = "'" + username + "'";
+            string command = "SELECT * FROM user WHERE username in (SELECT username FROM member" +
+                    " WHERE trip_code =" + trip_code + ")" +
+                       "AND username<>" + username1 + ";";
+            MySqlDataReader dr = DbConnection.ExecuteQuery(command);
+            if (dr != null)
+            {
+                while (dr.Read())
+                {
+                    User a = createUser(dr);
+                    users.Add(a);
+                }
+            }
+            dr.Close();
+            return users;
+        }
+        public List<string> getAllMembersInTrip(Trip trip)
+        {
+            List<string> users = new List<string>();
+            String trip_code = trip.Id.ToString();
+            trip_code = "'" + trip_code + "'";
+            string command = "SELECT username FROM member " +
+                "WHERE member.trip_code = " + trip_code + ";";
+            MySqlDataReader dr = DbConnection.ExecuteQuery(command);
+            if (dr != null)
+            {
+                while (dr.Read())
+                {
+                    users.Add(dr.GetString("username"));
+                }
+            }
+            dr.Close();
+            return users;
+        }
     }
 }
