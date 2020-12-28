@@ -27,7 +27,7 @@ namespace TravelApp
             return TripsModel.Instance.FindTrip(age, members, languages, attractions, cities, start, end, op);
         }
 
-        public List<Trip> getTripForUser(string username)
+        public Tuple<bool, List<Trip>> getTripForUser(string username)
         {
             return TripsModel.Instance.getTripWithoutUser(username);
         }
@@ -47,17 +47,17 @@ namespace TravelApp
             return TripsModel.Instance.insertUserToTrip(username, trip);
         }
 
-        public List<string> getCountriesByBegin(string begin)
+        public Tuple<bool, List<string>> getCountriesByBegin(string begin)
         {
             return LocationsModel.Instance.getCountries(begin);
         }
 
-        public List<City> getCitiesByBegin(string begin)
+        public Tuple<bool, List<City>> getCitiesByBegin(string begin)
         {
             return LocationsModel.Instance.getCitiesByBegin(begin);
         }
 
-        public List<Attraction> getAttractionsByCity(City city, string begin)
+        public Tuple<bool, List<Attraction>> getAttractionsByCity(City city, string begin)
         {
             return AttractionsModel.Instance.getAttractionsByCity(city, begin);
         }
@@ -68,7 +68,7 @@ namespace TravelApp
             return UsersModel.Instance.getFriendsForUser(username);
         }
 
-        public List<City> getCitiesByCountry(string country, string begin)
+        public Tuple<bool, List<City>> getCitiesByCountry(string country, string begin)
         {
             return LocationsModel.Instance.getCitiesByCountry(country, begin);
         }

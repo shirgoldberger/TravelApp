@@ -29,21 +29,29 @@ namespace TravelApp.Models
             }
         }
 
-        public List<String> getLanguages()
+        public Tuple<bool, List<String>> getLanguages()
         {
+            bool result = true;
             List<String> languages = new List<String>();
             string command = "SELECT * FROM Language;";
-            MySqlDataReader dr = DbConnection.ExecuteQuery(command);
-            if (dr != null)
+            lock (DbConnection.Locker)
             {
-                while (dr.Read())
+                MySqlDataReader dr = DbConnection.ExecuteQuery(command);
+                if (dr != null)
                 {
-                    string name = dr.GetString("name");
-                    languages.Add(name);
+                    while (dr.Read())
+                    {
+                        string name = dr.GetString("name");
+                        languages.Add(name);
+                    }
+                    dr.Close();
                 }
-                dr.Close();
+                else
+                {
+                    result = false;
+                }
             }
-            return languages;
+            return new Tuple <bool, List < String >>(result, languages);
         }
     }
 }

@@ -30,14 +30,14 @@ namespace TravelApp.Models
             }
         }
 
-        public Attraction createAtt(MySqlDataReader dr)
+        private Attraction createAtt(MySqlDataReader dr)
         {
             string attraction_code = dr.GetString("attraction_code");
             string name = dr.GetString("name");
             string city_id = dr.GetString("city_id");
             string type = dr.GetString("type");
-            Attraction a = new Attraction(attraction_code, name, city_id, type);
-            return a;
+            Attraction att = new Attraction(attraction_code, name, city_id, type);
+            return att;
         }
 
         public bool addNewAttraction(string name, string city_code, string type)
@@ -56,8 +56,9 @@ namespace TravelApp.Models
             return success;
         }
 
-        public bool attractionAlreadyExist(string name, string city_code, string type)
+        public Tuple<bool, bool> attractionAlreadyExist(string name, string city_code, string type)
         {
+            bool result = true;
             name = "'" + name + "'";
             city_code = "'" + city_code + "'";
             type = "'" + type + "'";
@@ -75,9 +76,13 @@ namespace TravelApp.Models
                     }
                     dr.Close();
                 }
+                else
+                {
+                    result = false;
+                }
             }
 
-            return exist;
+            return new Tuple<bool, bool>(result, exist);
         }
 
         private void appendCommand (ref bool firstConstraint, ref string command)
@@ -93,8 +98,9 @@ namespace TravelApp.Models
             }
         }
 
-        public List<Attraction> getAttractions(string cityId, string type, string name, List<Attraction> drop)
+        public Tuple<bool, List<Attraction>> getAttractions(string cityId, string type, string name, List<Attraction> drop)
         {
+            bool result = true;
             List<Attraction> attractions = new List<Attraction>();
             bool firstConstarint = true;
             string command = "SELECT * FROM attraction";
@@ -140,13 +146,18 @@ namespace TravelApp.Models
                     }
                     dr.Close();
                 }
+                else
+                {
+                    result = false;
+                }
             }
 
-            return attractions;
+            return new Tuple<bool, List<Attraction>>(result, attractions);
         }
 
-        public List<string> getTypes(string begin)
+        public Tuple<bool, List<string>> getTypes(string begin)
         {
+            bool result = true;
             List<string> types = new List<string>();
             string command = "SELECT type FROM attraction_types WHERE type LIKE '" + begin + "%';";
 
@@ -161,13 +172,18 @@ namespace TravelApp.Models
                     }
                     dr.Close();
                 }
+                else
+                {
+                    result = false;
+                }
             }
 
-            return types;
+            return new Tuple<bool, List<string>>(result, types);
         }
 
-        public List<Attraction> getAttractionsByCity(City city, string begin)
+        public Tuple<bool, List<Attraction>> getAttractionsByCity(City city, string begin)
         {
+            bool result = true;
             List<Attraction> attractions = new List<Attraction>();
             string command = "SELECT * " +
                           "FROM city join attraction ON city.city_id = attraction.city_id " +
@@ -179,6 +195,8 @@ namespace TravelApp.Models
             }
 
             command += ";";
+            lock (DbConnection.Locker)
+            {
                 MySqlDataReader dr = DbConnection.ExecuteQuery(command);
                 if (dr != null)
                 {
@@ -193,27 +211,40 @@ namespace TravelApp.Models
                     }
                     dr.Close();
                 }
-            return attractions;
+                else
+                {
+                    result = false;
+                }
+            }
+            return new Tuple<bool, List<Attraction>>(result, attractions);
         }
-        public List<Attraction> getAllAttractionOfTrip(Trip trip)
+        public Tuple<bool, List<Attraction>> getAllAttractionOfTrip(Trip trip)
         {
+            bool result = true;
             List<Attraction> att = new List<Attraction>();
             String trip_code = trip.Id.ToString();
             trip_code = "'" + trip_code + "'";
             string command = "SELECT * FROM attraction, trip_attractions " +
                 "WHERE trip_attractions.trip_code = " + trip_code + " " +
                 "AND trip_attractions.attraction_code = attraction.attraction_code;";
-            MySqlDataReader dr = DbConnection.ExecuteQuery(command);
-            if (dr != null)
+            lock (DbConnection.Locker)
             {
-                while (dr.Read())
+                MySqlDataReader dr = DbConnection.ExecuteQuery(command);
+                if (dr != null)
                 {
-                    Attraction a = createAtt(dr);
-                    att.Add(a);
+                    while (dr.Read())
+                    {
+                        Attraction a = createAtt(dr);
+                        att.Add(a);
+                    }
+                    dr.Close();
+                }
+                else
+                {
+                    result = false;
                 }
             }
-            dr.Close();
-            return att;
+            return new Tuple<bool, List<Attraction>>(result, att);
         }
     }
 }

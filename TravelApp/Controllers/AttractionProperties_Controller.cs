@@ -12,28 +12,28 @@ namespace TravelApp.Models
 {
     public class AttractionProperties_Controller
     {
-        public List<string> getTypes(string begin)
+        public Tuple<bool, List<string>> getTypes(string begin)
         {
             return AttractionsModel.Instance.getTypes(begin);
         }
 
-        public List<City> getCitiesByContinent(string continent, string begin)
+        public Tuple<bool, List<City>> getCitiesByContinent(string continent, string begin)
         {
             return LocationsModel.Instance.getCitiesByContinent(continent, begin);
         }
 
-        public List<string> getContinents(string begin)
+        public Tuple<bool, List<string>> getContinents(string begin)
         {
             return LocationsModel.Instance.getContinents(begin);
         }
 
 
-        public List<string> getCountries(string begin)
+        public Tuple<bool, List<string>> getCountries(string begin)
         {
             return LocationsModel.Instance.getCountries(begin);
         }
 
-        public List<City> getCitiesByCountry(string country, string begin)
+        public Tuple<bool, List<City>> getCitiesByCountry(string country, string begin)
         {
             return LocationsModel.Instance.getCitiesByCountry(country, begin);
         }

@@ -19,7 +19,7 @@ namespace TravelApp
             this.trip = trip;
             this.username = username;
         }
-        public List<string> getAllMembers()
+        public Tuple<bool, List<string>> getAllMembers()
         {
             return TripsModel.Instance.getAllMembersWithoutMe(trip, username);
         }

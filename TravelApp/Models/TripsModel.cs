@@ -1,4 +1,6 @@
 ﻿using MySql.Data.MySqlClient;
+using MySqlX.XDevAPI.Common;
+using Org.BouncyCastle.Crypto.Engines;
 using System;
 using System.Collections.Generic;
 using System.Dynamic;
@@ -88,8 +90,9 @@ namespace TravelApp.Models
             return command;
         }
 
-        public void generateTrip(TripToAdd trip, List<User> choosenParticipants, List<Attraction> choosenAttractions)
+        public bool generateTrip(TripToAdd trip, List<User> choosenParticipants, List<Attraction> choosenAttractions)
         {
+            bool result = true;
             lock (DbConnection.Locker)
             {
                 MySqlCommand myCommand = DbConnection.Connection.CreateCommand();
@@ -121,12 +124,14 @@ namespace TravelApp.Models
                 }
                 catch (Exception)
                 {
+                    result = false;
                     try
                     {
                         myTrans.Rollback();
                     }
                     catch (MySqlException) { }
                 }
+                return result;
             }
         }
 
@@ -214,7 +219,7 @@ namespace TravelApp.Models
             return change ? command + " WHERE trip_code = '" + inputedtrip.Id.ToString() + "';" : "";
         }
 
-        public void updateTrip(Trip inputedtrip, string tripName, int minAge, int maxAge, int maxParts, string startConverted, string endConverted, bool maleOnly, bool femaleOnly, List<User> partsToRemove, List<User> partsToAdd, List<Attraction> attractionsToRemove, List<Attraction> attractionsToAdd)
+        public bool updateTrip(Trip inputedtrip, string tripName, int minAge, int maxAge, int maxParts, string startConverted, string endConverted, bool maleOnly, bool femaleOnly, List<User> partsToRemove, List<User> partsToAdd, List<Attraction> attractionsToRemove, List<Attraction> attractionsToAdd)
         {
             List<string> commands = new List<string>();
 
@@ -246,11 +251,11 @@ namespace TravelApp.Models
 
             lock (DbConnection.Locker)
             {
-                DbConnection.ExecuteNonQueryTransaction(commands);
+                return DbConnection.ExecuteNonQueryTransaction(commands);
             }
         }
 
-        public List<Trip> FindTrip(int age, List<string> members, List<string> languages, List<Attraction> attractions, List<City> cities, DateTime start, DateTime end, string op)
+        public Tuple<bool, List<Trip>> FindTrip(int age, List<string> members, List<string> languages, List<Attraction> attractions, List<City> cities, DateTime start, DateTime end, string op)
         {
             List<Trip> trips = new List<Trip>();
             string fullCommand = "";
@@ -313,14 +318,14 @@ namespace TravelApp.Models
             }
             if (fullCommand == "")
             {
-                return trips;
+                return new Tuple<bool, List<Trip>>(true, trips);
             }
             fullCommand += ";";
             fullCommand = "SELECT distinct * FROM trip WHERE\n" + fullCommand;
             return getTripsByCommand(fullCommand);
         }
 
-        public string CreateMembersCommand(List<string> members)
+        private string CreateMembersCommand(List<string> members)
         {
             string allUsers = "";
             int i;
@@ -341,7 +346,7 @@ namespace TravelApp.Models
             return command;
         }
 
-        public string CreateLanguagesCommand(List<string> languages)
+        private string CreateLanguagesCommand(List<string> languages)
         {
             List<Trip> trips = new List<Trip>();
             string allLanguages = "";
@@ -365,7 +370,7 @@ namespace TravelApp.Models
             return command;
         }
 
-        public string CreateAttractionsCommand(List<Attraction> attractions)
+        private string CreateAttractionsCommand(List<Attraction> attractions)
         {
             List<Trip> trips = new List<Trip>();
             string allAttractions = "";
@@ -387,7 +392,7 @@ namespace TravelApp.Models
             return command;
         }
 
-        public string CreateCitiesCommand(List<City> cities)
+        private string CreateCitiesCommand(List<City> cities)
         {
             List<Trip> trips = new List<Trip>();
             string allCities = "";
@@ -409,7 +414,7 @@ namespace TravelApp.Models
             return command;
         }
 
-        public string CreateDatesCommand(DateTime start, DateTime end)
+        private string CreateDatesCommand(DateTime start, DateTime end)
         {
             List<Trip> trips = new List<Trip>();
             string command = "SELECT trip_code FROM Trip WHERE start_date >= '" +
@@ -417,7 +422,7 @@ namespace TravelApp.Models
             return command;
         }
 
-        public bool checkDates(DateTime start, DateTime end)
+        private bool checkDates(DateTime start, DateTime end)
         {
             if (start.ToString("yyyy-MM-dd") == "0001-01-01" &&
                 end.ToString("yyyy-MM-dd") == "0001-01-01")
@@ -427,38 +432,56 @@ namespace TravelApp.Models
             return true;
         }
 
-        public void AddMemberAmount(Trip t)
+        public bool AddMemberAmount(Trip t)
         {
+            bool result = true;
             string command = "SELECT count(username) FROM member WHERE trip_code = '"
                 + t.Id + "';";
-            MySqlDataReader dr = DbConnection.ExecuteQuery(command);
-            if (dr != null)
+            lock (DbConnection.Locker)
             {
-                while (dr.Read())
+                MySqlDataReader dr = DbConnection.ExecuteQuery(command);
+                if (dr != null)
                 {
-                    string count = dr.GetString("count(username)");
-                    t.Member_Amount = int.Parse(count);
+                    while (dr.Read())
+                    {
+                        string count = dr.GetString("count(username)");
+                        t.Member_Amount = int.Parse(count);
+                    }
+                    dr.Close();
                 }
-                dr.Close();
+                else
+                {
+                    result = false;
+                }
             }
+            return result;
         }
-        public Trip getTripById(string id)
+        public Tuple<bool,Trip> getTripById(string id)
         {
+            bool result = true;
             Trip t = null;
             string command = "SELECT * FROM Trip WHERE trip_code = '" + id + "';";
-            MySqlDataReader dr = DbConnection.ExecuteQuery(command);
-            if (dr != null)
+            lock (DbConnection.Locker)
             {
-                while (dr.Read())
+                MySqlDataReader dr = DbConnection.ExecuteQuery(command);
+                if (dr != null)
                 {
-                    t = createTrip(dr);
+                    while (dr.Read())
+                    {
+                        t = createTrip(dr);
+                    }
+                    dr.Close();
                 }
-                dr.Close();
+                else
+                {
+                    result = false;
+                }
+
             }
-            return t;
+            return new Tuple<bool, Trip>(result, t);
         }
 
-        public Trip createTrip(MySqlDataReader dr)
+        private Trip createTrip(MySqlDataReader dr)
         {
             int id = int.Parse(dr.GetString("trip_code"));
             string name = dr.GetString("name");
@@ -476,107 +499,113 @@ namespace TravelApp.Models
             return t;
         }
 
-        public List<Trip> getTripsByCommand(string command)
+        private Tuple<bool, List<Trip>> getTripsByCommand(string command)
         {
+            bool result = true;
             List<Trip> trips = new List<Trip>();
-            MySqlDataReader dr = DbConnection.ExecuteQuery(command);
-            if (dr != null)
+            lock (DbConnection.Locker)
             {
-                while (dr.Read())
+                MySqlDataReader dr = DbConnection.ExecuteQuery(command);
+                if (dr != null)
                 {
-                    Trip t = createTrip(dr);
-                    trips.Add(t);
+                    while (dr.Read())
+                    {
+                        Trip t = createTrip(dr);
+                        trips.Add(t);
+                    }
+                    dr.Close();
                 }
-                dr.Close();
+                else
+                {
+                    result = false;
+                }
             }
-            return trips;
+            return new Tuple<bool, List<Trip>>(result, trips);
         }
 
 
 
-        public List<Trip> getTripWithoutUser(string username)
+        public Tuple<bool, List<Trip>> getTripWithoutUser(string username)
         {
+            bool result = true;
             List<Trip> trips = new List<Trip>();
             string command = "SELECT * from trip WHERE trip_code NOT IN" +
                 "(SELECT t.trip_code FROM trip INNER JOIN member AS t WHERE t.username = '"
                 + username + "');";
-            MySqlDataReader dr = DbConnection.ExecuteQuery(command);
-            if (dr != null)
+            lock (DbConnection.Locker)
             {
-                while (dr.Read())
+                MySqlDataReader dr = DbConnection.ExecuteQuery(command);
+                if (dr != null)
                 {
-                    Trip t = createTrip(dr);
-                    trips.Add(t);
+                    while (dr.Read())
+                    {
+                        Trip t = createTrip(dr);
+                        trips.Add(t);
+                    }
+                    dr.Close();
                 }
-                dr.Close();
+                else
+                {
+                    result = false;
+                }
             }
-            foreach (Trip t in trips)
+            if(result)
             {
-                AddMemberAmount(t);
+                foreach (Trip t in trips)
+                {
+                    result = AddMemberAmount(t);
+                    if(!result)
+                    {
+                        break;
+                    }
+                }
             }
-            return trips;
+            return new Tuple<bool, List<Trip>>(result, trips);
         }
 
         public bool insertUserToTrip(string username, Trip trip)
         {
+            bool result = false;
             string command = "insert into member values('"
                 + trip.Id + "', '" + username + "');";
-            if (DbConnection.ExecuteNonQuery(command))
+            lock (DbConnection.Locker)
             {
-                trip.Member_Amount += 1;
-                return true;
+                if (DbConnection.ExecuteNonQuery(command))
+                {
+                    trip.Member_Amount += 1;
+                    result = true;
+                }
             }
-            return false;
+            return result;
         }
 
         public bool deleteTrip(Trip trip, string username)
         {
+            bool result;
             string trip_code = trip.Id.ToString();
             trip_code = "'" + trip_code + "'";
             username = "'" + username + "'";
             string command = "DELETE FROM member WHERE trip_code = " + trip_code + " AND username = " + username + ";";
-            bool dr = DbConnection.ExecuteNonQuery(command);
-            if (dr == false)
+            lock (DbConnection.Locker)
             {
-                return false;
+                result = DbConnection.ExecuteNonQuery(command);
             }
-            DateTime start_date = trip.Start_Date;
-            return true;
+            return result;
         }
         public bool delteAllTripMember(Trip trip)
         {
+            bool result;
             string trip_code = trip.Id.ToString();
             trip_code = "'" + trip_code + "'";
-            // Transaction:
-            //defenition for transaction
-            MySqlCommand myCommand = DbConnection.Connection.CreateCommand();
-            MySqlTransaction myTrans;
-            myTrans = DbConnection.Connection.BeginTransaction();
-            myCommand.Connection = DbConnection.Connection;
-            myCommand.Transaction = myTrans;
-            try
-            {
-                //add the command to send
-                //1
-                string command = "DELETE FROM member WHERE trip_code = " + trip_code + " ;";
-                myCommand.CommandText = command;
-                myCommand.ExecuteNonQuery();
-                //2
-                string command2 = "DELETE FROM trip_attractions WHERE trip_code = " + trip_code + " ;";
-                myCommand.CommandText = command2;
-                myCommand.ExecuteNonQuery();
-                //3
-                string command3 = "DELETE FROM trip WHERE trip_code = " + trip_code + " ;";
-                myCommand.CommandText = command3;
-                myCommand.ExecuteNonQuery();
+            string command = "DELETE FROM member WHERE trip_code = " + trip_code + " ;";
+            string command2 = "DELETE FROM trip_attractions WHERE trip_code = " + trip_code + " ;";
+            string command3 = "DELETE FROM trip WHERE trip_code = " + trip_code + " ;";
 
-                myTrans.Commit();
-            }
-            catch (Exception e)
+            lock (DbConnection.Locker)
             {
-                return false;
+                result = DbConnection.ExecuteNonQueryTransaction(new List<string> { command, command2, command3 });
             }
-            return true;
+            return result;
         }
 
         public bool setUserAdmin(Trip trip, string username, string newUsername)
@@ -587,24 +616,24 @@ namespace TravelApp.Models
             string command = "UPDATE trip SET" +
                 " admin = " + admin1 +
                 " WHERE trip_code = " + trip_code1 + " ;";
-            bool dr = DbConnection.ExecuteNonQuery(command);
-            if (dr == false)
+            lock (DbConnection.Locker)
+            {
+                if(!DbConnection.ExecuteNonQuery(command))
+                {
+                    return false;
+                }
+            }
+            //now delete the user from trip
+            if (!deleteTrip(trip, username))
             {
                 return false;
             }
-            //now delete the user from trip.
-            bool dr2 = deleteTrip(trip, username);
-            if (dr2 == false)
-            {
-                return false;
-            }
-            DateTime start_date = trip.Start_Date;
             return true;
-
         }
 
-        public List<string> getAllMembersWithoutMe(Trip trip, string username)
+        public Tuple<bool, List<string>> getAllMembersWithoutMe(Trip trip, string username)
         {
+            bool result = true;
             List<string> users = new List<string>();
             String trip_code = trip.Id.ToString();
             trip_code = "'" + trip_code + "'";
@@ -612,17 +641,24 @@ namespace TravelApp.Models
             string command = "SELECT username FROM member " +
                 "WHERE member.trip_code = " + trip_code +
                 "AND username != " + username1 + ";";
-
-            MySqlDataReader dr = DbConnection.ExecuteQuery(command);
-            if (dr != null)
+            lock (DbConnection.Locker)
             {
-                while (dr.Read())
+                MySqlDataReader dr = DbConnection.ExecuteQuery(command);
+                if (dr != null)
                 {
-                    users.Add(dr.GetString("username"));
+                    while (dr.Read())
+                    {
+                        users.Add(dr.GetString("username"));
+                    }
+                    dr.Close();
+                }
+                else
+                {
+                    result = false;
                 }
             }
-            dr.Close();
-            return users;
+            
+            return new Tuple<bool, List<string>>(result, users);
         }
 
         public Tuple<bool, List<Trip>> getAllTripForUser(string username)
@@ -633,20 +669,23 @@ namespace TravelApp.Models
             string command = "SELECT * FROM trip, member " +
                 "WHERE member.username = " + userName +
                 " AND member.trip_code = trip.trip_code;";
-            MySqlDataReader dr = DbConnection.ExecuteQuery(command);
-            if (dr != null)
+            lock (DbConnection.Locker)
             {
-                while (dr.Read())
+                MySqlDataReader dr = DbConnection.ExecuteQuery(command);
+                if (dr != null)
                 {
-                    Trip t = createTrip(dr);
-                    trips.Add(t);
+                    while (dr.Read())
+                    {
+                        Trip t = createTrip(dr);
+                        trips.Add(t);
+                    }
+                    dr.Close();
+                }
+                else
+                {
+                    result = false;
                 }
             }
-            else
-            {
-                result = false;
-            }
-            dr.Close();
             return new Tuple<bool, List<Trip>>( result, trips);
         }
 

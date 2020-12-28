@@ -30,8 +30,9 @@ namespace TravelApp.Models
             }
         }
 
-        public string getCityCode(string country, string city)
+        public Tuple<bool, string> getCityCode(string country, string city)
         {
+            bool result = true;
             string cityCode = "";
             city = "'" + city + "'";
             country = "'" + country + "'";
@@ -48,15 +49,22 @@ namespace TravelApp.Models
                     }
                     dr.Close();
                 }
+                else
+                {
+                    result = false;
+                }
             }
 
-            return cityCode;
+            return new Tuple<bool, string>(result, cityCode);
         }
 
-        public List<City> getCitiesByBegin(string begin)
+        public Tuple<bool, List<City>> getCitiesByBegin(string begin)
         {
+            bool result = true;
             List<City> cities = new List<City>();
             string command = "SELECT * FROM city WHERE name LIKE '" + begin + "%';";
+            lock (DbConnection.Locker)
+            {
                 MySqlDataReader dr = DbConnection.ExecuteQuery(command);
                 if (dr != null)
                 {
@@ -70,11 +78,17 @@ namespace TravelApp.Models
                     }
                     dr.Close();
                 }
-            return cities;
+                else
+                {
+                    result = false;
+                }
+            }
+            return new Tuple<bool, List<City>>(result, cities);
         }
 
-        public List<string> getContinents(string begin)
+        public Tuple<bool, List<string>> getContinents(string begin)
         {
+            bool result = true;
             List<string> continents = new List<string>();
             string command = "SELECT name FROM continent WHERE name LIKE '" + begin + "%';";
 
@@ -89,14 +103,19 @@ namespace TravelApp.Models
                     }
                     dr.Close();
                 }
+                else
+                {
+                    result = false;
+                }
             }
 
-            return continents;
+            return new Tuple<bool, List<string>>(result, continents);
         }
 
 
-        public List<string> getCountries(string begin)
+        public Tuple<bool, List<string>> getCountries(string begin)
         {
+            bool result = true;
             List<string> countries = new List<string>();
             string command = "SELECT name FROM country WHERE name LIKE '" + begin + "%';";
 
@@ -111,13 +130,18 @@ namespace TravelApp.Models
                     }
                     dr.Close();
                 }
+                else
+                {
+                    result = false;
+                }
             }
 
-            return countries;
+            return new Tuple<bool, List<string>>(result, countries);
         }
 
-        public List<City> getCitiesByContinent(string continent, string begin)
+        public Tuple<bool, List<City>> getCitiesByContinent(string continent, string begin)
         {
+            bool result = true;
             List<City> cities = new List<City>();
             string command = "SELECT city_id, city.name, country, continent " +
                           "FROM city join country ON city.country = country.name " +
@@ -147,13 +171,18 @@ namespace TravelApp.Models
                     }
                     dr.Close();
                 }
+                else
+                {
+                    result = false;
+                }
             }
 
-            return cities;
+            return new Tuple<bool, List<City>>(result, cities);
         }
 
-        public List<City> getCitiesByCountry(string country, string begin)
+        public Tuple<bool, List<City>> getCitiesByCountry(string country, string begin)
         {
+            bool result = true;
             List<City> cities = new List<City>();
             string command = "SELECT city_id, city.name, country, continent " +
                           "FROM city join country ON city.country = country.name " +
@@ -181,9 +210,13 @@ namespace TravelApp.Models
                     }
                     dr.Close();
                 }
+                else
+                {
+                    result = false;
+                }
             }
 
-            return cities;
+            return new Tuple<bool, List<City>>(result, cities);
         }
 
 

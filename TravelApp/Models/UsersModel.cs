@@ -176,15 +176,18 @@ namespace TravelApp.Models
         {
             List<String> users = new List<String>();
             string command = "SELECT * FROM User;";
-            MySqlDataReader dr = DbConnection.ExecuteQuery(command);
-            if (dr != null)
+            lock (DbConnection.Locker)
             {
-                while (dr.Read())
+                MySqlDataReader dr = DbConnection.ExecuteQuery(command);
+                if (dr != null)
                 {
-                    string name = dr.GetString("username");
-                    users.Add(name);
+                    while (dr.Read())
+                    {
+                        string name = dr.GetString("username");
+                        users.Add(name);
+                    }
+                    dr.Close();
                 }
-                dr.Close();
             }
             return users;
         }

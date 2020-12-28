@@ -21,7 +21,7 @@ namespace TravelApp
             return UsersModel.Instance.addNewFriend(user1, user2);
         }
 
-        public string getCityCode(string country, string city)
+        public Tuple<bool, string> getCityCode(string country, string city)
         {
             return LocationsModel.Instance.getCityCode(country, city);
         }
@@ -31,7 +31,7 @@ namespace TravelApp
             return AttractionsModel.Instance.addNewAttraction(name, city_code, type);
         }
 
-        public bool attractionAlreadyExist(string name, string city_code, string type)
+        public Tuple<bool, bool> attractionAlreadyExist(string name, string city_code, string type)
         {
             return AttractionsModel.Instance.attractionAlreadyExist(name, city_code, type);
         }

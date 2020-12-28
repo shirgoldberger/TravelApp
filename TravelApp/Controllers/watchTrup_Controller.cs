@@ -20,7 +20,7 @@ namespace TravelApp
         {
             return UsersModel.Instance.getAllMembersInTrip(trip);
         }
-        public List<Attraction> getAtt()
+        public Tuple<bool, List<Attraction>> getAtt()
         {
             return AttractionsModel.Instance.getAllAttractionOfTrip(trip);
         }

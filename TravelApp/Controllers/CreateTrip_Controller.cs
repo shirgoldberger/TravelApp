@@ -19,14 +19,14 @@ namespace TravelApp.Models
             return UsersModel.Instance.getUserByName(username);
         }
         
-        public void generateTrip(TripToAdd trip, List<User> choosenParticipants, List<Attraction> choosenAttractions)
+        public bool generateTrip(TripToAdd trip, List<User> choosenParticipants, List<Attraction> choosenAttractions)
         {
-            TripsModel.Instance.generateTrip(trip, choosenParticipants, choosenAttractions);
+            return TripsModel.Instance.generateTrip(trip, choosenParticipants, choosenAttractions);
         }
 
-        public void updateTrip(Trip inputedtrip, string tripName, int minAge, int maxAge, int maxParts, string startConverted, string endConverted, bool maleOnly, bool femaleOnly, List<User> partsToRemove, List<User> partsToAdd, List<Attraction> attractionsToRemove, List<Attraction> attractionsToAdd)
+        public bool updateTrip(Trip inputedtrip, string tripName, int minAge, int maxAge, int maxParts, string startConverted, string endConverted, bool maleOnly, bool femaleOnly, List<User> partsToRemove, List<User> partsToAdd, List<Attraction> attractionsToRemove, List<Attraction> attractionsToAdd)
         {
-            TripsModel.Instance.updateTrip(inputedtrip, tripName, minAge, maxAge, maxParts, startConverted, endConverted, maleOnly, femaleOnly, partsToRemove, partsToAdd, attractionsToRemove, attractionsToAdd);
+            return TripsModel.Instance.updateTrip(inputedtrip, tripName, minAge, maxAge, maxParts, startConverted, endConverted, maleOnly, femaleOnly, partsToRemove, partsToAdd, attractionsToRemove, attractionsToAdd);
         }
     }
 }

@@ -9,7 +9,7 @@ namespace TravelApp.Controllers
 {
     class AddNewAttForTrip_Controller
     {
-        public List<Attraction> getAttractions(string cityId, string type, string name, List<Attraction> drop)
+        public Tuple<bool, List<Attraction>> getAttractions(string cityId, string type, string name, List<Attraction> drop)
         {
             return AttractionsModel.Instance.getAttractions(cityId, type, name, drop);
         }
