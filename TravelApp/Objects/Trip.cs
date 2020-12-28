@@ -131,14 +131,8 @@ namespace TravelApp
         {
             get
             {
-                if (max_participants != null)
-                {
                     return (temp_trip_string + ", free space: " + (max_participants - member_amount).ToString());
-                } 
-                else
-                {
-                    return trip_string;
-                }
+
             }
             set { trip_string = temp_trip_string; }
         }

@@ -94,26 +94,6 @@ namespace TravelApp.Models
             return continents;
         }
 
-        public string getContinentByCountry(string country)
-        {
-            string continent = "";
-            string command = "SELECT continent FROM country WHERE name='" + country + "';";
-
-            lock (DbConnection.Locker)
-            {
-                MySqlDataReader dr = DbConnection.ExecuteQuery(command);
-                if (dr != null)
-                {
-                    while (dr.Read())
-                    {
-                        continent = dr.GetString("continent");
-                    }
-                    dr.Close();
-                }
-            }
-
-            return continent;
-        }
 
         public List<string> getCountries(string begin)
         {
@@ -206,27 +186,6 @@ namespace TravelApp.Models
             return cities;
         }
 
-        public List<City> getAllCities()
-        {
-            List<City> cities = new List<City>();
-            string command = "SELECT * FROM City JOIN Country WHERE City.country=Country.name;";
-            MySqlDataReader dr = DbConnection.ExecuteQuery(command);
-            if (dr != null)
-            {
-                while (dr.Read())
-                {
-                    string id = dr.GetString("city_id");
-                    string name = dr.GetString("name");
-                    string country = dr.GetString("country");
-                    string continent = dr.GetString("continent");
-                    City c = new City(id, name, country, continent);
-                    cities.Add(c);
-                }
-                dr.Close();
-            }
-            return cities;
-
-        }
 
      
     }

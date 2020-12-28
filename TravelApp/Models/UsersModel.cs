@@ -249,7 +249,7 @@ namespace TravelApp.Models
             return new Tuple<bool, string>(false, "Cannot create account, please try again");
         }
 
-        public User createUser(MySqlDataReader dr)
+        private User createUser(MySqlDataReader dr)
         {
             string usernameArg = dr.GetString("username");
             string password = dr.GetString("password");

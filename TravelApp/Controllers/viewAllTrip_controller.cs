@@ -17,7 +17,7 @@ namespace TravelApp
             this.username = username;
             //model = new viewAllTrip_Model(username);
         }
-        public List<Trip> getAllTrip()
+        public Tuple<bool, List<Trip>> getAllTrip()
         {
             return TripsModel.Instance.getAllTripForUser(username); 
         }

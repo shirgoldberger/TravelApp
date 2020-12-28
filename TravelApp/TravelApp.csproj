@@ -130,15 +130,14 @@
     <Compile Include="Controllers\UserPage_Controller.cs" />
     <Compile Include="Controllers\FindTrip_Controller.cs" />
     <Compile Include="Controllers\HomePage_Controller.cs" />
-    <Compile Include="Models\CreateTripModel.cs" />
     <Compile Include="Models\AttractionsModel.cs" />
     <Compile Include="Models\LanguagesModel.cs" />
     <Compile Include="Models\TripsModel.cs" />
     <Compile Include="Models\UsersModel.cs" />
     <Compile Include="Models\LocationsModel.cs" />
-    <Compile Include="Models\UserPageModel.cs" />
     <Compile Include="Objects\TripToAdd.cs" />
     <Compile Include="Objects\User.cs" />
+    <Compile Include="Objects\Utils.cs" />
     <Compile Include="Pages\AttractionProperties.xaml.cs">
       <DependentUpon>AttractionProperties.xaml</DependentUpon>
     </Compile>
@@ -174,7 +173,6 @@
     </Compile>
     <Compile Include="Objects\Attraction.cs" />
     <Compile Include="Objects\City.cs" />
-    <Compile Include="Models\CreateAccoutModel.cs" />
     <Compile Include="Objects\DbConnection.cs" />
     <Compile Include="Pages\deleteTrip.xaml.cs">
       <DependentUpon>deleteTrip.xaml</DependentUpon>
@@ -182,7 +180,6 @@
     <Compile Include="Pages\editTheTrip.xaml.cs">
       <DependentUpon>editTheTrip.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Models\editTheTrip_Model.cs" />
     <Compile Include="Pages\FindCityByCountry.xaml.cs">
       <DependentUpon>FindCityByCountry.xaml</DependentUpon>
     </Compile>
@@ -192,8 +189,6 @@
     <Compile Include="Pages\FindTrip.xaml.cs">
       <DependentUpon>FindTrip.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Models\FindTripModel.cs" />
-    <Compile Include="Models\Home_page_Model.cs" />
     <Compile Include="Objects\Trip.cs" />
     <Compile Include="Pages\UserPage.xaml.cs">
       <DependentUpon>UserPage.xaml</DependentUpon>
@@ -201,11 +196,9 @@
     <Compile Include="Pages\viewAllTrip.xaml.cs">
       <DependentUpon>viewAllTrip.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Models\viewAllTrip_Model.cs" />
     <Compile Include="Pages\watchTrip.xaml.cs">
       <DependentUpon>watchTrip.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Models\watchTrip_Model.cs" />
     <Compile Include="Controllers\viewAllTrip_controller.cs" />
     <Compile Include="Controllers\watchTrup_Controller.cs" />
     <Page Include="Pages\AttractionProperties.xaml">

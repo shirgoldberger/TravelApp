@@ -29,7 +29,7 @@ namespace TravelApp
 
         public List<Trip> getTripForUser(string username)
         {
-            return TripsModel.Instance.getTripForUser(username);
+            return TripsModel.Instance.getTripWithoutUser(username);
         }
 
         public List<String> getLanguages()
@@ -47,10 +47,6 @@ namespace TravelApp
             return TripsModel.Instance.insertUserToTrip(username, trip);
         }
 
-        public List<City> getAllCities()
-        {
-            return LocationsModel.Instance.getAllCities();
-        }
         public List<string> getCountriesByBegin(string begin)
         {
             return LocationsModel.Instance.getCountries(begin);
@@ -66,10 +62,6 @@ namespace TravelApp
             return AttractionsModel.Instance.getAttractionsByCity(city, begin);
         }
 
-        public void AddMemberAmount(Trip t)
-        {
-            TripsModel.Instance.AddMemberAmount(t);
-        }
 
         public List<String> getFriendsForUser(string username)
         {

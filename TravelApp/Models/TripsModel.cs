@@ -12,6 +12,7 @@ namespace TravelApp.Models
     {
         private static readonly TripsModel instance = new TripsModel();
 
+
         // Explicit static constructor to tell C# compiler
         // not to mark type as beforefieldinit
         static TripsModel()
@@ -30,30 +31,7 @@ namespace TravelApp.Models
             }
         }
 
-        public bool isExistTrip()
-        {
-            bool result = false;
-            string command = "SELECT Count(*) as count FROM trip;";
-            lock (DbConnection.Locker)
-            {
-                MySqlDataReader dr = DbConnection.ExecuteQuery(command);
-                if (dr != null)
-                {
 
-                    while (dr.Read())
-                    {
-                        int count = int.Parse(dr.GetString("count"));
-                        if (count > 0)
-                        {
-                            result = true;
-                        }
-                    }
-                    dr.Close();
-                }
-            }
-
-            return result;
-        }
 
         private string createTripCommand(TripToAdd trip)
         {
@@ -514,24 +492,9 @@ namespace TravelApp.Models
             return trips;
         }
 
-        public List<Trip> getAllTrip()
-        {
-            List<Trip> trips = new List<Trip>();
-            string command = "SELECT * FROM trip;";
-            MySqlDataReader dr = DbConnection.ExecuteQuery(command);
-            if (dr != null)
-            {
-                while (dr.Read())
-                {
-                    Trip t = createTrip(dr);
-                    trips.Add(t);
-                }
-                dr.Close();
-            }
-            return trips;
-        }
 
-        public List<Trip> getTripForUser(string username)
+
+        public List<Trip> getTripWithoutUser(string username)
         {
             List<Trip> trips = new List<Trip>();
             string command = "SELECT * from trip WHERE trip_code NOT IN" +
@@ -662,8 +625,9 @@ namespace TravelApp.Models
             return users;
         }
 
-        public List<Trip> getAllTripForUser(string username)
+        public Tuple<bool, List<Trip>> getAllTripForUser(string username)
         {
+            bool result = true;
             string userName = "'" + username + "'";
             List<Trip> trips = new List<Trip>();
             string command = "SELECT * FROM trip, member " +
@@ -678,8 +642,12 @@ namespace TravelApp.Models
                     trips.Add(t);
                 }
             }
+            else
+            {
+                result = false;
+            }
             dr.Close();
-            return trips;
+            return new Tuple<bool, List<Trip>>( result, trips);
         }
 
 

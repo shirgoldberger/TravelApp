@@ -27,10 +27,6 @@ namespace TravelApp.Models
             return LocationsModel.Instance.getContinents(begin);
         }
 
-        public string getContinentByCountry(string country)
-        {
-            return LocationsModel.Instance.getContinentByCountry(country);
-        }
 
         public List<string> getCountries(string begin)
         {

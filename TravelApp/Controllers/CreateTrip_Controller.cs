@@ -18,11 +18,6 @@ namespace TravelApp.Models
         {
             return UsersModel.Instance.getUserByName(username);
         }
-
-        public bool isExistTrip()
-        {
-            return TripsModel.Instance.isExistTrip();
-        }
         
         public void generateTrip(TripToAdd trip, List<User> choosenParticipants, List<Attraction> choosenAttractions)
         {
