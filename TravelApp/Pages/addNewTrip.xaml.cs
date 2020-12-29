@@ -146,7 +146,7 @@ namespace TravelApp
             Tuple<bool, User> tuple = controller.getUserByName(username);
             if(!tuple.Item1)
             {
-                Utils.errorAndExit("Error trying to access users records");
+                Utils.Instance.errorAndExit("Error trying to access users records");
             }
             admin = tuple.Item2;
             isAdminMale = admin.Is_male == '1';

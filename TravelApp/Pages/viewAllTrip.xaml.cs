@@ -87,13 +87,13 @@ namespace TravelApp
                 Tuple<bool, List<User>> memTuple = controller.getAllMem(pushTrip);
                 if(!memTuple.Item1)
                 {
-                    Utils.errorAndExit("Error trying access members records");
+                    Utils.Instance.errorAndExit("Error trying access members records");
                 }
                 List<User> mem = memTuple.Item2;
                 Tuple < bool, List<Attraction>> attTuple = controller.getAllAtt(pushTrip);
                 if(!attTuple.Item1)
                 {
-                    Utils.errorAndExit("Error trying access attractions records");
+                    Utils.Instance.errorAndExit("Error trying access attractions records");
                 }
                 List<Attraction> att = attTuple.Item2;
                 addNewTrip ant = new addNewTrip(this, pushTrip, att, mem);
@@ -107,7 +107,7 @@ namespace TravelApp
             Tuple<bool, List<Trip>> tuple = controller.getAllTrip();
             if (!tuple.Item1)
             {
-                Utils.errorAndExit("Error trying access trips records");
+                Utils.Instance.errorAndExit("Error trying access trips records");
             }
             return tuple.Item2;
         }

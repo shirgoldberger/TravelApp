@@ -34,7 +34,7 @@ namespace TravelApp
             members = touple.Item2;
             if (touple.Item1 == false)
             {
-                Utils.errorAndExit("failed to get all members - check the SQL");
+                Utils.Instance.errorAndExit("failed to get all members - check the SQL");
             }
             allMemListBox.ItemsSource = members;
             this.trip = trip;

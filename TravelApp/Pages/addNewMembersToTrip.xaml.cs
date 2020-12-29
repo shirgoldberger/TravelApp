@@ -59,7 +59,7 @@ namespace TravelApp
             Tuple< bool, List<User>> tuple = await Task.Run(() => controller.getRestFriends(dropped, admin, minAge, maxAge, femaleOnly, maleOnly));
             if(!tuple.Item1)
             {
-                Utils.errorAndExit("Error trying access users records");
+                Utils.Instance.errorAndExit("Error trying access users records");
             }
             List<User> list = tuple.Item2;
             return list;

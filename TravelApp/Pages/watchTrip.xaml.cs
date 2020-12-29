@@ -67,14 +67,14 @@ namespace TravelApp
             Tuple<bool, List<string>> membersTuple = controller.getMem();
             if(!membersTuple.Item1)
             {
-                Utils.errorAndExit("Error trying to access members records");
+                Utils.Instance.errorAndExit("Error trying to access members records");
             }
             members = membersTuple.Item2;
 
             Tuple<bool, List<Attraction>> attractionsTuple = controller.getAtt();
             if (!attractionsTuple.Item1)
             {
-                Utils.errorAndExit("Error trying to access members records");
+                Utils.Instance.errorAndExit("Error trying to access members records");
             }
             attractions = attractionsTuple.Item2;
 

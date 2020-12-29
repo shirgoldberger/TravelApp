@@ -39,7 +39,7 @@ namespace TravelApp
             Tuple<bool, List<string>> tuple = controller.getRestUsers(username, beginning);
             if(!tuple.Item1)
             {
-                Utils.errorAndExit("Error trying to access users records");
+                Utils.Instance.errorAndExit("Error trying to access users records");
             }
             users = tuple.Item2;
             userList.ItemsSource = null;

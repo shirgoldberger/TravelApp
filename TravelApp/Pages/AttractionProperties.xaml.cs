@@ -50,7 +50,7 @@ namespace TravelApp.Pages
             Tuple <bool, List<City>> tuple = await Task.Run(() => controller.getCitiesByContinent(null, begin));
             if(!tuple.Item1)
             {
-                Utils.errorAndExit("Error trying access cities recods");
+                Utils.Instance.errorAndExit("Error trying access cities recods");
             }
             List<City> list = tuple.Item2;
             return list;
@@ -69,7 +69,7 @@ namespace TravelApp.Pages
             Tuple<bool, List<string>> tuple = await Task.Run(() => controller.getTypes(begin));
             if(!tuple.Item1)
             {
-                Utils.errorAndExit("Error trying to access attraction types records");
+                Utils.Instance.errorAndExit("Error trying to access attraction types records");
             }
             List<string> list = tuple.Item2;
             return list;

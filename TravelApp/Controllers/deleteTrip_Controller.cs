@@ -30,13 +30,12 @@ namespace TravelApp
             bool a = TripsModel.Instance.delteAllTripMember(trip);
             if (a == false)
             {
-                //"delete fauled"
-                Utils.errorAndExit("delete failed");
-
+                //"delete failed"
+                Utils.Instance.errorAndExit("Error trying to delete trip members");
             }
             if (a == true)
             {
-                msg = "delete sucses";
+                msg = "delete succedd";
             }
             return  msg;
         }
@@ -52,8 +51,7 @@ namespace TravelApp
             }
             else
             {
-                //אני לא בטוחה שהתוכנית צריכה להסתיים עכשיו, אולי עדיף רק לשים הודעה שהמחיקה נכשלה.
-                Utils.errorAndExit("delete failed");
+                Utils.Instance.errorAndExit("Error tyring to delete trip member");
             }
             return  msg;
 

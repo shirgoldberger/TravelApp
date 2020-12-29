@@ -77,7 +77,7 @@ namespace TravelApp.Pages
             Tuple<bool, List<Attraction>> tuple = await Task.Run(() => controller.getAttractions(cityId, type, name, drop));
             if(!tuple.Item1)
             {
-                Utils.errorAndExit("Error trying to access attractions records");
+                Utils.Instance.errorAndExit("Error trying to access attractions records");
             }
             List<Attraction> list = tuple.Item2;
             return list;

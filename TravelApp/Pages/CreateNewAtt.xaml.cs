@@ -53,7 +53,7 @@ namespace TravelApp.Pages
             Tuple<bool, bool> tuple = controller.attractionAlreadyExist(name, city_code, type);
             if(!tuple.Item1)
             {
-                Utils.errorAndExit("Error trying access attractions recods");
+                Utils.Instance.errorAndExit("Error trying access attractions recods");
             }
             if (tuple.Item2)
             {
