@@ -43,8 +43,9 @@ namespace TravelApp.Models
             }
         }
 
-        public List<User> getRestFriends(List<User> drop, string username, int minAge, int maxAge, bool femaleOnly, bool maleOnly)
+        public Tuple<bool, List<User>> getRestFriends(List<User> drop, string username, int minAge, int maxAge, bool femaleOnly, bool maleOnly)
         {
+            bool result = true;
             List<User> rest = new List<User>();
             List<Attraction> attractions = new List<Attraction>();
             bool firstConstarint = true;
@@ -101,12 +102,17 @@ namespace TravelApp.Models
                     }
                     dr.Close();
                 }
+                else
+                {
+                    result = false;
+                }
             }
-            return rest;
+            return new Tuple<bool, List<User>>(result, rest);
         }
 
-        public List<string> getRestUsers(string username, string beginning)
+        public Tuple<bool, List<String>> getRestUsers(string username, string beginning)
         {
+            bool result = true;
             List<string> users = new List<string>();
             string noUser = "SELECT username FROM user WHERE username<>'" + username + "'";
             string userFriends1 = "SELECT username1 From friends WHERE username2='" + username + "'";
@@ -126,9 +132,13 @@ namespace TravelApp.Models
                     }
                     dr.Close();
                 }
+                else
+                {
+                    result = false;
+                }
             }
 
-            return users;
+            return new Tuple<bool, List<string>>(result, users);
         }
 
         public bool addNewFriend(string user1, string user2)
@@ -146,8 +156,9 @@ namespace TravelApp.Models
             return dr;
         }
 
-        public User getUserByName(string username)
+        public Tuple<bool, User> getUserByName(string username)
         {
+            bool result_status = true;
             User result = null;
             string command = "SELECT * FROM user WHERE username = '" + username + "';";
             lock (DbConnection.Locker)
@@ -167,13 +178,17 @@ namespace TravelApp.Models
                     }
                     dr.Close();
                 }
+                else
+                {
+                    result_status = false;
+                }
             }
-
-            return result;
+            return new Tuple<bool,User>(result_status, result);
         }
 
-        public List<string> getUsers()
+        public Tuple<bool, List<String>> getUsers()
         {
+            bool result = true;
             List<String> users = new List<String>();
             string command = "SELECT * FROM User;";
             lock (DbConnection.Locker)
@@ -188,10 +203,15 @@ namespace TravelApp.Models
                     }
                     dr.Close();
                 }
+                else
+                {
+                    result = false;
+                }
             }
-            return users;
+            return new Tuple<bool, List<string>>(result, users);
         }
 
+        //shir do lock
         public Tuple<bool, string> createAccount(string username, string phone, string email, string password,
     string address, int stringAge, char is_male, List<String> friends, List<String> languages)
         {
@@ -264,32 +284,40 @@ namespace TravelApp.Models
             return a;
         }
 
-        public List<String> getFriendsForUser(string username)
+        public Tuple<bool, List<String>> getFriendsForUser(string username)
         {
+            bool result = true;
             List<String> friends = new List<string>();
             string command = "SELECT * FROM Friends WHERE username1='" + username
                 + "' OR username2='" + username + "';";
-            MySqlDataReader dr = DbConnection.ExecuteQuery(command);
-            if (dr != null)
-            {
-                while (dr.Read())
+            lock (DbConnection.Locker)
+            { 
+                MySqlDataReader dr = DbConnection.ExecuteQuery(command);
+                if (dr != null)
                 {
-                    string name1 = dr.GetString("username1");
-                    string name2 = dr.GetString("username2");
-                    if (name1 != username)
+                    while (dr.Read())
                     {
-                        friends.Add(name1);
+                        string name1 = dr.GetString("username1");
+                        string name2 = dr.GetString("username2");
+                        if (name1 != username)
+                        {
+                            friends.Add(name1);
+                        }
+                        else if (name2 != username)
+                        {
+                            friends.Add(name2);
+                        }
                     }
-                    else if (name2 != username)
-                    {
-                        friends.Add(name2);
-                    }
+                    dr.Close();
                 }
-                dr.Close();
+                else
+                {
+                    result = false;
+                }
             }
-            return friends;
+            return new Tuple<bool, List<string>>(result, friends);
         }
-
+        //shir do lock
         public string login(string name, string password)
         {
             // check username
@@ -324,8 +352,9 @@ namespace TravelApp.Models
             }
             throw new Exception("cannot find this account");
         }
-        public List<User> getAllMembers(Trip trip, string username)
+        public Tuple<bool, List<User>> getAllMembers(Trip trip, string username)
         {
+            bool result = true;
             List<User> users = new List<User>();
             String trip_code = trip.Id.ToString();
             trip_code = "'" + trip_code + "'";
@@ -333,35 +362,51 @@ namespace TravelApp.Models
             string command = "SELECT * FROM user WHERE username in (SELECT username FROM member" +
                     " WHERE trip_code =" + trip_code + ")" +
                        "AND username<>" + username1 + ";";
-            MySqlDataReader dr = DbConnection.ExecuteQuery(command);
-            if (dr != null)
+            lock (DbConnection.Locker)
             {
-                while (dr.Read())
+                MySqlDataReader dr = DbConnection.ExecuteQuery(command);
+                if (dr != null)
                 {
-                    User a = createUser(dr);
-                    users.Add(a);
+                    while (dr.Read())
+                    {
+                        User a = createUser(dr);
+                        users.Add(a);
+                    }
                 }
+                else
+                {
+                    result = false;
+                }
+                dr.Close();
             }
-            dr.Close();
-            return users;
+            return new Tuple<bool, List<User>>(result, users);
         }
-        public List<string> getAllMembersInTrip(Trip trip)
+        public Tuple<bool, List<string>> getAllMembersInTrip(Trip trip)
         {
+            bool result = true;
             List<string> users = new List<string>();
             String trip_code = trip.Id.ToString();
             trip_code = "'" + trip_code + "'";
             string command = "SELECT username FROM member " +
                 "WHERE member.trip_code = " + trip_code + ";";
-            MySqlDataReader dr = DbConnection.ExecuteQuery(command);
-            if (dr != null)
+            lock (DbConnection.Locker)
             {
-                while (dr.Read())
+                MySqlDataReader dr = DbConnection.ExecuteQuery(command);
+
+                if (dr != null)
                 {
-                    users.Add(dr.GetString("username"));
+                    while (dr.Read())
+                    {
+                        users.Add(dr.GetString("username"));
+                    }
                 }
+                else
+                {
+                    result = false;
+                }
+                dr.Close();
             }
-            dr.Close();
-            return users;
+            return new Tuple<bool, List<string>>(result, users);
         }
     }
 }
