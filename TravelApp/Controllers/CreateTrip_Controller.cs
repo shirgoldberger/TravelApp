@@ -19,7 +19,7 @@ namespace TravelApp.Models
             return UsersModel.Instance.getUserByName(username);
         }
         
-        public bool generateTrip(TripToAdd trip, List<User> choosenParticipants, List<Attraction> choosenAttractions)
+        public bool generateTrip(Trip trip, List<User> choosenParticipants, List<Attraction> choosenAttractions)
         {
             return TripsModel.Instance.generateTrip(trip, choosenParticipants, choosenAttractions);
         }

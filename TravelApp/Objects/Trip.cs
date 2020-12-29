@@ -14,6 +14,8 @@ namespace TravelApp
         string admin;
         DateTime start_date;
         DateTime end_date;
+        string start_date_string;
+        string end_date_string;
         int min_age;
         int max_age;
         int max_participants;
@@ -47,6 +49,20 @@ namespace TravelApp
             temp_trip_string = trip_string;
         }
 
+        public Trip(string _name, string _admin, string _start_date, string _end_date, int _min_age,
+        int _max_age, int _max_participants, bool _male_only, bool _female_only)
+        {
+            name = _name;
+            admin = _admin;
+            start_date_string = _start_date;
+            end_date_string = _end_date;
+            min_age = _min_age;
+            max_age = _max_age;
+            max_participants = _max_participants;
+            male_only = _male_only;
+            female_only = _female_only;
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
         public void NotifyPropertyChanged(string propName)
         {
@@ -76,6 +92,22 @@ namespace TravelApp
             get
             {
                 return admin;
+            }
+        }
+
+        public string StartString
+        {
+            get
+            {
+                return start_date_string;
+            }
+        }
+
+        public string EndString
+        {
+            get
+            {
+                return end_date_string;
             }
         }
         public DateTime Start_Date
@@ -131,8 +163,7 @@ namespace TravelApp
         {
             get
             {
-                    return (temp_trip_string + ", free space: " + (max_participants - member_amount).ToString());
-
+                return (temp_trip_string + ", free space: " + (max_participants - member_amount).ToString());
             }
             set { trip_string = temp_trip_string; }
         }

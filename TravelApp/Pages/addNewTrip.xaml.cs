@@ -268,7 +268,7 @@ namespace TravelApp
             return false;
         }
 
-        private void createTrip(TripToAdd trip)
+        private void createTrip(Trip trip)
         {
             controller.generateTrip(trip, choosenParticipants, choosenAttractions);
             MessageBox.Show("Trip was added sccessfully");
@@ -303,7 +303,7 @@ namespace TravelApp
             string endConverted = endDate.ToString("yyyy-MM-dd");
             if (creation)
             {
-                TripToAdd trip = new TripToAdd(user_tripName, adminName, startConverted, endConverted, minAge, maxAge, maxParts, maleOnly, femaleOnly);
+                Trip trip = new Trip(user_tripName, adminName, startConverted, endConverted, minAge, maxAge, maxParts, maleOnly, femaleOnly);
                 createTrip(trip);
             }
             else

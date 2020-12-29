@@ -35,12 +35,12 @@ namespace TravelApp.Models
 
 
 
-        private string createTripCommand(TripToAdd trip)
+        private string createTripCommand(Trip trip)
         {
             string name = trip.Name;
             string admin = trip.Admin;
-            string start = trip.Start_Date;
-            string end = trip.End_Date;
+            string start = trip.StartString;
+            string end = trip.EndString;
             string minAge = trip.Min_Age.ToString();
             string maxAge = trip.Max_Age.ToString();
             string maxParts = trip.Max_Participants.ToString();
@@ -90,7 +90,7 @@ namespace TravelApp.Models
             return command;
         }
 
-        public bool generateTrip(TripToAdd trip, List<User> choosenParticipants, List<Attraction> choosenAttractions)
+        public bool generateTrip(Trip trip, List<User> choosenParticipants, List<Attraction> choosenAttractions)
         {
             bool result = true;
             lock (DbConnection.Locker)

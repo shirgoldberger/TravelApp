@@ -133,7 +133,6 @@
     <Compile Include="Models\TripsModel.cs" />
     <Compile Include="Models\UsersModel.cs" />
     <Compile Include="Models\LocationsModel.cs" />
-    <Compile Include="Objects\TripToAdd.cs" />
     <Compile Include="Objects\User.cs" />
     <Compile Include="Objects\Utils.cs" />
     <Compile Include="Pages\AttractionProperties.xaml.cs">
