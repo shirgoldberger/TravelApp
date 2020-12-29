@@ -75,9 +75,9 @@ namespace TravelApp.Pages
             GetWindow(this).Close();
         }
 
-        private async Task<List<City>> getCitiesAsync(string begin)
+        private async Task<Tuple<bool, List<City>>> getCitiesAsync(string begin)
         {
-            List<City> list = await Task.Run(() => controller.getCitiesByBegin(begin));
+            Tuple<bool, List<City>> list = await Task.Run(() => controller.getCitiesByBegin(begin));
             return list;
         }
 
@@ -90,15 +90,20 @@ namespace TravelApp.Pages
             //    city = (City)cityBox.SelectedItem;
             //    SelectedCity = city.Name;
             //}
-            
-            cities = await getCitiesAsync(cityBegin);
+
+            Tuple<bool, List<City>> t = await getCitiesAsync(cityBegin);
+            if (!t.Item1)
+            {
+
+            }
+            cities = t.Item2;
             cityBox.ItemsSource = cities;
             endLoadCities();
         }
 
-        private async Task<List<Attraction>> getAttractionsAsync(City city)
+        private async Task<Tuple<bool, List<Attraction>>> getAttractionsAsync(City city)
         {
-            List<Attraction> list = await Task.Run(() => controller.getAttractionsByCity(city, ""));
+            Tuple<bool, List<Attraction>> list = await Task.Run(() => controller.getAttractionsByCity(city, ""));
             return list;
         }
 
@@ -110,7 +115,12 @@ namespace TravelApp.Pages
             {
                 city = (City)cityBox.SelectedItem;
             }
-            attractions = await getAttractionsAsync(selectedCity);
+            Tuple<bool, List<Attraction>> t = await getAttractionsAsync(selectedCity);
+            if (!t.Item1)
+            {
+
+            }
+            attractions = t.Item2;
             foreach (Attraction a in attractions)
             {
                 if (selectedAttractions.Exists(x => x.Attraction_code == a.Attraction_code))

@@ -523,8 +523,6 @@ namespace TravelApp.Models
             return new Tuple<bool, List<Trip>>(result, trips);
         }
 
-
-
         public Tuple<bool, List<Trip>> getTripWithoutUser(string username)
         {
             bool result = true;

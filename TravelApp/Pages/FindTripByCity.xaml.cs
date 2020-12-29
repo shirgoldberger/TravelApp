@@ -62,23 +62,28 @@ namespace TravelApp.Pages
             GetWindow(this).Close();
         }
 
-        private async Task<List<string>> getCountriesAsync(string begin)
+        private async Task<Tuple<bool, List<string>>> getCountriesAsync(string begin)
         {
-            List<string> list = await Task.Run(() => controller.getCountriesByBegin(begin));
+            Tuple<bool, List<string>> list = await Task.Run(() => controller.getCountriesByBegin(begin));
             return list;
         }
 
         private async void bindCountries()
         {
             startLoadCountries();
-            countries = await getCountriesAsync(countryBegin);
+            Tuple<bool, List<string>> t = await getCountriesAsync(countryBegin);
+            if (!t.Item1)
+            {
+
+            }
+            countries = t.Item2;
             countryBox.ItemsSource = countries;
             endLoadCountries();
         }
 
-        private async Task<List<City>> getCitiesAsync(string country)
+        private async Task<Tuple<bool, List<City>>> getCitiesAsync(string country)
         {
-            List<City> list = await Task.Run(() => controller.getCitiesByCountry(country, ""));
+            Tuple<bool, List<City>> list = await Task.Run(() => controller.getCitiesByCountry(country, ""));
             return list;
         }
 
@@ -90,7 +95,12 @@ namespace TravelApp.Pages
             {
                 country = countryBox.SelectedItem.ToString();
             }
-            cities = await getCitiesAsync(country);
+            Tuple<bool, List<City>> t = await getCitiesAsync(country);
+            if (!t.Item1)
+            {
+
+            }
+            cities = t.Item2;
             foreach (City c in cities)
             {
                 if (selectedCities.Exists(x => x.Id == c.Id))

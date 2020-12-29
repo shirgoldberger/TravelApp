@@ -14,7 +14,7 @@ namespace TravelApp
         {
         }
 
-        public List<Trip> FindTrip(int age, List<string> members, List<string> languages, List<Attraction> attractions, List<City> cities, DateTime start, DateTime end, string howToFilter)
+        public Tuple<bool, List<Trip>> FindTrip(int age, List<string> members, List<string> languages, List<Attraction> attractions, List<City> cities, DateTime start, DateTime end, string howToFilter)
         {
             string op;
             if (howToFilter == "all")
@@ -29,17 +29,27 @@ namespace TravelApp
 
         public Tuple<bool, List<Trip>> getTripForUser(string username)
         {
-            return TripsModel.Instance.getTripWithoutUser(username);
+            Tuple<bool, List<Trip>> tuple = TripsModel.Instance.getTripWithoutUser(username);
+            if (!tuple.Item1)
+            {
+                return tuple;
+            }
+            List<Trip> trips = tuple.Item2;
+            List<Trip> correctTrips = new List<Trip>();
+            foreach (Trip t in trips)
+            {
+                if (t.Member_Amount < t.Max_Participants)
+                {
+                    correctTrips.Add(t);
+                }
+            }
+            return new Tuple<bool, List<Trip>>(true, correctTrips);
+
         }
 
-        public List<String> getLanguages()
+        public Tuple<bool, List<string>> getLanguages()
         {
             return LanguagessModel.Instance.getLanguages();
-        }
-
-        public Trip getTripById(string id)
-        {
-            return TripsModel.Instance.getTripById(id);
         }
 
         public bool insertUserToTrip(string username, Trip trip)
@@ -62,8 +72,7 @@ namespace TravelApp
             return AttractionsModel.Instance.getAttractionsByCity(city, begin);
         }
 
-
-        public List<String> getFriendsForUser(string username)
+        public Tuple<bool, List<string>> getFriendsForUser(string username)
         {
             return UsersModel.Instance.getFriendsForUser(username);
         }

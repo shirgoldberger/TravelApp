@@ -59,7 +59,12 @@ namespace TravelApp
         private async void bindUsers()
         {
             startLoadUsers();
-            members = await getFriendsAsync();
+            Tuple<bool, List<string>> t = await getFriendsAsync();
+            if (!t.Item1)
+            {
+
+            }
+            members = t.Item2;
             membersComboBox.ItemsSource = members;
             endLoadUsers();
         }
@@ -67,7 +72,12 @@ namespace TravelApp
         private async void bindTrips()
         {
             startLoadTrips();
-            trips = await getTripsAsync();
+            Tuple<bool, List<Trip>> t = await getTripsAsync();
+            if (!t.Item1)
+            {
+
+            }
+            trips = t.Item2;
             allTripsListBox.ItemsSource = trips;
             endLoadTrips();
         }
@@ -75,24 +85,29 @@ namespace TravelApp
         private async void bindLanguages()
         {
             startLoadLanguages();
-            languages = await getLanguagesAsync();
+            Tuple<bool, List<string>> t = await getLanguagesAsync();
+            if (!t.Item1)
+            {
+
+            }
+            languages = t.Item2;
             languagesComboBox.ItemsSource = languages;
             endLoadLanguages();
         }
 
-        private async Task<List<string>> getFriendsAsync()
+        private async Task<Tuple<bool, List<string>>> getFriendsAsync()
         {
-            List<string> list = await Task.Run(() => controller.getFriendsForUser(this.username));
+            Tuple<bool, List<string>> list = await Task.Run(() => controller.getFriendsForUser(this.username));
             return list;
         }
-        private async Task<List<Trip>> getTripsAsync()
+        private async Task<Tuple<bool, List<Trip>>> getTripsAsync()
         {
-            List<Trip> list = await Task.Run(() => controller.getTripForUser(this.username));
+            Tuple<bool, List<Trip>> list = await Task.Run(() => controller.getTripForUser(this.username));
             return list;
         }
-        private async Task<List<string>> getLanguagesAsync()
+        private async Task<Tuple<bool, List<string>>> getLanguagesAsync()
         {
-            List<string> list = await Task.Run(() => controller.getLanguages());
+            Tuple<bool, List<string>> list = await Task.Run(() => controller.getLanguages());
             return list;
         }
 
@@ -157,7 +172,12 @@ namespace TravelApp
                     return;
                 }
             }
-            List<Trip> t = controller.FindTrip(age, choosenMembers, choosenLanguages, choosenAttractions, choosenCities, startDate_Selected, endDate_Selected, howToFilter);
+            Tuple <bool,List<Trip>> tuple = controller.FindTrip(age, choosenMembers, choosenLanguages, choosenAttractions, choosenCities, startDate_Selected, endDate_Selected, howToFilter);
+            if (!tuple.Item1)
+            {
+
+            }
+            List<Trip> t = tuple.Item2;
             allTripsListBox.ItemsSource = null;
             allTripsListBox.ItemsSource = t;
             if (allTripsListBox.Items.Count == 0)
