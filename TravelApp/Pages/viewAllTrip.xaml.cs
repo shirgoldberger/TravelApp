@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
+using TravelApp.Objects;
 
 namespace TravelApp
 {
@@ -30,7 +30,7 @@ namespace TravelApp
             username = _username;
             InitializeComponent();
             controller = new viewAllTrip_controller(username);
-            trips = controller.getAllTrip();
+            trips = getAllTrips();
             allTripsListBox.ItemsSource = trips;
         }
         private void Button_Click_add_trip(object sender, RoutedEventArgs e)
@@ -57,7 +57,7 @@ namespace TravelApp
             {
                 MessageBox.Show(t.Item2);
             }
-            trips = controller.getAllTrip();
+            trips = getAllTrips();
             allTripsListBox.ItemsSource = trips;
             
           }
@@ -79,17 +79,37 @@ namespace TravelApp
             Trip pushTrip = trips[itemIndex];
             if (pushTrip.Admin!= username)
             {
-                MessageBox.Show("you can not edit this trip - only admin can edit");
+                MessageBox.Show("You cannot edit this trip - only admin can");
 
             }
             else
             {
-                List<User> mem = controller.getAllMem(pushTrip);
-                List<Attraction> att = controller.getAllAtt(pushTrip);
+                Tuple<bool, List<User>> memTuple = controller.getAllMem(pushTrip);
+                if(!memTuple.Item1)
+                {
+                    Utils.errorAndExit("Error trying access members records");
+                }
+                List<User> mem = memTuple.Item2;
+                Tuple < bool, List<Attraction>> attTuple = controller.getAllAtt(pushTrip);
+                if(!attTuple.Item1)
+                {
+                    Utils.errorAndExit("Error trying access attractions records");
+                }
+                List<Attraction> att = attTuple.Item2;
                 addNewTrip ant = new addNewTrip(this, pushTrip, att, mem);
                 Updated = false;
                 NavigationService.Navigate(ant);
             }
+        }
+
+        private List<Trip> getAllTrips()
+        {
+            Tuple<bool, List<Trip>> tuple = controller.getAllTrip();
+            if (!tuple.Item1)
+            {
+                Utils.errorAndExit("Error trying access trips records");
+            }
+            return tuple.Item2;
         }
 
         private void allTripsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -102,7 +122,7 @@ namespace TravelApp
         }
         private void update()
         {
-            trips = controller.getAllTrip();
+            trips = getAllTrips();
             allTripsListBox.ItemsSource = null;
             allTripsListBox.ItemsSource = trips;
         }

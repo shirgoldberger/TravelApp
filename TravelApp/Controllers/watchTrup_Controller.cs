@@ -16,7 +16,7 @@ namespace TravelApp
             this.trip = trip;
            // model = new watchTrip_Model(trip);
         }
-        public List<string> getMem()
+        public Tuple<bool, List<string>> getMem()
         {
             return UsersModel.Instance.getAllMembersInTrip(trip);
         }

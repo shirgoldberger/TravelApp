@@ -14,7 +14,7 @@ namespace TravelApp.Models
     {
 
 
-        public User getUserByName(string username)
+        public Tuple<bool, User> getUserByName(string username)
         {
             return UsersModel.Instance.getUserByName(username);
         }

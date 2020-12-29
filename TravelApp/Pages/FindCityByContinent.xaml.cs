@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using TravelApp.Models;
+using TravelApp.Objects;
 
 namespace TravelApp.Pages
 {
@@ -38,7 +39,12 @@ namespace TravelApp.Pages
 
         private async Task<List<string>> getContinentsAsync(string begin)
         {
-            List<string> list = await Task.Run(() => controller.getContinents(begin));
+            Tuple<bool, List<string>> tuple = await Task.Run(() => controller.getContinents(begin));
+            if(!tuple. Item1)
+            {
+                Utils.errorAndExit("Error trying to access continents records");
+            }
+            List<string> list = tuple.Item2;
             return list;
         }
 
@@ -51,7 +57,12 @@ namespace TravelApp.Pages
 
         private async Task<List<City>> getCitiesAsync(string continent)
         {
-            List<City> list = await Task.Run(() => controller.getCitiesByContinent(continent, ""));
+            Tuple<bool, List<City>> tuple = await Task.Run(() => controller.getCitiesByContinent(continent, ""));
+            if(!tuple.Item1)
+            {
+                Utils.errorAndExit("Error trying to access cities records");
+            }
+            List<City> list = tuple.Item2;
             return list;
         }
 

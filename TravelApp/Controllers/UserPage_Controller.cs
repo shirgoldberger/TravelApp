@@ -11,7 +11,7 @@ namespace TravelApp
     public class UserPage_Controller
     {
 
-        public List<string> getRestUsers(string username, string beginning)
+        public Tuple<bool, List<string>> getRestUsers(string username, string beginning)
         {
             return UsersModel.Instance.getRestUsers(username, beginning);
         }

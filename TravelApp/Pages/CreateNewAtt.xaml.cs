@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using TravelApp.Models;
+using TravelApp.Objects;
 
 namespace TravelApp.Pages
 {
@@ -49,7 +50,12 @@ namespace TravelApp.Pages
             }
             string name = attrationName.Text;
             string type = typeName.Text;
-            if(controller.attractionAlreadyExist(name, city_code, type))
+            Tuple<bool, bool> tuple = controller.attractionAlreadyExist(name, city_code, type);
+            if(!tuple.Item1)
+            {
+                Utils.errorAndExit("Error trying access attractions recods");
+            }
+            if (tuple.Item2)
             {
                 MessageBox.Show("This attraction is already exist");
                 return;

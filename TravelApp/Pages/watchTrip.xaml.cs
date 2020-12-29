@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using TravelApp.Objects;
 
 namespace TravelApp
 {
@@ -19,19 +20,19 @@ namespace TravelApp
     /// </summary>
     public partial class watchTrip : Window
     {
-        int id;
-        string admin;
-        string nameTrip;
-        DateTime start_date; 
-       DateTime end_date;
-       private int min_age;
-       private int max_age;
-       private int max_participants;
-       public bool male_only;
-       public bool female_only;
-        List<string> members;
-        List<Attraction> attractions;
-        watchTrup_Controller controller;
+        private int id;
+        private string admin;
+        private string nameTrip;
+        private DateTime start_date;
+        private DateTime end_date;
+        private int min_age;
+        private int max_age;
+        private int max_participants;
+        private bool male_only;
+        private bool female_only;
+        private List<string> members;
+        private List<Attraction> attractions;
+        private watchTrup_Controller controller;
 
 
 
@@ -57,18 +58,25 @@ namespace TravelApp
             {
                 male.IsChecked = true;
             }
-            else
-            {
-
-            }
             female.IsEnabled = false;
             male.IsEnabled = false;
 
             //
             DataContext = this;
             controller = new watchTrup_Controller(trip);
-            members = controller.getMem();
-            attractions = controller.getAtt();
+            Tuple<bool, List<string>> membersTuple = controller.getMem();
+            if(!membersTuple.Item1)
+            {
+                Utils.errorAndExit("Error trying to access members records");
+            }
+            members = membersTuple.Item2;
+
+            Tuple<bool, List<Attraction>> attractionsTuple = controller.getAtt();
+            if (!attractionsTuple.Item1)
+            {
+                Utils.errorAndExit("Error trying to access members records");
+            }
+            attractions = attractionsTuple.Item2;
 
             allMemListBox.ItemsSource = members;
             allAttListBox.ItemsSource = attractions;

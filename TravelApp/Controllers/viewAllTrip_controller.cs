@@ -53,7 +53,7 @@ namespace TravelApp
             }
             return Tuple.Create(i, msg);
         }
-        public List<User> getAllMem(Trip trip)
+        public Tuple<bool, List<User>> getAllMem(Trip trip)
         {
             return UsersModel.Instance.getAllMembers(trip, username);
         }

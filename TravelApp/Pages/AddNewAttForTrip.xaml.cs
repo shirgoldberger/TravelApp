@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using TravelApp.Controllers;
 using TravelApp.Models;
+using TravelApp.Objects;
 
 namespace TravelApp.Pages
 {
@@ -73,7 +74,12 @@ namespace TravelApp.Pages
 
         private async Task<List<Attraction>> getAttractionsAsync(string cityId, string type, string name, List<Attraction> drop)
         {
-            List<Attraction> list = await Task.Run(() => controller.getAttractions(cityId, type, name, drop));
+            Tuple<bool, List<Attraction>> tuple = await Task.Run(() => controller.getAttractions(cityId, type, name, drop));
+            if(!tuple.Item1)
+            {
+                Utils.errorAndExit("Error trying to access attractions records");
+            }
+            List<Attraction> list = tuple.Item2;
             return list;
         }
 
