@@ -120,12 +120,9 @@
     </ApplicationDefinition>
     <Compile Include="Controllers\AddNewAttForTrip_Controller.cs" />
     <Compile Include="Controllers\AddNewMembers_Controller.cs" />
-    <Compile Include="Controllers\add_new_att_for_trip_Controller.cs" />
-    <Compile Include="Controllers\add_new_mem_for_trip_Controller.cs" />
     <Compile Include="Controllers\AttractionProperties_Controller.cs" />
     <Compile Include="Controllers\CreateAccount_Controller.cs" />
     <Compile Include="Controllers\deleteTrip_Controller.cs" />
-    <Compile Include="Controllers\editTheTrip_Controller.cs" />
     <Compile Include="Controllers\CreateTrip_Controller.cs" />
     <Compile Include="Controllers\UserPage_Controller.cs" />
     <Compile Include="Controllers\FindTrip_Controller.cs" />
@@ -162,23 +159,14 @@
     <Compile Include="Pages\addNewFriend.xaml.cs">
       <DependentUpon>addNewFriend.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\add_new_att_for_trip.xaml.cs">
-      <DependentUpon>add_new_att_for_trip.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Pages\addNewMembersToTrip.xaml.cs">
       <DependentUpon>addNewMembersToTrip.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\add_new_mem_for_trip.xaml.cs">
-      <DependentUpon>add_new_mem_for_trip.xaml</DependentUpon>
     </Compile>
     <Compile Include="Objects\Attraction.cs" />
     <Compile Include="Objects\City.cs" />
     <Compile Include="Objects\DbConnection.cs" />
     <Compile Include="Pages\deleteTrip.xaml.cs">
       <DependentUpon>deleteTrip.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\editTheTrip.xaml.cs">
-      <DependentUpon>editTheTrip.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\FindCityByCountry.xaml.cs">
       <DependentUpon>FindCityByCountry.xaml</DependentUpon>
@@ -233,27 +221,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Pages\add_new_att_for_trip.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Pages\addNewMembersToTrip.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Pages\add_new_mem_for_trip.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\CreateAccount.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\deleteTrip.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\editTheTrip.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

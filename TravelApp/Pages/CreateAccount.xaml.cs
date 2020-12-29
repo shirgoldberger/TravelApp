@@ -33,7 +33,12 @@ namespace TravelApp
         private async void bindUsers()
         {
             startLoadUsers();
-            users = await getUsersAsync();
+            Tuple<bool, List<string>> t = await getUsersAsync();
+            if (!t.Item1)
+            {
+
+            }
+            users = t.Item2;
             friendsComboBox.ItemsSource = users;
             endLoadUsers();
         }
@@ -41,19 +46,24 @@ namespace TravelApp
         private async void bindLanguages()
         {
             startLoadLanguages();
-            languages = await getLanguagesAsync();
+            Tuple<bool, List<string>> t = await getLanguagesAsync();
+            if (!t.Item1)
+            {
+
+            }
+            languages = t.Item2;
             languagesComboBox.ItemsSource = languages;
             endLoadLanguages();
         }
 
-        private async Task<List<string>> getUsersAsync()
+        private async Task<Tuple<bool, List<string>>> getUsersAsync()
         {
-            List<string> list = await Task.Run(() => controller.getUsers());
+            Tuple<bool, List<string>> list = await Task.Run(() => controller.getUsers());
             return list;
         }
-        private async Task<List<string>> getLanguagesAsync()
+        private async Task<Tuple<bool, List<string>>> getLanguagesAsync()
         {
-            List<string> list = await Task.Run(() => controller.getLanguages());
+            Tuple<bool, List<string>> list = await Task.Run(() => controller.getLanguages());
             return list;
         }
 

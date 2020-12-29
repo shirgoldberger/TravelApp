@@ -79,12 +79,12 @@ namespace TravelApp
             }
         }
 
-        public List<string> getLanguages()
+        public Tuple<bool, List<string>> getLanguages()
         {
             return LanguagessModel.Instance.getLanguages();
         }
 
-        public List<string> getUsers()
+        public Tuple<bool, List<string>> getUsers()
         {
             return UsersModel.Instance.getUsers();
         }
