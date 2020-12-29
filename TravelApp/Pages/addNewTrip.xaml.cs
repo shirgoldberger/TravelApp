@@ -16,6 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TravelApp.Models;
+using TravelApp.Objects;
 using TravelApp.Pages;
 
 enum Type
@@ -142,7 +143,12 @@ namespace TravelApp
 
         private void setAdminAndGender(string username)
         {
-            admin = controller.getUserByName(username);
+            Tuple<bool, User> tuple = controller.getUserByName(username);
+            if(!tuple.Item1)
+            {
+                Utils.errorAndExit("Error trying to access users records");
+            }
+            admin = tuple.Item2;
             isAdminMale = admin.Is_male == '1';
         }
 

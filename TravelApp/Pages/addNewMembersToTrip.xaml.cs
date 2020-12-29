@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using TravelApp.Controllers;
 using TravelApp.Models;
+using TravelApp.Objects;
 
 namespace TravelApp
 {
@@ -55,7 +56,12 @@ namespace TravelApp
 
         private async Task<List<User>> getRestMembersAsync(List<User> dropped)
         {
-            List<User> list = await Task.Run(() => controller.getRestFriends(dropped, admin, minAge, maxAge, femaleOnly, maleOnly));
+            Tuple< bool, List<User>> tuple = await Task.Run(() => controller.getRestFriends(dropped, admin, minAge, maxAge, femaleOnly, maleOnly));
+            if(!tuple.Item1)
+            {
+                Utils.errorAndExit("Error trying access users records");
+            }
+            List<User> list = tuple.Item2;
             return list;
         }
 

@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using TravelApp.Models;
+using TravelApp.Objects;
 
 namespace TravelApp
 {
@@ -35,7 +36,12 @@ namespace TravelApp
         private void bindNonUserList()
         {
             string beginning = beginTextBox.Text;
-            users = controller.getRestUsers(username, beginning);
+            Tuple<bool, List<string>> tuple = controller.getRestUsers(username, beginning);
+            if(!tuple.Item1)
+            {
+                Utils.errorAndExit("Error trying to access users records");
+            }
+            users = tuple.Item2;
             userList.ItemsSource = null;
             userList.ItemsSource = users;
         }
