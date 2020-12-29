@@ -29,7 +29,7 @@ namespace TravelApp
 
         public Tuple<bool, List<Trip>> getTripForUser(string username)
         {
-            Tuple<bool, List<Trip>> tuple = TripsModel.Instance.getTripWithoutUser(username);
+            Tuple<bool, List<Trip>> tuple = TripsModel.Instance.getTripsForUser(username, "not in");
             if (!tuple.Item1)
             {
                 return tuple;

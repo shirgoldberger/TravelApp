@@ -523,44 +523,6 @@ namespace TravelApp.Models
             return new Tuple<bool, List<Trip>>(result, trips);
         }
 
-        public Tuple<bool, List<Trip>> getTripWithoutUser(string username)
-        {
-            bool result = true;
-            List<Trip> trips = new List<Trip>();
-            string command = "SELECT * from trip WHERE trip_code NOT IN" +
-                "(SELECT t.trip_code FROM trip INNER JOIN member AS t WHERE t.username = '"
-                + username + "');";
-            lock (DbConnection.Locker)
-            {
-                MySqlDataReader dr = DbConnection.ExecuteQuery(command);
-                if (dr != null)
-                {
-                    while (dr.Read())
-                    {
-                        Trip t = createTrip(dr);
-                        trips.Add(t);
-                    }
-                    dr.Close();
-                }
-                else
-                {
-                    result = false;
-                }
-            }
-            if(result)
-            {
-                foreach (Trip t in trips)
-                {
-                    result = AddMemberAmount(t);
-                    if(!result)
-                    {
-                        break;
-                    }
-                }
-            }
-            return new Tuple<bool, List<Trip>>(result, trips);
-        }
-
         public bool insertUserToTrip(string username, Trip trip)
         {
             bool result = false;
@@ -687,7 +649,46 @@ namespace TravelApp.Models
             return new Tuple<bool, List<Trip>>( result, trips);
         }
 
-
+        public Tuple<bool, List<Trip>> getTripsForUser(string username, string op)
+        {
+            List<Trip> trips = new List<Trip>();
+            string command = "select temp.trip_code, name, admin, start_date, end_date, min_age, max_age, max_participants, male_only, female_only, count(member2.trip_code) as participants_count " +
+                "From mydb.member as member2 JOIN(SELECT * " +
+                "FROM mydb.trip " +
+                "where trip_code " + op + " (select trip_code as coded " +
+                "From mydb.member " +
+                "where username = '" + username + "')) as temp " +
+                "where(member2.trip_code = temp.trip_code) " +
+                "group by(member2.trip_code)";
+            lock (DbConnection.Locker)
+            {
+                MySqlDataReader dr = DbConnection.ExecuteQuery(command);
+                if (dr != null)
+                {
+                    while (dr.Read())
+                    {
+                        int trip_code = int.Parse(dr.GetString("trip_code"));
+                        string name = dr.GetString("name");
+                        string admin = dr.GetString("admin");
+                        DateTime start_date = DateTime.Parse(dr.GetString("start_date"));
+                        DateTime end_date = DateTime.Parse(dr.GetString("end_date"));
+                        int min_age = int.Parse(dr.GetString("min_age"));
+                        int max_age = int.Parse(dr.GetString("max_age"));
+                        int max_participants = int.Parse(dr.GetString("max_participants"));
+                        bool male_only = dr.GetString("male_only")[0] == '1';
+                        bool female_only = dr.GetString("female_only")[0] == '1';
+                        int amount = int.Parse(dr.GetString("participants_count"));
+                        Trip t = new Trip(trip_code, name, admin, start_date, end_date, min_age, max_age, max_participants, male_only, female_only);
+                        t.Member_Amount = amount;
+                        trips.Add(t);
+                    }
+                } else
+                {
+                    return new Tuple<bool, List<Trip>>(false, trips);
+                }
+            }
+            return new Tuple<bool, List<Trip>>(true, trips);
+        }
 
     }
 }
