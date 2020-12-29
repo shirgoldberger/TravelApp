@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using TravelApp.Objects;
 
 namespace TravelApp
 {
@@ -29,15 +30,20 @@ namespace TravelApp
             username = _username;
             InitializeComponent();
             controller = new deleteTrip_Controller(trip, username);
-            members = controller.getAllMembers();
+            var touple = controller.getAllMembers();
+            members = touple.Item2;
+            if (touple.Item1 == false)
+            {
+                Utils.errorAndExit("failed to get all members - check the SQL");
+            }
             allMemListBox.ItemsSource = members;
             this.trip = trip;
             this.pageToUpdate = pageToUpdate;
         }
         public void Button_Click_All(object sender, RoutedEventArgs e)
         {
-            var t = controller.Click_All();
-            MessageBox.Show(t.Item2);
+            string t = controller.Click_All();
+            MessageBox.Show(t);
             (pageToUpdate as viewAllTrip).Updated = true;
             this.Close();
 
@@ -50,8 +56,8 @@ namespace TravelApp
         {
             var item = ((Button)sender).DataContext;
             var itemIndex = allMemListBox.Items.IndexOf(item);
-            var t = controller.row_click(members[itemIndex]);
-            MessageBox.Show(t.Item2);
+            string t = controller.row_click(members[itemIndex]);
+            MessageBox.Show(t);
             (pageToUpdate as viewAllTrip).Updated = true;
             this.Close();
         }

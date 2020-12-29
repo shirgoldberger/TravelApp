@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TravelApp.Models;
+using TravelApp.Objects;
 
 
 namespace TravelApp
@@ -23,25 +24,23 @@ namespace TravelApp
         {
             return TripsModel.Instance.getAllMembersWithoutMe(trip, username);
         }
-        public Tuple<int, string> Click_All()
+        public  string Click_All()
         {
-            int i = -1;
             string msg = "";
             bool a = TripsModel.Instance.delteAllTripMember(trip);
             if (a == false)
             {
-                i = 0;
-                msg = "delete failed";
+                //"delete fauled"
+                Utils.errorAndExit("delete failed");
 
             }
             if (a == true)
             {
-                i = 1;
                 msg = "delete sucses";
             }
-            return Tuple.Create(i, msg);
+            return  msg;
         }
-        public Tuple<int, string> row_click(string mem)
+        public string row_click(string mem)
         {
             int i = -1;
             string msg = "";
@@ -53,10 +52,10 @@ namespace TravelApp
             }
             else
             {
-                msg = "delete faild";
-                i = 1;
+                //אני לא בטוחה שהתוכנית צריכה להסתיים עכשיו, אולי עדיף רק לשים הודעה שהמחיקה נכשלה.
+                Utils.errorAndExit("delete failed");
             }
-            return Tuple.Create(i, msg);
+            return  msg;
 
         }
     }

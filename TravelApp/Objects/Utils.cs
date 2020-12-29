@@ -9,7 +9,7 @@ namespace TravelApp.Objects
     class Utils
     {
 
-        public static void errorAndExit()
+        public static void errorAndExit(string msg)
         {
 
         }
