@@ -653,13 +653,13 @@ namespace TravelApp.Models
         {
             List<Trip> trips = new List<Trip>();
             string command = "select temp.trip_code, name, admin, start_date, end_date, min_age, max_age, max_participants, male_only, female_only, count(member2.trip_code) as participants_count " +
-                "From mydb.member as member2 JOIN(SELECT * " +
+                "FROM mydb.member as member2 JOIN(SELECT * " +
                 "FROM mydb.trip " +
-                "where trip_code " + op + " (select trip_code as coded " +
-                "From mydb.member " +
-                "where username = '" + username + "')) as temp " +
-                "where(member2.trip_code = temp.trip_code) " +
-                "group by(member2.trip_code)";
+                "WHERE trip_code " + op + " (SELECT trip_code as coded " +
+                "FROM mydb.member " +
+                "WHERE username = '" + username + "')) as temp " +
+                "WHERE(member2.trip_code = temp.trip_code) " +
+                "GROUP BY(member2.trip_code)";
             lock (DbConnection.Locker)
             {
                 MySqlDataReader dr = DbConnection.ExecuteQuery(command);
