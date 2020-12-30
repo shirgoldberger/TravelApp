@@ -52,11 +52,24 @@ namespace TravelApp
             var item = ((Button)sender).DataContext;
             var itemIndex = allTripsListBox.Items.IndexOf(item);
             //check if he is the admin of this trip.
-            var t = controller.click_delete(trips[itemIndex], this);
-            if (t.Item2 != "")
+            Trip clickedTrip = trips[itemIndex];
+            if (username != clickedTrip.Admin)
             {
-                MessageBox.Show(t.Item2);
+                if(!controller.click_delete(clickedTrip))
+                {
+                    Utils.Instance.errorAndExit("Error trying to access trip records");
+                }
+                else
+                {
+                    MessageBox.Show("Delete succeed");
+                }
             }
+            else
+            {
+                deleteTrip delete = new deleteTrip(clickedTrip, username, this);
+                delete.Show();
+            }
+            
             trips = getAllTrips();
             allTripsListBox.ItemsSource = trips;
             

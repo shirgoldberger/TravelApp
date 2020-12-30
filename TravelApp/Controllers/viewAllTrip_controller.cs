@@ -19,39 +19,11 @@ namespace TravelApp
         }
         public Tuple<bool, List<Trip>> getAllTrip()
         {
-            return TripsModel.Instance.getAllTripForUser(username); 
+            return TripsModel.Instance.getTripsForUser(username, "IN"); 
         }
-        public Tuple<int, string> click_delete(Trip trip, Page pageToUpdate)
+        public bool click_delete(Trip trip)
         {
-            int i=0;
-            string msg="";
-            //if the username is the admin he need to choose - so he make the decision in tjr deleteTrip page
-            if (username == trip.Admin)
-            {
-                deleteTrip delete = new deleteTrip(trip, username, pageToUpdate);
-                delete.Show();
-
-            }
-            //just delete this username from trip - using the model.
-            else
-            {
-                bool a = TripsModel.Instance.deleteTrip(trip, username); 
-                if (a == false)
-                {
-                    i = 1;
-                    msg = "delete failed";
-
-                }
-                if (a == true)
-                {
-                    i = 0;
-                   msg ="delete sucses";
-                   (pageToUpdate as viewAllTrip).Updated = true;
-
-
-                }
-            }
-            return Tuple.Create(i, msg);
+            return TripsModel.Instance.deleteTrip(trip, username);
         }
         public Tuple<bool, List<User>> getAllMem(Trip trip)
         {

@@ -399,12 +399,12 @@ namespace TravelApp.Models
                     {
                         users.Add(dr.GetString("username"));
                     }
+                    dr.Close();
                 }
                 else
                 {
                     result = false;
                 }
-                dr.Close();
             }
             return new Tuple<bool, List<string>>(result, users);
         }
