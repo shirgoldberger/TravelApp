@@ -47,7 +47,7 @@
 
 
 
-        <TextBlock Padding="3" FontSize="50" HorizontalAlignment="Center" FontWeight="Bold" TextDecorations="{x:Null}" Margin="273,10,246,485.667" Width="581" Text="Your Upcoming Trips:">
+        <TextBlock Padding="3" FontSize="50" HorizontalAlignment="Center" FontWeight="Bold" TextDecorations="{x:Null}" Margin="273,10,246,485.667" Width="581" Text="Your Registered Trips:">
             <TextBlock.Foreground>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="Black" Offset="0.853"/>
@@ -90,7 +90,7 @@
                 </ControlTemplate>
             </Button.Template>
         </Button>
-        <Button x:Name="return"  HorizontalAlignment="Right" VerticalAlignment="Top" Width="54" FontWeight="Bold" Margin="0,4,1041,0" Height="50" FontFamily="BN Eyal" FontSize="10" Cursor="Hand" RenderTransformOrigin="-0.534,1.361" Background="#FFDDDDDD" Foreground="White" Click="return_Click">
+        <Button x:Name="return"  HorizontalAlignment="Right" VerticalAlignment="Top" Width="54" FontWeight="Bold" Margin="0,13,1032,0" Height="50" FontFamily="BN Eyal" FontSize="10" Cursor="Hand" RenderTransformOrigin="-0.534,1.361" Background="#FFDDDDDD" Foreground="White" Click="return_Click">
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Border x:Name="bdr_main" CornerRadius="20" Margin="4" BorderThickness="1" BorderBrush="Black">

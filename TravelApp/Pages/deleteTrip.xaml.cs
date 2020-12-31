@@ -42,8 +42,11 @@ namespace TravelApp
         }
         public void Button_Click_All(object sender, RoutedEventArgs e)
         {
-            string t = controller.Click_All();
-            MessageBox.Show(t);
+            if(!controller.Click_All())
+            {
+                Utils.Instance.errorAndExit("Error tyring to access trip records");
+            }
+            MessageBox.Show("Delete all trip members and trip itself succeed");
             (pageToUpdate as viewAllTrip).Updated = true;
             this.Close();
 
@@ -56,8 +59,12 @@ namespace TravelApp
         {
             var item = ((Button)sender).DataContext;
             var itemIndex = allMemListBox.Items.IndexOf(item);
-            string t = controller.row_click(members[itemIndex]);
-            MessageBox.Show(t);
+            string newAdmin = members[itemIndex];
+            if (!controller.row_click(newAdmin))
+            {
+                Utils.Instance.errorAndExit("Error tyring to delete trip member");
+            }
+            MessageBox.Show("Delete succeed, the new assigned admin is " + newAdmin);
             (pageToUpdate as viewAllTrip).Updated = true;
             this.Close();
         }

@@ -24,37 +24,13 @@ namespace TravelApp
         {
             return TripsModel.Instance.getAllMembersWithoutMe(trip, username);
         }
-        public  string Click_All()
+        public bool Click_All()
         {
-            string msg = "";
-            bool a = TripsModel.Instance.delteAllTripMember(trip);
-            if (a == false)
-            {
-                //"delete failed"
-                Utils.Instance.errorAndExit("Error trying to delete trip members");
-            }
-            if (a == true)
-            {
-                msg = "delete succedd";
-            }
-            return  msg;
+            return TripsModel.Instance.delteAllTripMember(trip);
         }
-        public string row_click(string mem)
+        public bool row_click(string mem)
         {
-            int i = -1;
-            string msg = "";
-            bool a = TripsModel.Instance.setUserAdmin(trip, username, mem);
-            if (a == true)
-            {
-                i = 0;
-                msg = "you deleted from trip and " + mem + " is the new admin.";
-            }
-            else
-            {
-                Utils.Instance.errorAndExit("Error tyring to delete trip member");
-            }
-            return  msg;
-
+            return TripsModel.Instance.setUserAdmin(trip, username, mem);
         }
     }
 }

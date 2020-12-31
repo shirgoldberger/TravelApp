@@ -35,7 +35,7 @@ namespace TravelApp.Objects
             lock(locker)
             {
                 MessageBox.Show(msg);
-                Console.WriteLine("!!!!!!!!!!!!!!!!!!!!!!!1");
+                System.Environment.Exit(0);
             }
         }
     }
