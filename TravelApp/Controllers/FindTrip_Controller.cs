@@ -14,7 +14,7 @@ namespace TravelApp
         {
         }
 
-        public Tuple<bool, List<Trip>> FindTrip(int age, List<string> members, List<string> languages, List<Attraction> attractions, List<City> cities, DateTime start, DateTime end, string howToFilter)
+        public Tuple<bool, List<Trip>> FindTrip(string username, int age, List<string> members, List<string> languages, List<Attraction> attractions, List<City> cities, DateTime start, DateTime end, string howToFilter)
         {
             string op;
             if (howToFilter == "all")
@@ -24,7 +24,7 @@ namespace TravelApp
             {
                 op = "OR";
             }
-            return TripsModel.Instance.FindTrip(age, members, languages, attractions, cities, start, end, op);
+            return TripsModel.Instance.FindTrip(username, age, members, languages, attractions, cities, start, end, op);
         }
 
         public Tuple<bool, List<Trip>> getTripForUser(string username)

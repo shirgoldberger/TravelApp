@@ -13,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using TravelApp.Objects;
 
 namespace TravelApp.Pages
 {
@@ -74,7 +75,7 @@ namespace TravelApp.Pages
             Tuple<bool, List<string>> t = await getCountriesAsync(countryBegin);
             if (!t.Item1)
             {
-
+                Utils.Instance.errorAndExit("Error trying access countries records");
             }
             countries = t.Item2;
             countryBox.ItemsSource = countries;
@@ -98,7 +99,7 @@ namespace TravelApp.Pages
             Tuple<bool, List<City>> t = await getCitiesAsync(country);
             if (!t.Item1)
             {
-
+                Utils.Instance.errorAndExit("Error trying access cities records");
             }
             cities = t.Item2;
             foreach (City c in cities)

@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using TravelApp.Objects;
 
 namespace TravelApp
 {
@@ -36,7 +37,7 @@ namespace TravelApp
             Tuple<bool, List<string>> t = await getUsersAsync();
             if (!t.Item1)
             {
-
+                Utils.Instance.errorAndExit("Error trying access users records");
             }
             users = t.Item2;
             friendsComboBox.ItemsSource = users;
@@ -49,7 +50,7 @@ namespace TravelApp
             Tuple<bool, List<string>> t = await getLanguagesAsync();
             if (!t.Item1)
             {
-
+                Utils.Instance.errorAndExit("Error trying access languages records");
             }
             languages = t.Item2;
             languagesComboBox.ItemsSource = languages;

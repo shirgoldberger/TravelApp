@@ -255,7 +255,7 @@ namespace TravelApp.Models
             }
         }
 
-        public Tuple<bool, List<Trip>> FindTrip(int age, List<string> members, List<string> languages, List<Attraction> attractions, List<City> cities, DateTime start, DateTime end, string op)
+        public Tuple<bool, List<Trip>> FindTrip(string username, int age, List<string> members, List<string> languages, List<Attraction> attractions, List<City> cities, DateTime start, DateTime end, string op)
         {
             List<Trip> trips = new List<Trip>();
             string fullCommand = "";
@@ -318,10 +318,13 @@ namespace TravelApp.Models
             }
             if (fullCommand == "")
             {
-                return new Tuple<bool, List<Trip>>(true, trips);
+                return getTripsForUser(username, "not in");
             }
-            fullCommand += ";";
-            fullCommand = "SELECT distinct * FROM trip WHERE\n" + fullCommand;
+            else
+            {
+                fullCommand += ";";
+                fullCommand = "SELECT distinct * FROM trip WHERE\n" + fullCommand;
+            }
             return getTripsByCommand(fullCommand);
         }
 
@@ -405,8 +408,8 @@ namespace TravelApp.Models
                     allCities += ",";
                 }
             }
-            string innerTable = "SELECT trip_attractions.trip_code FROM trip_attractions inner join attraction" +
-                " WHERE attraction.city_id IN(" + allCities + ") " +
+            string innerTable = "SELECT trip_attractions.trip_code FROM trip_attractions join attraction" +
+                " WHERE attraction.attraction_code = trip_attractions.attraction_code AND attraction.city_id IN(" + allCities + ") " +
                 "GROUP BY trip_code " +
                 "HAVING COUNT(trip_code) =" + cities.Count;
             string command = "SELECT trip_code FROM Trip WHERE trip_code IN(" +
@@ -653,10 +656,10 @@ namespace TravelApp.Models
         {
             List<Trip> trips = new List<Trip>();
             string command = "select temp.trip_code, name, admin, start_date, end_date, min_age, max_age, max_participants, male_only, female_only, count(member2.trip_code) as participants_count " +
-                "From mydb.member as member2 JOIN(SELECT * " +
-                "FROM mydb.trip " +
+                "From member as member2 JOIN(SELECT * " +
+                "FROM trip " +
                 "where trip_code " + op + " (select trip_code as coded " +
-                "From mydb.member " +
+                "From member " +
                 "where username = '" + username + "')) as temp " +
                 "where(member2.trip_code = temp.trip_code) " +
                 "group by(member2.trip_code)";
@@ -682,6 +685,7 @@ namespace TravelApp.Models
                         t.Member_Amount = amount;
                         trips.Add(t);
                     }
+                    dr.Close();
                 } else
                 {
                     return new Tuple<bool, List<Trip>>(false, trips);

@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TravelApp.Objects;
 using TravelApp.Pages;
 
 namespace TravelApp
@@ -62,7 +63,7 @@ namespace TravelApp
             Tuple<bool, List<string>> t = await getFriendsAsync();
             if (!t.Item1)
             {
-
+                Utils.Instance.errorAndExit("Error trying access users records");
             }
             members = t.Item2;
             membersComboBox.ItemsSource = members;
@@ -75,7 +76,7 @@ namespace TravelApp
             Tuple<bool, List<Trip>> t = await getTripsAsync();
             if (!t.Item1)
             {
-
+                Utils.Instance.errorAndExit("Error trying access trips records");
             }
             trips = t.Item2;
             allTripsListBox.ItemsSource = trips;
@@ -88,7 +89,7 @@ namespace TravelApp
             Tuple<bool, List<string>> t = await getLanguagesAsync();
             if (!t.Item1)
             {
-
+                Utils.Instance.errorAndExit("Error trying access languages records");
             }
             languages = t.Item2;
             languagesComboBox.ItemsSource = languages;
@@ -110,7 +111,6 @@ namespace TravelApp
             Tuple<bool, List<string>> list = await Task.Run(() => controller.getLanguages());
             return list;
         }
-
 
         private void Languages_TextChanged(object sender, EventArgs e)
         {
@@ -153,7 +153,6 @@ namespace TravelApp
 
         private void Button_Click_Find(object sender, RoutedEventArgs e)
         {
-            startLoadTrips();
             if (howToFilter == "")
             {
                 MessageBox.Show("Choose how to filter the trips");
@@ -172,19 +171,39 @@ namespace TravelApp
                     return;
                 }
             }
-            Tuple <bool,List<Trip>> tuple = controller.FindTrip(age, choosenMembers, choosenLanguages, choosenAttractions, choosenCities, startDate_Selected, endDate_Selected, howToFilter);
-            if (!tuple.Item1)
-            {
+            bindFindTrips(age, choosenMembers, choosenLanguages, choosenAttractions, choosenCities, startDate_Selected, endDate_Selected, howToFilter);
+        }
 
+        private async Task<Tuple<bool, List<Trip>>> findTripsAsync(int age, List<string> choosenMembers, List<string> choosenLanguages,
+            List<Attraction> choosenAttractions, List<City> choosenCities,
+            DateTime startDate_Selected, DateTime endDate_Selected, string howToFilter)
+        {
+            Tuple<bool, List<Trip>> list = await Task.Run(() => controller.FindTrip(username, age, choosenMembers, choosenLanguages,
+                choosenAttractions, choosenCities, startDate_Selected,
+                endDate_Selected, howToFilter));
+            return list;
+        }
+
+        private async void bindFindTrips(int age, List<string> choosenMembers, List<string> choosenLanguages,
+            List<Attraction> choosenAttractions, List<City> choosenCities,
+            DateTime startDate_Selected, DateTime endDate_Selected, string howToFilter)
+        {
+            startLoadTrips();
+            Tuple<bool, List<Trip>> t = await findTripsAsync(age, choosenMembers, choosenLanguages,
+                choosenAttractions, choosenCities, startDate_Selected,
+                endDate_Selected, howToFilter);
+            if (!t.Item1)
+            {
+                Utils.Instance.errorAndExit("Error trying access trips records");
             }
-            List<Trip> t = tuple.Item2;
+            trips = t.Item2;
             allTripsListBox.ItemsSource = null;
-            allTripsListBox.ItemsSource = t;
+            allTripsListBox.ItemsSource = trips;
+            endLoadTrips();
             if (allTripsListBox.Items.Count == 0)
             {
                 MessageBox.Show("There are no trips that match this search");
             }
-            endLoadTrips();
         }
 
         private void Checked_Member(object sender, RoutedEventArgs e)
