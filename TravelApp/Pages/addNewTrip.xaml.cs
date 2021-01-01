@@ -96,6 +96,7 @@ namespace TravelApp
             user_maxParticipants = trip.Max_Participants.ToString() ;
             assignDates = true;
             createButton.Content = "Update Trip";
+            title.Text = "UPDATE YOUR TRIP";
             startDate = trip.Start_Date;
             endDate = trip.End_Date;
             creation = false;

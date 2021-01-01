@@ -104,6 +104,7 @@ namespace TravelApp.Pages
                 DateTime start = value.Item1;
                 DateTime end = value.Item2;
                 tripDates.SelectedDates.AddRange(start, end);
+                tripDates.DisplayDate = start;
             }
             get
             {
