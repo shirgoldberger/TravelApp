@@ -49,10 +49,10 @@
 
             </ListBox.ItemTemplate>
         </ListBox>
-        
 
 
-        <TextBlock HorizontalAlignment="Center" Height="51" Margin="0,35,0,0" TextWrapping="Wrap" Text="Create New Trip" VerticalAlignment="Top" Width="412" FontSize="40" FontWeight="Bold" TextDecorations="{x:Null}" FontFamily="Perpetua Titling MT"/>
+
+        <TextBlock x:Name="title" HorizontalAlignment="Center" Height="51" Margin="0,35,0,0" TextWrapping="Wrap" Text="Create New Trip" VerticalAlignment="Top" Width="450" FontSize="40" FontWeight="Bold" TextDecorations="{x:Null}" FontFamily="Perpetua Titling MT"/>
 
         <TextBlock HorizontalAlignment="Left" Height="29" Margin="169,210,0,0" TextWrapping="Wrap" Text="Trip Attractions:" VerticalAlignment="Top" Width="218" FontSize="20" FontWeight="Bold" TextDecorations="{x:Null}" FontFamily="Perpetua Titling MT"/>
         <TextBlock HorizontalAlignment="Left" Height="29" Margin="696,210,0,0" TextWrapping="Wrap" Text="Trip Prticipants:" VerticalAlignment="Top" Width="212" FontSize="20" FontWeight="Bold" TextDecorations="{x:Null}" RenderTransformOrigin="0.57,0.452" FontFamily="Perpetua Titling MT"/>
