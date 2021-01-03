@@ -60,8 +60,6 @@ namespace TravelApp
             }
             female.IsEnabled = false;
             male.IsEnabled = false;
-
-            //
             DataContext = this;
             controller = new watchTrup_Controller(trip);
             Tuple<bool, List<string>> membersTuple = controller.getMem();

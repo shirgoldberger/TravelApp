@@ -31,11 +31,11 @@ namespace TravelApp
             InitializeComponent();
             controller = new deleteTrip_Controller(trip, username);
             var touple = controller.getAllMembers();
-            members = touple.Item2;
             if (touple.Item1 == false)
             {
-                Utils.Instance.errorAndExit("failed to get all members - check the SQL");
+                Utils.Instance.errorAndExit("Failed to get all members - check SQL");
             }
+            members = touple.Item2;
             allMemListBox.ItemsSource = members;
             this.trip = trip;
             this.pageToUpdate = pageToUpdate;
