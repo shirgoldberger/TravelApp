@@ -10,11 +10,9 @@ namespace TravelApp
     class WatchTrip_Controller
     {
         Trip trip;
-       // watchTrip_Model model;
 
         public WatchTrip_Controller(Trip trip) {
             this.trip = trip;
-           // model = new watchTrip_Model(trip);
         }
         public Tuple<bool, List<string>> getMem()
         {

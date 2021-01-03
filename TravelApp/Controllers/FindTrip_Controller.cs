@@ -10,9 +10,6 @@ namespace TravelApp
 {
     public class FindTrip_Controller
     {
-        public FindTrip_Controller()
-        {
-        }
 
         public Tuple<bool, List<Trip>> FindTrip(string username, int age, List<string> members, List<string> languages, List<Attraction> attractions, List<City> cities, DateTime start, DateTime end, string howToFilter)
         {

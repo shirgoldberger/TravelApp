@@ -21,11 +21,6 @@ namespace TravelApp
             return UsersModel.Instance.addNewFriend(user1, user2);
         }
 
-        public Tuple<bool, string> getCityCode(string country, string city)
-        {
-            return LocationsModel.Instance.getCityCode(country, city);
-        }
-
         public bool addNewAttraction(string name, string city_code, string type)
         {
             return AttractionsModel.Instance.addNewAttraction(name, city_code, type);

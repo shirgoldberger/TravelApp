@@ -435,54 +435,8 @@ namespace TravelApp.Models
             return true;
         }
 
-        public bool AddMemberAmount(Trip t)
-        {
-            bool result = true;
-            string command = "SELECT count(username) FROM member WHERE trip_code = '"
-                + t.Id + "';";
-            lock (DbConnection.Locker)
-            {
-                MySqlDataReader dr = DbConnection.ExecuteQuery(command);
-                if (dr != null)
-                {
-                    while (dr.Read())
-                    {
-                        string count = dr.GetString("count(username)");
-                        t.Member_Amount = int.Parse(count);
-                    }
-                    dr.Close();
-                }
-                else
-                {
-                    result = false;
-                }
-            }
-            return result;
-        }
-        public Tuple<bool,Trip> getTripById(string id)
-        {
-            bool result = true;
-            Trip t = null;
-            string command = "SELECT * FROM Trip WHERE trip_code = '" + id + "';";
-            lock (DbConnection.Locker)
-            {
-                MySqlDataReader dr = DbConnection.ExecuteQuery(command);
-                if (dr != null)
-                {
-                    while (dr.Read())
-                    {
-                        t = createTrip(dr);
-                    }
-                    dr.Close();
-                }
-                else
-                {
-                    result = false;
-                }
-
-            }
-            return new Tuple<bool, Trip>(result, t);
-        }
+        
+       
 
         private Trip createTrip(MySqlDataReader dr)
         {
@@ -624,33 +578,7 @@ namespace TravelApp.Models
             return new Tuple<bool, List<string>>(result, users);
         }
 
-        public Tuple<bool, List<Trip>> getAllTripForUser(string username)
-        {
-            bool result = true;
-            string userName = "'" + username + "'";
-            List<Trip> trips = new List<Trip>();
-            string command = "SELECT * FROM trip, member " +
-                "WHERE member.username = " + userName +
-                " AND member.trip_code = trip.trip_code;";
-            lock (DbConnection.Locker)
-            {
-                MySqlDataReader dr = DbConnection.ExecuteQuery(command);
-                if (dr != null)
-                {
-                    while (dr.Read())
-                    {
-                        Trip t = createTrip(dr);
-                        trips.Add(t);
-                    }
-                    dr.Close();
-                }
-                else
-                {
-                    result = false;
-                }
-            }
-            return new Tuple<bool, List<Trip>>( result, trips);
-        }
+       
 
         public Tuple<bool, List<Trip>> getTripsForUser(string username, string op)
         {

@@ -20,7 +20,7 @@ namespace TravelApp.Pages
     /// <summary>
     /// Interaction logic for FindByLocation.xaml
     /// </summary>
-    public partial class FindTripByCity : Window, INotifyPropertyChanged
+    public partial class FindTripByCity : Window
     {
         private FindTrip_Controller controller;
         private List<City> cities;
@@ -48,15 +48,7 @@ namespace TravelApp.Pages
             get { return selectedCities; }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void NotifyPropertyChanged(string propName)
-        {
-            if (this.PropertyChanged != null)
-            {
-                this.PropertyChanged(this, new PropertyChangedEventArgs(propName));
 
-            }
-        }
 
         private void find_Click(object sender, RoutedEventArgs e)
         {

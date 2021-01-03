@@ -30,33 +30,7 @@ namespace TravelApp.Models
             }
         }
 
-        public Tuple<bool, string> getCityCode(string country, string city)
-        {
-            bool result = true;
-            string cityCode = "";
-            city = "'" + city + "'";
-            country = "'" + country + "'";
-            string command = "SELECT city_id FROM city WHERE name=" + city + " AND country=" + country + ";";
-
-            lock (DbConnection.Locker)
-            {
-                MySqlDataReader dr = DbConnection.ExecuteQuery(command);
-                if (dr != null)
-                {
-                    while (dr.Read())
-                    {
-                        cityCode = dr.GetString("city_id");
-                    }
-                    dr.Close();
-                }
-                else
-                {
-                    result = false;
-                }
-            }
-
-            return new Tuple<bool, string>(result, cityCode);
-        }
+       
 
         public Tuple<bool, List<City>> getCitiesByBegin(string begin)
         {

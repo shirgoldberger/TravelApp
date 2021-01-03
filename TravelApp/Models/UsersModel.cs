@@ -317,40 +317,45 @@ namespace TravelApp.Models
             }
             return new Tuple<bool, List<string>>(result, friends);
         }
-        //shir do lock
-        public string login(string name, string password)
+        public Tuple<int, string> login(string name, string password)
         {
+            int result = 0;
+            string result_msg = "";
+            bool found = false;
             // check username
-            string command = "SELECT username FROM user WHERE username='" + name + "';";
-            MySqlDataReader dr = DbConnection.ExecuteQuery(command);
-            if (dr != null)
+            string command = "SELECT password FROM user WHERE username='" + name + "';";
+            lock (DbConnection.Locker)
             {
-                while (dr.Read())
+                MySqlDataReader dr = DbConnection.ExecuteQuery(command);
+                if (dr != null)
                 {
-                    // Check the username & password 
-                    command = "SELECT username FROM user WHERE username='" + name + "' AND password='" + password + "';";
-                    dr.Close();
-                    MySqlDataReader dr2 = DbConnection.ExecuteQuery(command);
-                    if (dr2 != null)
+                    
+                    while (dr.Read())
                     {
-                        while (dr2.Read())
+                        found = true;
+                        string password_ = dr.GetString("password");
+                        if (password != password_)
                         {
-                            string username = dr2.GetString("username");
-                            dr2.Close();
-                            return username;
+                            result = 1;
+                            result_msg = "This password doesnt match the entered username";
                         }
-                        dr2.Close();
-                        throw new Exception("The password does not match this username");
                     }
-                    else
+                    dr.Close();
+                    if (!found)
                     {
-                        throw new Exception("The password does not match this username");
+                        result = 1;
+                        result_msg = "Cannot find this account";
                     }
+                } 
+                else
+                {
+                    result = 2;
+                    result_msg = "Error trying to access users records";
                 }
-                dr.Close();
-                throw new Exception("cannot find this account");
+                
+               
             }
-            throw new Exception("cannot find this account");
+            return new Tuple<int, string>(result, result_msg);
         }
         public Tuple<bool, List<User>> getAllMembers(Trip trip, string username)
         {

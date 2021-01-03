@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TravelApp.Objects;
 
 
 namespace TravelApp
@@ -44,15 +45,22 @@ namespace TravelApp
         }
         private void Button_Click_Login(object sender, RoutedEventArgs e)
         {
-            var t = controller.click_Login(name.Text, passwordBox.Text);
-            if (t.Item1 == 0) { 
-                UserPage userpage = new UserPage(username);
-                this.NavigationService.Navigate(userpage);
-            }
-            else
+            var tuple = controller.click_Login(name.Text, passwordBox.Text);
+            switch (tuple.Item1)
             {
-                MessageBox.Show(t.Item2);
+                case 0:
+                    UserPage userpage = new UserPage(username);
+                    this.NavigationService.Navigate(userpage);
+                    break;
+                case 1:
+                    MessageBox.Show(tuple.Item2);
+                    break;
+                case 2:
+                    Utils.Instance.errorAndExit(tuple.Item2);
+                    break;
+
             }
+
         }
 
         private void Button_Click_New_Account(object sender, RoutedEventArgs e)
