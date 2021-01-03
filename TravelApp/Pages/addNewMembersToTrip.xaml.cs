@@ -20,7 +20,7 @@ namespace TravelApp
     /// <summary>
     /// Interaction logic for add_new_mem_for_trip.xaml
     /// </summary>
-    public partial class addNewMembersToTrip : Window
+    public partial class AddNewMembersToTrip : Window
     {
         private List<User> members;
         private string admin;
@@ -38,7 +38,7 @@ namespace TravelApp
         public List<User> MalesAdded { set;get; }
         public List<User> FemalesAdded { set; get; }
 
-        public addNewMembersToTrip(List<User> _drop, string _admin, bool _maleOnly, bool _femaleOnly, int _max_parts, int _minAge, int _maxAge)
+        public AddNewMembersToTrip(List<User> _drop, string _admin, bool _maleOnly, bool _femaleOnly, int _max_parts, int _minAge, int _maxAge)
         {
             InitializeComponent();
             controller = new AddNewMembers_Controller();

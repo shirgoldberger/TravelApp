@@ -36,7 +36,7 @@ namespace TravelApp
 
         private void viewTripsButton_Click(object sender, RoutedEventArgs e)
         {
-            viewAllTrip vt = new viewAllTrip(username);
+            ViewAllTrip vt = new ViewAllTrip(username);
             NavigationService.Navigate(vt);
         }
 
@@ -48,13 +48,13 @@ namespace TravelApp
 
         private void addFriendButton_Click(object sender, RoutedEventArgs e)
         {
-            addNewFriend nf = new addNewFriend(username, controller);
+            AddNewFriend nf = new AddNewFriend(username, controller);
             nf.ShowDialog();
         }
 
         private void addNewTripButton_Click(object sender, RoutedEventArgs e)
         {
-            addNewTrip nt = new addNewTrip(username);
+            AddNewTrip nt = new AddNewTrip(username);
             NavigationService.Navigate(nt);
         }
 

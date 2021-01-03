@@ -123,7 +123,7 @@
     <Compile Include="Controllers\AddNewMembers_Controller.cs" />
     <Compile Include="Controllers\AttractionProperties_Controller.cs" />
     <Compile Include="Controllers\CreateAccount_Controller.cs" />
-    <Compile Include="Controllers\deleteTrip_Controller.cs" />
+    <Compile Include="Controllers\DeleteTrip_Controller.cs" />
     <Compile Include="Controllers\CreateTrip_Controller.cs" />
     <Compile Include="Controllers\UserPage_Controller.cs" />
     <Compile Include="Controllers\FindTrip_Controller.cs" />
@@ -153,20 +153,20 @@
     <Compile Include="Pages\CreateNewAtt.xaml.cs">
       <DependentUpon>CreateNewAtt.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\addNewTrip.xaml.cs">
-      <DependentUpon>addNewTrip.xaml</DependentUpon>
+    <Compile Include="Pages\AddNewTrip.xaml.cs">
+      <DependentUpon>AddNewTrip.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\addNewFriend.xaml.cs">
-      <DependentUpon>addNewFriend.xaml</DependentUpon>
+    <Compile Include="Pages\AddNewFriend.xaml.cs">
+      <DependentUpon>AddNewFriend.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\addNewMembersToTrip.xaml.cs">
-      <DependentUpon>addNewMembersToTrip.xaml</DependentUpon>
+    <Compile Include="Pages\AddNewMembersToTrip.xaml.cs">
+      <DependentUpon>AddNewMembersToTrip.xaml</DependentUpon>
     </Compile>
     <Compile Include="Objects\Attraction.cs" />
     <Compile Include="Objects\City.cs" />
     <Compile Include="Objects\DbConnection.cs" />
-    <Compile Include="Pages\deleteTrip.xaml.cs">
-      <DependentUpon>deleteTrip.xaml</DependentUpon>
+    <Compile Include="Pages\DeleteTrip.xaml.cs">
+      <DependentUpon>DeleteTrip.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\FindCityByCountry.xaml.cs">
       <DependentUpon>FindCityByCountry.xaml</DependentUpon>
@@ -181,14 +181,14 @@
     <Compile Include="Pages\UserPage.xaml.cs">
       <DependentUpon>UserPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\viewAllTrip.xaml.cs">
-      <DependentUpon>viewAllTrip.xaml</DependentUpon>
+    <Compile Include="Pages\ViewAllTrip.xaml.cs">
+      <DependentUpon>ViewAllTrip.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\watchTrip.xaml.cs">
-      <DependentUpon>watchTrip.xaml</DependentUpon>
+    <Compile Include="Pages\WatchTrip.xaml.cs">
+      <DependentUpon>WatchTrip.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controllers\viewAllTrip_controller.cs" />
-    <Compile Include="Controllers\watchTrup_Controller.cs" />
+    <Compile Include="Controllers\ViewAllTrip_controller.cs" />
+    <Compile Include="Controllers\WatchTrip_Controller.cs" />
     <Page Include="Pages\AttractionProperties.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -213,15 +213,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\addNewTrip.xaml">
+    <Page Include="Pages\AddNewTrip.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\addNewFriend.xaml">
+    <Page Include="Pages\AddNewFriend.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Pages\addNewMembersToTrip.xaml">
+    <Page Include="Pages\AddNewMembersToTrip.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -229,7 +229,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\deleteTrip.xaml">
+    <Page Include="Pages\DeleteTrip.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -271,11 +271,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\viewAllTrip.xaml">
+    <Page Include="Pages\ViewAllTrip.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\watchTrip.xaml">
+    <Page Include="Pages\WatchTrip.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

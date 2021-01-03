@@ -8,11 +8,11 @@ using TravelApp.Models;
 
 namespace TravelApp
 {
-    class viewAllTrip_controller
+    class ViewAllTrip_controller
     {
         //viewAllTrip_Model model;
         string username;
-        public viewAllTrip_controller(string username )
+        public ViewAllTrip_controller(string username )
         {
             this.username = username;
             //model = new viewAllTrip_Model(username);

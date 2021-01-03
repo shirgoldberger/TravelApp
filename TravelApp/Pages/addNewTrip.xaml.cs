@@ -28,7 +28,7 @@ namespace TravelApp
     /// <summary>
     /// Interaction logic for addNewTrip.xaml
     /// </summary>
-    public partial class addNewTrip : Page
+    public partial class AddNewTrip : Page
     {
         private List<Attraction> inputedAttractions;
         private List<Attraction> choosenAttractions;
@@ -56,7 +56,7 @@ namespace TravelApp
         private Trip inputedtrip;
         private Page calledPage;
 
-        public addNewTrip(Page page, Trip trip, List<Attraction> attractions, List<User> participants)
+        public AddNewTrip(Page page, Trip trip, List<Attraction> attractions, List<User> participants)
         {
             InitializeComponent();
             inputedtrip = trip;
@@ -104,7 +104,7 @@ namespace TravelApp
             calledPage = page;
     }
 
-        public addNewTrip(string username)
+        public AddNewTrip(string username)
         {
             InitializeComponent();
             controller = new CreateTrip_Controller();
@@ -170,7 +170,7 @@ namespace TravelApp
             {
                 maxAgeArg = int.Parse(user_maxAge);
             }
-            addNewMembersToTrip anm = new addNewMembersToTrip(choosenParticipants, admin.Username, maleOnly, femaleOnly, max, minAgeArg, maxAgeArg);
+            AddNewMembersToTrip anm = new AddNewMembersToTrip(choosenParticipants, admin.Username, maleOnly, femaleOnly, max, minAgeArg, maxAgeArg);
             anm.FemalesAdded = null;
             anm.MalesAdded = null;
             anm.ShowDialog();
@@ -286,7 +286,7 @@ namespace TravelApp
 
             controller.updateTrip(inputedtrip, user_tripName, minAge, maxAge, maxParts, startConverted, endConverted, maleOnly, femaleOnly, partsToRemove, partsToAdd, attractionsToRemove, attractionsToAdd);
             MessageBox.Show("Trip was updated sccessfully");
-            (calledPage as viewAllTrip).Updated = true;
+            (calledPage as ViewAllTrip).Updated = true;
             this.NavigationService.GoBack();
         }
 

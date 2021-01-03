@@ -19,13 +19,13 @@ namespace TravelApp
     /// <summary>
     /// Interaction logic for add_new_att_for_trip.xaml
     /// </summary>
-    public partial class addNewFriend : Window
+    public partial class AddNewFriend : Window
     {
         string username;
         List<string> users;
         UserPage_Controller controller;
 
-        public addNewFriend(string _username, UserPage_Controller _controller)
+        public AddNewFriend(string _username, UserPage_Controller _controller)
         {
             InitializeComponent();
             username = _username;

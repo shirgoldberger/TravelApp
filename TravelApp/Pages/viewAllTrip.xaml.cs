@@ -19,24 +19,24 @@ namespace TravelApp
     /// <summary>
     /// Interaction logic for viewAllTrip.xaml
     /// </summary>
-    public partial class viewAllTrip: Page
+    public partial class ViewAllTrip: Page
     {
         private string username;
         private List<Trip> trips;
-        private viewAllTrip_controller controller;
+        private ViewAllTrip_controller controller;
 
-        public viewAllTrip(string _username)
+        public ViewAllTrip(string _username)
         {
             username = _username;
             InitializeComponent();
-            controller = new viewAllTrip_controller(username);
+            controller = new ViewAllTrip_controller(username);
             trips = getAllTrips();
             allTripsListBox.ItemsSource = trips;
         }
         private void Button_Click_add_trip(object sender, RoutedEventArgs e)
         {
 
-            addNewTrip ant = new addNewTrip(username);
+            AddNewTrip ant = new AddNewTrip(username);
             this.NavigationService.Navigate(ant);
 
         }
@@ -44,7 +44,7 @@ namespace TravelApp
         {
             var item = ((Button)sender).DataContext;
             var itemIndex = allTripsListBox.Items.IndexOf(item);
-            watchTrip watch = new watchTrip(trips[itemIndex]);
+            WatchTrip watch = new WatchTrip(trips[itemIndex]);
             watch.Show();
         }
         public void clickDelete(object sender, RoutedEventArgs e) 
@@ -66,7 +66,7 @@ namespace TravelApp
             }
             else
             {
-                deleteTrip delete = new deleteTrip(clickedTrip, username, this);
+                DeleteTrip delete = new DeleteTrip(clickedTrip, username, this);
                 delete.Show();
             }
             
@@ -109,7 +109,7 @@ namespace TravelApp
                     Utils.Instance.errorAndExit("Error trying access attractions records");
                 }
                 List<Attraction> att = attTuple.Item2;
-                addNewTrip ant = new addNewTrip(this, pushTrip, att, mem);
+                AddNewTrip ant = new AddNewTrip(this, pushTrip, att, mem);
                 Updated = false;
                 NavigationService.Navigate(ant);
             }

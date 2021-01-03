@@ -18,18 +18,18 @@ namespace TravelApp
     /// <summary>
     /// Interaction logic for deleteTrip.xaml
     /// </summary>
-    public partial class deleteTrip : Window
+    public partial class DeleteTrip : Window
     {
         Trip trip;
         string username;
         List<string> members;
-        deleteTrip_Controller controller;
+        DeleteTrip_Controller controller;
         Page pageToUpdate;
-        public deleteTrip(Trip trip, string _username, Page pageToUpdate)
+        public DeleteTrip(Trip trip, string _username, Page pageToUpdate)
         {
             username = _username;
             InitializeComponent();
-            controller = new deleteTrip_Controller(trip, username);
+            controller = new DeleteTrip_Controller(trip, username);
             var touple = controller.getAllMembers();
             if (touple.Item1 == false)
             {
@@ -47,7 +47,7 @@ namespace TravelApp
                 Utils.Instance.errorAndExit("Error tyring to access trip records");
             }
             MessageBox.Show("Delete all trip members and trip itself succeed");
-            (pageToUpdate as viewAllTrip).Updated = true;
+            (pageToUpdate as ViewAllTrip).Updated = true;
             this.Close();
 
         }
@@ -65,7 +65,7 @@ namespace TravelApp
                 Utils.Instance.errorAndExit("Error tyring to delete trip member");
             }
             MessageBox.Show("Delete succeed, the new assigned admin is " + newAdmin);
-            (pageToUpdate as viewAllTrip).Updated = true;
+            (pageToUpdate as ViewAllTrip).Updated = true;
             this.Close();
         }
 

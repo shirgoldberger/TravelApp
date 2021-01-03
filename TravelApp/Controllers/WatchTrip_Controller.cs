@@ -7,12 +7,12 @@ using TravelApp.Models;
 
 namespace TravelApp
 {
-    class watchTrup_Controller
+    class WatchTrip_Controller
     {
         Trip trip;
        // watchTrip_Model model;
 
-        public watchTrup_Controller(Trip trip) {
+        public WatchTrip_Controller(Trip trip) {
             this.trip = trip;
            // model = new watchTrip_Model(trip);
         }

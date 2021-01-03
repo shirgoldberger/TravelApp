@@ -18,7 +18,7 @@ namespace TravelApp
     /// <summary>
     /// Interaction logic for watchTrip.xaml
     /// </summary>
-    public partial class watchTrip : Window
+    public partial class WatchTrip : Window
     {
         private int id;
         private string admin;
@@ -32,11 +32,11 @@ namespace TravelApp
         private bool female_only;
         private List<string> members;
         private List<Attraction> attractions;
-        private watchTrup_Controller controller;
+        private WatchTrip_Controller controller;
 
 
 
-        public watchTrip(Trip trip)
+        public WatchTrip(Trip trip)
         {
             InitializeComponent();
             start_date = trip.Start_Date;
@@ -61,7 +61,7 @@ namespace TravelApp
             female.IsEnabled = false;
             male.IsEnabled = false;
             DataContext = this;
-            controller = new watchTrup_Controller(trip);
+            controller = new WatchTrip_Controller(trip);
             Tuple<bool, List<string>> membersTuple = controller.getMem();
             if(!membersTuple.Item1)
             {

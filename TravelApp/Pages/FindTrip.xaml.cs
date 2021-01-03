@@ -126,7 +126,7 @@ namespace TravelApp
         {
             string id = ((Button)sender).Uid.ToString();
             Trip currentTrip = trips.Find(x => x.Id.ToString() == id);
-            watchTrip wt = new watchTrip(currentTrip);
+            WatchTrip wt = new WatchTrip(currentTrip);
             wt.ShowDialog();
         }
 
