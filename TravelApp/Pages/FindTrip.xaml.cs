@@ -103,8 +103,21 @@ namespace TravelApp
         }
         private async Task<Tuple<bool, List<Trip>>> getTripsAsync()
         {
-            Tuple<bool, List<Trip>> list = await Task.Run(() => controller.getTripForUser(this.username));
-            return list;
+            Tuple<bool, List<Trip>> tuple = await Task.Run(() => controller.getTripForUser(this.username));
+            if (!tuple.Item1)
+            {
+                return tuple;
+            }
+            List<Trip> trips = tuple.Item2;
+            List<Trip> correctTrips = new List<Trip>();
+            foreach (Trip t in trips)
+            {
+                if (t.Member_Amount < t.Max_Participants)
+                {
+                    correctTrips.Add(t);
+                }
+            }
+            return new Tuple<bool, List<Trip>>(tuple.Item1, correctTrips);
         }
         private async Task<Tuple<bool, List<string>>> getLanguagesAsync()
         {
@@ -115,11 +128,13 @@ namespace TravelApp
         private void Languages_TextChanged(object sender, EventArgs e)
         {
             languagesComboBox.ItemsSource = languages.Where(x => x.StartsWith(languagesComboBox.Text.Trim()));
+            languagesComboBox.IsDropDownOpen = true;
         }
 
         private void Members_TextChanged(object sender, EventArgs e)
         {
-            membersComboBox.ItemsSource = members.Where(x => x.StartsWith(languagesComboBox.Text.Trim()));
+            membersComboBox.ItemsSource = members.Where(x => x.StartsWith(membersComboBox.Text.Trim()));
+            membersComboBox.IsDropDownOpen = true;
         }
 
         private void clickOnTrip(object sender, RoutedEventArgs e)

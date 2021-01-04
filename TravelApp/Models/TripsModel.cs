@@ -257,6 +257,14 @@ namespace TravelApp.Models
 
         public Tuple<bool, List<Trip>> FindTrip(string username, int age, List<string> members, List<string> languages, List<Attraction> attractions, List<City> cities, DateTime start, DateTime end, string op)
         {
+            if (op == "all")
+            {
+                op = "AND";
+            }
+            else
+            {
+                op = "OR";
+            }
             List<Trip> trips = new List<Trip>();
             string fullCommand = "";
             bool filterSelected = false;

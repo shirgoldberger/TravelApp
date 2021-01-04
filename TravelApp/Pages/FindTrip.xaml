@@ -40,7 +40,7 @@
         </ListView>
 
 
-        <Calendar x:Name="tripDate"  SelectionMode="SingleRange"   HorizontalAlignment="Left" Height="165" Margin="39.057,71,0,0" VerticalAlignment="Top" Width="170" SelectedDatesChanged="tripDate_SelectedDatesChanged" Grid.RowSpan="2" Grid.Column="1"/>
+        <Calendar x:Name="tripDate"   SelectionMode="SingleRange"   HorizontalAlignment="Left" Height="165" Margin="39.057,71,0,0" VerticalAlignment="Top" Width="170" SelectedDatesChanged="tripDate_SelectedDatesChanged" Grid.RowSpan="2" Grid.Column="1"/>
 
 
 
@@ -49,13 +49,20 @@
         <TextBlock HorizontalAlignment="Left" Height="33" Margin="26,49.333,0,0" TextWrapping="Wrap" Text="Age:" VerticalAlignment="Top" Width="66" FontSize="22" FontWeight="Bold" FontFamily="Ebrima" Grid.Row="1" Grid.ColumnSpan="2"/>
         <TextBox x:Name="ageText" HorizontalAlignment="Left" Height="24" Margin="36.057,57.333,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="170" Grid.Row="1" Grid.Column="1"/>
         <TextBlock HorizontalAlignment="Left" Height="31" Margin="20,97.333,0,0" TextWrapping="Wrap" Text="Languages:" VerticalAlignment="Top" Width="119" FontSize="22" FontWeight="Bold" FontFamily="Ebrima" Grid.Row="1" Grid.ColumnSpan="2"/>
-        <ComboBox x:Name="languagesComboBox" HorizontalAlignment="Left" Height="24" Margin="93.057,104.333,0,0" VerticalAlignment="Top" Width="170" TextBoxBase.TextChanged="Languages_TextChanged" IsEditable="True" Grid.Row="1" Grid.Column="1">
+        <ComboBox x:Name="languagesComboBox" HorizontalAlignment="Left" Height="24" Margin="93.057,104.333,0,0" VerticalAlignment="Top" Width="170" TextBoxBase.TextChanged="Languages_TextChanged"  Grid.Row="1" Grid.Column="1">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <CheckBox Name="checkCountry" Uid="{Binding}" Width="222" Checked="Checked_Language" Unchecked="Unchecked_Language" Content="{Binding}">
                     </CheckBox>
                 </DataTemplate>
             </ComboBox.ItemTemplate>
+            <ComboBox.ItemContainerStyle>
+                <Style TargetType="ComboBoxItem">
+                    <Setter
+                    Property="IsEnabled"
+                    Value="{Binding IsSelectable}" />
+                </Style>
+            </ComboBox.ItemContainerStyle>
         </ComboBox>
         <TextBlock HorizontalAlignment="Left" Height="28" Margin="16,150.333,0,0" TextWrapping="Wrap" Text="Friends in trip:" VerticalAlignment="Top" Width="158" FontSize="22" FontWeight="Bold" FontFamily="Ebrima" RenderTransformOrigin="0.442,0.376" Grid.Row="1" Grid.ColumnSpan="2"/>
         <ComboBox x:Name="membersComboBox" TextBoxBase.TextChanged="Members_TextChanged"  HorizontalAlignment="Left" Height="24" Margin="129.057,154.333,0,0" VerticalAlignment="Top" Width="170" Grid.Row="1" Grid.Column="1" >
@@ -65,6 +72,13 @@
                     </CheckBox>
                 </DataTemplate>
             </ComboBox.ItemTemplate>
+            <ComboBox.ItemContainerStyle>
+                <Style TargetType="ComboBoxItem">
+                    <Setter
+                    Property="IsEnabled"
+                    Value="{Binding IsSelectable}" />
+                </Style>
+            </ComboBox.ItemContainerStyle>
         </ComboBox>
         <TextBlock HorizontalAlignment="Left" Height="51" Margin="518.057,25,0,0" TextWrapping="Wrap" Text="All Trips:" VerticalAlignment="Top" Width="302" FontSize="36" FontWeight="Bold" TextDecorations="{x:Null}" RenderTransformOrigin="0.57,0.452" FontFamily="Perpetua Titling MT" Grid.Column="1"/>
         <Button x:Name="findButton" HorizontalAlignment="Center"

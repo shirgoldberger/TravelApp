@@ -167,11 +167,13 @@ namespace TravelApp
         private void Languages_TextChanged(object sender, EventArgs e)
         {
             languagesComboBox.ItemsSource = languages.Where(x => x.StartsWith(languagesComboBox.Text.Trim()));
+            languagesComboBox.IsDropDownOpen = true;
         }
 
         private void Friends_TextChanged(object sender, EventArgs e)
         {
-            languagesComboBox.ItemsSource = languages.Where(x => x.StartsWith(languagesComboBox.Text.Trim()));
+            friendsComboBox.ItemsSource = users.Where(x => x.StartsWith(friendsComboBox.Text.Trim()));
+            friendsComboBox.IsDropDownOpen = true;
         }
 
         private void Button_Click_Exit(object sender, RoutedEventArgs e)

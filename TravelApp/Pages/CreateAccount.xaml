@@ -115,7 +115,7 @@
             </Button>
             <CheckBox FontFamily="Ebrima" FontSize="25" FontStretch="UltraExpanded" FontWeight="UltraBold" x:Name="female" Content="Female" Checked="female_Checked" HorizontalAlignment="Left" Margin="154,432,0,0" VerticalAlignment="Top" Grid.Column="1" Height="29" Width="118"/>
             <TextBlock Height="38" FontFamily="Ebrima" FontSize="25" FontStretch="UltraExpanded" FontWeight="UltraBold" HorizontalAlignment="Left" Margin="50,368,0,0" x:Name="textBlockLanguages" Text="Languages:" VerticalAlignment="Top" Width="147" Grid.Column="1" />
-            <ComboBox x:Name="languagesComboBox" TextBoxBase.TextChanged="Languages_TextChanged" HorizontalAlignment="Left" Margin="193,376,0,0" VerticalAlignment="Top" Width="222" Grid.Column="1" Height="22" IsEditable="True">
+            <ComboBox x:Name="languagesComboBox" TextBoxBase.TextChanged="Languages_TextChanged" HorizontalAlignment="Left" Margin="193,376,0,0" VerticalAlignment="Top" Width="222" Grid.Column="1" Height="22" >
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <CheckBox Uid="{Binding}" Name="checkCountry" Width="222" Checked="Checked_Language" Unchecked="Unchecked_Language" Content="{Binding}"/>
@@ -125,13 +125,20 @@
             </ComboBox>
             <Label Grid.ColumnSpan="2" Content="Create Your Account" HorizontalAlignment="Left" Height="78" Margin="207,20,0,0" VerticalAlignment="Top" Width="675" FontSize="48" FontFamily="Perpetua Titling MT" FontWeight="Bold"/>
             <TextBlock Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="639,122,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="86" Width="334" FontSize="25" FontFamily="Ebrima" FontWeight="Bold" TextAlignment="Center"><Run Text="Want to add friends? "/><LineBreak/><Run Text="Search their "/><Run Text="username here"/><Run Text=":"/></TextBlock>
-            <ComboBox x:Name="friendsComboBox" TextBoxBase.TextChanged="Friends_TextChanged" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="640,198,0,0" VerticalAlignment="Top" Width="334" Height="29">
+            <ComboBox x:Name="friendsComboBox"  TextBoxBase.TextChanged="Friends_TextChanged" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="640,198,0,0" VerticalAlignment="Top" Width="334" Height="29">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <CheckBox Uid="{Binding}" Name="checkFruend" Width="222" Checked="Checked_Friend" Unchecked="Unchecked_Friend" Content="{Binding}" IsChecked="{Binding Check_Status}">
                         </CheckBox>
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
+                <ComboBox.ItemContainerStyle>
+                    <Style TargetType="ComboBoxItem">
+                        <Setter
+                    Property="IsEnabled"
+                    Value="{Binding IsSelectable}" />
+                    </Style>
+                </ComboBox.ItemContainerStyle>
             </ComboBox>
         </Grid>
         <TextBox Height="23" HorizontalAlignment="Left" Margin="112,0,0,228.666" x:Name="textBoxAge" VerticalAlignment="Bottom" Width="222" />
