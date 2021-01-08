@@ -63,6 +63,12 @@
                     Value="{Binding IsSelectable}" />
                 </Style>
             </ComboBox.ItemContainerStyle>
+            <ComboBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <VirtualizingStackPanel>
+                    </VirtualizingStackPanel>
+                </ItemsPanelTemplate>
+            </ComboBox.ItemsPanel>
         </ComboBox>
         <TextBlock HorizontalAlignment="Left" Height="28" Margin="16,150.333,0,0" TextWrapping="Wrap" Text="Friends in trip:" VerticalAlignment="Top" Width="158" FontSize="22" FontWeight="Bold" FontFamily="Ebrima" RenderTransformOrigin="0.442,0.376" Grid.Row="1" Grid.ColumnSpan="2"/>
         <ComboBox x:Name="membersComboBox" TextBoxBase.TextChanged="Members_TextChanged"  HorizontalAlignment="Left" Height="24" Margin="129.057,154.333,0,0" VerticalAlignment="Top" Width="170" Grid.Row="1" Grid.Column="1" >
