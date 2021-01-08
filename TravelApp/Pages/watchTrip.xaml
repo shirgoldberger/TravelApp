@@ -35,12 +35,12 @@
                 <TextBlock Height="30" HorizontalAlignment="Left" Margin="163.667,195,0,0" x:Name="maxParticipantsVal_Copy1" VerticalAlignment="Top" Width="129" Grid.Column="2" Foreground="Black" FontSize="20" Text="{Binding End_date}" RenderTransformOrigin="2.521,0.524" />
                 <TextBlock Height="30" FontFamily="Century Gothic" FontSize="23" FontStretch="UltraExpanded" FontStyle="Italic" FontWeight="UltraBold" HorizontalAlignment="Left" Margin="9.667,248,0,0" x:Name="textBlockMinParticipants1_Copy2" Text="Min age in trip" VerticalAlignment="Top" Width="200" Foreground="Black" Grid.Column="2" />
 
-                <ListBox x:Name="allMemListBox" HorizontalAlignment="Left" Margin="23,381,0,-118.333" Width="274" IsHitTestVisible="False"
+                <ListBox x:Name="allMemListBox"  HorizontalAlignment="Left" Margin="23,381,0,-118.333" Width="274"
             ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderThickness="0" HorizontalContentAlignment="Stretch" Background="Transparent" Grid.ColumnSpan="2" Height="138" VerticalAlignment="Top">
                     <ListBox.ItemTemplate>
 
                         <DataTemplate>
-                            <TextBlock Uid="{Binding Username}" Text="{Binding }"  >
+                            <TextBlock Uid="{Binding Username}" Text="{Binding }">
                             </TextBlock>
 
                         </DataTemplate>
@@ -49,7 +49,7 @@
                 </ListBox>
                 <TextBlock Height="30" FontFamily="Century Gothic" FontSize="23" FontStretch="UltraExpanded" FontStyle="Italic" FontWeight="UltraBold" HorizontalAlignment="Left" Margin="35,346,0,0" x:Name="textBlockMinParticipants1_Copy3" VerticalAlignment="Top" Width="245" Foreground="Black" Grid.Column="1" ><Run Text="Members in trip"/><Run FlowDirection="RightToLeft" Text=":"/></TextBlock>
                 <ListBox x:Name="allAttListBox" HorizontalAlignment="Left" Margin="6.667,389,0,-126.333" Width="274"
-                    ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderThickness="0" HorizontalContentAlignment="Stretch" Background="Transparent" Height="138" VerticalAlignment="Top" IsHitTestVisible="False" Grid.Column="2" >
+                    ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderThickness="0" HorizontalContentAlignment="Stretch" Background="Transparent" Height="138" VerticalAlignment="Top" Grid.Column="2" >
                     <ListBox.ItemTemplate>
 
                         <DataTemplate>
