@@ -330,10 +330,14 @@ namespace TravelApp.Models
             }
             else
             {
-                fullCommand += ";";
-                fullCommand = "SELECT distinct * FROM trip WHERE\n" + fullCommand;
+                fullCommand = "SELECT * FROM trip WHERE trip_code IN(SELECT trip_code FROM trip WHERE "
+                    + fullCommand + ")\n";
+                string tripWithoutUserCommand = createFilterTripCommandForUser(username, "NOT IN");
+                fullCommand = fullCommand + "AND trip_code IN(" + tripWithoutUserCommand + ");";
+
             }
             return getTripsByCommand(fullCommand);
+
         }
 
         private string CreateMembersCommand(List<string> members)
@@ -442,9 +446,6 @@ namespace TravelApp.Models
             }
             return true;
         }
-
-        
-       
 
         private Trip createTrip(MySqlDataReader dr)
         {
@@ -591,14 +592,8 @@ namespace TravelApp.Models
         public Tuple<bool, List<Trip>> getTripsForUser(string username, string op)
         {
             List<Trip> trips = new List<Trip>();
-            string command = "select temp.trip_code, name, admin, start_date, end_date, min_age, max_age, max_participants, male_only, female_only, count(member2.trip_code) as participants_count " +
-                "From member as member2 JOIN(SELECT * " +
-                "FROM trip " +
-                "where trip_code " + op + " (select trip_code as coded " +
-                "From member " +
-                "where username = '" + username + "')) as temp " +
-                "where(member2.trip_code = temp.trip_code) " +
-                "group by(member2.trip_code)";
+            string command = createTripCommandForUser(username, op);
+            command += ";";
             lock (DbConnection.Locker)
             {
                 MySqlDataReader dr = DbConnection.ExecuteQuery(command);
@@ -628,6 +623,31 @@ namespace TravelApp.Models
                 }
             }
             return new Tuple<bool, List<Trip>>(true, trips);
+        }
+
+        private string createTripCommandForUser(string username, string op)
+        {
+            string command = "select temp.trip_code, name, admin, start_date, end_date, min_age, max_age, max_participants, male_only, female_only, count(member2.trip_code) as participants_count " +
+                "From member as member2 JOIN(SELECT * " +
+                "FROM trip " +
+                "where trip_code " + op + " (select trip_code as coded " +
+                "From member " +
+                "where username = '" + username + "')) as temp " +
+                "where(member2.trip_code = temp.trip_code) " +
+                "group by(member2.trip_code)";
+            return command;
+        }
+
+        private string createFilterTripCommandForUser(string username, string op)
+        {
+            string command = "select temp.trip_code " +
+                "From member as member2 JOIN(SELECT * " +
+                "FROM trip " +
+                "where trip_code " + op + " (select trip_code as coded " +
+                "From member " +
+                "where username = '" + username + "')) as temp " +
+                "where(member2.trip_code = temp.trip_code)";
+            return command;
         }
 
     }
