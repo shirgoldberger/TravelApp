@@ -47,7 +47,7 @@
 
 
 
-        <TextBlock Padding="3" FontSize="50" HorizontalAlignment="Center" FontWeight="Bold" TextDecorations="{x:Null}" Margin="273,10,246,485.667" Width="581" Text="Your Registered Trips:">
+        <TextBlock Padding="3" FontSize="50" HorizontalAlignment="Center" FontWeight="Bold" TextDecorations="{x:Null}" Margin="273,22,246,473.667" Width="581" Text="Your Registered Trips:">
             <TextBlock.Foreground>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="Black" Offset="0.853"/>
