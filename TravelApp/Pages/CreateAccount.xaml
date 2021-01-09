@@ -122,6 +122,12 @@
 
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
+                <ComboBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel>
+                        </VirtualizingStackPanel>
+                    </ItemsPanelTemplate>
+                </ComboBox.ItemsPanel>
             </ComboBox>
             <Label Grid.ColumnSpan="2" Content="Create Your Account" HorizontalAlignment="Left" Height="78" Margin="207,20,0,0" VerticalAlignment="Top" Width="675" FontSize="48" FontFamily="Perpetua Titling MT" FontWeight="Bold"/>
             <TextBlock Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="639,122,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="86" Width="334" FontSize="25" FontFamily="Ebrima" FontWeight="Bold" TextAlignment="Center"><Run Text="Want to add friends? "/><LineBreak/><Run Text="Search their "/><Run Text="username here"/><Run Text=":"/></TextBlock>
@@ -139,6 +145,12 @@
                     Value="{Binding IsSelectable}" />
                     </Style>
                 </ComboBox.ItemContainerStyle>
+                <ComboBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel>
+                        </VirtualizingStackPanel>
+                    </ItemsPanelTemplate>
+                </ComboBox.ItemsPanel>
             </ComboBox>
         </Grid>
         <TextBox Height="23" HorizontalAlignment="Left" Margin="112,0,0,228.666" x:Name="textBoxAge" VerticalAlignment="Bottom" Width="222" />
