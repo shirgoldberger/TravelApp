@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace TravelApp.Models
@@ -212,9 +213,67 @@ namespace TravelApp.Models
         }
 
         //shir do lock
-        public Tuple<bool, string> createAccount(string username, string phone, string email, string password,
-    string address, int stringAge, char is_male, List<String> friends, List<String> languages)
+        public Tuple<bool, string> createAccount(string username, string phone, string email, string password, string passwordConfirm,
+    string address, string stringAge, bool male_box, bool female_box, List<String> friends, List<String> languages)
         {
+            if (username.Length > 30)
+            {
+                return new Tuple<bool, string>(false, "Please insert username with length < 30");
+            }
+            if (username.Length == 0)
+            {
+                return new Tuple<bool, string>(false, "Please insert username");
+            }
+            if (languages.Count == 0)
+            {
+                return new Tuple<bool, string>(false, "Please choose languages");
+            }
+            if (phone.Length != 10)
+            {
+                return new Tuple<bool, string>(false, "Please insert correct phone number");
+            }
+            if (!male_box && !female_box)
+            {
+                return new Tuple<bool, string>(false, "Choose Gender");
+            }
+            if (email.Length == 0)
+            {
+                return new Tuple<bool, string>(false, "Enter an email");
+            }
+            if (!Regex.IsMatch(email, @"^[a-zA-Z][\w\.-]*[a-zA-Z0-9]@[a-zA-Z0-9][\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]$"))
+            {
+                return new Tuple<bool, string>(false, "Enter a valid email");
+            }
+            int age;
+            try
+            {
+                age = int.Parse(stringAge);
+            }
+            catch
+            {
+                return new Tuple<bool, string>(false, "Enter valid age");
+            }
+            char is_male;
+            if (female_box)
+            {
+                is_male = '0';
+            }
+            else
+            {
+                is_male = '1';
+            }
+            if (password.Length == 0)
+            {
+                return new Tuple<bool, string>(false, "Enter password");
+            }
+            if (passwordConfirm.Length == 0)
+            {
+                return new Tuple<bool, string>(false, "Enter Confirm password");
+            }
+            if (password != passwordConfirm)
+            {
+                return new Tuple<bool, string>(false, "Confirm password must be same as password");
+            }
             string command = "SELECT username FROM user WHERE username='" + username + "';";
             MySqlDataReader dr = DbConnection.ExecuteQuery(command);
             if (dr != null)
@@ -226,46 +285,42 @@ namespace TravelApp.Models
                 }
                 dr.Close();
                 // create account
-                command = "insert into user (username,password,mail,is_male,age,phone) values('" + username + "','" + password + "','" + email + "','" + is_male + "'," + stringAge + ",'" + phone + "');";
-                if (DbConnection.ExecuteNonQuery(command))
+                string command1 = "insert into user (username,password,mail,is_male,age,phone) values('" + username + "','" + password + "','" + email + "','" + is_male + "'," + stringAge + ",'" + phone + "');";
+                // insert friends here
+                int i;
+                string friendString = "";
+                for (i = 0; i < friends.Count(); i++)
                 {
-                    dr.Close();
-                    // insert friends here
-                    int i;
-                    string friendString = "";
-                    for (i = 0; i < friends.Count(); i++)
+                    friendString += ("('" + username + "', '" +
+                        friends[i] + "')");
+                    if (i != friends.Count() - 1)
                     {
-                        friendString += ("('" + username + "', '" +
-                            friends[i] + "')");
-                        if (i != friends.Count() - 1)
-                        {
-                            friendString += ", ";
-                        }
+                        friendString += ", ";
                     }
-                    command = "insert into Friends VALUES " + friendString + ";";
-                    if (DbConnection.ExecuteNonQuery(command))
+                }
+                string command2 = "insert into Friends VALUES " + friendString + ";";
+                // insert languages here
+                string languageString = "";
+                for (i = 0; i < languages.Count(); i++)
+                {
+                    languageString += ("('" + username + "', '" +
+                        languages[i] + "')");
+                    if (i != languages.Count() - 1)
                     {
-                        // insert languages here
-                        string languageString = "";
-                        for (i = 0; i < languages.Count(); i++)
-                        {
-                            languageString += ("('" + username + "', '" +
-                                languages[i] + "')");
-                            if (i != languages.Count() - 1)
-                            {
-                                languageString += ", ";
-                            }
-                        }
-                        command = "insert into user_languages VALUES " + languageString + ";";
-                        if (DbConnection.ExecuteNonQuery(command))
-                        {
-                            return new Tuple<bool, string>(true, "Create account success!");
-                        }
+                        languageString += ", ";
                     }
+                }
+                string command3 = "insert into user_languages VALUES " + languageString + ";";
+                List<string> commands = new List<string>();
+                commands.Add(command1);
+                commands.Add(command2);
+                commands.Add(command3);
+                if (DbConnection.ExecuteNonQueryTransaction(commands))
+                {
+                    return new Tuple<bool, string>(true, "Create account success!");
                 }
                 else
                 {
-                    dr.Close();
                     return new Tuple<bool, string>(false, "Cannot create account, please try again");
                 }
             }

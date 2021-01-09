@@ -296,6 +296,8 @@ namespace TravelApp
             ageText.Text = "";
             tripDate.SelectedDates.Clear();
             tripDate.DisplayDate = DateTime.Today;
+            startDate_Selected = new DateTime();
+            endDate_Selected = new DateTime();
             allTripsListBox.ItemsSource = trips;
         }
 

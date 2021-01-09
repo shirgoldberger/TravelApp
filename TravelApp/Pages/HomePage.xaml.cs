@@ -73,7 +73,7 @@ namespace TravelApp
             get {  return this.username; }
             set {
                 this.username = value;
-                NotifyPropertyChanged("Ip");
+                NotifyPropertyChanged("Username");
             }
         }
         public string Password
@@ -82,7 +82,7 @@ namespace TravelApp
             set
             {
                 this.password = value;
-                NotifyPropertyChanged("Port");
+                NotifyPropertyChanged("Password");
             }
         }
         public string Message
