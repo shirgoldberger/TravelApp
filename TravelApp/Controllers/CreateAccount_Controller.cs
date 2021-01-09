@@ -14,9 +14,11 @@ namespace TravelApp
         public CreateAccount_Controller()
         {
         }
-        public Tuple<bool, string> createAccount(string username, string phone, string email, string password, string passwordConfirm, string stringAge, bool male_box, bool female_box, List<String> friends, List<String> languages)
+        public Tuple<bool, string> createAccount(string username, string phone, string email, string password, string passwordConfirm,
+            string stringAge, bool male_box, bool female_box, List<String> friends, List<String> languages)
         {
-            Tuple<bool, string> t = UsersModel.Instance.createAccount(username, phone, email, password, passwordConfirm, stringAge, male_box, female_box, friends, languages);
+            Tuple<bool, string> t = UsersModel.Instance.createAccount(username, phone, email, password, passwordConfirm,
+                    stringAge, male_box, female_box, friends, languages);
             return t;
         }
 
