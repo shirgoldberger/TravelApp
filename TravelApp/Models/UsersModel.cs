@@ -291,8 +291,8 @@ namespace TravelApp.Models
                 {
                     while (dr.Read())
                     {
-                        dr.Close();
                         result = true;
+                        break;
                     }
                     dr.Close();
                 }
@@ -356,7 +356,7 @@ namespace TravelApp.Models
                 return new Tuple<bool, string>(false, "Error occured, please try again");
             }
 
-            if (!check_user.Item2)
+            if (check_user.Item2)
             {
                 return new Tuple<bool, string>(false, "User already exist in system, try ther username");
             }

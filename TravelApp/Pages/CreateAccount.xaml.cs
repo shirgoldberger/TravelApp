@@ -128,7 +128,6 @@ namespace TravelApp
             textBoxPhone.Text = "";
             textBoxAge.Text = "";
             textBoxEmail.Text = "";
-            textBoxAddress.Text = "";
             passwordBox.Password = "";
             passwordBoxConfirm.Password = "";
             male.IsChecked = false;
