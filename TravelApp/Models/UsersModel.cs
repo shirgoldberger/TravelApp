@@ -285,46 +285,42 @@ namespace TravelApp.Models
                 }
                 dr.Close();
                 // create account
-                command = "insert into user (username,password,mail,is_male,age,phone) values('" + username + "','" + password + "','" + email + "','" + is_male + "'," + stringAge + ",'" + phone + "');";
-                if (DbConnection.ExecuteNonQuery(command))
+                string command1 = "insert into user (username,password,mail,is_male,age,phone) values('" + username + "','" + password + "','" + email + "','" + is_male + "'," + stringAge + ",'" + phone + "');";
+                // insert friends here
+                int i;
+                string friendString = "";
+                for (i = 0; i < friends.Count(); i++)
                 {
-                    dr.Close();
-                    // insert friends here
-                    int i;
-                    string friendString = "";
-                    for (i = 0; i < friends.Count(); i++)
+                    friendString += ("('" + username + "', '" +
+                        friends[i] + "')");
+                    if (i != friends.Count() - 1)
                     {
-                        friendString += ("('" + username + "', '" +
-                            friends[i] + "')");
-                        if (i != friends.Count() - 1)
-                        {
-                            friendString += ", ";
-                        }
+                        friendString += ", ";
                     }
-                    command = "insert into Friends VALUES " + friendString + ";";
-                    if (DbConnection.ExecuteNonQuery(command))
+                }
+                string command2 = "insert into Friends VALUES " + friendString + ";";
+                // insert languages here
+                string languageString = "";
+                for (i = 0; i < languages.Count(); i++)
+                {
+                    languageString += ("('" + username + "', '" +
+                        languages[i] + "')");
+                    if (i != languages.Count() - 1)
                     {
-                        // insert languages here
-                        string languageString = "";
-                        for (i = 0; i < languages.Count(); i++)
-                        {
-                            languageString += ("('" + username + "', '" +
-                                languages[i] + "')");
-                            if (i != languages.Count() - 1)
-                            {
-                                languageString += ", ";
-                            }
-                        }
-                        command = "insert into user_languages VALUES " + languageString + ";";
-                        if (DbConnection.ExecuteNonQuery(command))
-                        {
-                            return new Tuple<bool, string>(true, "Create account success!");
-                        }
+                        languageString += ", ";
                     }
+                }
+                string command3 = "insert into user_languages VALUES " + languageString + ";";
+                List<string> commands = new List<string>();
+                commands.Add(command1);
+                commands.Add(command2);
+                commands.Add(command3);
+                if (DbConnection.ExecuteNonQueryTransaction(commands))
+                {
+                    return new Tuple<bool, string>(true, "Create account success!");
                 }
                 else
                 {
-                    dr.Close();
                     return new Tuple<bool, string>(false, "Cannot create account, please try again");
                 }
             }
