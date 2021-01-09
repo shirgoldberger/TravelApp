@@ -214,7 +214,7 @@ namespace TravelApp.Models
 
         //shir do lock
         public Tuple<bool, string> createAccount(string username, string phone, string email, string password, string passwordConfirm,
-    string address, string stringAge, bool male_box, bool female_box, List<String> friends, List<String> languages)
+            string stringAge, bool male_box, bool female_box, List<String> friends, List<String> languages)
         {
             if (username.Length > 30)
             {
