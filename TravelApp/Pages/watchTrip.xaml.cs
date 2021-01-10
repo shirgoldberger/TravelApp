@@ -122,7 +122,7 @@ namespace TravelApp
             this.Close();
         }
 
-        private void tripAdmin_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void admin_Click(object sender, RoutedEventArgs e)
         {
             UserDetails ud = new UserDetails(tripAdmin.Text, controller);
             ud.ShowDialog();
