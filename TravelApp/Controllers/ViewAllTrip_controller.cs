@@ -10,12 +10,10 @@ namespace TravelApp
 {
     class ViewAllTrip_controller
     {
-        //viewAllTrip_Model model;
         string username;
         public ViewAllTrip_controller(string username )
         {
             this.username = username;
-            //model = new viewAllTrip_Model(username);
         }
         public Tuple<bool, List<Trip>> getAllTrip()
         {

@@ -102,9 +102,9 @@ namespace TravelApp
             creation = false;
             trip_code = trip.Id;
             calledPage = page;
-    }
+        }
 
-        public AddNewTrip(string username)
+        private void initConstructor(string username)
         {
             InitializeComponent();
             controller = new CreateTrip_Controller();
@@ -115,7 +115,7 @@ namespace TravelApp
             maleOnly = false;
             femaleOnly = false;
             setAdminAndGender(username);
-            
+
             user_tripName = "";
             user_maxAge = "";
             user_minAge = "";
@@ -123,7 +123,18 @@ namespace TravelApp
             user_maxParticipants = "";
             assignDates = false;
             creation = true;
-    }
+        }
+
+        public AddNewTrip(string username, Page page)
+        {
+            initConstructor(username);
+            this.calledPage = page;
+        }
+        public AddNewTrip(string username)
+        {
+            initConstructor(username);
+            this.calledPage = null;
+        }
 
         private void setMinAndMaxAge()
         {
@@ -271,8 +282,15 @@ namespace TravelApp
 
         private void createTrip(Trip trip)
         {
-            controller.generateTrip(trip, choosenParticipants, choosenAttractions);
+            if (!controller.generateTrip(trip, choosenParticipants, choosenAttractions))
+            {
+                Utils.Instance.errorAndExit("Error trying to create trip");
+            }
             MessageBox.Show("Trip was added sccessfully");
+            if(this.calledPage != null)
+            {
+                (calledPage as ViewAllTrip).Updated = true;
+            }
             this.NavigationService.GoBack();
         }
 
@@ -281,10 +299,14 @@ namespace TravelApp
             List<User> partsToRemove = inputedParticipants.Except(choosenParticipants).ToList();
             List<User> partsToAdd = choosenParticipants.Except(inputedParticipants).ToList();
 
-            List<Attraction> attractionsToRemove = inputedAttractions.Except(choosenAttractions).ToList();
+            List<Attraction> attractionsToRemove = 
+                inputedAttractions.Except(choosenAttractions).ToList();
             List<Attraction> attractionsToAdd = choosenAttractions.Except(inputedAttractions).ToList();
 
-            controller.updateTrip(inputedtrip, user_tripName, minAge, maxAge, maxParts, startConverted, endConverted, maleOnly, femaleOnly, partsToRemove, partsToAdd, attractionsToRemove, attractionsToAdd);
+            if(!controller.updateTrip(inputedtrip, user_tripName, minAge, maxAge, maxParts, startConverted, endConverted, maleOnly, femaleOnly, partsToRemove, partsToAdd, attractionsToRemove, attractionsToAdd))
+            {
+                Utils.Instance.errorAndExit("Error trying to update trip");
+            }
             MessageBox.Show("Trip was updated sccessfully");
             (calledPage as ViewAllTrip).Updated = true;
             this.NavigationService.GoBack();

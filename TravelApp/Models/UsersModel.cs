@@ -358,7 +358,7 @@ namespace TravelApp.Models
 
             if (check_user.Item2)
             {
-                return new Tuple<bool, string>(false, "User already exist in system, try ther username");
+                return new Tuple<bool, string>(false, "User already exist in system, try other username");
             }
 
 

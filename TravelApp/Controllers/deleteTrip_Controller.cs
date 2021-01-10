@@ -11,12 +11,10 @@ namespace TravelApp
 {
     class DeleteTrip_Controller
     {
-        //viewAllTrip_Model model;
         Trip trip;
         string username;
         public DeleteTrip_Controller(Trip trip, string username)
         {
-            //model = new viewAllTrip_Model(username);
             this.trip = trip;
             this.username = username;
         }

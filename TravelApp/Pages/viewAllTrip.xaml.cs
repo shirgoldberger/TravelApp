@@ -36,7 +36,8 @@ namespace TravelApp
         private void Button_Click_add_trip(object sender, RoutedEventArgs e)
         {
 
-            AddNewTrip ant = new AddNewTrip(username);
+            AddNewTrip ant = new AddNewTrip(username, this);
+            Updated = false;
             this.NavigationService.Navigate(ant);
 
         }
