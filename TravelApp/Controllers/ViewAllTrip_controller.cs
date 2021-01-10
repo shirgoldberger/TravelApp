@@ -1,16 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
 using TravelApp.Models;
 
 namespace TravelApp
 {
     class ViewAllTrip_controller
     {
-        string username;
+        private string username;
         public ViewAllTrip_controller(string username )
         {
             this.username = username;
