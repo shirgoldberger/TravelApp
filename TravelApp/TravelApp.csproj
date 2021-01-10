@@ -335,7 +335,9 @@
     <Resource Include="Pictures\trip2.jpg" />
     <Resource Include="Pictures\trip.jpg" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Pictures\i.png" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Pictures\back.jpg" />
   </ItemGroup>
