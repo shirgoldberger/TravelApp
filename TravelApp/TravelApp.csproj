@@ -144,6 +144,9 @@
     <Compile Include="Pages\FindTripByCity.xaml.cs">
       <DependentUpon>FindTripByCity.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\UserDetails.xaml.cs">
+      <DependentUpon>UserDetails.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\SetTripProperties.xaml.cs">
       <DependentUpon>SetTripProperties.xaml</DependentUpon>
     </Compile>
@@ -200,6 +203,10 @@
     <Page Include="Pages\FindTripByCity.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\UserDetails.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Pages\SetTripProperties.xaml">
       <Generator>MSBuild:Compile</Generator>

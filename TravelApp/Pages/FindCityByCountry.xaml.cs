@@ -1,16 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using TravelApp.Models;
 using TravelApp.Objects;
 
@@ -21,9 +13,9 @@ namespace TravelApp.Pages
     /// </summary>
     public partial class FindCityByCountry : Window
     {
-        AttractionProperties_Controller controller;
-        List<string> countries;
-        List<City> cities;
+        private AttractionProperties_Controller controller;
+        private List<string> countries;
+        private List<City> cities;
         private string countryBegin;
 
         public City ReturenedCity { get;set;}

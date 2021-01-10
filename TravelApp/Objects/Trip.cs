@@ -1,29 +1,25 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TravelApp
 {
     public class Trip : INotifyPropertyChanged
     {
-        int id;
-        string name;
-        string admin;
-        DateTime start_date;
-        DateTime end_date;
-        string start_date_string;
-        string end_date_string;
-        int min_age;
-        int max_age;
-        int max_participants;
-        bool male_only;
-        bool female_only;
-        string trip_string;
-        string temp_trip_string;
-        int member_amount;
+        private int id;
+        private string name;
+        private string admin;
+        private DateTime start_date;
+        private DateTime end_date;
+        private string start_date_string;
+        private string end_date_string;
+        private int min_age;
+        private int max_age;
+        private int max_participants;
+        private bool male_only;
+        private bool female_only;
+        private string trip_string;
+        private string temp_trip_string;
+        private int member_amount;
         public Trip(int _id, string _name, string _admin, DateTime _start_date, DateTime _end_date, int _min_age,
         int _max_age, int _max_participants, bool _male_only, bool _female_only)
         {

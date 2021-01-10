@@ -1,17 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using TravelApp.Models;
 using TravelApp.Objects;
 
 namespace TravelApp
@@ -21,9 +11,9 @@ namespace TravelApp
     /// </summary>
     public partial class AddNewFriend : Window
     {
-        string username;
-        List<string> users;
-        UserPage_Controller controller;
+        private string username;
+        private List<string> users;
+        private UserPage_Controller controller;
 
         public AddNewFriend(string _username, UserPage_Controller _controller)
         {

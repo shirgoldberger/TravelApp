@@ -1,17 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using TravelApp.Objects;
+using TravelApp.Pages;
 
 namespace TravelApp
 {
@@ -130,9 +122,10 @@ namespace TravelApp
             this.Close();
         }
 
-        private void gender_Copy_Checked(object sender, RoutedEventArgs e)
+        private void tripAdmin_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-
+            UserDetails ud = new UserDetails(tripAdmin.Text, controller);
+            ud.ShowDialog();
         }
     }
 }

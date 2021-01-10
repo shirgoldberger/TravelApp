@@ -63,7 +63,7 @@
                 <TextBlock Height="30" HorizontalAlignment="Left" Margin="168,194,0,0" x:Name="maxParticipantsVal_Copy2" VerticalAlignment="Top" Width="129" Grid.Column="1" Foreground="Black" FontSize="20" Text="{Binding Start_date}" RenderTransformOrigin="2.521,0.524" />
                 <TextBlock Height="30" FontFamily="Century Gothic" FontSize="23" FontStretch="UltraExpanded" FontStyle="Italic" FontWeight="UltraBold" HorizontalAlignment="Left" Margin="35,95,0,0" x:Name="textBlockMinParticipants1_Copy5" Text="Trip name" VerticalAlignment="Top" Width="131" Foreground="Black" Grid.Column="1" />
                 <TextBlock Height="30" FontFamily="Century Gothic" FontSize="23" FontStretch="UltraExpanded" FontStyle="Italic" FontWeight="UltraBold" HorizontalAlignment="Left" Margin="37,143,0,0" x:Name="textBlockMinParticipants1_Copy6" Text="Trip admin" VerticalAlignment="Top" Width="131" Foreground="Black" Grid.Column="1" />
-                <TextBlock Height="30" HorizontalAlignment="Left" Margin="193,143,0,0" x:Name="maxParticipantsVal_Copy" VerticalAlignment="Top" Width="129" Grid.Column="1" Foreground="Black" FontSize="20" Text="{Binding Admin}" RenderTransformOrigin="2.521,0.524" />
+                <TextBlock Height="30" HorizontalAlignment="Left" Margin="193,143,0,0" x:Name="tripAdmin" VerticalAlignment="Top" Width="129" Grid.Column="1" Foreground="Black" FontSize="20" Text="{Binding Admin}" RenderTransformOrigin="2.521,0.524" MouseLeftButtonDown="tripAdmin_MouseLeftButtonDown" />
                 <TextBlock Height="30" HorizontalAlignment="Left" Margin="168,94,0,0" x:Name="maxParticipantsVal_Copy3" VerticalAlignment="Top" Width="129" Grid.Column="1" Foreground="Black" FontSize="20" Text="{Binding NameTrip}" RenderTransformOrigin="2.521,0.524" />
                 <TextBlock Height="45" FontFamily="Century Gothic" FontSize="33" FontStretch="UltraExpanded" FontStyle="Italic" FontWeight="UltraBold" HorizontalAlignment="Left" Margin="67,20,0,0" x:Name="textBlockMinParticipants1_Copy7" VerticalAlignment="Top" Width="491" Foreground="Black" Grid.Column="1" RenderTransformOrigin="0.819,-0.511" Grid.ColumnSpan="2" ><Run Text="The details about your trip"/><Run FlowDirection="RightToLeft" Text=":"/></TextBlock>
                 <TextBlock Height="30" HorizontalAlignment="Left" Margin="189.667,143,0,0" x:Name="maxParticipantsVal_Copy4" VerticalAlignment="Top" Width="91" Grid.Column="2"  Foreground="Black" FontSize="20"  Text="{Binding Max_participants}" RenderTransformOrigin="-0.099,0.489" />
@@ -101,6 +101,6 @@
             </Button>
         </Grid>
         <CheckBox FontFamily="Century Gothic" FontSize="23" FontStretch="UltraExpanded" FontStyle="Italic" FontWeight="UltraBold" x:Name="male" Content="Is Male Only" HorizontalAlignment="Left" Margin="33,301,0,0" VerticalAlignment="Top"/>
-        <CheckBox FontFamily="Century Gothic" FontSize="23" FontStretch="UltraExpanded" FontStyle="Italic" FontWeight="UltraBold" x:Name="female" Content="Is female only" HorizontalAlignment="Left" Margin="385,301,0,0" VerticalAlignment="Top" Checked="gender_Copy_Checked"/>
+        <CheckBox FontFamily="Century Gothic" FontSize="23" FontStretch="UltraExpanded" FontStyle="Italic" FontWeight="UltraBold" x:Name="female" Content="Is female only" HorizontalAlignment="Left" Margin="385,301,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Window>

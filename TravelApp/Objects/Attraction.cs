@@ -1,19 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Media.TextFormatting;
+﻿
 
 namespace TravelApp
 {
     
     public class Attraction
     {
-        string attraction_code;
-        string name;
-        string city_id;
-        string type;
+        private string attraction_code;
+        private string name;
+        private string city_id;
+        private string type;
         private string attraction_string;
         private bool can_choose;
 

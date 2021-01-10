@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TravelApp.Models;
 
 namespace TravelApp
 {
-    class WatchTrip_Controller
+    public class WatchTrip_Controller
     {
-        Trip trip;
+        private Trip trip;
 
         public WatchTrip_Controller(Trip trip) {
             this.trip = trip;
@@ -21,6 +18,11 @@ namespace TravelApp
         public Tuple<bool, List<Attraction>> getAtt()
         {
             return AttractionsModel.Instance.getAllAttractionOfTrip(trip);
+        }
+
+        public Tuple<bool, User> getUserDetails(string username)
+        {
+            return UsersModel.Instance.getUserByName(username);
         }
     }
 }

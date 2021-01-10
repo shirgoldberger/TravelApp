@@ -1,16 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using TravelApp.Objects;
 
 namespace TravelApp
@@ -20,11 +10,11 @@ namespace TravelApp
     /// </summary>
     public partial class DeleteTrip : Window
     {
-        Trip trip;
-        string username;
-        List<string> members;
-        DeleteTrip_Controller controller;
-        Page pageToUpdate;
+        private Trip trip;
+        private string username;
+        private List<string> members;
+        private DeleteTrip_Controller controller;
+        private Page pageToUpdate;
         public DeleteTrip(Trip trip, string _username, Page pageToUpdate)
         {
             username = _username;
