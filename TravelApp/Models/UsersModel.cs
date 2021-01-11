@@ -498,8 +498,8 @@ namespace TravelApp.Models
             List<string> users = new List<string>();
             String trip_code = trip.Id.ToString();
             trip_code = "'" + trip_code + "'";
-            string command = "SELECT username FROM member " +
-                "WHERE member.trip_code = " + trip_code + ";";
+            string command = "SELECT member.username, mail FROM member join user " +
+                "WHERE member.username = user.username and member.trip_code = " + trip_code + ";";
             lock (DbConnection.Locker)
             {
                 MySqlDataReader dr = DbConnection.ExecuteQuery(command);
@@ -508,7 +508,7 @@ namespace TravelApp.Models
                 {
                     while (dr.Read())
                     {
-                        users.Add(dr.GetString("username"));
+                        users.Add(dr.GetString("username") + ", " + dr.GetString("mail"));
                     }
                     dr.Close();
                 }

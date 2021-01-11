@@ -7,7 +7,7 @@
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
         mc:Ignorable="d"
-        Title="Find Trip By Attraction" Height="327.621" Width="518.432">
+        Title="Find Trip By Attraction" Height="327.621" Width="562.42">
     <Grid>
         <Grid.Background>
             <ImageBrush ImageSource="../Pictures/trip5.jpg" TileMode="Tile"/>
@@ -25,8 +25,8 @@
         </ComboBox>
         <Button Content="Filter" HorizontalAlignment="Left" Height="22" Margin="178,80,0,0" VerticalAlignment="Top" Width="43" Click="filterByText"/>
         <Label Content="Choose city and filter attractions" HorizontalAlignment="center" Margin="98,10,92.333,0" VerticalAlignment="Top" FontSize="20" FontWeight="Bold" Width="323"/>
-        <Label Content="Attractions list :" HorizontalAlignment="right" Margin="0,68,54.333,0" VerticalAlignment="Top" FontSize="15" FontWeight="Bold"/>
-        <ListBox x:Name="attractionsList" HorizontalAlignment="right" Margin="0,103,9.333,0" Width="199"
+        <Label Content="Attractions list :" HorizontalAlignment="right" Margin="0,69,150.333,0" VerticalAlignment="Top" FontSize="15" FontWeight="Bold"/>
+        <ListBox x:Name="attractionsList" HorizontalAlignment="right" Margin="0,103,9.333,0" Width="310"
             ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderThickness="0" HorizontalContentAlignment="Stretch" Background="Transparent" Height="120" VerticalAlignment="Top">
             <ListBox.ItemTemplate>
 
