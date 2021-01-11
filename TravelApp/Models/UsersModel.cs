@@ -360,11 +360,16 @@ namespace TravelApp.Models
 
 
             string command1 = createAccountCommand(username, phone, email, password, stringAge, is_male);
-            string command2 = createFriendsCommand(username, friends);
-            string command3 = createLangCommand(username, languages);
             List<string> commands = new List<string>();
             commands.Add(command1);
-            commands.Add(command2);
+
+            if (friends.Count > 0)
+            {
+                string command2 = createFriendsCommand(username, friends);
+                commands.Add(command2);
+            }
+            
+            string command3 = createLangCommand(username, languages);
             commands.Add(command3);
             if (DbConnection.ExecuteNonQueryTransaction(commands))
             {
