@@ -249,7 +249,7 @@ namespace TravelApp.Models
             }
         }
 
-        public Tuple<bool, List<Trip>> FindTrip(string username, int age, List<string> members, List<string> languages, List<Attraction> attractions, List<City> cities, DateTime start, DateTime end, string op)
+        public Tuple<bool, List<Trip>> FindTrip(string username, int age, List<string> members, List<string> languages, List<Attraction> attractions, List<City> cities, DateTime start, DateTime end, string op, string is_male)
         {
             if (op == "all")
             {
@@ -320,7 +320,7 @@ namespace TravelApp.Models
             }
             if (fullCommand == "")
             {
-                return getTripsForUser(username, "not in");
+                return getTripsForUser(username, "not in", is_male);
             }
             else
             {
@@ -583,10 +583,10 @@ namespace TravelApp.Models
 
        
 
-        public Tuple<bool, List<Trip>> getTripsForUser(string username, string op)
+        public Tuple<bool, List<Trip>> getTripsForUser(string username, string op, string is_male)
         {
             List<Trip> trips = new List<Trip>();
-            string command = createTripCommandForUser(username, op);
+            string command = createTripCommandForUser(username, op, is_male);
             command += ";";
             lock (DbConnection.Locker)
             {
@@ -619,7 +619,7 @@ namespace TravelApp.Models
             return new Tuple<bool, List<Trip>>(true, trips);
         }
 
-        private string createTripCommandForUser(string username, string op)
+        private string createTripCommandForUser(string username, string op, string is_male)
         {
             string command = "select temp.trip_code, name, admin, start_date, end_date, min_age, max_age, max_participants, male_only, female_only, count(member2.trip_code) as participants_count " +
                 "From member as member2 JOIN(SELECT * " +
@@ -627,8 +627,15 @@ namespace TravelApp.Models
                 "where trip_code " + op + " (select trip_code as coded " +
                 "From member " +
                 "where username = '" + username + "')) as temp " +
-                "where(member2.trip_code = temp.trip_code) " +
-                "group by(member2.trip_code)";
+                "where(member2.trip_code = temp.trip_code";
+            string command2;
+            if (is_male != null)
+            {
+                is_male = (is_male == "0" ? "male_only" : "female_only");
+                command2 = " AND " + is_male + "='0'";
+                command = command + command2;
+            }
+            command = command + ") group by(member2.trip_code)";
             return command;
         }
 

@@ -519,5 +519,29 @@ namespace TravelApp.Models
             }
             return new Tuple<bool, List<string>>(result, users);
         }
+        public Tuple<bool, string> isMale(string username)
+        {
+            string is_male = "";
+            string userCommand = "SELECT is_male FROM user WHERE username='" + username + "';";
+            lock (DbConnection.Locker)
+            {
+                MySqlDataReader dr = DbConnection.ExecuteQuery(userCommand);
+
+                if (dr != null)
+                {
+                    while (dr.Read())
+                    {
+                        is_male = (dr.GetString("is_male")[0]).ToString();
+                        dr.Close();
+                        return new Tuple<bool, string>(true, is_male);
+                    }
+                }
+                else
+                {
+                    return new Tuple<bool, string>(false, is_male);
+                }
+                return new Tuple<bool, string>(false, is_male);
+            }
+        }
     }
 }

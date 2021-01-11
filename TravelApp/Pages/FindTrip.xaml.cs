@@ -27,13 +27,15 @@ namespace TravelApp
         private List<string> members;
         private List<string> choosenMembers;
         private string username;
+        private string is_male;
         private string howToFilter;
         public FindTrip(string _username)
         {
             InitializeComponent();
             endLoadTrips();
             username = _username;
-            controller = new FindTrip_Controller();;
+            controller = new FindTrip_Controller();
+            setMaleOrFemale();
             choosenLanguages = new List<string>();
             choosenMembers = new List<string>();
             choosenCities = new List<City>();
@@ -44,6 +46,16 @@ namespace TravelApp
             bindUsers();
             bindLanguages();
             bindTrips();
+        }
+
+        private void setMaleOrFemale()
+        {
+            Tuple<bool, string> t = controller.isMale(username);
+            if (!t.Item1)
+            {
+                Utils.Instance.errorAndExit("Error trying access users records");
+            }
+            is_male = t.Item2;
         }
 
         private async void bindUsers()
@@ -92,7 +104,7 @@ namespace TravelApp
         }
         private async Task<Tuple<bool, List<Trip>>> getTripsAsync()
         {
-            Tuple<bool, List<Trip>> tuple = await Task.Run(() => controller.getTripForUser(this.username));
+            Tuple<bool, List<Trip>> tuple = await Task.Run(() => controller.getTripForUser(this.username, is_male));
             if (!tuple.Item1)
             {
                 return tuple;
@@ -184,7 +196,7 @@ namespace TravelApp
         {
             Tuple<bool, List<Trip>> list = await Task.Run(() => controller.FindTrip(username, age, choosenMembers, choosenLanguages,
                 choosenAttractions, choosenCities, startDate_Selected,
-                endDate_Selected, howToFilter));
+                endDate_Selected, howToFilter, is_male));
             return list;
         }
 

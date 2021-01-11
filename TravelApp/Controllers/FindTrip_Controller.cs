@@ -7,14 +7,14 @@ namespace TravelApp
     public class FindTrip_Controller
     {
 
-        public Tuple<bool, List<Trip>> FindTrip(string username, int age, List<string> members, List<string> languages, List<Attraction> attractions, List<City> cities, DateTime start, DateTime end, string howToFilter)
+        public Tuple<bool, List<Trip>> FindTrip(string username, int age, List<string> members, List<string> languages, List<Attraction> attractions, List<City> cities, DateTime start, DateTime end, string howToFilter, string is_male)
         {
-            return TripsModel.Instance.FindTrip(username, age, members, languages, attractions, cities, start, end, howToFilter);
+            return TripsModel.Instance.FindTrip(username, age, members, languages, attractions, cities, start, end, howToFilter, is_male);
         }
 
-        public Tuple<bool, List<Trip>> getTripForUser(string username)
+        public Tuple<bool, List<Trip>> getTripForUser(string username, string is_male)
         {
-            return TripsModel.Instance.getTripsForUser(username, "NOT IN");
+            return TripsModel.Instance.getTripsForUser(username, "NOT IN", is_male);
 
         }
 
@@ -51,6 +51,11 @@ namespace TravelApp
         public Tuple<bool, List<City>> getCitiesByCountry(string country, string begin)
         {
             return LocationsModel.Instance.getCitiesByCountry(country, begin);
+        }
+
+        public Tuple<bool, string> isMale(string username)
+        {
+            return UsersModel.Instance.isMale(username);
         }
     }
 }

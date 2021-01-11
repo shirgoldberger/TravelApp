@@ -13,7 +13,7 @@ namespace TravelApp
         }
         public Tuple<bool, List<Trip>> getAllTrip()
         {
-            return TripsModel.Instance.getTripsForUser(username, "IN"); 
+            return TripsModel.Instance.getTripsForUser(username, "IN", null); 
         }
         public bool click_delete(Trip trip)
         {
