@@ -43,15 +43,12 @@ namespace TravelApp
             string candidate = users[itemIndex];
             bool result = controller.addNewFriend(username, candidate);
             string msg = "Adding " + candidate + " to friends list";
-            if (result)
+            if (!result)
             {
-                bindNonUserList();
-                MessageBox.Show(msg + " succeed");
+                Utils.Instance.errorAndExit("Error trying to access users records");
             }
-            else
-            {
-                MessageBox.Show(msg + " failed");
-            }
+            bindNonUserList();
+            MessageBox.Show(msg + " succeed");
         }
 
         private void filterByText(object sender, RoutedEventArgs e)

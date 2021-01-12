@@ -142,11 +142,15 @@ namespace TravelApp
         }
         private void Submit_Click(object sender, RoutedEventArgs e)
         {
-            Tuple<bool, string> t = controller.createAccount(textBoxUserName.Text, textBoxPhone.Text, textBoxEmail.Text, passwordBox.Password, 
+            Tuple<bool,bool, string> t = controller.createAccount(textBoxUserName.Text, textBoxPhone.Text, textBoxEmail.Text, passwordBox.Password, 
                 passwordBoxConfirm.Password, textBoxAge.Text, 
                 (bool)male.IsChecked, (bool)female.IsChecked, choosenFriends, choosenLanguages);
-            MessageBox.Show(t.Item2);
-            if (t.Item1)
+            if(!t.Item1)
+            {
+                Utils.Instance.errorAndExit(t.Item3);
+            }
+            MessageBox.Show(t.Item3);
+            if (t.Item2)
             {
                     HomePage hp = new HomePage();
                     this.NavigationService.Navigate(hp);

@@ -337,12 +337,12 @@ namespace TravelApp.Models
             return "insert into user_languages VALUES " + languageString + ";";
         }
 
-        public Tuple<bool, string> createAccount(string username, string phone, string email, string password, string passwordConfirm, string stringAge, bool male_box, bool female_box, List<String> friends, List<String> languages)
+        public Tuple<bool, bool, string> createAccount(string username, string phone, string email, string password, string passwordConfirm, string stringAge, bool male_box, bool female_box, List<String> friends, List<String> languages)
         {
             Tuple<bool, string> check = checkInput(username, phone, email, password, passwordConfirm, stringAge, male_box, female_box, languages);
             if(!check.Item1)
             {
-                return check;
+                return new Tuple<bool, bool, string>(true, false, check.Item2);
             }
             char is_male = female_box ? '0' : '1';
 
@@ -350,12 +350,12 @@ namespace TravelApp.Models
 
             if (!check_user.Item1)
             {
-                return new Tuple<bool, string>(false, "Error occured, please try again");
+                return new Tuple<bool,bool, string>(false, false, "Error occured, please try again");
             }
 
             if (check_user.Item2)
             {
-                return new Tuple<bool, string>(false, "User already exist in system, try other username");
+                return new Tuple<bool,bool, string>(true, false, "User already exist in system, try other username");
             }
 
 
@@ -373,9 +373,9 @@ namespace TravelApp.Models
             commands.Add(command3);
             if (DbConnection.ExecuteNonQueryTransaction(commands))
             {
-                return new Tuple<bool, string>(true, "Create account succeed!");
+                return new Tuple<bool,bool, string>(true, true, "Create account succeed!");
             }
-            return new Tuple<bool, string>(false, "Cannot create account, please try again");
+            return new Tuple<bool,bool, string>(false, false, "Cannot create account, please try again");
         }
 
         private User createUser(MySqlDataReader dr)

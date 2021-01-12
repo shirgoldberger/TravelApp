@@ -163,7 +163,7 @@ namespace TravelApp
             }
             else
             {
-                MessageBox.Show("Something happened. Registration for the trip failed");
+                Utils.Instance.errorAndExit("Error trying to access trip records. Registration for the trip failed");
             }
         }
 
