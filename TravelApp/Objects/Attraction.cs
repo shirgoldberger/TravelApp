@@ -13,7 +13,7 @@ namespace TravelApp
         private bool can_choose;
 
 
-        public Attraction(string attraction_code,string name, string city_id, string type)
+        public Attraction(string attraction_code, string name, string city_id, string type)
         {
             can_choose = true;
             this.attraction_code = attraction_code;

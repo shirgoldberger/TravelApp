@@ -27,9 +27,9 @@ namespace TravelApp
                 try
                 {
                     _connection.Open();
-                } catch (Exception e)
+                } catch
                 {
-                    throw e;
+                    throw new Exception("Cannot connect to MySQL");
                 }
             }
         }

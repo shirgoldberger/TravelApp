@@ -181,13 +181,13 @@ namespace TravelApp.Models
         {
             bool result = true;
             List<Attraction> attractions = new List<Attraction>();
-            string command = "SELECT * " +
-                          "FROM city join attraction ON city.city_id = attraction.city_id " +
-                          "WHERE city.name LIKE '" + begin + "%'";
+            string command = "SELECT a.attraction_code, a.name, a.city_id, a.type " +
+                          "FROM city c join attraction a ON c.city_id = a.city_id " +
+                          "WHERE c.name LIKE '" + begin + "%'";
             if (city != null)
             {
                 string c = "'" + city.Name + "'";
-                command += " AND city.name=" + c;
+                command += " AND c.name=" + c;
             }
 
             command += ";";

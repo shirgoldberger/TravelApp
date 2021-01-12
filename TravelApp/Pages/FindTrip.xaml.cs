@@ -300,6 +300,8 @@ namespace TravelApp
             startDate_Selected = new DateTime();
             endDate_Selected = new DateTime();
             allTripsListBox.ItemsSource = trips;
+            choosenCities = new List<City>();
+            choosenAttractions = new List<Attraction>();
         }
 
         private void return_Click(object sender, RoutedEventArgs e)
