@@ -320,13 +320,13 @@ namespace TravelApp.Models
             }
             if (fullCommand == "")
             {
-                return getTripsForUser(username, "not in", is_male);
+                return getTripsForUser(username, "NOT IN", is_male);
             }
             else
             {
                 fullCommand = "SELECT * FROM trip WHERE trip_code IN(SELECT trip_code FROM trip WHERE "
                     + fullCommand + ")\n";
-                string tripWithoutUserCommand = createFilterTripCommandForUser(username, "NOT IN");
+                string tripWithoutUserCommand = createFilterTripCommandForUser(username, "NOT IN", is_male);
                 fullCommand = fullCommand + "AND trip_code IN(" + tripWithoutUserCommand + ");";
 
             }
@@ -639,7 +639,7 @@ namespace TravelApp.Models
             return command;
         }
 
-        private string createFilterTripCommandForUser(string username, string op)
+        private string createFilterTripCommandForUser(string username, string op, string is_male)
         {
             string command = "select temp.trip_code " +
                 "From member as member2 JOIN(SELECT * " +
@@ -648,6 +648,9 @@ namespace TravelApp.Models
                 "From member " +
                 "where username = '" + username + "')) as temp " +
                 "where(member2.trip_code = temp.trip_code)";
+            is_male = (is_male == "0" ? "male_only" : "female_only");
+            string command2 = " AND " + is_male + "='0'";
+            command = command + command2;
             return command;
         }
 
